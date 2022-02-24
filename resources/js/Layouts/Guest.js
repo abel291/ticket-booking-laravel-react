@@ -10,7 +10,7 @@ export default function Guest({ children }) {
                     <ApplicationLogo className="text-white text-4xl" />
                 </Link>
             </div>
-            <div className=" w-full sm:max-w-md mt-6 px-6 py-4 bg-dark-blue-500 brightness-100 shadow-lg overflow-hidden sm:rounded">
+            <div className=" text-white w-full sm:max-w-md mt-6 px-6 py-4 bg-dark-blue-500 brightness-100 shadow-lg overflow-hidden sm:rounded">
                 {children}
             </div>
         </div>

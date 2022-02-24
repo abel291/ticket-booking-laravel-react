@@ -10,12 +10,12 @@ const Navbar = () => {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
     return (
-        <nav className="bg-primary border-b border-blue-100">
+        <nav className="bg-dark-blue-700 shadow-sm">
             <div className="container">
                 <div className="flex justify-between h-24 items-center">
                     <div className="flex items-center">
                         <Link href="/">
-                            <ApplicationLogo className="text-white text-2xl" />
+                            <ApplicationLogo className="text-white text-3xl" />
                         </Link>
                     </div>
                     <div className="flex gap-5 items-center">

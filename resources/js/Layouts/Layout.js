@@ -1,17 +1,17 @@
 import { Head, usePage } from "@inertiajs/inertia-react";
 import React from "react";
+import Footer from "./Footer/Footer";
 import Navbar from "./Navbar";
 
-const Layout = ({ title="", children }) => {
-    
+const Layout = ({ title = "", children }) => {
     return (
         <>
             <Head title={title} />
-            <div className="min-h-screen bg-gray-100">
-                <Navbar/>
-                
+            <div className="min-h-screen bg-dark-blue-900 flex flex-col justify-between">
+                <Navbar />
 
-                <main>{children}</main>
+                <main className="grow container">{children}</main>
+                <Footer />
             </div>
         </>
     );

@@ -4,13 +4,14 @@ import React from "react";
 import { render } from "react-dom";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
-
+const appName =
+    window.document.getElementsByTagName("title")[0]?.innerText || "MyTicket";
 createInertiaApp({
-    title: (title) => `${title} | MyTicket`,
+    title: (title) => `${title} | ${appName}`,
     resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props }) {
         return render(<App {...props} />, el);
     },
 });
 
-InertiaProgress.init({ color: "#4B5563" });
+InertiaProgress.init({ color: "#34d399", showSpinner: true });
