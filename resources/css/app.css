@@ -1,0 +1,26 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.btn {
+    @apply inline-block rounded-full font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 px-12 py-2 text-white transition ease-in-out duration-150;
+}
+/* .bg-one {
+    background-color: #032055;
+  }
+  
+  .bg-two {
+    background-color: #001232;
+  }
+  
+  .bg-three {
+    background-color: #0a1e5e;
+  }
+  
+  .bg-four {
+    background-color: #001539;
+  }
+  
+  .bg-five {
+    background-color: #01173f;
+  } */
