@@ -2,31 +2,36 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.btn {
-    @apply inline-block rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 px-12 py-2 font-semibold text-white transition duration-150 ease-in-out;
-}
 body {
     color: white;
-    font-weight: 300;
+    /* font-weight: 300; */
+}
+@layer components {
+    .btn {
+        @apply bg-gradient-red-invert inline-block rounded-full py-2 font-semibold text-white transition duration-150 ease-in-out;
+    }
+    .btn {
+        @apply px-8;
+    }
+    /* //md */
+    @media (min-width: 768px) {
+        .btn {
+            @apply px-10;
+        }
+    }
 }
 
-
-/* .bg-one {
-    background-color: #032055;
-  }
-  
-  .bg-two {
-    background-color: #001232;
-  }
-  
-  .bg-three {
-    background-color: #0a1e5e;
-  }
-  
-  .bg-four {
-    background-color: #001539;
-  }
-  
-  .bg-five {
-    background-color: #01173f;
-  } */
+@layer utilities {
+    .bg-gradient-red {
+        @apply bg-gradient-to-r from-blue-500 via-purple-600 to-red-500;
+    }
+    .bg-gradient-red-invert {
+        @apply bg-gradient-to-l from-blue-500 via-purple-600 to-red-500;
+    }
+    .bg-gradient {
+        @apply bg-gradient-to-r from-purple-700 to-blue-700;
+    }
+    .bg-gradient-invert {
+        @apply bg-gradient-to-l from-purple-700 to-blue-700;
+    }
+}

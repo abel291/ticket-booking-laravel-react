@@ -8,9 +8,9 @@ const Layout = ({ title = "", children }) => {
         <>
             <Head title={title} />
             <div className="min-h-screen bg-dark-blue-900 flex flex-col justify-between">
-                <Navbar />
+                 <Navbar />
 
-                <main className="grow container">{children}</main>
+                <main className="grow ">{children}</main>
                 <Footer />
             </div>
         </>

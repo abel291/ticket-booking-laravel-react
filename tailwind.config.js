@@ -14,7 +14,7 @@ module.exports = {
             padding: {
                 DEFAULT: "1rem",
                 sm: "2rem",
-                lg: "4rem",
+                lg: "3rem",
                 xl: "5rem",
                 "2xl": "6.5rem",
             },
@@ -23,10 +23,11 @@ module.exports = {
         colors: {
             ...defaultColors,
             "dark-blue": {
+                400: "#11326f",
                 500: "#032055",
-                //600: '#01173f',
+                //600: "",
                 700: "#0a1e5e",
-                //800: '#032055',
+                800: '#001539',
                 900: "#001232",
             },
         },
@@ -37,5 +38,8 @@ module.exports = {
         },
     },
 
-    plugins: [require("@tailwindcss/forms")],
+    plugins: [
+        require("@tailwindcss/forms"),
+        require("@tailwindcss/line-clamp"),
+    ],
 };

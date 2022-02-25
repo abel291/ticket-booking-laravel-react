@@ -12,32 +12,29 @@ const Navbar = () => {
     return (
         <nav className="bg-dark-blue-700 shadow-sm">
             <div className="container">
-                <div className="flex justify-between h-24 items-center">
+                <div className="flex h-20 items-center justify-between lg:h-24">
                     <div className="flex items-center">
                         <Link href="/">
-                            <ApplicationLogo className="text-white text-3xl" />
+                            <ApplicationLogo className="text-3xl text-white" />
                         </Link>
                     </div>
-                    <div className="flex gap-5 items-center">
-                        <div className="flex gap-6 font-bold items-center text-white uppercase ">
-                            <Link href={route("home")}>Home</Link>
-                            <Link href={route("home")}>Peliculas</Link>
-                            <Link href={route("home")}>Eventos</Link>
-                            <Link href={route("home")}>Deportes</Link>
-                            <Link href={route("home")}>Acerca de</Link>
-                            <Link href={route("home")}>Contactenos</Link>
 
-                           
-                        </div>
-                        <div className="hidden sm:flex sm:items-center ">
-                            <div className="ml-3 relative">
+                    <div className="hidden items-center gap-4 font-bold uppercase text-white lg:flex ">
+                        <Link href={route("home")}>Home</Link>
+                        <Link href={route("home")}>Peliculas</Link>
+                        <Link href={route("home")}>Eventos</Link>
+                        <Link href={route("home")}>Deportes</Link>
+                        <Link href={route("home")}>Acerca de</Link>
+                        <Link href={route("home")}>Contactenos</Link>
+                        <div className="flex items-center ">
+                            <div className="relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         {auth.user ? (
                                             <span className="inline-flex rounded-md">
                                                 <button
                                                     type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                                 >
                                                     {auth.user.name}
 
@@ -56,9 +53,7 @@ const Navbar = () => {
                                                 </button>
                                             </span>
                                         ) : (
-                                            <Link className="btn">
-                                                ÚNETE
-                                            </Link>
+                                            <Link className="btn">ÚNETE</Link>
                                         )}
                                     </Dropdown.Trigger>
 
@@ -76,14 +71,14 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="-mr-2 flex items-center sm:hidden">
+                    <div className="-mr-2 flex items-center lg:hidden">
                         <button
                             onClick={() =>
                                 setShowingNavigationDropdown(
                                     (previousState) => !previousState
                                 )
                             }
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                            className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
                         >
                             <svg
                                 className="h-6 w-6"
@@ -122,10 +117,10 @@ const Navbar = () => {
             <div
                 className={
                     (showingNavigationDropdown ? "block" : "hidden") +
-                    " sm:hidden"
+                    " lg:hidden"
                 }
             >
-                <div className="pt-2 pb-3 space-y-1">
+                <div className="space-y-1 pt-2 pb-3">
                     <ResponsiveNavLink
                         href={route("dashboard")}
                         active={route().current("dashboard")}
@@ -134,7 +129,7 @@ const Navbar = () => {
                     </ResponsiveNavLink>
                 </div>
 
-                <div className="pt-4 pb-1 border-t border-gray-200">
+                <div className="border-t border-gray-200 pt-4 pb-1">
                     {/* <div className="px-4">
                         <div className="font-medium text-base text-gray-800">
                             {auth.user.name}
