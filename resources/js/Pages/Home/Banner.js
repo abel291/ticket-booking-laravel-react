@@ -4,10 +4,10 @@ import TextLoop from "react-text-loop/lib/components/TextLoop";
 
 const Banner = () => {
     return (
-        <div className="relative px-4 lg:pb-[150px] lg:px-0">
-            <div className="flex h-[calc(100vh-80px)] lg:h-[calc(100vh-96px)]  items-center justify-center">
+        <div className="relative px-4 lg:px-0 lg:pb-[150px]">
+            <div className="flex min-h-screen items-center justify-center pt-navbar">
                 <div className="relative z-10 max-w-4xl text-center  ">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight lg:text-7xl  xl:text-[80px]">
+                    <h1 className="text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl  xl:text-[80px]">
                         RESERVA TU ENTRADAS PARA TU
                         <TextLoop>
                             <Link className="ml-1 text-emerald-400" to="/">
@@ -21,7 +21,7 @@ const Banner = () => {
                             </Link>
                         </TextLoop>
                     </h1>
-                    <p className="mt-5 md:text-xl xl:text-2xl font-medium">
+                    <p className="mt-5 font-medium md:text-xl xl:text-2xl">
                         Emisión de boletos segura y confiable. ¡Su boleto para
                         entretenimiento en vivo!
                     </p>

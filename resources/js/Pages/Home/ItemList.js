@@ -1,4 +1,5 @@
 import ItemCard from "@/Components/ItemCard";
+import Section from "@/Components/Section";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
@@ -9,7 +10,7 @@ const ItemList = ({
     items = [],
 }) => {
     return (
-        <div className="container py-20 lg:py-24 xl:py-32">
+        <Section>
             <div>
                 <div className="mb-8 flex items-center justify-between border-b border-white border-opacity-30 pb-3">
                     <h2 className="text-2xl font-bold uppercase md:text-4xl">
@@ -30,7 +31,7 @@ const ItemList = ({
                     </div>
                 ))}
             </div>
-        </div>
+            </Section>
     );
 };
 

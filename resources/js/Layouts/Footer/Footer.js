@@ -1,5 +1,5 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import { ArrowCircleDownIcon } from "@heroicons/react/solid";
+
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
@@ -28,7 +28,7 @@ const Footer = () => {
             <div className="bg-dark-blue-500 pt-20 lg:pt-24 xl:pt-32">
                 <div className="container">
                     <div>
-                        <div className="flex justify-between gap-3 border-b border-dark-blue-400 pb-6  items-center">
+                        <div className="flex items-center justify-between gap-3 border-b border-dark-blue-400  pb-6">
                             <div className="">
                                 <ApplicationLogo className="text-3xl text-white" />
                             </div>
@@ -60,22 +60,39 @@ const Footer = () => {
                             <div className="grow">
                                 <p>
                                     Copyright © 2020.All Rights Reserved By{" "}
-                                    <Link className="text-emerald-400">
+                                    <Link
+                                        href={route("home")}
+                                        className="text-emerald-400"
+                                    >
                                         MyTicket
                                     </Link>
                                 </p>
                             </div>
 
-                            <Link className="hover:text-emerald-400">
-                                Acerca de
+                            <Link
+                                href={route("about-us")}
+                                className="hover:text-emerald-400"
+                            >
+                                Sobre nosotros
                             </Link>
-                            <Link className="hover:text-emerald-400">
+                            <Link
+                                href={route("home")}
+                                className="hover:text-emerald-400"
+                            >
                                 Condiciones de uso
                             </Link>
-                            <Link className="hover:text-emerald-400">
+                            <Link
+                                href={route("home")}
+                                className="hover:text-emerald-400"
+                            >
                                 Política de privacidad
                             </Link>
-                            <Link className="hover:text-emerald-400">FAQ</Link>
+                            <Link
+                                href={route("home")}
+                                className="hover:text-emerald-400"
+                            >
+                                FAQ
+                            </Link>
                         </div>
                     </div>
                 </div>

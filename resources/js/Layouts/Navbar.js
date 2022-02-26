@@ -3,14 +3,45 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
     const { auth } = usePage().props;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    //const scrollRef = useRef();
+    const [isTopScroll, setIsTopScroll] = useState(true);
+
+    const handleScroll = () => {
+        let scroll = window.scrollY;
+
+        if (scroll <= 10) {
+            setIsTopScroll(true);
+        }
+
+        if (scroll > 10 && isTopScroll === true) {
+            setIsTopScroll(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll");
+        };
+    }, []);
+
     return (
-        <nav className="bg-dark-blue-700 shadow-sm">
+        <nav
+            className={
+                "fixed inset-x-0 z-20  transition" +
+                (isTopScroll === true
+                    ? " border-b border-white border-opacity-20 bg-transparent"
+                    : " bg-dark-blue-700 shadow")
+            }
+
+            //ref={scrollRef}
+        >
             <div className="container">
                 <div className="flex h-20 items-center justify-between lg:h-24">
                     <div className="flex items-center">
@@ -24,7 +55,7 @@ const Navbar = () => {
                         <Link href={route("home")}>Peliculas</Link>
                         <Link href={route("home")}>Eventos</Link>
                         <Link href={route("home")}>Deportes</Link>
-                        <Link href={route("home")}>Acerca de</Link>
+                        <Link href={route("about-us")}>Acerca de</Link>
                         <Link href={route("home")}>Contactenos</Link>
                         <div className="flex items-center ">
                             <div className="relative">

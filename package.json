@@ -32,7 +32,9 @@
     },
     "dependencies": {
         "@heroicons/react": "^1.0.5",
+        "fslightbox-react": "^1.6.2-2",
         "react-icons": "^4.3.1",
-        "react-text-loop": "^2.3.0"
+        "react-text-loop": "^2.3.0",
+        "swiper": "^8.0.6"
     }
 }
