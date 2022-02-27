@@ -44,6 +44,9 @@ body {
     .pt-navbar {
         @apply pt-20 lg:pt-24;
     }
+    h1 {
+        @apply text-4xl font-bold uppercase leading-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px];
+    }
     h2 {
         @apply text-3xl font-bold uppercase leading-[1.1]  sm:text-4xl md:text-5xl;
     }
@@ -55,6 +58,9 @@ body {
     }
     h5 {
         @apply text-lg font-bold uppercase sm:text-xl  md:text-2xl;
+    }
+    h6 {
+        @apply text-base font-bold uppercase sm:text-lg  md:text-xl;
     }
 
     .py-section {

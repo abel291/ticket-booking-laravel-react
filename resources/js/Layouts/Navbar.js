@@ -52,7 +52,7 @@ const Navbar = () => {
 
                     <div className="hidden items-center gap-4 font-bold uppercase text-white lg:flex ">
                         <Link href={route("home")}>Home</Link>
-                        <Link href={route("home")}>Peliculas</Link>
+                        <Link href={route("movies")}>Peliculas</Link>
                         <Link href={route("home")}>Eventos</Link>
                         <Link href={route("home")}>Deportes</Link>
                         <Link href={route("about-us")}>Acerca de</Link>
