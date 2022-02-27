@@ -3,16 +3,16 @@ import { Link } from "@inertiajs/inertia-react";
 import { FaCheck, FaHandshake, FaUsers } from "react-icons/fa";
 const Section2 = () => {
     return (
-        <div className="bg-dark-blue-700 lg:bg-transparent lg:bg-[url('/img/about/img-2.jpg')] lg:bg-[length:85%]  lg:bg-left  lg:bg-no-repeat">
+        <div className=" lg:bg-transparent lg:bg-[url('/img/about/img-2.jpg')] lg:bg-[length:85%]  lg:bg-left  lg:bg-no-repeat">
             <div className="py-section container ">
                 <div className=" grid lg:grid-cols-12">
                     <div className="rounded lg:col-span-8 lg:col-start-5 lg:bg-dark-blue-900 lg:p-8">
-                        <p className="text-2xl uppercase text-emerald-400">
+                        <p className="sub-title">
                             ECHA UN VISTAZO
                         </p>
-                        <h2 className="mt-2">NUESTRA FILOSOFÍA</h2>
+                        <h2 className="mt-4">NUESTRA FILOSOFÍA</h2>
                         <div className="mt-4  ">
-                            <p className="leading-7 text-white text-opacity-90">
+                            <p className="text">
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit, sed do eiusmod tempor ut labore
                                 et dolore magna aliqua. Quis ipsum suspendisse

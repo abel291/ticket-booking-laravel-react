@@ -26,40 +26,36 @@ const Gallery = () => {
     }
 
     return (
-        <div className="bg-dark-blue-800">
-            <div className="py-section container">
-                <div className="mx-auto max-w-3xl text-center">
-                    <p className="text-2xl uppercase text-emerald-400">
-                        ECHA UN VISTAZO
-                    </p>
-                    <h2 className="mt-2">UNA ENTRADA PARA CADA AFICIONADO.</h2>
-                    <p className="mt-5  text-white text-opacity-90">
-                        World se compromete a hacer que la participación en el
-                        evento sea una experiencia libre de acoso para todos,
-                        independientemente del nivel de experiencia, género,
-                        identidad y expresión de género.
-                    </p>
-                </div>
+        <div className="py-section container">
+            <div className="mx-auto max-w-3xl md:text-center">
+                <p className="sub-title">ECHA UN VISTAZO</p>
+                <h2 className="mt-4">UNA ENTRADA PARA CADA AFICIONADO.</h2>
+                <p className="text mt-4">
+                    World se compromete a hacer que la participación en el
+                    evento sea una experiencia libre de acoso para todos,
+                    independientemente del nivel de experiencia, género,
+                    identidad y expresión de género.
+                </p>
+            </div>
 
-                <div className="mt-14">
-                    <div className="grid grid-cols-4 gap-5">
-                        {imgGallery.map((img, key) => (
-                            <div
-                                key={key}
-                                onClick={() => openLightboxOnSlide(key+1)}
-                                className={
-                                    "cursor-pointer " +
-                                    (key === 1 ? "col-span-2 row-span-2" : "")
-                                }
-                            >
-                                <img
-                                    className="h-full w-full rounded-md object-cover"
-                                    src={img}
-                                    alt=""
-                                />
-                            </div>
-                        ))}
-                    </div>
+            <div className="mt-14">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
+                    {imgGallery.map((img, key) => (
+                        <div
+                            key={key}
+                            onClick={() => openLightboxOnSlide(key + 1)}
+                            className={
+                                "cursor-pointer overflow-hidden " +
+                                (key === 1 ? "md:col-span-2 md:row-span-2" : "")
+                            }
+                        >
+                            <img
+                                className="h-full w-full rounded-md object-cover transition duration-200 hover:scale-110"
+                                src={img}
+                                alt=""
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
             <FsLightbox
