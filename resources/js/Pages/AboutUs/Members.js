@@ -38,7 +38,6 @@ const members = [
 const Members = () => {
     return (
         <div className="py-section container">
-           
             <div className="mx-auto max-w-3xl text-center">
                 <p className="sub-title">CONOCE A NUESTROS MÁS VALIOSOS</p>
                 <h2 className="mt-4">MIEMBROS DEL EQUIPO DE EXPERTOS</h2>
@@ -51,13 +50,14 @@ const Members = () => {
             </div>
             <div className="mt-14">
                 <Swiper
+                    modules={[Navigation, Autoplay]}
                     spaceBetween={30}
                     slidesPerView={4}
                     loop={true}
                     //navigation
                     autoplay={{
                         delay: 2500,
-                        disableOnInteraction: false,
+                        disableOnInteraction: true,
                     }}
                     navigation={true}
                     breakpoints={{

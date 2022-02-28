@@ -36,8 +36,12 @@ Route::get('/movies', function () {
     return Inertia::render('Products/Products');
 })->name('movies');
 
+Route::get('/movie-details', function () {
+    return Inertia::render('Movie/Movie');
+})->name('movie-details');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
