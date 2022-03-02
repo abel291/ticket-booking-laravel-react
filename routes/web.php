@@ -40,6 +40,14 @@ Route::get('/movie-details', function () {
     return Inertia::render('Movie/Movie');
 })->name('movie-details');
 
+Route::get('/select-ticket', function () {
+    return Inertia::render('Checkout/Ticket/Ticket');
+})->name('select-ticket');
+
+Route::get('/select-food', function () {
+    return Inertia::render('Checkout/Food/Food');
+})->name('select-food');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

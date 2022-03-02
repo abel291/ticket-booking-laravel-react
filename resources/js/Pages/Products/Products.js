@@ -46,7 +46,7 @@ const Products = () => {
 
 export const WidgetCheck = ({ title, children }) => {
     return (
-        <div className="rounded-md bg-dark-blue-500 p-7">
+        <div className="rounded-md bg-dark-blue-700 p-7">
             <div className="border-b border-dark-blue-400 pb-3">
                 <h6 className="font-semibold">{title}</h6>
             </div>

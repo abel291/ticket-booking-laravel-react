@@ -25,7 +25,7 @@ const Footer = () => {
                     </svg>
                 </div>
             </div>
-            <div className="bg-dark-blue-500 pt-20 lg:pt-24 xl:pt-32">
+            <div className="bg-dark-blue-700 pt-20 lg:pt-24 xl:pt-32">
                 <div className="container">
                     <div>
                         <div className="flex items-center justify-between gap-3 border-b border-dark-blue-400  pb-6">
@@ -38,21 +38,21 @@ const Footer = () => {
                                     target="_blank"
                                     className="rounded-full bg-white p-2 transition duration-150 hover:bg-emerald-400"
                                 >
-                                    <FaFacebookF className="h-4 w-4  text-dark-blue-500 " />
+                                    <FaFacebookF className="h-4 w-4  text-dark-blue-700 " />
                                 </a>
                                 <a
                                     href="google.com"
                                     target="_blank"
                                     className="rounded-full bg-white p-2 transition duration-150 hover:bg-emerald-400"
                                 >
-                                    <FaTwitter className="h-4 w-4  text-dark-blue-500 " />
+                                    <FaTwitter className="h-4 w-4  text-dark-blue-700 " />
                                 </a>
                                 <a
                                     href="google.com"
                                     target="_blank"
                                     className="rounded-full bg-white p-2 transition duration-150 hover:bg-emerald-400"
                                 >
-                                    <FaGoogle className="h-4 w-4  text-dark-blue-500 " />
+                                    <FaGoogle className="h-4 w-4  text-dark-blue-700 " />
                                 </a>
                             </div>
                         </div>

@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 body {
-    @apply text-blue-100;
+    @apply leading-[normal] text-blue-100;
 }
 @layer components {
     .btn {
@@ -22,7 +22,7 @@ body {
         @apply text-lg uppercase text-emerald-400 sm:text-xl md:text-2xl;
     }
     .text {
-        @apply leading-7 ;
+        @apply leading-7;
     }
 }
 
@@ -65,4 +65,33 @@ body {
     .py-section {
         @apply py-12  lg:py-16 xl:py-20;
     }
+}
+select option {
+    color: black;
+}
+
+.ticket {
+    --mask: linear-gradient(#000 0 0) center/calc(100% - 8px) 100% no-repeat,
+        conic-gradient(
+                from -135deg at right,
+                #0000,
+                #000 1deg 89deg,
+                #0000 90deg
+            )
+            right/4px 8px repeat-y,
+        conic-gradient(from 45deg at left, #0000, #000 1deg 89deg, #0000 90deg)
+            left/4px 8px repeat-y;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+.ticket-border-rounded::before,
+.ticket-border-rounded::after {
+    @apply absolute -top-6 h-12 w-7
+    bg-dark-blue-900 content-[''];
+}
+.ticket-border-rounded::before {
+    @apply -left-[34px] rounded-r-full;
+}
+.ticket-border-rounded::after {
+    @apply -right-[34px] rounded-l-full;
 }

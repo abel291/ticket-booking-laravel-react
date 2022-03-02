@@ -1,3 +1,5 @@
+import SectionUnderBanner from "@/Components/SectionUnderBanner";
+
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import {
@@ -45,31 +47,29 @@ const Banner = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-dark-blue-700">
-                <div className="container relative py-12 ">
-                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-                        <div className="lg:col-span-9 lg:col-start-4 ">
-                            <div className="flex  flex-col items-center gap-8 lg:flex-row lg:justify-between">
-                                <div>
-                                    <Counter />
-                                </div>
-                                <div>
-                                    <Link className="btn" href={route("home")}>
-                                        RESERVAR ENTRADAS
-                                    </Link>
-                                </div>
+            <SectionUnderBanner>
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+                    <div className="lg:col-span-9 lg:col-start-4 ">
+                        <div className="flex  flex-col items-center gap-8 lg:flex-row lg:justify-between">
+                            <div>
+                                <Counter />
+                            </div>
+                            <div>
+                                <Link className="btn" href={route("home")}>
+                                    RESERVAR ENTRADAS
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </SectionUnderBanner>
         </>
     );
 };
 
 const Idioms = () => {
     return (
-        <div className="flex flex-wrap gap-2 text-sm text-blue-300 mt-2">
+        <div className="mt-2 flex flex-wrap gap-2 text-sm text-blue-300">
             {[1, 2, 3, 4, 5].map((item, key) => (
                 <Link
                     className="font-light uppercase "

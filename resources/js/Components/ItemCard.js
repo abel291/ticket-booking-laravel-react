@@ -4,7 +4,7 @@ import React from "react";
 const ItemCard = ({ item }) => {
     return (
         <Link href={route("home", { slug: "" })}>
-            <div className="overflow-hidden rounded bg-dark-blue-500 w-">
+            <div className="overflow-hidden rounded bg-dark-blue-700 w-">
                 <div className=" overflow-hidden">
                     <img
                         src={"/img/events/img-" + item + ".jpg"}

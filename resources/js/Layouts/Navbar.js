@@ -54,7 +54,7 @@ const Navbar = () => {
                         <Link href={route("home")}>Home</Link>
                         <Link href={route("movies")}>Peliculas</Link>
                         <Link href={route("movie-details")}>Eventos</Link>
-                        <Link href={route("home")}>Deportes</Link>
+                        <Link href={route("select-ticket")}>Deportes</Link>
                         <Link href={route("about-us")}>Acerca de</Link>
                         <Link href={route("home")}>Contactenos</Link>
                         <div className="flex items-center ">
