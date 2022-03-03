@@ -41,12 +41,16 @@ Route::get('/movie-details', function () {
 })->name('movie-details');
 
 Route::get('/select-ticket', function () {
-    return Inertia::render('Checkout/Ticket/Ticket');
+    return Inertia::render('SelectTicket/Ticket');
 })->name('select-ticket');
 
 Route::get('/select-food', function () {
-    return Inertia::render('Checkout/Food/Food');
+    return Inertia::render('SelectFood/Food');
 })->name('select-food');
+
+Route::get('/checkout', function () {
+    return Inertia::render('Checkout/Checkout');
+})->name('checkout');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
