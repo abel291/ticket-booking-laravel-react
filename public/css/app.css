@@ -2605,6 +2605,11 @@ select option {
     padding-bottom: 1.75rem;
   }
 
+  .lg\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
   .lg\:line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;

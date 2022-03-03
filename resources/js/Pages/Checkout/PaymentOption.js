@@ -24,7 +24,7 @@ const PaymentOption = () => {
             </div>
             <div className="mt-10">
                 <div className="space-y-5">
-                    <div className="text-lg font-medium">
+                    <div className="font-medium  text-white lg:text-lg">
                         Ingrese los Detalles de su Tarjeta{" "}
                     </div>
                     <div className=" space-y-4">
