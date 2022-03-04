@@ -5,13 +5,14 @@ import React from "react";
 import TextLoop from "react-text-loop/lib/components/TextLoop";
 
 import ItemList from "./ItemList";
+import Search from "./Search";
 
 const Home = () => {
     return (
         <Layout title="Inicio">
-            <BannerSearch img="/img/home/img-banner.jpg">
+            <BannerSearch img="/img/home/img-banner.jpg" search={true}>
                 <div>
-                    <h1>
+                    <h1 className="font-bold">
                         RESERVA TU ENTRADAS PARA TU
                         <TextLoop>
                             <Link className="ml-1 text-emerald-400" to="/">
@@ -31,6 +32,9 @@ const Home = () => {
                     </p>
                 </div>
             </BannerSearch>
+            <div>
+                <Search />
+            </div>
 
             <ItemList
                 title="Peliculas"

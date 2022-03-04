@@ -8,7 +8,7 @@ import { FilmIcon, StarIcon } from "@heroicons/react/solid";
 const Search = () => {
     return (
         <div className="container ">
-            <div className="bg-gradient-invert relative mt-4 rounded py-8 px-4 lg:mt-[-120px] lg:py-10 lg:px-7">
+            <div className="bg-gradient-invert relative mt-4 rounded py-8 px-4  lg:py-10 lg:px-7">
                 <div className="items-center justify-between px-3 md:flex lg:px-0">
                     <div>
                         <p className="font-medium uppercase text-emerald-400 md:text-xl">

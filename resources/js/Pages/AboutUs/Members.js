@@ -1,46 +1,14 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
-// Import Swiper styles
 import "swiper/css";
-const members = [
-    {
-        img: "/img/about/member-1.jpg",
-        name: "Robert Fox",
-        position: "CEO, HEAD OF COMMUNITY",
-    },
-    {
-        img: "/img/about/member-2.jpg",
-        name: "Kristin Mccoy",
-        position: "CO-FOUNDER & CPO",
-    },
-    {
-        img: "/img/about/member-3.jpg",
-        name: "Shane Watson",
-        position: "CHIEF OPERATING OFFICER",
-    },
-    {
-        img: "/img/about/member-4.jpg",
-        name: "Francisco Pena",
-        position: "CHIEF FINANCIAL OFFICER",
-    },
-    {
-        img: "/img/about/member-5.jpg",
-        name: "Calvin Flore",
-        position: "ASSET MANAGEMENT",
-    },
-    {
-        img: "/img/about/member-6.jpg",
-        name: "Kathryn Cooper",
-        position: "ANIMATOR",
-    },
-];
+
 const Members = () => {
     return (
         <div className="py-section container">
             <div className="mx-auto max-w-3xl text-center">
                 <p className="sub-title">CONOCE A NUESTROS MÁS VALIOSOS</p>
-                <h2 className="mt-4">MIEMBROS DEL EQUIPO DE EXPERTOS</h2>
+                <h2 className="mt-4 font-bold">MIEMBROS DEL EQUIPO DE EXPERTOS</h2>
                 <p className="text  mt-4">
                     World se compromete a hacer que la participación en el
                     evento sea una experiencia libre de acoso para todos,

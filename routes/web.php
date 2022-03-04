@@ -33,11 +33,11 @@ Route::get('/about-us', function () {
 })->name('about-us');
 
 Route::get('/movies', function () {
-    return Inertia::render('Products/Products');
+    return Inertia::render('ListMovies/ListMovies');
 })->name('movies');
 
 Route::get('/movie-details', function () {
-    return Inertia::render('Movie/Movie');
+    return Inertia::render('MovieDetails/MovieDetails');
 })->name('movie-details');
 
 Route::get('/select-ticket', function () {
@@ -51,6 +51,10 @@ Route::get('/select-food', function () {
 Route::get('/checkout', function () {
     return Inertia::render('Checkout/Checkout');
 })->name('checkout');
+
+Route::get('/event-details', function () {
+    return Inertia::render('EventDetails/EventDetails');
+})->name('event-details');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
