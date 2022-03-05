@@ -33,19 +33,19 @@ Route::get('/about-us', function () {
 })->name('about-us');
 
 Route::get('/movies', function () {
-    return Inertia::render('ListMovies/ListMovies');
+    return Inertia::render('Movies/MovieList/MovieList');
 })->name('movies');
 
 Route::get('/movie-details', function () {
-    return Inertia::render('MovieDetails/MovieDetails');
+    return Inertia::render('Movies/MovieDetails/MovieDetails');
 })->name('movie-details');
 
-Route::get('/select-ticket', function () {
-    return Inertia::render('SelectTicket/Ticket');
+Route::get('/movie-ticket', function () {
+    return Inertia::render('Movies/MovieTicket/MovieTicket');
 })->name('select-ticket');
 
-Route::get('/select-food', function () {
-    return Inertia::render('SelectFood/Food');
+Route::get('/movie-food', function () {
+    return Inertia::render('Movies/MovieFood/MovieFood');
 })->name('select-food');
 
 Route::get('/checkout', function () {
@@ -53,8 +53,12 @@ Route::get('/checkout', function () {
 })->name('checkout');
 
 Route::get('/event-details', function () {
-    return Inertia::render('EventDetails/EventDetails');
+    return Inertia::render('Events/EventDetails/EventDetails');
 })->name('event-details');
+
+Route::get('/event-ticket', function () {
+    return Inertia::render('Events/EventTicket/EventTicket');
+})->name('event-ticket');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

@@ -36,14 +36,13 @@ const members = [
     },
 ];
 const Members = () => {
-    const header = {
-        subTitle: "ESCUCHAR A LOS",
-        title: "ALTAVOCES del EVENTO",
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nemo dolore deserunt molestias consequatur placeat qui aliquam pariatur ea provident nesciunt, praesentium beatae illum similique, odio architecto at rem dignissimos.",
-    };
     return (
         <div className="py-section container">
-            <SectionHeader header={header} />
+            <SectionHeader
+                subTitle="ESCUCHAR A LOS"
+                title="ALTAVOCES del EVENTO"
+                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nemo dolore deserunt molestias consequatur placeat qui aliquam pariatur ea provident nesciunt, praesentium beatae illum similique, odio architecto at rem dignissimos."
+            />
             <div className="mt-14">
                 <Swiper
                     modules={[Navigation, Autoplay]}

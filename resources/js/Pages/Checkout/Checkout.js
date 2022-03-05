@@ -2,10 +2,11 @@ import BannerCheckout from "@/Components/BannerCheckout";
 import Layout from "@/Layouts/Layout";
 import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
-import OrderSummary from "../SelectFood/OrderSummary";
+import OrderSummary from "../Movies/MovieFood/OrderSummary";
 import ContactDetails from "./ContactDetails";
 import PaymentOption from "./PaymentOption";
 import PromoCode from "./PromoCode";
+import QuantityTicket from "./QuantityTicket";
 
 const Checkout = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -24,6 +25,7 @@ const Checkout = () => {
                     <div className=" lg:col-span-8">
                         <div className="grid grid-cols-1 gap-6">
                         <ContactDetails data={data} setData={setData} />
+                        <QuantityTicket />
                         <PromoCode />
                         <PaymentOption />
                         </div>
