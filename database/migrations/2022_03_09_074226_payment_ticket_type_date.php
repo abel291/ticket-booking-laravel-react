@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('payment_ticket_type_dates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->tinyInteger('quantity');
+            $table->float('total_price');
+            $table->json('date');
+            $table->json('ticket_type');
+            $table->foreignId('payment_id');
             $table->timestamps();
+            $table->index(['payment_id']);
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('payment_ticket_type_dates');
     }
 };
