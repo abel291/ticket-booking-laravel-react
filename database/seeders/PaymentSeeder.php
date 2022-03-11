@@ -17,7 +17,7 @@ class PaymentSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
         Payment::truncate();
         PaymentTicketTypeDate::truncate();
         $events = Event::with(['ticket_types.event_dates', 'location'])->get()->random(2);

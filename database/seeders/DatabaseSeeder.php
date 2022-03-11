@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //dd(EventTypes::Event->value);
-        User::truncate();
-        User::factory(10)->create();
+        //User::truncate();
+        User::factory(20)->create();
         $this->call([
             LocationSeeder::class,
             CategorySeeder::class, // products and posts

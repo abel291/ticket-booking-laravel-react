@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('total_quantity');
             $table->string('code',10);
+            $table->json('discount')->nullable();
             $table->float('total_price');
             $table->tinyInteger('status')->default(1);            
             $table->json('event');            
