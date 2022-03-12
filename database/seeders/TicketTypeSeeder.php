@@ -19,7 +19,7 @@ class TicketTypeSeeder extends Seeder
     {
         DB::table('ticket_type_date')->truncate();
         $events = Event::with('ticket_types', 'dates')->get();
-        DB::table('ticket_type_date')->truncate();
+        
         foreach ($events as  $event) {
 
             foreach ($event->dates as $key => $date) {

@@ -21,7 +21,7 @@ class BlogFactory extends Factory
         return [
             "title" => $name,
             "slug" => Str::slug($name),
-            "img" => "/img/blog/img-" . rand(1, 20) . ".jpg",
+            "img" => "/blog/img-" . rand(1, 5) . ".jpg",
             "desc_min" => $this->faker->text(150),
             "desc_max" => $this->faker->text(1000),
         ];

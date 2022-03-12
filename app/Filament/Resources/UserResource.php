@@ -17,7 +17,7 @@ class UserResource extends Resource
 
     protected static ?string $model = User::class;
     protected static ?string $label = 'Usuario';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     public static function inputs()
     {
@@ -62,7 +62,7 @@ class UserResource extends Resource
             ])
             ->filters([
                 //
-            ]);
+            ])->defaultSort('id','desc');
     }
 
     public static function getRelations(): array

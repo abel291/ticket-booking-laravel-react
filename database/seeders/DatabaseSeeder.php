@@ -17,15 +17,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //dd(EventTypes::Event->value);
-        //User::truncate();
+        User::truncate();
+        User::factory()->create([
+            'email' => 'user@user.com',
+            'email_verified_at' => null,
+            'remember_token' => null,
+        ]);
         User::factory(20)->create();
         $this->call([
             LocationSeeder::class,
             CategorySeeder::class, // products and posts
             TicketTypeSeeder::class,
-            PaymentSeeder::class
+            PaymentSeeder::class,
 
-            //PromoCodeSeeder::class,
+            PromotionSeeder::class,
 
         ]);
     }

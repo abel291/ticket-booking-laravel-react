@@ -29,14 +29,14 @@ class CategorySeeder extends Seeder
         TicketType::truncate();
 
         $location = Location::get();
-        Category::factory(1)
+        Category::factory(12)
             ->has(Blog::factory()->hasImages(3)->count(1), 'posts')
             ->has(
                 Event::factory()
                     ->hasImages(3)
                     ->hasDates(5)
                     ->has(TicketType::factory()->count(3),'ticket_types')
-                    ->count(3)->state(function () use ($location) {
+                    ->count(8)->state(function () use ($location) {
                         return ['location_id' => $location->random()->id];
                     })
             )

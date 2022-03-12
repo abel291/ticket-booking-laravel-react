@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\PromoCode;
+use App\Models\Promotion;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PromoCodeSeeder extends Seeder
+class PromotionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +15,8 @@ class PromoCodeSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        PromoCode::factory(20)->create();
+    {   
+        Promotion::truncate();
+        Promotion::factory(20)->create();
     }
 }

@@ -20,7 +20,7 @@ class PaymentSeeder extends Seeder
     {
         Payment::truncate();
         PaymentTicketTypeDate::truncate();
-        $events = Event::with(['ticket_types.event_dates', 'location'])->get()->random(2);
+        $events = Event::with(['ticket_types.event_dates', 'location'])->get();
         foreach ($events as $event) {
             $total_price = 0;
             $total_quantity = 0;

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LocationResource\Pages;
-use App\Filament\Resources\LocationResource\RelationManagers;
-use App\Models\Location;
+use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Models\Category;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -12,14 +12,12 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 
-class LocationResource extends Resource
+class CategoryResource extends Resource
 {
-    protected static ?string $model = Location::class;
+    protected static ?string $model = Category::class;
 
-    protected static ?string $label = 'Ubicacion';
-    protected static ?string $pluralLabel = 'Ubicaciones';
-
-    protected static ?string $navigationIcon = 'heroicon-o-location-marker';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $label = 'Categoria';
 
     public static function form(Form $form): Form
     {
@@ -28,13 +26,11 @@ class LocationResource extends Resource
                 Forms\Components\TextInput::make('name')->label('Nombre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('address')->label('Direccion')
+                Forms\Components\TextInput::make('slug')->label('Slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone')->label('Telefono de contacto')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Toggle::make('active')->label('Activo')
+                    ->required(),
             ]);
     }
 
@@ -43,16 +39,14 @@ class LocationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Nombre'),
-                Tables\Columns\TextColumn::make('address')->label('Direccion'),
-                //Tables\Columns\TextColumn::make('phone')->label('Telefono de contacto'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('M d, Y h:i A')->label('Fecha de creacion'),
-
+                //Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\BooleanColumn::make('active')->label('Activo'),
+                Tables\Columns\TextColumn::make('updated_at')->label('Creacion')->dateTime(),
             ])
             ->bulkActions([])
             ->pushActions([
                 Tables\Actions\LinkAction::make('delete')
-                    ->action(function (Location $record) {
+                    ->action(function (Category $record) {
                         $record->delete();
                         Filament::notify('success', 'Usuario borrado');
                     })
@@ -74,9 +68,9 @@ class LocationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLocations::route('/'),
-            'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }
