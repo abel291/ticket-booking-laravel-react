@@ -60,8 +60,26 @@ Route::get('/event-ticket', function () {
     return Inertia::render('Events/EventTicket/EventTicket');
 })->name('event-ticket');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'isAdmin'])->prefix('dashboard')->name('dashboard.')->group(function () {
+
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('home');
+
+    //Route::get('/users', ListUsers::class)->name('users');
+    //Route::get('/categories', ListCategories::class)->name('categories');
+    //Route::get('/products', ListProducts::class)->name('products');
+    //Route::get('/gift_card', ListGiftCard::class)->name('gift_card');
+    //Route::get('/discount_code', ListDiscountCode::class)->name('discount_code');
+    //Route::get('/gallery', ListGallery::class)->name('gallery');
+    //Route::get('/page', ListPage::class)->name('page');
+    //Route::get('/promo', ListPromo::class)->name('promo');
+    //Route::get('/order', ListOrder::class)->name('order');
+});
+
 
 require __DIR__ . '/auth.php';

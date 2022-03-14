@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@user.com',
             'email_verified_at' => null,
             'remember_token' => null,
+            'is_admin' => 1
         ]);
         User::factory(20)->create();
         $this->call([
@@ -29,7 +30,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class, // products and posts
             TicketTypeSeeder::class,
             PaymentSeeder::class,
-
             PromotionSeeder::class,
 
         ]);
