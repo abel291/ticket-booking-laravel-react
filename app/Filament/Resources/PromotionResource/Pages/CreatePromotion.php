@@ -12,4 +12,12 @@ class CreatePromotion extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        if ($data['type'] == "percent" && $data['value'] > 100) {
+            $data['value'] = 100;
+        }
+
+        return $data;
+    }
 }

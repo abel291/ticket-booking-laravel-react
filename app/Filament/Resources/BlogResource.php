@@ -19,6 +19,9 @@ class BlogResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $label = 'Post';
     protected static ?string $pluralLabel = 'Posts';
+    protected static ?string $navigationGroup = 'Blog';    
+
+    public static string $path_image = 'blog';
 
     public static function form(Form $form): Form
     {
@@ -32,10 +35,10 @@ class BlogResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('img')
-                    ->label('Imagen Principal')->image()
+                    ->label('Imagen Principal')->image()                    
                     ->required(),
                 //->maxLength(255),
-                Forms\Components\BelongsToSelect::make('category')->relationship('category', 'name')->label('Categoria')
+                Forms\Components\BelongsToSelect::make('category_id')->relationship('category', 'name')->label('Categoria')
                     ->required(),
                 //->maxLength(255),
                 Forms\Components\TextInput::make('desc_min')->label('Descripcion pequeña')
@@ -43,6 +46,10 @@ class BlogResource extends Resource
                     ->columnSpan(2)
                     ->maxLength(255),
                 Forms\Components\RichEditor::make('desc_max')->label('Descripcion completa')
+                    ->disableToolbarButtons([
+                        'attachFiles',
+                        'codeBlock',
+                    ])
                     ->required()
                     ->columnSpan(2)
                 //->maxLength(65535),
@@ -66,7 +73,7 @@ class BlogResource extends Resource
             ])
             ->bulkActions([])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
+                Tables\Actions\LinkAction::make('Eliminar')
                     ->action(function (Blog $record) {
                         $record->delete();
                         Filament::notify('success', 'Registro Borrado');
@@ -93,5 +100,8 @@ class BlogResource extends Resource
             'create' => Pages\CreateBlog::route('/create'),
             'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
+    }
+    public static function getPathImg(): string{
+        return 'blog';
     }
 }

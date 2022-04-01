@@ -28,16 +28,25 @@ class PromotionResource extends Resource
             ->columns(12)
             ->schema([
                 Forms\Components\TextInput::make('code')->label('Codigo')
-                    ->required()->columnSpan(['sm' => 6])
-                    ->maxLength(255),
+                    ->required()->columnSpan(['sm' => 3])
+                    ->maxLength(10),
+
                 Forms\Components\TextInput::make('value')->label('Valor')
-                    ->required()->columnSpan(['sm' => 2]),
-                Forms\Components\Select::make('type')->options(['percent' => 'Porcentage', 'amount' => 'Monto'])->label('Tipo de valor')
+                    ->required()->columnSpan(['sm' => 2])->rules('numeric|min:0'),
+
+                Forms\Components\Select::make('type')->options(['percent' => 'Porcentaje', 'amount' => 'Monto'])->label('Tipo de valor')
                     ->required()->columnSpan(['sm' => 4]),
+                
+
                 Forms\Components\TextInput::make('quantity')->label('Cantidad')
-                    ->required()->columnSpan(['sm' => 6]),
+                    ->required()->columnSpan(['sm' => 3])->rules('numeric|min:0'),
+
                 Forms\Components\DateTimePicker::make('expired')->label('Expira en:')
                     ->required()->columnSpan(['sm' => 6]),
+
+                Forms\Components\Toggle::make('active')->label('Activo')
+                    ->required()->columnSpan(['sm' => 12]),
+
             ]);
     }
 
@@ -46,7 +55,7 @@ class PromotionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('code')->label('Codigo')->extraAttributes(['class' => 'font-bold']),
-                
+
                 Tables\Columns\TextColumn::make('')->formatStateUsing(
                     function (Promotion $record) {
                         if ($record->type == 'amount') {
@@ -63,19 +72,18 @@ class PromotionResource extends Resource
             ])
             ->bulkActions([])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
+                Tables\Actions\LinkAction::make('Eliminar')
                     ->action(function (Promotion $record) {
-
-                        if (auth()->user()->id == $record->id) {
-                            Filament::notify('danger', 'No Puedes borrar tu mismo usuario');
-                            return;
+                        if (!$record->payments->count()) {
+                            $record->forceDelete();
+                        } else {
+                            $record->delete();
                         }
-                        $record->delete();
                         Filament::notify('success', 'Registro borrado');
                     })
                     ->requiresConfirmation()
                     ->color('danger'),
-            ])->defaultSort('id','desc')
+            ])->defaultSort('id', 'desc')
             ->filters([
                 //
             ]);

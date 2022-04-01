@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Event;
 use App\Models\Payment;
 use App\Models\PaymentTicketTypeDate;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -20,6 +21,7 @@ class PaymentSeeder extends Seeder
     {
         Payment::truncate();
         PaymentTicketTypeDate::truncate();
+        $user=User::get();
         $events = Event::with(['ticket_types.event_dates', 'location'])->get();
         foreach ($events as $event) {
             $total_price = 0;
@@ -51,6 +53,8 @@ class PaymentSeeder extends Seeder
                     'total_quantity' => $total_quantity,
                     'total_price' => $total_price,
                     'event_id' => $event->id,
+                    'user_id' => $user->random()->id,
+                    'user' => $user->random()->only(['name', 'phone', 'email']),
                 ]);
                 $payment->ticket_type_dates()->saveMany($payment_ticket_type_date);
             }

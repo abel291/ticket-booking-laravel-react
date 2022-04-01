@@ -12,5 +12,4 @@ class CreateLocation extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
-
 }

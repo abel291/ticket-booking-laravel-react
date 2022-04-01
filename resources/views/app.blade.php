@@ -7,7 +7,7 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -17,6 +17,10 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        @inertia        
+        @inertia
+
+        {{-- @env ('local')
+            <script src="http://localhost:8080/js/bundle.js"></script>
+        @endenv --}}
     </body>
 </html>

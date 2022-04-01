@@ -19,9 +19,8 @@ return new class extends Migration
             $table->float('total_price');
             $table->json('date');
             $table->json('ticket_type');
-            $table->foreignId('payment_id');
+            $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
             $table->timestamps();
-            $table->index(['payment_id']);
         });
     }
 

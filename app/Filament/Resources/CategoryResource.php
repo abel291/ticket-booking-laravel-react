@@ -41,21 +41,25 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Nombre'),
                 //Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\BooleanColumn::make('active')->label('Activo'),
-                Tables\Columns\TextColumn::make('updated_at')->label('Creacion')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Última modificación')->dateTime('M d, Y h:i A'),
             ])
             ->bulkActions([])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
+                Tables\Actions\LinkAction::make('Eliminar')
                     ->action(function (Category $record) {
-                        $record->delete();
-                        Filament::notify('success', 'Usuario borrado');
+                        if (!$record->posts->count() && !$record->posts->count()) {
+                            $record->forceDelete();
+                        } else {
+                            $record->delete();
+                        }
+                        Filament::notify('success', 'Registro borrado');
                     })
                     ->requiresConfirmation()
                     ->color('danger'),
             ])
             ->filters([
                 //
-            ])->defaultSort('id','desc');
+            ])->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array

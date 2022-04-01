@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('quantity');
-            $table->string('type');
+            
             $table->float('price');
             $table->boolean('price_default');
             $table->string('desc');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->tinyInteger('max_tickets_purchase');
             $table->boolean('show_remaining_entries');
             $table->boolean('active');            
-            $table->foreignId('event_id')->index();            
+            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }

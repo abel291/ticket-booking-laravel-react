@@ -153,10 +153,10 @@ const Navbar = () => {
             >
                 <div className="space-y-1 pt-2 pb-3">
                     <ResponsiveNavLink
-                        href={route("dashboard")}
-                        active={route().current("dashboard")}
+                        href={route("dashboard.home")}
+                        active={route().current("dashboard.home")}
                     >
-                        Dashboard
+                        Admin
                     </ResponsiveNavLink>
                 </div>
 

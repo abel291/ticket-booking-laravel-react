@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->boolean('active')->default(1);
+            $table->boolean('active')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,5 +31,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
+        
     }
 };

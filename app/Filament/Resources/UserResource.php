@@ -5,16 +5,15 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Facades\Filament;
 
 class UserResource extends Resource
 {
-
     protected static ?string $model = User::class;
     protected static ?string $label = 'Usuario';
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
@@ -37,17 +36,20 @@ class UserResource extends Resource
 
         ];
     }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('name')->label('Nombre'),
+                Tables\Columns\TextColumn::make('phone')->label('Telefono'),
+                Tables\Columns\BooleanColumn::make('active')->label('Active'),
+                //Tables\Columns\TextColumn::make('email')->label('Correo'),
+                Tables\Columns\TextColumn::make('updated_at')->label('Última modificación')->dateTime('M d, Y h:i A'),
             ])
             ->bulkActions([])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
+                Tables\Actions\LinkAction::make('Eliminar')
                     ->action(function (User $record) {
 
                         if (auth()->user()->id == $record->id) {
@@ -62,7 +64,7 @@ class UserResource extends Resource
             ])
             ->filters([
                 //
-            ])->defaultSort('id','desc');
+            ])->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array
@@ -71,7 +73,6 @@ class UserResource extends Resource
             //
         ];
     }
-
 
     public static function getPages(): array
     {

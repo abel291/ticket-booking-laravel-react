@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Listeners\DisableForeignKeyMigrations;
+use App\Models\Blog;
+use App\Models\User;
+use App\Observers\BlogObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Database\Events\MigrationsStarted;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -18,6 +23,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        MigrationsStarted::class => [
+            DisableForeignKeyMigrations::class,
+        ]
+        
     ];
 
     /**
@@ -27,9 +36,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blog::observe(BlogObserver::class);
     }
-
     /**
      * Determine if events and listeners should be automatically discovered.
      *

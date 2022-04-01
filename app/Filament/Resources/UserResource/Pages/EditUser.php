@@ -37,9 +37,11 @@ class EditUser extends EditRecord
                     ->same('passwordConfirmation')
                     ->rules(['sometimes'])
                     ->minLength(6)
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->placeholder('Dejar en blanco si no se va a cambiar'),
 
                 Forms\Components\TextInput::make('passwordConfirmation')->label('Confirmar Contraseña')
+                    ->placeholder('Dejar en blanco si no se va a cambiar')
                     ->password()
                     ->minLength(6)
                     ->maxLength(255)

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\TicketType;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,21 +15,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //dd(EventTypes::Event->value);
-        User::truncate();
-        User::factory()->create([
-            'email' => 'user@user.com',
-            'email_verified_at' => null,
-            'remember_token' => null,
-        ]);
-        User::factory(20)->create();
+        Schema::disableForeignKeyConstraints();
+
+
+        
+        
         $this->call([
+            UserSeeder::class,
             LocationSeeder::class,
             CategorySeeder::class, // products and posts
             TicketTypeSeeder::class,
             PaymentSeeder::class,
-
             PromotionSeeder::class,
 
         ]);
+        Schema::enableForeignKeyConstraints();
     }
 }

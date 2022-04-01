@@ -9,14 +9,10 @@ class Blog extends Model
 {
     use HasFactory;
     protected $table = 'blog';
-    
+    protected $guarded = [];
+    public $img_path = 'blog';
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
     }
 }

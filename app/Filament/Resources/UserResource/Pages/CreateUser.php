@@ -26,12 +26,12 @@ class CreateUser extends CreateRecord
                 ...$inputs,
                 Forms\Components\TextInput::make('password')->label('Contraseña')
                     ->password()
-                    ->same('passwordConfirmation')
+                    ->same('passwordConfirmation')                    
                     ->required()
                     ->minLength(6)
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('passwordConfirmation')->label('Confirmar Contraseña')
+                Forms\Components\TextInput::make('passwordConfirmation')->label('Confirmar Contraseña')                    
                     ->password()
                     ->required()
                     ->minLength(6)

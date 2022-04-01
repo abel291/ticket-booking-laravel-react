@@ -31,10 +31,13 @@ class LocationResource extends Resource
                 Forms\Components\TextInput::make('address')->label('Direccion')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('phone')->label('Telefono de contacto')
                     ->tel()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Toggle::make('active')->label('Activo')
+                    ->required(),
             ]);
     }
 
@@ -45,23 +48,27 @@ class LocationResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Nombre'),
                 Tables\Columns\TextColumn::make('address')->label('Direccion'),
                 //Tables\Columns\TextColumn::make('phone')->label('Telefono de contacto'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('M d, Y h:i A')->label('Fecha de creacion'),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime('M d, Y h:i A')->label('Última modificación'),
 
             ])
             ->bulkActions([])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
+                Tables\Actions\LinkAction::make('Eliminar')
                     ->action(function (Location $record) {
-                        $record->delete();
-                        Filament::notify('success', 'Usuario borrado');
+                        if (!$record->events->count()) {
+                            $record->forceDelete();
+                        } else {
+                            $record->delete();
+                        }
+                        Filament::notify('success', 'Registro borrado');
                     })
                     ->requiresConfirmation()
                     ->color('danger'),
             ])
             ->filters([
                 //
-            ])->defaultSort('id','desc');
+            ])->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array

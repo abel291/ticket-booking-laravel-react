@@ -11,6 +11,7 @@ use App\Models\Location;
 use App\Models\TicketType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -29,17 +30,38 @@ class CategorySeeder extends Seeder
         TicketType::truncate();
 
         $location = Location::get();
-        Category::factory(12)
-            ->has(Blog::factory()->hasImages(3)->count(1), 'posts')
-            ->has(
-                Event::factory()
-                    ->hasImages(3)
-                    ->hasDates(5)
-                    ->has(TicketType::factory()->count(3),'ticket_types')
-                    ->count(8)->state(function () use ($location) {
-                        return ['location_id' => $location->random()->id];
-                    })
-            )
-            ->create();
+        $categories = [
+            'Ballet',
+            'Circo',
+            'Conciertos',
+            'Curso',
+            'Deportes',
+            'Festivales',
+            'Monólogo',
+            'museos',
+            'Musicales',
+            'Ópera',
+            'Profesionales',
+            'Teatro',
+        ];
+
+        foreach ($categories as $key => $category) {
+            Category::factory()
+                ->state([
+                    'name' => $category,
+                    'slug' => Str::slug($category)
+                ])
+                ->has(Blog::factory()->count(1), 'posts')
+                ->has(
+                    Event::factory()
+                        ->hasImages(3)
+                        ->hasDates(5)
+                        ->has(TicketType::factory()->count(3), 'ticket_types')
+                        ->count(8)->state(function () use ($location) {
+                            return ['location_id' => $location->random()->id];
+                        })
+                )
+                ->create();
+        }
     }
 }

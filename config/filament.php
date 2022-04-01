@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -191,11 +192,19 @@ return [
             'actions' => [
                 'alignment' => 'left',
             ],
+            'have_inline_labels' => false,
         ],
         'footer' => [
             'should_show_logo' => true,
         ],
         'max_content_width' => null,
+        'notifications' => [
+            'vertical_alignment' => 'top',
+            'alignment' => 'center',
+        ],
+        'sidebar' => [
+            'is_collapsible_on_desktop' => false,
+        ],
         'tables' => [
             'actions' => [
                 'type' => \Filament\Tables\Actions\LinkAction::class,
@@ -251,6 +260,7 @@ return [
     'middleware' => [
         'auth' => [
             Authenticate::class,
+            AdminMiddleware::class,
         ],
         'base' => [
             EncryptCookies::class,
