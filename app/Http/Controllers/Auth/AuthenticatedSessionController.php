@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Auth::user()->hasRole('admin')) {
-            return Inertia::location('/' . env('FILAMENT_PATH'));
+            return Inertia::location(route('dashboard.home'));
         } else {
             return redirect()->intended(RouteServiceProvider::HOME);
         }

@@ -1,6 +1,7 @@
 <?php
 
-
+use App\Http\Livewire\User\ListUsers;
+use App\Http\Livewire\Category\ListCategory;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -73,7 +74,8 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
         return view('dashboard');
     })->name('home');
 
-    
+    Route::get('/users', ListUsers::class)->name('users');
+    Route::get('/categories', ListCategory::class)->name('categories');
     //Route::get('/products', ListProducts::class)->name('products');
     //Route::get('/gift_card', ListGiftCard::class)->name('gift_card');
     //Route::get('/discount_code', ListDiscountCode::class)->name('discount_code');
@@ -82,8 +84,6 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     //Route::get('/promo', ListPromo::class)->name('promo');
     //Route::get('/order', ListOrder::class)->name('order');
 });
-
-Route::redirect('/admin/login', '/login', 301);
 
 
 require __DIR__ . '/auth.php';

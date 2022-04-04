@@ -17,6 +17,11 @@ class Category extends Model
         'active' => 0,
     ];
 
+    
+    protected $attributes = [
+        'active' => 0,
+    ];
+
     public function posts()
     {
         return $this->hasMany(Blog::class);

@@ -1,0 +1,23 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* @import 'flatpickr/dist/flatpickr.css';  */
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="week"],
+select[multiple],
+textarea,
+select {
+    @apply mt-1 block w-full rounded-md border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400
+     focus:ring-opacity-50  sm:text-sm;
+}

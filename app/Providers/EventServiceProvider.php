@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use App\Listeners\DisableForeignKeyMigrations;
-use App\Models\Blog;
-use App\Models\User;
-use App\Observers\BlogObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Database\Events\MigrationsStarted;
@@ -26,7 +23,6 @@ class EventServiceProvider extends ServiceProvider
         MigrationsStarted::class => [
             DisableForeignKeyMigrations::class,
         ]
-        
     ];
 
     /**
