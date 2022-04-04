@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('social_fa')->nullable();
             $table->string('social_tw')->nullable();
             $table->string('social_yt')->nullable();
+            $table->boolean('active')->default(0);
             $table->foreignId('location_id')->constrained('locations');
             $table->foreignId('category_id')->constrained('categories');
             $table->softDeletes();

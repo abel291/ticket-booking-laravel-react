@@ -2,19 +2,24 @@
 
 namespace App\Models;
 
+use App\Enums\EventTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TicketType extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    protected $casts = [
+        'type' => EventTypes::class,
+    ];
 
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
-    public function event_dates()
+    public function sessions()
     {
-        return $this->belongsToMany(EventDate::class,'ticket_type_date');
+        return $this->belongsToMany(Session::class);
     }
 }

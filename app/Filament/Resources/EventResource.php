@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
 use Filament\Resources\Form;
@@ -16,7 +17,12 @@ class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
 
+    public static ?string $path_img = 'events/';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $label = 'Evento';
+
 
     public static function form(Form $form): Form
     {
@@ -48,11 +54,13 @@ class EventResource extends Resource
                     ->label('Ubicacion')
                     ->required()
                     ->columnSpan(2),
+                Forms\Components\Toggle::make('active')->label('Activo')
+                    ->required(),
 
                 Forms\Components\TextInput::make('des_min')
                     ->label('Descripción pequeña')
                     ->required()
-                    ->columnSpan(3)
+                    ->columnSpan(2)
                     ->maxLength(255),
 
                 Forms\Components\RichEditor::make('des_max')
@@ -137,6 +145,20 @@ class EventResource extends Resource
                 Tables\Columns\TextColumn::make('duration')->label('Duracion'),
                 Tables\Columns\TextColumn::make('updated_at')->dateTime('M d, Y h:i A')->label('Última modificación'),
             ])
+            ->bulkActions([])
+            ->pushActions([
+                Tables\Actions\LinkAction::make('Eliminar')
+                    ->action(function (Event $record) {
+                        // if (!$record->events->count()) {
+                        //     $record->forceDelete();
+                        // } else {
+                        //     $record->delete();
+                        // }
+                        Filament::notify('success', 'Registro borrado');
+                    })
+                    ->requiresConfirmation()
+                    ->color('danger'),
+            ])->defaultSort('id', 'desc')
             ->filters([
                 //
             ]);
@@ -145,7 +167,8 @@ class EventResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TicketTypesRelationManager::class,
+            RelationManagers\SessionsRelationManager::class,
         ];
     }
 

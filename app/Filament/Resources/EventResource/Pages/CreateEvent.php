@@ -26,26 +26,29 @@ class CreateEvent extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        $path = EventResource::$path_img;
 
         $data['slug'] = Str::slug($data['slug']);
 
         $data['img_banner'] = Helpers::move_image(
             path_old_img: $data['img_banner'],
             name: 'banner-' . $data['slug'],
-            location: 'events/' . $data['slug']
+            location: $path  . $data['slug']
         );
 
         $data['img_card'] = Helpers::move_image(
             path_old_img: $data['img_card'],
             name: 'card-' . $data['slug'],
-            location: 'events/' . $data['slug']
+            location: $path  . $data['slug']
         );
 
         $data['img_thum'] = Helpers::move_image(
             path_old_img: $data['img_thum'],
             name: 'thum-' . $data['slug'],
-            location: 'events/' . $data['slug']
+            location: $path  . $data['slug']
         );
+
+
 
         return $data;
     }

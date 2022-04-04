@@ -5,9 +5,10 @@ namespace Database\Seeders;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Event;
-use App\Models\EventDate;
+
 use App\Models\Image;
 use App\Models\Location;
+use App\Models\Session;
 use App\Models\TicketType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,7 +27,7 @@ class CategorySeeder extends Seeder
         Blog::truncate();
         Event::truncate();
         Image::truncate();
-        EventDate::truncate();
+        Session::truncate();
         TicketType::truncate();
 
         $location = Location::get();
@@ -54,8 +55,8 @@ class CategorySeeder extends Seeder
                 ->has(Blog::factory()->count(1), 'posts')
                 ->has(
                     Event::factory()
-                        ->hasImages(3)
-                        ->hasDates(5)
+                        ->hasImages(3)                        
+                        ->hasSessions(3)                        
                         ->has(TicketType::factory()->count(3), 'ticket_types')
                         ->count(8)->state(function () use ($location) {
                             return ['location_id' => $location->random()->id];
@@ -65,3 +66,5 @@ class CategorySeeder extends Seeder
         }
     }
 }
+
+//volver a colocar la tabla pivot ticket_type y session

@@ -4,7 +4,8 @@ namespace App\Enums;
 
 enum TicketTypes: int
 {
-    case Standar = 1;
-    case Premium = 2;
-    case VIP = 3;
+    
+    case FREE = 1;
+    case PAID = 2;
+    //case VIP = 3;
 }
