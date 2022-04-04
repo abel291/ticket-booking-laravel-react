@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('quantity');
             $table->timestamp('expired');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

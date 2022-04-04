@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('img');
             $table->string('desc_min');
             $table->text('desc_max');
-            $table->foreignId('category_id')->idenx();
+            $table->boolean('active')->default(0);
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }

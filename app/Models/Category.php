@@ -10,6 +10,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    
+    protected $attributes = [
+        'active' => 0,
+    ];
+
     public function posts()
     {
         return $this->hasMany(Blog::class);

@@ -1,0 +1,57 @@
+<div>
+    <div x-data="{
+        show : @entangle('open').defer ,
+        edit : @entangle('edit_var').defer ,
+        }" @open-modal-edit.window="show = true ; id=$event.detail; $wire.edit($event.detail)">
+        <x-button x-on:click="show = true" wire:click="create">Agregar {{ $label }}</x-button>
+
+        <x-modal>
+            <x-slot name="title">
+                <h2>{{ $label_plural }}</h2>
+            </x-slot>
+            <x-slot name="content">
+                <div class="grid grid-cols-3 gap-4">
+
+                    <div>
+                        <x-form.label class="block">Nombre</x-form.label>
+                        <div>
+                            <x-form.input required type="text" class="w-full" wire:model.defer="category.name" />
+                            <x-form.input-error for="category.name" />
+                        </div>
+                    </div>
+                    <div>
+                        <x-form.label class="block">Slug</x-form.label>
+                        <div>
+                            <x-form.input required type="text" class="w-full" wire:model.defer="category.slug" />
+                            <x-form.input-error for="category.slug" />
+                        </div>
+                    </div>
+                    <div class="">
+                        <x-form.label class="block">Activo</x-form.label>
+                        <div class="mt-2">
+                            <x-form.active required wire:model.defer="category.active" />
+                            <x-form.input-error for="category.active" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-secondary-button x-on:click="show = false" wire:loading.attr="disabled">
+                    volver
+                </x-secondary-button>
+                <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
+                    Guardar
+                </x-button>
+                <x-button x-show="edit" x-on:click="$wire.update(id)" class="ml-2"
+                    wire:loading.attr="disabled">
+                    Editar </x-button>
+            </x-slot>
+        </x-modal>
+    </div>
+
+    <!--Modal confirmation delete-->
+    <x-modal-confirmation-delete />
+</div>

@@ -10,6 +10,7 @@ class Payment extends Model
     use HasFactory;
     protected $casts = [
         'event' => 'array',
+        'user' => 'array',
     ];
     public function ticket_type_dates()
     {

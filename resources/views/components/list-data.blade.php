@@ -1,11 +1,11 @@
 <div>
     <div class="pb-6">
-        <div class=" max-w-7xl mx-auto sm:px-4 lg:px-8">
+        <div class=" max-w-7xl mx-auto ">
             <div class="mb-2">
                 <div class="flex justify-between">
                     <div class="flex mb-2 items-center">
-                        <x-jet-input wire:model.debounce.500ms="search" class="mr-4" placeholder="buscador">
-                        </x-jet-input>
+                        <x-form.input type="text" wire:model.debounce.500ms="search" class="mr-4" placeholder="buscador">
+                        </x-form.input>
                         <div wire:loading wire:target="search">
                             <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
@@ -20,8 +20,8 @@
                     {{ $component_create }}
                 </div>
                 <div class="flex flex-col">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="-my-2 overflow-x-auto ">
+                        <div class="py-2 align-middle inline-block min-w-full ">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
@@ -42,9 +42,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
                                         @if ($data->isNotEmpty())
-                                            {{ $table_td }}
+                                            {{ $table_body }}
                                         @else
                                             <tr>
                                                 <td colspan="3" class="px-6 py-3 ">No hay registros</td>

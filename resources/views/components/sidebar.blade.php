@@ -7,14 +7,14 @@ $nav_items = [
     ],
     [
         'name' => 'Usuarios',
-        'route' => 'dashboard.home',
+        'route' => 'dashboard.users',
         'icon' => 'user',
     ],
-    // [
-    //     'name' => 'Categorias',
-    //     'route' => 'dashboard.categories',
-    //     'icon' => 'view-grid',
-    // ],
+    [
+        'name' => 'Categorias',
+        'route' => 'dashboard.categories',
+        'icon' => 'view-grid',
+    ],
     // [
     //     'name' => 'Productos',
     //     'route' => 'dashboard.products',

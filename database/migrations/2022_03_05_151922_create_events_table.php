@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('name');
             $table->string('duration');
             $table->string('des_min');
@@ -25,15 +25,17 @@ return new class extends Migration
             $table->string('calificación')->nullable(); //movies
             $table->string('img_banner');
             $table->string('img_card');
-            $table->string('img_thum')->nullable();;
+            $table->string('img_thum')->nullable();
             $table->string('ceo_title');
             $table->string('ceo_desc');
             $table->string('social_fa')->nullable();
             $table->string('social_tw')->nullable();
             $table->string('social_yt')->nullable();
-            $table->foreignId('location_id')->index();
-            $table->foreignId('category_id')->idenx();
+            $table->foreignId('location_id')->constrained('locations');
+            $table->foreignId('category_id')->constrained('categories');
+            $table->softDeletes();
             $table->timestamps();
+            
         });
     }
 
@@ -47,5 +49,3 @@ return new class extends Migration
         Schema::dropIfExists('events');
     }
 };
-/*$table->string('name');
-             */

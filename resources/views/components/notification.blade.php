@@ -2,17 +2,18 @@
 
     <div x-data="{ show: false, timeout: null ,title:'',subtitle:'' }" @notification.window="
         show = true;
-        clearTimeout(timeout);         
+        clearTimeout(timeout);
         timeout = setTimeout(() => {
-            show = false 
+            show = false
         }, 4000);
         title=$event.detail.title
-        subtitle=$event.detail.subtitle" style="display: none" x-show.transition.opacity.out.duration.1000ms="show"
+        subtitle=$event.detail.subtitle ? $event.detail.subtitle:''" style="display: none"
+        x-show.transition.opacity.out.duration.1000ms="show"
         class="bg-white rounded-lg px-4 py-3 inline-block shadow-sm fixed top-20 right-5 top border border-opacity-75  z-50">
         <div class="flex justify-between">
             <div>
-                <p class="font-medium text-sm text-green-500"x-html="title"></p>
-                <p class="text-sm text-gray-500"  x-html="subtitle"></p>
+                <p class="font-medium text-sm text-green-500" x-html="title"></p>
+                <p class="text-sm text-gray-500" x-html="subtitle"></p>
             </div>
 
             <div class="pl-3">
@@ -27,10 +28,10 @@
             </div>
         </div>
     </div>
-    <!-- <div x-data="{show: false , msg:''}" 
-    class="bg-indigo-600" 
+    <!-- <div x-data="{show: false , msg:''}"
+    class="bg-indigo-600"
     x-show="show"
-    style="display: none;"    
+    style="display: none;"
     @notification.window=" show = true ; msg = $event.detail " >
         <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between flex-wrap">

@@ -21,8 +21,9 @@ return new class extends Migration
             $table->float('total_price');
             $table->tinyInteger('status')->default(1);            
             $table->json('event');            
-            $table->foreignId('event_id');
-            $table->index(['event_id']);
+            $table->json('user');            
+            $table->foreignId('event_id')->constrained('events');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

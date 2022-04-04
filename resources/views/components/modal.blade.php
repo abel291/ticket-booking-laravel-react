@@ -11,13 +11,32 @@
         </div>
 
         <div x-show="show"
-            class="relative bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-2xl "
+            class=" bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-2xl md:max-w-4xl "
             x-transition:enter="ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-            {{ $slot }}
+            <div class="px-7 py-7 ">
+                <div class="text-lg font-medium">
+                    {{ $title }}
+                </div>
+
+                <div class="mt-4 content-modal relative">
+                    <div wire:loading.flex wire:target="create, edit" class="items-start absolute inset-0">
+                        <x-spinner-loading class="h-5 w-5 text-gray-600" /> Cargando...
+                    </div>
+                    <div wire:loading.class="invisible" wire:target="create, edit">
+                        {{ $content }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="px-6 py-4 bg-gray-100 text-right">
+                {{ $footer }}
+            </div>
+
 
         </div>
     </div>
