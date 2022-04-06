@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone');
+<<<<<<< HEAD
             $table->boolean('active')->default(1);
+=======
+            $table->boolean('active')->default(0);
+>>>>>>> dashboard-tailwind
             $table->softDeletes();
             $table->timestamps();
         });

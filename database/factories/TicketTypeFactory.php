@@ -20,7 +20,11 @@ class TicketTypeFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'quantity' => rand(200, 500),
+<<<<<<< HEAD
             'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::PAID->value]),
+=======
+            'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::FREE->value]),
+>>>>>>> dashboard-tailwind
             'price' => rand(10, 50),
             //'price_default' => false,
             'desc' => $this->faker->text(200),

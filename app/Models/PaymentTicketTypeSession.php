@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 
+<<<<<<<< HEAD:app/Models/PaymentTicketTypeSession.php
 class PaymentTicketTypeSession extends Model
+========
+class PaymentTicketType extends Model
+>>>>>>>> dashboard-tailwind:app/Models/PaymentTicketType.php
 {
     use HasFactory;
     protected $casts = [

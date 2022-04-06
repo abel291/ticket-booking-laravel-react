@@ -2,10 +2,9 @@
 
 namespace App\Enums;
 
-enum TicketTypes: int
+enum TicketTypes: string
 {
+    case FREE = 'free';
+    case Paid = 'paid';
     
-    case FREE = 1;
-    case PAID = 2;
-    //case VIP = 3;
 }

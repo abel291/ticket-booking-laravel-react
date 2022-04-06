@@ -9,6 +9,7 @@ class Session extends Model
 {
     use HasFactory;
     
+<<<<<<< HEAD
     // public function ticket_types()
     // {
     //     return $this->belongsToMany(TicketType::class);
@@ -17,5 +18,10 @@ class Session extends Model
     public function event()
     {
         return $this->belongsTo(Event::class);
+=======
+    public function ticket_types()
+    {
+        return $this->belongsToMany(Event::class);
+>>>>>>> dashboard-tailwind
     }
 }

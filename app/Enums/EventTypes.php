@@ -3,9 +3,9 @@
 namespace App\Enums;
 
 
-enum EventTypes: int
+enum EventTypes: string
 {
-    case Movie = 1;
-    case Event = 2;
-    case Sport = 3;
+    case MOVIE = 'movie';
+    case EVENT = 'event';
+    case SPORT = 'sport';
 }

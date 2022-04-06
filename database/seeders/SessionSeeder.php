@@ -19,6 +19,7 @@ class SessionSeeder extends Seeder
     public function run()
     {
         DB::table('session_ticket_type')->truncate();
+<<<<<<< HEAD:database/seeders/SessionSeeder.php
         //Session::truncate();
 
         
@@ -27,9 +28,18 @@ class SessionSeeder extends Seeder
         foreach ($events as  $event) {
             
             foreach ($event->sessions as $key => $session) {
+=======
 
-                foreach ($event->ticket_types as $key => $ticket_type) {
+        $events = Event::with('ticket_types', 'sessions')->get();
+        
+        // foreach ($events as  $event) {
 
+        //     foreach ($event->sessions as  $session) {
+>>>>>>> dashboard-tailwind:database/seeders/TicketTypeSeeder.php
+
+        //         foreach ($event->ticket_types as  $ticket_type) {
+
+<<<<<<< HEAD:database/seeders/SessionSeeder.php
                     DB::table('session_ticket_type')->insert([
 
                         'ticket_type_id' => $ticket_type->id,
@@ -39,5 +49,16 @@ class SessionSeeder extends Seeder
                 }
             }
         }
+=======
+        //             DB::table('ticket_type_session')->insert([
+                        
+        //                 'ticket_type_id' => $ticket_type->id,
+
+        //                 'session_id' => $session->id
+        //             ]);
+        //         }
+        //     }
+        // }
+>>>>>>> dashboard-tailwind:database/seeders/TicketTypeSeeder.php
     }
 }

@@ -9,8 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
     protected $guarded = [];
     
+=======
+
+    protected $casts = [
+        'type' => EventTypes::class,
+    ];
+>>>>>>> dashboard-tailwind
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') ." | ". (isset($header) ? $header : 'Admin' )}}</title>
 
     <!-- Fonts -->
     {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,21 +32,24 @@
 
             @include('navigation-menu')
             <x-notification />
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class=" ">
-                    <div class="max-w-7xl mx-auto pt-6 px-4 sm:px-6 lg:px-8">
-                        <h2 class="font-bold text-xl text-gray-800 leading-tight">
-                            {{ $header }}
-                        </h2>
-                    </div>
-                </header>
-            @endif
 
-            <!-- Page Content -->
-            <main class="py-6 mx-auto sm:px-6 lg:px-8">
-                {{ $slot }}
-            </main>
+            <div class="max-w-7xl mx-auto">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class=" ">
+                        <div class="pt-6 px-4 sm:px-6 lg:px-8">
+                            <h2 class="font-bold text-xl text-gray-800 leading-tight">
+                                {{ $header }}
+                            </h2>
+                        </div>
+                    </header>
+                @endif
+
+                <!-- Page Content -->
+                <main class="py-6 mx-auto sm:px-6 lg:px-8">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
     </div>
 

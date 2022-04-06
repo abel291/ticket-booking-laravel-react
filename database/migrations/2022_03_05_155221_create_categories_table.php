@@ -17,8 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+<<<<<<< HEAD
             $table->boolean('active')->default(0);
             $table->softDeletes();
+=======
+            $table->boolean('active')->default(1);
+>>>>>>> dashboard-tailwind
             $table->timestamps();
         });
     }

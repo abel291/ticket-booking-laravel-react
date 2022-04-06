@@ -1,17 +1,18 @@
 <div>
     <div x-data="{
-        show : @entangle('open').defer ,
-        edit : @entangle('edit_var').defer ,
-        }" @open-modal-edit.window="show = true ; id=$event.detail; $wire.edit($event.detail)">
-        <x-button x-on:click="show = true" wire:click="create">Agregar {{ $label }}</x-button>
+        show: @entangle('open').defer,
+        edit: false,
+    }" @open-modal-edit.window=" show = true;edit= true; $wire.edit($event.detail)">
+        <x-button x-on:click="show = true;edit=false;" wire:click="create">Agregar {{ $label }}</x-button>
 
         <x-modal>
+
             <x-slot name="title">
                 <h2>{{ $label_plural }}</h2>
             </x-slot>
             <x-slot name="content">
-                <div class="grid grid-cols-3 gap-4">
 
+                <div class="grid grid-cols-3 gap-4 mb-6">
                     <div>
                         <x-form.label class="block">Nombre</x-form.label>
                         <div>
@@ -34,21 +35,26 @@
                         </div>
                     </div>
 
-
                 </div>
             </x-slot>
 
             <x-slot name="footer">
-                <x-secondary-button x-on:click="show = false" wire:loading.attr="disabled">
-                    volver
-                </x-secondary-button>
-                <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
-                    Guardar
-                </x-button>
-                <x-button x-show="edit" x-on:click="$wire.update(id)" class="ml-2"
-                    wire:loading.attr="disabled">
-                    Editar </x-button>
+                <div class="text-right">
+                    <x-secondary-button x-on:click="show=false" wire:loading.attr="disabled">
+                        volver
+                    </x-secondary-button>
+
+
+                    <x-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
+                        Editar </x-button>
+
+                    <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
+                        Guardar
+                    </x-button>
+
+                </div>
             </x-slot>
+            
         </x-modal>
     </div>
 

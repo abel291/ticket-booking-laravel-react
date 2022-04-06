@@ -5,7 +5,11 @@ namespace Database\Seeders;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Event;
+<<<<<<< HEAD
 
+=======
+use App\Models\Session;
+>>>>>>> dashboard-tailwind
 use App\Models\Image;
 use App\Models\Location;
 use App\Models\Session;
@@ -31,6 +35,7 @@ class CategorySeeder extends Seeder
         TicketType::truncate();
 
         $location = Location::get();
+<<<<<<< HEAD
         $categories = [
             'Ballet',
             'Circo',
@@ -64,6 +69,20 @@ class CategorySeeder extends Seeder
                 )
                 ->create();
         }
+=======
+        Category::factory(12)
+            ->has(Blog::factory()->hasImages(3)->count(1), 'posts')
+            ->has(
+                Event::factory()
+                    ->hasImages(3)
+                    ->hasSessions(5)
+                    ->has(TicketType::factory()->count(3),'ticket_types')
+                    ->count(8)->state(function () use ($location) {
+                        return ['location_id' => $location->random()->id];
+                    })
+            )
+            ->create();
+>>>>>>> dashboard-tailwind
     }
 }
 

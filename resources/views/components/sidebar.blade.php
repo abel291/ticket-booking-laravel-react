@@ -15,11 +15,12 @@ $nav_items = [
         'route' => 'dashboard.categories',
         'icon' => 'view-grid',
     ],
-    // [
-    //     'name' => 'Productos',
-    //     'route' => 'dashboard.products',
-    //     'icon' => 'shopping-bag',
-    // ],
+    [
+        'name' => 'Ubicaciones',
+        'route' => 'dashboard.locations',
+        'icon' => 'view-grid',
+    ],
+    
     // [
     //     'name' => 'Targeta de regalo',
     //     'route' => 'dashboard.gift_card',

@@ -18,8 +18,15 @@ class TicketType extends Model
     {
         return $this->belongsTo(Event::class);
     }
+<<<<<<< HEAD
     public function sessions()
     {
         return $this->belongsToMany(Session::class);
     }
+=======
+    // public function sessions()
+    // {
+    //     return $this->belongsToMany(Session::class,'session_ticket_type');
+    // }
+>>>>>>> dashboard-tailwind
 }
