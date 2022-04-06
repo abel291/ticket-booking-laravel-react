@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_type_date', function (Blueprint $table) {
+        Schema::create('payment_ticket_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
-            $table->foreignId('event_date_id')->constrained('event_dates')->cascadeOnDelete();            
+            $table->unsignedTinyInteger('quantity');
+            $table->float('total_price');
+            $table->json('session');
+            $table->json('ticket_type');
+            $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_type_date');
+        Schema::dropIfExists('payment_ticket_types');
     }
 };

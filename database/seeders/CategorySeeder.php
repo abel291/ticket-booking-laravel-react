@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Event;
-use App\Models\EventDate;
+use App\Models\Session;
 use App\Models\Image;
 use App\Models\Location;
 use App\Models\TicketType;
@@ -25,7 +25,7 @@ class CategorySeeder extends Seeder
         Blog::truncate();
         Event::truncate();
         Image::truncate();
-        EventDate::truncate();
+        Session::truncate();
         TicketType::truncate();
 
         $location = Location::get();
@@ -34,7 +34,7 @@ class CategorySeeder extends Seeder
             ->has(
                 Event::factory()
                     ->hasImages(3)
-                    ->hasDates(5)
+                    ->hasSessions(5)
                     ->has(TicketType::factory()->count(3),'ticket_types')
                     ->count(8)->state(function () use ($location) {
                         return ['location_id' => $location->random()->id];

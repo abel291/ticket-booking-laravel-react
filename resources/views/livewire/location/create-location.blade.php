@@ -16,24 +16,36 @@
                     <div>
                         <x-form.label class="block">Nombre</x-form.label>
                         <div>
-                            <x-form.input required type="text" class="w-full" wire:model.defer="category.name" />
-                            <x-form.input-error for="category.name" />
+                            <x-form.input required type="text" class="w-full" wire:model.defer="location.name" />
+                            <x-form.input-error for="location.name" />
                         </div>
                     </div>
                     <div>
-                        <x-form.label class="block">Slug</x-form.label>
+                        <x-form.label class="block">Telefono</x-form.label>
                         <div>
-                            <x-form.input required type="text" class="w-full" wire:model.defer="category.slug" />
-                            <x-form.input-error for="category.slug" />
+                            <x-form.input required type="text" class="w-full"
+                                wire:model.defer="location.phone" />
+                            <x-form.input-error for="location.phone" />
                         </div>
                     </div>
-                    <div class="">
+                    <div>
                         <x-form.label class="block">Activo</x-form.label>
                         <div class="mt-2">
-                            <x-form.active required wire:model.defer="category.active" />
-                            <x-form.input-error for="category.active" />
+                            <x-form.active required wire:model.defer="location.active" />
+                            <x-form.input-error for="location.active" />
                         </div>
                     </div>
+
+                    <div class="col-span-3">
+                        <x-form.label class="block">Direccion</x-form.label>
+                        <div>
+                            <x-form.input required type="text" class="w-full"
+                                wire:model.defer="location.address" />
+                            <x-form.input-error for="location.address" />
+                        </div>
+                    </div>
+
+
 
                 </div>
             </x-slot>
@@ -54,7 +66,7 @@
 
                 </div>
             </x-slot>
-            
+
         </x-modal>
     </div>
 

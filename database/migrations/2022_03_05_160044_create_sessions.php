@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('event_dates', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->id();            
             $table->date('date');
-            $table->json('times');
+            $table->time('time');
+            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_dates');
+        Schema::dropIfExists('sessions');
     }
 };

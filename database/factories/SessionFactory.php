@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reservation>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ticket>
  */
-class ReservationFactory extends Factory
+class SessionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time('h:i')
+
         ];
     }
 }

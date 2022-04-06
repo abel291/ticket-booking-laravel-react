@@ -17,24 +17,24 @@ class TicketTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ticket_type_date')->truncate();
+        DB::table('session_ticket_type')->truncate();
 
-        $events = Event::with('ticket_types', 'dates')->get();
+        $events = Event::with('ticket_types', 'sessions')->get();
         
-        foreach ($events as  $event) {
+        // foreach ($events as  $event) {
 
-            foreach ($event->dates as $key => $date) {
+        //     foreach ($event->sessions as  $session) {
 
-                foreach ($event->ticket_types as $key => $ticket_type) {
+        //         foreach ($event->ticket_types as  $ticket_type) {
 
-                    DB::table('ticket_type_date')->insert([
+        //             DB::table('ticket_type_session')->insert([
                         
-                        'ticket_type_id' => $ticket_type->id,
+        //                 'ticket_type_id' => $ticket_type->id,
 
-                        'event_date_id' => $date->id
-                    ]);
-                }
-            }
-        }
+        //                 'session_id' => $session->id
+        //             ]);
+        //         }
+        //     }
+        // }
     }
 }

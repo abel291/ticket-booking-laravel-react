@@ -13,8 +13,8 @@ class TicketType extends Model
     {
         return $this->belongsTo(Event::class);
     }
-    public function event_dates()
-    {
-        return $this->belongsToMany(EventDate::class,'ticket_type_date');
-    }
+    // public function sessions()
+    // {
+    //     return $this->belongsToMany(Session::class,'session_ticket_type');
+    // }
 }

@@ -12,8 +12,8 @@ class Payment extends Model
         'event' => 'array',
         'user' => 'array',
     ];
-    public function ticket_type_dates()
+    public function ticket_types()
     {
-        return  $this->hasMany(TicketTypeDate::class);
+        return  $this->hasMany(TicketType::class);
     }
 }

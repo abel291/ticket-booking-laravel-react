@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TicketTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class TicketTypeFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'quantity' => rand(200, 500),
-            'type' => $this->faker->randomElement(['paid', 'free']),
+            'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::FREE->value]),
             'price' => rand(10, 50),
             'price_default' => false,
             'desc' => $this->faker->text(200),

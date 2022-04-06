@@ -4,10 +4,10 @@
     </x-slot>
     <div>
         <div>
-            <x-list-data :data="$data" :fields="['Nombre - slug', 'Eventos Asociados', 'Activo']">
+            <x-list-data :data="$data" :fields="['Nombre - Direccion', 'Eventos Asociados', 'Activo']">
 
                 <x-slot name="component_create">
-                    @livewire('category.create-category',['label'=>$label,'label_plural'=>$label_plural])
+                    @livewire('location.create-location',['label'=>$label,'label_plural'=>$label_plural])
                 </x-slot>
 
                 <x-slot name="table_body">
@@ -17,10 +17,10 @@
                             <td class="px-6 py-3 ">
 
                                 <div class="font-medium text-gray-900">
-                                    {{ $item->name }}
+                                   {{ $item->name }}
                                 </div>
                                 <div class="text-gray-500">
-                                    {{ $item->slug }}
+                                    {{ $item->address }}
                                 </div>
 
                             </td>
@@ -45,6 +45,7 @@
                                     x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Edit</a>
 
                                 <a href="#" class="font-medium text-red-600 hover:text-red-900 ml-3 " x-data
+                                    
                                     x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }});console.log({{ $item->id }})">Delete</a>
                             </td>
                         </tr>

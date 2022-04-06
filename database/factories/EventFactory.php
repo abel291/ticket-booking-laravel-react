@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Enums\EventTypes;
+use App\Enums\TicketTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
@@ -18,10 +19,17 @@ class EventFactory extends Factory
     public function definition()
     {
         $img = rand(1, 20);
+        $name=$this->faker->sentence(4);
         return [
-            'slug' => $this->faker->name(),
-            'name' => $this->faker->name(),
+            'name' => $name,
+            'slug' => Str::slug($name),            
             'duration' => rand(1, 3) . ' hrs ' . rand(1, 59) . ' mins',
+            'type' => $this->faker->randomElement([
+                EventTypes::EVENT->value,
+                EventTypes::SPORT->value,
+                EventTypes::MOVIE->value,
+            ]),
+
             'des_min' => $this->faker->text(150),
             'des_max' => $this->faker->text(500),
             'tomatoes' => rand(50, 100),
@@ -34,7 +42,7 @@ class EventFactory extends Factory
             'ceo_desc' => $this->faker->sentence(),
             'social_fa' => $this->faker->domainName(),
             'social_tw' => $this->faker->domainName(),
-            'social_yt' => $this->faker->domainName(),            
+            'social_yt' => $this->faker->domainName(),
         ];
     }
 }

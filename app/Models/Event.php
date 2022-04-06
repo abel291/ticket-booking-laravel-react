@@ -10,9 +10,9 @@ class Event extends Model
 {
     use HasFactory;
 
-    // protected $casts = [
-    //     'type' => EventTypes::class,
-    // ];
+    protected $casts = [
+        'type' => EventTypes::class,
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -22,9 +22,9 @@ class Event extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function dates()
+    public function sessions()
     {
-        return $this->hasMany(EventDate::class);
+        return $this->hasMany(Session::class);
     }
 
     public function ticket_types()
