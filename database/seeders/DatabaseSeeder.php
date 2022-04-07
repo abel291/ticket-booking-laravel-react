@@ -17,11 +17,14 @@ class DatabaseSeeder extends Seeder
         //dd(EventTypes::Event->value);
         Schema::disableForeignKeyConstraints();
 
+
+        
+        
         $this->call([
             UserSeeder::class,
             LocationSeeder::class,
             CategorySeeder::class, // products and posts
-            SessionSeeder::class,
+            TicketTypeSeeder::class,
             PaymentSeeder::class,
             PromotionSeeder::class,
 

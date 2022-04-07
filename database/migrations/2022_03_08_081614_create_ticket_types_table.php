@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('quantity');            
+            $table->string('quantity');
+            $table->string('type');
             $table->float('price');
-            //$table->boolean('price_default');
+            $table->boolean('price_default');
             $table->string('desc');
             $table->tinyInteger('min_tickets_purchase');
             $table->tinyInteger('max_tickets_purchase');
             $table->boolean('show_remaining_entries');
-            $table->boolean('active')->default(0);            
-            $table->unsignedTinyInteger('type');            
+            $table->boolean('active');            
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });

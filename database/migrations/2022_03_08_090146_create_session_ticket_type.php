@@ -16,11 +16,7 @@ return new class extends Migration
         Schema::create('session_ticket_type', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
-<<<<<<<< HEAD:database/migrations/2022_03_08_090146_ticket_type_session.php
-            $table->foreignId('session_id')->constrained('sessions')->cascadeOnDelete();
-========
             $table->foreignId('session_id')->constrained('sessions')->cascadeOnDelete();            
->>>>>>>> dashboard-tailwind:database/migrations/2022_03_08_090146_create_session_ticket_type.php
         });
     }
 

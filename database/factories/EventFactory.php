@@ -32,9 +32,9 @@ class EventFactory extends Factory
 
             'des_min' => $this->faker->text(150),
             'des_max' => $this->faker->text(500),
-            // 'tomatoes' => rand(50, 100),
-            // 'audience' => rand(50, 100),
-            // 'calificación' => rand(70, 100),
+            'tomatoes' => rand(50, 100),
+            'audience' => rand(50, 100),
+            'calificación' => rand(70, 100),
             'img_banner' => "/event/banner/img-" . $img . ".jpg",
             'img_card' => "/event/card/img-" . $img . ".jpg",
             'img_thum' => "/event/thumb/img-" . $img . ".jpg",

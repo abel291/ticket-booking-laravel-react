@@ -32,8 +32,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blog::observe(BlogObserver::class);
+        //
     }
+
     /**
      * Determine if events and listeners should be automatically discovered.
      *

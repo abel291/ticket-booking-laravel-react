@@ -29,7 +29,7 @@ mix.js("resources/js/app.js", "public/js")
         tailwindcss("./tailwind.config.js"),
         require("autoprefixer"),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require("./webpack.config"));
 
 if (mix.inProduction()) {
     mix.version();

@@ -15,16 +15,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('name');
-            $table->string('slug')->unique();            
             $table->string('duration');
             $table->string('type',20);
             $table->string('des_min');
             $table->text('des_max');
-            // $table->string('type')->nullable();
-            // $table->string('tomatoes')->nullable(); //movies
-            // $table->string('audience')->nullable(); //movies
-            $table->string('score')->nullable(); //movies
+            $table->string('tomatoes')->nullable(); //movies
+            $table->string('audience')->nullable(); //movies
+            $table->string('calificación')->nullable(); //movies
             $table->string('img_banner');
             $table->string('img_card');
             $table->string('img_thum')->nullable();
@@ -33,14 +32,8 @@ return new class extends Migration
             $table->string('social_fa')->nullable();
             $table->string('social_tw')->nullable();
             $table->string('social_yt')->nullable();
-<<<<<<< HEAD
-            $table->boolean('active')->default(0);
-            $table->foreignId('location_id')->constrained('locations');
-            $table->foreignId('category_id')->constrained('categories');
-=======
             $table->foreignId('location_id')->nullable()->constrained('locations')->nullOnDelete();
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
->>>>>>> dashboard-tailwind
             $table->softDeletes();
             $table->timestamps();
             
