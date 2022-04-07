@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->id();            
-            $table->date('date');
-            $table->time('time');
+        Schema::create('event_promotion', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
-            $table->timestamps();
+            $table->foreignId('promotion_id')->constrained('promotions')->cascadeOnDelete();            
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('event_promotion');
     }
 };

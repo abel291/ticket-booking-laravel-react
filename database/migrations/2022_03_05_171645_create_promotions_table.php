@@ -17,10 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->integer('value');
-            $table->string('type');
+            $table->string('type',20); //percent- value
             $table->integer('quantity');
             $table->timestamp('expired');
-            $table->softDeletes();
+            $table->string('description')->nullable();
+            $table->boolean('active')->default(1);
+            //$table->softDeletes();
             $table->timestamps();
         });
     }

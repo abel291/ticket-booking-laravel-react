@@ -24,10 +24,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LocationSeeder::class,
             CategorySeeder::class, // products and posts
-            TicketTypeSeeder::class,
-            PaymentSeeder::class,
             PromotionSeeder::class,
-
+            PaymentSeeder::class,
         ]);
         Schema::enableForeignKeyConstraints();
     }

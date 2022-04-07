@@ -18,10 +18,8 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
-<<<<<<<< HEAD:database/migrations/2022_03_05_160044_create_sessions_table.php
             //$table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
-========
->>>>>>>> dashboard-tailwind:database/migrations/2022_03_05_160044_create_sessions.php
+
             $table->timestamps();
         });
     }

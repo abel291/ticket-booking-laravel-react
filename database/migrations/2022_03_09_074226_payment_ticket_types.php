@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payment_ticket_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('quantity');
-            $table->float('total_price');
+            $table->float('total');
             $table->json('session');
             $table->json('ticket_type');
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
