@@ -3,6 +3,7 @@
 use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Location\ListLocation;
+use App\Http\Livewire\Promotion\ListPromotion;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -77,11 +78,12 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/users', ListUsers::class)->name('users');
     Route::get('/categories', ListCategory::class)->name('categories');
     Route::get('/locations', ListLocation::class)->name('locations');
+    Route::get('/promotions', ListPromotion::class)->name('promotions');
     //Route::get('/gift_card', ListGiftCard::class)->name('gift_card');
     //Route::get('/discount_code', ListDiscountCode::class)->name('discount_code');
     //Route::get('/gallery', ListGallery::class)->name('gallery');
     //Route::get('/page', ListPage::class)->name('page');
-    //Route::get('/promo', ListPromo::class)->name('promo');
+    //
     //Route::get('/order', ListOrder::class)->name('order');
 });
 

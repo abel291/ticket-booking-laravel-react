@@ -5,7 +5,7 @@
             <div class="flex mb-2 justify-between items-start">
                 <div class="flex  items-center">
                     <x-form.input type="text" wire:model.debounce.500ms="search" class="mr-4"
-                        placeholder="buscador">
+                        placeholder="Buscador">
                     </x-form.input>
                     <div wire:loading wire:target="search">
                         <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"

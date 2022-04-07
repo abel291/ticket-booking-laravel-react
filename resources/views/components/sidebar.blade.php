@@ -20,6 +20,11 @@ $nav_items = [
         'route' => 'dashboard.locations',
         'icon' => 'view-grid',
     ],
+    [
+        'name' => 'Promociones',
+        'route' => 'dashboard.promotions',
+        'icon' => 'badge-check',
+    ],
     
     // [
     //     'name' => 'Targeta de regalo',
@@ -41,11 +46,7 @@ $nav_items = [
     //     'route' => 'dashboard.page',
     //     'icon' => 'collection',
     // ],
-    // [
-    //     'name' => 'Promos',
-    //     'route' => 'dashboard.promo',
-    //     'icon' => 'badge-check',
-    // ],
+    // 
     // [
     //     'name' => 'Ordernes',
     //     'route' => 'dashboard.order',

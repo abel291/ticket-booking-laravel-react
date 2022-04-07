@@ -8,6 +8,11 @@ use Illuminate\Support\Str;
 
 class Helpers
 {
+    public static function format_price($price = 0)
+    {
+
+        return '$ ' . number_format($price, 2);
+    }
 
     public static function move_image(string $path_old_img, string $name, string $location)
     {

@@ -9,11 +9,16 @@ class Payment extends Model
 {
     use HasFactory;
     protected $casts = [
-        'event' => 'array',
-        'user' => 'array',
+        'event_data' => 'array',
+        'user_data' => 'array',
+        'promotion_data' => 'array',
     ];
     public function ticket_types()
     {
         return  $this->hasMany(TicketType::class);
+    }
+    public function promotion()
+    {
+        return  $this->belongsTo(Promotion::class);
     }
 }

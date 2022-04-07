@@ -35,4 +35,8 @@ class Event extends Model
     {
         return $this->belongsTo(Location::class);
     }
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class);
+    }
 }

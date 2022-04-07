@@ -1,7 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-/* @import 'flatpickr/dist/flatpickr.css';  */
+@import 'flatpickr/dist/flatpickr.css';
 @layer utilities {
     input[type="text"],
     input[type="email"],
