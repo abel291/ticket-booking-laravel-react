@@ -25,6 +25,16 @@ $nav_items = [
         'route' => 'dashboard.promotions',
         'icon' => 'badge-check',
     ],
+    [
+        'name' => 'Blog',
+        'route' => 'dashboard.blog',
+        'icon' => 'badge-check',
+    ],
+    [
+        'name' => 'Eventos',
+        'route' => 'dashboard.events',
+        'icon' => 'badge-check',
+    ],
     
     // [
     //     'name' => 'Targeta de regalo',

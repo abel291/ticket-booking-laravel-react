@@ -6,9 +6,14 @@ use App\Enums\EventTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+class Event extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
 
     protected $casts = [
         'type' => EventTypes::class,
@@ -38,5 +43,26 @@ class Event extends Model
     public function promotions()
     {
         return $this->belongsToMany(Promotion::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Register the media collections
+     */
+    public function registerMediaCollections(): void
+    {
+
+        $this->addMediaCollection('banner')->singleFile();
+
+        $this->addMediaCollection('image')->singleFile()
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('thumb')
+                    //->width(320)
+                    ->height(320);
+            });
     }
 }

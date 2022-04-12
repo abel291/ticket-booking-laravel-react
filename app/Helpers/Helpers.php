@@ -3,8 +3,9 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManagerStatic as ImageManager;
 use Illuminate\Support\Str;
+use Spatie\Image\Image as SpatieImage;
+use Spatie\Image\Manipulations;
 
 class Helpers
 {
@@ -14,23 +15,32 @@ class Helpers
         return '$ ' . number_format($price, 2);
     }
 
-    public static function move_image(string $path_old_img, string $name, string $location)
+    public static function move_image(string $directory, string $image, string $name, string $extension, bool $thumb)
     {
-
-        $path_new_img = $location . '/' . self::generate_img_name($path_old_img, $name);
+        $new_name_img =  $name . '-' . Str::slug(Str::random(4)) . '.' . $extension;
 
         //SAVE IMG
-        $img_covert = ImageManager::make('storage/' . $path_old_img)->widen(1920, function ($constraint) {
-            $constraint->upsize();
-        })->limitColors(255)->encode();
+        Storage::makeDirectory($directory);
+        SpatieImage::load($image)
+            ->fit(Manipulations::FIT_MAX, 1920, 1080)
+            ->quality(80)
+            ->optimize()
+            ->save('storage/' . $directory . '/' . $new_name_img);
 
-        Storage::put($path_new_img, (string) $img_covert);
+        //img thum
+        if ($thumb) {
+            //Storage::makeDirectory($directory);
+            $new_name_img = 'thumb-' . $new_name_img;
+            SpatieImage::load($image) //optimizo imagen
+                ->width(420)
+                ->quality(80)
+                ->optimize()
+                ->save('storage/' . $directory . '/' . $new_name_img);
+        }
 
-        //se borra la imagen antigua que no se usara
-        Storage::delete($path_old_img);
-
-        return $path_new_img;
+        return $new_name_img;
     }
+
 
     // public static function images_store(array $images, string $path_name, $thumbnail = false)
     // {
@@ -46,26 +56,21 @@ class Helpers
 
 
 
-    public static function delete_images_all($model)
+    // public static function delete_images_all($model)
+    // {
+
+    //     if ($model->images->isNotEmpty()) {  //isNotEmpty  -> no esta vacio 
+    //         $images_delete = [];
+    //         foreach ($model->images as  $img) {
+    //             array_push($images_delete, $img->image);
+    //             array_push($images_delete, 'thumbnail/' . $img->image);
+    //         }
+    //         Storage::delete($images_delete);
+    //     }
+    // }
+    
+    public static function generate_img_name(string $name, string $extension)
     {
-
-        if ($model->images->isNotEmpty()) {  //isNotEmpty  -> no esta vacio 
-            $images_delete = [];
-            foreach ($model->images as  $img) {
-                array_push($images_delete, $img->image);
-                array_push($images_delete, 'thumbnail/' . $img->image);
-            }
-            Storage::delete($images_delete);
-        }
-    }
-    public static function generate_img_name(string $img, string $name)
-    {
-        $image_array_extension = explode('.', $img);
-
-        $extension = '.' . array_pop($image_array_extension); // get -> .jpg
-
-        $new_name_img = Str::slug($name) . '-' . rand(1, 100)  . $extension;
-
-        return $new_name_img;
+        return  $name . '-' . Str::slug(Str::random(5)) . '.' . $extension;
     }
 }

@@ -17,16 +17,17 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name');
+            $table->boolean('active');
             $table->string('duration');
             $table->string('type',20);
-            $table->string('des_min');
-            $table->text('des_max');
+            $table->string('desc_min');
+            $table->text('desc_max');
             $table->string('tomatoes')->nullable(); //movies
             $table->string('audience')->nullable(); //movies
             $table->string('calificación')->nullable(); //movies
-            $table->string('img_banner');
-            $table->string('img_card');
-            $table->string('img_thum')->nullable();
+            // $table->string('img_banner');
+            // $table->string('img_card');
+            // $table->string('img_thum')->nullable();
             $table->string('ceo_title');
             $table->string('ceo_desc');
             $table->string('social_fa')->nullable();

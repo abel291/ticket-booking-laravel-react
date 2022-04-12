@@ -22,6 +22,7 @@ class LocationFactory extends Factory
             "name" => ucfirst($name),
             "address" => $this->faker->address(), //
             "phone" => $this->faker->phoneNumber(), //
+            "active" => rand(0,1), //
         ];
     }
 }

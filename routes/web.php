@@ -4,6 +4,9 @@ use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Location\ListLocation;
 use App\Http\Livewire\Promotion\ListPromotion;
+use App\Http\Livewire\Blog\ListBlog;
+use App\Http\Livewire\Event\CreateEvent;
+use App\Http\Livewire\Event\ListEvent;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -79,6 +82,9 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/categories', ListCategory::class)->name('categories');
     Route::get('/locations', ListLocation::class)->name('locations');
     Route::get('/promotions', ListPromotion::class)->name('promotions');
+    Route::get('/blog', ListBlog::class)->name('blog');
+    Route::get('/events', ListEvent::class)->name('events');
+    Route::get('/create-event', CreateEvent::class)->name('create-event');
     //Route::get('/gift_card', ListGiftCard::class)->name('gift_card');
     //Route::get('/discount_code', ListDiscountCode::class)->name('discount_code');
     //Route::get('/gallery', ListGallery::class)->name('gallery');

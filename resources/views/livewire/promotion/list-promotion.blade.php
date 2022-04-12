@@ -37,18 +37,18 @@
                                 @endif
                             </td>
 
-                            <td class="px-6 py-3  ">
+                            <td class="px-6 py-3">
                                 <div class="text-gray-500">
                                     {{ $item->expired->format('Y-m-d g:i A') }}
                                 </div>
 
                             </td>
 
-                            <td class="px-6 py-3  ">
-                                <x-badge-active :active="$item->active" />
+                            <td class="px-6 py-3">
+                                <x-table.badge-active :active="$item->active" />
 
                             </td>
-                            <td class="px-6 py-3  ">
+                            <td class="px-6 py-3">
                                 <div class="text-gray-500">
                                     {{ $item->updated_at->format('Y-m-d h:i A') }}
                                 </div>

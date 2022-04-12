@@ -22,15 +22,14 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::truncate();
-        Blog::truncate();
+        
         Event::truncate();
         Image::truncate();
         Session::truncate();
         TicketType::truncate();
 
         $location = Location::get();
-        Category::factory(12)
-            ->has(Blog::factory()->hasImages(3)->count(1), 'posts')
+        $categories=Category::factory(12)            
             ->has(
                 Event::factory()
                     ->hasImages(3)
@@ -41,5 +40,7 @@ class CategorySeeder extends Seeder
                     })
             )
             ->create();
+
+        
     }
 }

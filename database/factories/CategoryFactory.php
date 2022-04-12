@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,11 +17,11 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->words(3,true);
+        $name = $this->faker->words(2, true);
         return [
             "name" => ucfirst($name),
-            "slug" => Str::slug($name), 
-            "active" => 1, 
+            "slug" => Str::slug($name),
+            "active" => rand(0, 1), //
         ];
     }
 }

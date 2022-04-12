@@ -21,4 +21,8 @@ class Payment extends Model
     {
         return  $this->belongsTo(Promotion::class);
     }
+    public function event()
+    {
+        return  $this->belongsTo(Event::class);
+    }
 }

@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import 'flatpickr/dist/flatpickr.css';
-@layer utilities {
+@layer components {
     input[type="text"],
     input[type="email"],
     input[type="url"],
@@ -14,7 +14,7 @@
     input[type="search"],
     input[type="tel"],
     input[type="time"],
-    input[type="week"],
+    input[type="week"],    
     select[multiple],
     textarea,
     select {

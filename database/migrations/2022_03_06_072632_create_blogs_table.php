@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('img');
-            $table->string('desc_min');
+            $table->string('image')->nullable();
+            $table->text('desc_min');
             $table->text('desc_max');
             $table->boolean('active')->default(0);
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();

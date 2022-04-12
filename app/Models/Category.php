@@ -17,7 +17,7 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->hasMany(Blog::class);
+        return $this->belongsToMany(Blog::class);
     }
 
     public function events()
