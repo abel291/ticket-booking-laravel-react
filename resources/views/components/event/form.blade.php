@@ -1,4 +1,4 @@
-<div class="grid grid-cols-2 gap-6 mb-6">
+<div class="grid grid-cols-4 gap-6 mb-6">
     <div class="col-span-2">
         <x-form.label class="block">Nombre</x-form.label>
         <div>
@@ -25,7 +25,16 @@
         </div>
     </div>    
     {{-- categories --}}
+    
     <div>
+        <x-form.label class="block">Activo</x-form.label>
+        <div class="mt-2">
+            <x-form.active required wire:model.defer="event.active" />
+            <x-form.input-error for="event.active" />
+        </div>
+    </div>
+
+    <div class="col-span-2">
         <x-form.label for="category" class="block">Categoria</x-form.label>
         <div class="mt-1">
             <div>
@@ -43,7 +52,7 @@
     </div>
 
     {{-- location --}}
-    <div class="col-span-2">
+    <div class="col-span-4">
         <x-form.label for="location" class="block">Ubicacion</x-form.label>
         <div class="mt-1">
             <div>
@@ -59,16 +68,10 @@
             <x-form.input-error for="event.location_id" />
         </div>
     </div>
-    <div>
-        <x-form.label class="block">Activo</x-form.label>
-        <div class="mt-2">
-            <x-form.active required wire:model.defer="event.active" />
-            <x-form.input-error for="event.active" />
-        </div>
-    </div>
+    
 
 
-    <div class="col-span-2">
+    <div class="col-span-4">
         <x-form.label class="block">Descripcion corta</x-form.label>
         <div>
             <x-form.input required type="text" class="w-full" wire:model.defer="event.desc_min" />
@@ -76,7 +79,7 @@
         </div>
     </div>
 
-    <div class="col-span-2">
+    <div class="col-span-4">
         <x-form.label class="block">Descripcion larga</x-form.label>
         <div class="mt-2">
 
@@ -84,10 +87,10 @@
             <x-form.input-error for="event.desc_max" />
         </div>
     </div>
-    <div class="col-span-2">
+    <div class="col-span-4">
         <x-event.form-ceo />
     </div>
-    <div class="col-span-2">
+    <div class="col-span-4">
         <x-event.form-social />
     </div>
 

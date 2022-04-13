@@ -21,7 +21,7 @@ class EventFactory extends Factory
         $img = rand(1, 20);
         $name=$this->faker->sentence(4);
         return [
-            'name' => $name,
+            'name' => ucfirst($name),
             'slug' => Str::slug($name),            
             'duration' => rand(1, 3) . ' hrs ' . rand(1, 59) . ' mins',
             'type' => $this->faker->randomElement([

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('type');
             $table->float('price');
-            $table->boolean('price_default');
+            $table->boolean('default');
             $table->string('desc');
             $table->tinyInteger('min_tickets_purchase');
             $table->tinyInteger('max_tickets_purchase');

@@ -19,7 +19,7 @@ class BlogFactory extends Factory
     {
         $name = $this->faker->sentence(2);
         return [
-            "title" => $name,
+            "title" => ucfirst($name),
             "slug" => Str::slug($name),
             "image" => "/images/img-" . rand(1, 5) . ".jpg",
             "active" => rand(0, 1),

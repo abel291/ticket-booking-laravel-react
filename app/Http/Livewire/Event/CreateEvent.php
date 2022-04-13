@@ -16,14 +16,14 @@ class CreateEvent extends Component
 {
     use WithFileUploads;
     
+    public $label;
+    public $label_plural;
     public $open = false;
-    public $is_edit=false;
     public Event $event;
     public $open_modal_confirmation_delete = false;
 
     public $banner;
     public $card;
-
 
     protected function rules()
     {
@@ -99,14 +99,11 @@ class CreateEvent extends Component
     }
 
     public function update()
-    {
-       
+    {       
         $this->validate();
         $event = $this->event;
         $event->slug = Str::slug($event->slug);
         $event->save();
-
-
         
         if ($this->card) {
             $event->clearMediaCollection('card');
@@ -131,7 +128,6 @@ class CreateEvent extends Component
 
     public function delete(Event $event)
     {
-
         $event->delete();
         $this->dispatchBrowserEvent('notification', [
             'title' => "Registro Eliminado",

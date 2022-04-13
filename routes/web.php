@@ -7,6 +7,7 @@ use App\Http\Livewire\Promotion\ListPromotion;
 use App\Http\Livewire\Blog\ListBlog;
 use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
+use App\Http\Livewire\TicketType\ListTicketType;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -84,11 +85,11 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/promotions', ListPromotion::class)->name('promotions');
     Route::get('/blog', ListBlog::class)->name('blog');
     Route::get('/events', ListEvent::class)->name('events');
-    Route::get('/create-event', CreateEvent::class)->name('create-event');
-    //Route::get('/gift_card', ListGiftCard::class)->name('gift_card');
-    //Route::get('/discount_code', ListDiscountCode::class)->name('discount_code');
-    //Route::get('/gallery', ListGallery::class)->name('gallery');
-    //Route::get('/page', ListPage::class)->name('page');
+    Route::get('/event/{event}/ticket-types', ListTicketType::class)->name('ticket-types');
+    // Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
+    //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
+    //Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');
+    
     //
     //Route::get('/order', ListOrder::class)->name('order');
 });

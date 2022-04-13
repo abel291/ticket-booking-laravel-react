@@ -18,16 +18,16 @@ class TicketTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word(),
+            'name' => ucfirst($this->faker->words(3,true)),
             'quantity' => rand(200, 500),
-            'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::FREE->value]),
+            'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::PAID->value]),
             'price' => rand(10, 50),
-            'price_default' => false,
+            'default' => rand(0,1),
             'desc' => $this->faker->text(200),
             'min_tickets_purchase' => 1,
             'max_tickets_purchase' => 20,
-            'show_remaining_entries' => true,
-            'active' => true,
+            'show_remaining_entries' => rand(0,1),
+            'active' => rand(0,1),
 
         ];
     }

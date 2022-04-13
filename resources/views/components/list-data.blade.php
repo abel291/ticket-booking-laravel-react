@@ -4,6 +4,7 @@
         <div class="mb-2">
             <div class="flex mb-2 justify-between items-start">
                 <div class="flex  items-center">
+                    @if ($data->isNotEmpty())
                     <x-form.input type="text" wire:model.debounce.500ms="search" class="mr-4"
                         placeholder="Buscador">
                     </x-form.input>
@@ -17,6 +18,7 @@
                             </path>
                         </svg>
                     </div>
+                    @endif
                 </div>
                 <div class=""></div>
                 {{ $component_create }}
@@ -24,57 +26,55 @@
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto ">
                     <div class="py-2 align-middle inline-block min-w-full ">
-                        
+
                         <div wire:loading.flex class="items-center mt-4">
                             <x-spinner-loading class="h-5 w-5 text-gray-600" /> Cargando...
                         </div>
-                        
-                        <div wire:loading.class="invisible"
-                            class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-
-
-
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        {{-- <th scope="col" wire:click="sortBy('id')"
+                        @if ($data->isNotEmpty())
+                            <div wire:loading.class="invisible"
+                                class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            {{-- <th scope="col" wire:click="sortBy('id')"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer">
                                                 ID
 
                                             </th> --}}
-                                        @foreach ($fields as $field)
+                                            @foreach ($fields as $field)
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    {{ $field }}
+                                                </th>
+                                            @endforeach
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ $field }}
+                                                Ultima Actualizacion
+
                                             </th>
-                                        @endforeach
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Ultima Actualizacion
-
-                                        </th>
-                                        <th scope="col" class="relative px-6 py-3">
-                                            <span class="sr-only">Edit</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200 text-sm">
-                                    @if ($data->isNotEmpty())
-                                        {{ $table_body }}
-                                    @else
-                                        <tr>
-                                            <td colspan="3" class="px-6 py-3 ">No hay registros</td>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Edit</span>
+                                            </th>
                                         </tr>
-                                    @endif
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
 
-                                    <!-- More items... -->
-                                </tbody>
-                            </table>
+                                        {{ $table_body }}
 
-                            <div class="px-6 py-2 bg-gray-50">
-                                {{ $data->links() }}
+
+                                        <!-- More items... -->
+                                    </tbody>
+                                </table>
+
+                                <div class="px-6 py-2 bg-gray-50">
+                                    {{ $data->links() }}
+                                </div>
+
                             </div>
-                        </div>
+                        @else
+                            <div class="px-6 py-6 border border-gray-100 sm:rounded-lg ">No hay registros</div>
+
+                        @endif
                     </div>
                 </div>
             </div>
