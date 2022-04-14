@@ -18,7 +18,8 @@ class SessionFactory extends Factory
     {
         return [
             'date' => $this->faker->date(),
-            'time' => $this->faker->time('h:i')
+            'time' => $this->faker->time('h:i A'),
+            'active' => rand(0,1)
 
         ];
     }

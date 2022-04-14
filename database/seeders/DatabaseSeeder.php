@@ -15,11 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //dd(EventTypes::Event->value);
-        Schema::disableForeignKeyConstraints();
-
-
-        
-        
+        Schema::disableForeignKeyConstraints();       
         $this->call([
             UserSeeder::class,
             LocationSeeder::class,

@@ -7,6 +7,7 @@ use App\Http\Livewire\Promotion\ListPromotion;
 use App\Http\Livewire\Blog\ListBlog;
 use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
+use App\Http\Livewire\Session\ListSession;
 use App\Http\Livewire\TicketType\ListTicketType;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -86,6 +87,7 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/blog', ListBlog::class)->name('blog');
     Route::get('/events', ListEvent::class)->name('events');
     Route::get('/event/{event}/ticket-types', ListTicketType::class)->name('ticket-types');
+    Route::get('/event/{event}/sessions', ListSession::class)->name('sessions');
     // Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
     //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
     //Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');

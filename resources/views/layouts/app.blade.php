@@ -37,7 +37,7 @@
                 <!-- Page Heading -->
                 @if (isset($header))
                     <header class=" ">
-                        <div class="pt-6 px-4 sm:px-6 lg:px-8">
+                        <div class="py-6">
                             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                                 {{ $header }}
                             </h2>
@@ -46,7 +46,7 @@
                 @endif
 
                 <!-- Page Content -->
-                <main class="py-6 mx-auto sm:px-6 lg:px-8">
+                <main class="mx-auto">
                     {{ $slot }}
                 </main>
             </div>
@@ -56,7 +56,7 @@
     @stack('modals')
 
     @livewireScripts
-    
+
 </body>
 
 </html>

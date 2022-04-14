@@ -31,7 +31,8 @@
                     </td>
 
                     <td class="px-6 py-3">
-                        {{ $item->price }}
+                        <x-money amount="{{$item->price}}"convert />
+                        
                     </td>                    
 
                     <td class="px-6 py-3">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();            
             $table->date('date');
             $table->time('time');
+            $table->boolean('active')->default(0);
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             //$table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
 

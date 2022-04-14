@@ -3,7 +3,7 @@
         {{ __($label_plural) }}
     </x-slot>
     <div>
-        <x-list-data :data="$data" :fields="['Nombre - Slug', 'Compras de Tickets', 'Categoria', 'Activo']">
+        <x-list-data :data="$data" :fields="['Nombre - Tipo', 'Compras de Tickets', 'Sessiones','Tipos Tickets', 'Activo']">
 
             <x-slot name="component_create">
                 @livewire('event.create-event',['label'=>$label,'label_plural'=>$label_plural])
@@ -37,13 +37,10 @@
                         </td>
 
                         <td class="px-6 py-3">
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-700">
-                                    {{ $item->category->name }}
-                                </span>
-
-                            </div>
+                            {{$item->sessions->count()}}
+                        </td>
+                        <td class="px-6 py-3">
+                            {{$item->ticket_types->count()}}
                         </td>
 
                         <td class="px-6 py-3">
@@ -55,12 +52,12 @@
                         </td>
 
                         <td class="px-6 py-3  text-right font-medium whitespace-nowrap">
-                            <div class="flex items-center gap-x-3">
+                            <div class="flex items-center gap-x-4">
                                 <a class="font-medium text-green-600 hover:text-green-900"
                                     href="{{ route('dashboard.ticket-types', $item->id) }}">Tickets</a>
 
-                                {{-- <a class="font-medium text-green-600 hover:text-green-900"
-                                    href="{{ route('dashboard.ticket-types', $item->id) }}">Fechas</a> --}}
+                                <a class="font-medium text-orange-600 hover:text-green-900"
+                                    href="{{ route('dashboard.sessions', $item->id) }}">Sessiones</a>
 
                                 <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
                                     x-on:click="$dispatch('edit-event',{{ $item->id }})">Edit</a>

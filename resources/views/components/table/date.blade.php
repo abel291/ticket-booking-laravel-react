@@ -1,4 +1,4 @@
 @props(['date'])
 <div class="text-gray-500">
-    {{ $date->format('Y-m-d h:i A') }}
+    {{ $date->format('d-m-Y h:i A') }}
 </div>
