@@ -8,15 +8,15 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+
 use Livewire\Livewire;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class BlogTest extends TestCase
 {
+    //use RefreshDatabase;
 
     public function test_blog_list()
     {
@@ -36,21 +36,59 @@ class BlogTest extends TestCase
 
     public function test_blog_save()
     {
-        $this->withoutExceptionHandling();
+        ////$this->withoutExceptionHandling();
         $user = User::factory()->make();
         $this->actingAs($user);
-
-        Storage::fake('avatars');
-        $image = UploadedFile::fake()->image('avatar.png');
 
         $blog = Blog::factory()->make();
         $categories = Category::get()->random(5)->pluck('id')->toArray();
 
+        Storage::fake('public');
+        $image = UploadedFile::fake()->image('avatar.jpg');
+
         Livewire::test(CreateBlog::class, [
             'blog' => $blog,
-            'categories' => $categories,
-            'image' => $image
-        ])->call('save')
-            ->assertHasNoErrors(['blog', 'categories']);
+        ])
+            ->set('image', $image)
+            ->set('categories', $categories)
+            ->call('save')
+            ->assertHasNoErrors(['blog', 'categories', 'image'])
+            ->assertDispatchedBrowserEvent('notification');
+    }
+
+    public function test_blog_edit()
+    {
+        $user = User::factory()->make();
+        $this->actingAs($user);
+        $blog = Blog::get()->random();
+        Livewire::test(CreateBlog::class)->call('edit', $blog->id);
+    }
+    public function test_blog_update()
+    {
+        //$this->withoutExceptionHandling();
+        $user = User::factory()->make();
+        $this->actingAs($user);
+
+        Storage::fake('public');
+        $image = UploadedFile::fake()->image('avatar.png');
+        $blog = Blog::get()->random();
+        $categories = Category::get()->random(5)->pluck('id')->toArray();
+
+        Livewire::test(CreateBlog::class, [
+            'blog' => $blog,
+        ])->set('image', $image)
+            ->set('categories', $categories)
+            ->call('update')
+            ->assertHasNoErrors(['blog', 'categories', 'image'])
+            ->assertDispatchedBrowserEvent('notification');
+    }
+    public function test_blog_delele()
+    {
+        //$this->withoutExceptionHandling();
+        $user = User::factory()->make();
+        $this->actingAs($user);
+        $blog = Blog::get()->random();
+        Livewire::test(CreateBlog::class)->call('delete', $blog->id)
+            ->assertDispatchedBrowserEvent('notification');
     }
 }

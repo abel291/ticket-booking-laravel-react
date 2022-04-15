@@ -49,22 +49,12 @@ class CreateBlog extends Component
     }
 
     public function save()
-    {
+    {   
         $this->validate();
         $blog = $this->blog;
         $blog->slug = Str::slug($blog->slug);
 
-        // $name_image = Helpers::move_image(
-        //     directory: 'blog',
-        //     image: $this->image->getRealPath(),
-        //     name: $blog->slug,
-        //     extension: $this->image->extension(),
-        //     thumb: true
-        // );
-
-        //$blog->image = $name_image;
-
-        $blog->save();
+        $blog->save();        
 
         $name_img = Helpers::generate_img_name($blog->slug, $this->image->extension());
         $blog->addMedia($this->image->getRealPath())
@@ -74,12 +64,14 @@ class CreateBlog extends Component
 
         $blog->categories()->sync($this->categories);
 
-        $this->emit('resetListBlog');
-        $this->reset('open');
-        $this->mount();
         $this->dispatchBrowserEvent('notification', [
             'title' => "Registro Agregado",
         ]);
+
+        $this->emit('resetListBlog');
+        $this->reset('open');
+        $this->mount();
+        
 
         //terminar los test
     }
@@ -102,8 +94,6 @@ class CreateBlog extends Component
         $blog->save();
         $blog->categories()->sync($this->categories);
 
-
-        $name_img = Helpers::generate_img_name($blog->slug, $this->image->extension());
         if ($this->image) {
             $blog->clearMediaCollection('image');
             $name_img = Helpers::generate_img_name($blog->slug, $this->image->extension());
@@ -124,7 +114,6 @@ class CreateBlog extends Component
 
     public function delete(Blog $blog)
     {
-        
         $blog->delete();
         $this->dispatchBrowserEvent('notification', [
             'title' => "Registro Eliminado",
