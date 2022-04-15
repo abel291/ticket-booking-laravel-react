@@ -45,7 +45,9 @@
                     <x-blog.categories />
                 </div>
                 <div x-show="tab=='images'" x-transition>
-                    <x-form.image :image="$blog->getFirstMediaUrl('image')" wire:model="image" />
+                    @if ($blog)
+                        <x-form.image :image="$blog->getFirstMediaUrl('image')" wire:model="image" />
+                    @endif
                     <x-form.input-error for="image" />
                 </div>
             </x-slot>

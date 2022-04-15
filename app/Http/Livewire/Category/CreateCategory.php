@@ -8,19 +8,23 @@ use Illuminate\Support\Str;
 
 class CreateCategory extends Component
 {
+    
     public $label;
     public $label_plural;
     public $open = false;
     public Category $category;
     public $open_modal_confirmation_delete = false;
-    protected $rules = [
-        'category.name' => 'required|string|max:255|unique:App\Models\Category,name',
-        'category.slug' => 'required|string|max:255|unique:App\Models\Category,slug',
+    protected $rules = [        
+        'category.name' => 'required|string|max:255|unique:categories,name',
+        'category.slug' => 'required|string|max:255|unique:categories,slug',
         'category.active' => 'required|boolean',
     ];
     public function mount()
-    {
-        $this->category = new Category();
+    {   
+        if (config('app.env') != 'testing'){
+            $this->category = new Category();
+        }        
+        
         $this->resetErrorBag();
     }
 
@@ -49,10 +53,11 @@ class CreateCategory extends Component
         $this->resetErrorBag();
     }
     public function update()
-    {
+    {   
         $this->rules['category.name'] .= "," . $this->category->id;
         $this->rules['category.slug'] .= "," . $this->category->id;
         $this->validate();
+
         $category = $this->category;
         $category->slug = Str::slug($category->slug);
         $category->save();
@@ -60,7 +65,7 @@ class CreateCategory extends Component
         $this->dispatchBrowserEvent('notification', [
             'title' => "Registro Editado",
         ]);
-        
+
         $this->emit('resetListCategory');
         $this->reset('open');
         $this->mount();

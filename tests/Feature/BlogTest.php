@@ -16,29 +16,25 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     public function test_blog_list()
     {
-        $user = User::factory()->make();
-        $this->actingAs($user);
-
+        
+        $this->actingAs(User::first());
         Livewire::test(ListBlog::class)->call('render');
     }
 
     public function test_blog_create()
-    {
-        $user = User::factory()->make();
-        $this->actingAs($user);
-
+    {        
+        $this->actingAs(User::first());
         Livewire::test(CreateBlog::class)->call('create');
     }
 
     public function test_blog_save()
     {
-        ////$this->withoutExceptionHandling();
-        $user = User::factory()->make();
-        $this->actingAs($user);
+        ////$this->withoutExceptionHandling();        
+        $this->actingAs(User::first());
 
         $blog = Blog::factory()->make();
         $categories = Category::get()->random(5)->pluck('id')->toArray();
@@ -46,9 +42,7 @@ class BlogTest extends TestCase
         Storage::fake('public');
         $image = UploadedFile::fake()->image('avatar.jpg');
 
-        Livewire::test(CreateBlog::class, [
-            'blog' => $blog,
-        ])
+        Livewire::test(CreateBlog::class, ['blog' => $blog])
             ->set('image', $image)
             ->set('categories', $categories)
             ->call('save')
@@ -58,25 +52,24 @@ class BlogTest extends TestCase
 
     public function test_blog_edit()
     {
-        $user = User::factory()->make();
-        $this->actingAs($user);
+        
+        $this->actingAs(User::first());
         $blog = Blog::get()->random();
         Livewire::test(CreateBlog::class)->call('edit', $blog->id);
     }
     public function test_blog_update()
     {
         //$this->withoutExceptionHandling();
-        $user = User::factory()->make();
-        $this->actingAs($user);
+        
+        $this->actingAs(User::first());
 
         Storage::fake('public');
         $image = UploadedFile::fake()->image('avatar.png');
         $blog = Blog::get()->random();
         $categories = Category::get()->random(5)->pluck('id')->toArray();
 
-        Livewire::test(CreateBlog::class, [
-            'blog' => $blog,
-        ])->set('image', $image)
+        Livewire::test(CreateBlog::class, ['blog' => $blog])
+            ->set('image', $image)
             ->set('categories', $categories)
             ->call('update')
             ->assertHasNoErrors(['blog', 'categories', 'image'])
@@ -85,8 +78,8 @@ class BlogTest extends TestCase
     public function test_blog_delele()
     {
         //$this->withoutExceptionHandling();
-        $user = User::factory()->make();
-        $this->actingAs($user);
+        
+        $this->actingAs(User::first());
         $blog = Blog::get()->random();
         Livewire::test(CreateBlog::class)->call('delete', $blog->id)
             ->assertDispatchedBrowserEvent('notification');

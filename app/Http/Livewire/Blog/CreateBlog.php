@@ -38,7 +38,9 @@ class CreateBlog extends Component
     public function mount()
     {
         $this->reset('image', 'categories');
-        $this->blog = Blog::factory()->make();
+        if (config('app.env') != 'testing') {
+            $this->category = new Blog();
+        }
         $this->categories = Category::get()->random(5)->pluck('id')->toArray();
         $this->resetErrorBag();
     }
@@ -49,12 +51,12 @@ class CreateBlog extends Component
     }
 
     public function save()
-    {   
+    {
         $this->validate();
         $blog = $this->blog;
         $blog->slug = Str::slug($blog->slug);
 
-        $blog->save();        
+        $blog->save();
 
         $name_img = Helpers::generate_img_name($blog->slug, $this->image->extension());
         $blog->addMedia($this->image->getRealPath())
@@ -72,8 +74,6 @@ class CreateBlog extends Component
         $this->reset('open');
         $this->mount();
         
-
-        //terminar los test
     }
 
     public function edit(Blog $blog)
