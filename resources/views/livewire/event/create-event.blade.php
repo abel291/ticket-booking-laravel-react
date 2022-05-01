@@ -2,7 +2,7 @@
     <div x-data="{
         show: @entangle('open').defer,
         edit: false,
-    }" @open-modal-edit.window=" show = true;edit= true; $wire.edit($event.detail)">
+    }" @open-modal-edit.window="show = true; edit= true; $wire.edit($event.detail); $dispatch('reset-input-image')">
         <x-button x-on:click="show = true;edit=false;" wire:click="create">Agregar {{ $label }}</x-button>
 
         <x-modal>
@@ -36,11 +36,13 @@
 
                                 <div wire.key="banner">
                                     <span class="block font-medium text-sm text-gray-700">Banner</span>
+                                    
                                     <x-form.image :image="$event->getFirstMediaUrl('banner')" wire:model="banner" />
                                     <x-form.input-error for="banner" />
                                 </div>
                                 <div wire.key="card">
                                     <span class="block font-medium text-sm text-gray-700">Card</span>
+                                    
                                     <x-form.image :image="$event->getFirstMediaUrl('card')" wire:model="card" />
                                     <x-form.input-error for="card" />
                                 </div>

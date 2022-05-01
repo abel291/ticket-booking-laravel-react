@@ -22,10 +22,10 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
-    }
+    // public function images()
+    // {
+    //     return $this->morphMany(Image::class, 'imageable');
+    // }
 
     public function sessions()
     {
@@ -56,13 +56,14 @@ class Event extends Model implements HasMedia
     {
 
         $this->addMediaCollection('banner')->singleFile();
+        $this->addMediaCollection('card')->singleFile();
 
-        $this->addMediaCollection('image')->singleFile()
-            ->registerMediaConversions(function (Media $media) {
-                $this
-                    ->addMediaConversion('thumb')
-                    //->width(320)
-                    ->height(320);
-            });
+        // $this->addMediaCollection('image')->singleFile()
+        //     ->registerMediaConversions(function (Media $media) {
+        //         $this
+        //             ->addMediaConversion('thumb')
+        //             //->width(320)
+        //             ->height(320);
+        //     });
     }
 }

@@ -3,37 +3,42 @@ $nav_items = [
     [
         'name' => 'Dashboard',
         'route' => 'dashboard.home',
-        'icon' => 'home',
+        'icon' => 'heroicon-s-home',
     ],
     [
         'name' => 'Usuarios',
         'route' => 'dashboard.users',
-        'icon' => 'user',
+        'icon' => 'heroicon-s-user',
     ],
     [
         'name' => 'Categorias',
         'route' => 'dashboard.categories',
-        'icon' => 'view-grid',
+        'icon' => 'heroicon-s-view-grid',
     ],
     [
         'name' => 'Ubicaciones',
         'route' => 'dashboard.locations',
-        'icon' => 'view-grid',
+        'icon' => 'heroicon-s-location-marker',
     ],
     [
         'name' => 'Promociones',
         'route' => 'dashboard.promotions',
-        'icon' => 'badge-check',
+        'icon' => 'heroicon-s-badge-check',
     ],
     [
         'name' => 'Blog',
         'route' => 'dashboard.blog',
-        'icon' => 'badge-check',
+        'icon' => 'heroicon-s-annotation',
     ],
     [
         'name' => 'Eventos',
         'route' => 'dashboard.events',
-        'icon' => 'badge-check',
+        'icon' => 'heroicon-s-collection',
+    ],
+    [
+        'name' => 'Pagos',
+        'route' => 'dashboard.payments',
+        'icon' => 'heroicon-s-cash',
     ],
     
     // [
@@ -79,7 +84,7 @@ $nav_items = [
         @foreach ($nav_items as $item)
             <a href="{{ route($item['route']) }}"
                 class="flex items-center rounded-md p-2.5 space-x-3 font-medium {{ request()->routeIs($item['route']) ? 'bg-gray-900 text-white' : 'hover:bg-gray-900 hover:text-white' }} ">
-                @svg("heroicon-s-".$item['icon'],'h-5 w-5')
+                @svg($item['icon'],'h-5 w-5')
 
                 <span>{{ $item['name'] }}</span>
             </a>

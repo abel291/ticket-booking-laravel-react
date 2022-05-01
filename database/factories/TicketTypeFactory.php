@@ -18,7 +18,7 @@ class TicketTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => ucfirst($this->faker->words(3,true)),
+            'name' => ucfirst($this->faker->word()),
             'quantity' => rand(200, 500),
             'type' => $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::PAID->value]),
             'price' => rand(10, 50),

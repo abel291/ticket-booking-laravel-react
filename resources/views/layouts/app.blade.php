@@ -36,7 +36,7 @@
             <div class="max-w-7xl mx-auto">
                 <!-- Page Heading -->
                 @if (isset($header))
-                    <header class=" ">
+                    <header>
                         <div class="py-6">
                             <h2 class="font-bold text-xl text-gray-800 leading-tight">
                                 {{ $header }}

@@ -59,8 +59,8 @@
                                 <a class="font-medium text-orange-600 hover:text-green-900"
                                     href="{{ route('dashboard.sessions', $item->id) }}">Sessiones</a>
 
-                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
-                                    x-on:click="$dispatch('edit-event',{{ $item->id }})">Edit</a>
+                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
+                                    x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Edit</a>
 
 
                                 <a href="#" class="font-medium text-red-600 hover:text-red-900 " x-data

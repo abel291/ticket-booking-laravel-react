@@ -32,9 +32,9 @@ class CategorySeeder extends Seeder
         $categories=Category::factory(12)            
             ->has(
                 Event::factory()
-                    ->hasImages(3)
+                    //->hasImages(3)
                     ->hasSessions(5)
-                    ->has(TicketType::factory()->count(3),'ticket_types')
+                    ->has(TicketType::factory()->count(5),'ticket_types')
                     ->count(8)->state(function () use ($location) {
                         return ['location_id' => $location->random()->id];
                     })

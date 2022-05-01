@@ -4,7 +4,7 @@
         <div class="mb-2">
             <div class="flex mb-2 justify-between items-start">
                 <div class="flex  items-center">
-                    @if ($data->isNotEmpty())
+                    
                     <x-form.input type="text" wire:model.debounce.500ms="search" class="mr-4"
                         placeholder="Buscador">
                     </x-form.input>
@@ -18,7 +18,7 @@
                             </path>
                         </svg>
                     </div>
-                    @endif
+                   
                 </div>
                 <div class=""></div>
                 {{ $component_create }}

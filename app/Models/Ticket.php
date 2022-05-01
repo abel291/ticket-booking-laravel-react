@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 
-class PaymentTicketType extends Model
+class Ticket extends Model
 {
     use HasFactory;
     protected $casts = [
-        'session' => 'array',
-        'ticket_type' => 'array',
-        
+        'ticket_type' => 'object',        
     ];
     public function payment()
     {

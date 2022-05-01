@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_ticket_types', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
             $table->unsignedTinyInteger('quantity');
             $table->float('total');
-            $table->json('session');
+            $table->string('session');
             $table->json('ticket_type');
-            $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
+            
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_ticket_types');
+        Schema::dropIfExists('tickets');
     }
 };

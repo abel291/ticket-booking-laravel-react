@@ -23,10 +23,10 @@
                 </div>
 
                 <div class="mt-4 content-modal relative">
-                    <div wire:loading.flex wire:target="create, edit" class="items-start absolute inset-0">
+                    <div wire:loading.flex wire:target="create, edit, view" class="items-start absolute inset-0">
                         <x-spinner-loading class="h-5 w-5 text-gray-600" /> Cargando...
                     </div>
-                    <div wire:loading.class="invisible" wire:target="create, edit">
+                    <div wire:loading.class="invisible" wire:target="create, edit, view">
                         {{ $content }}
                     </div>
                 </div>

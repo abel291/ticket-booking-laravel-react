@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,13 +10,22 @@ class Payment extends Model
 {
     use HasFactory;
     protected $casts = [
-        'event_data' => 'array',
-        'user_data' => 'array',
-        'promotion_data' => 'array',
+        'event_data' => 'object',
+        'user_data' => 'object',
+        'promotion_data' => 'object',
+        'status' => PaymentStatus::class,
     ];
-    public function ticket_types()
+    protected $attributes = [
+        'code' => '',
+        'status' => PaymentStatus::SUCCESSFUL,
+        'email' => '',
+        'phone' => '',
+        'sub_total' => 0,
+        'total' => 0,
+    ];
+    public function tickets()
     {
-        return  $this->hasMany(TicketType::class);
+        return  $this->hasMany(Ticket::class);
     }
     public function promotion()
     {
@@ -24,5 +34,9 @@ class Payment extends Model
     public function event()
     {
         return  $this->belongsTo(Event::class);
+    }
+    public function user()
+    {
+        return  $this->belongsTo(User::class);
     }
 }

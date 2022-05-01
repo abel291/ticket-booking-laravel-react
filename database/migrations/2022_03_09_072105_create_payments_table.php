@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();            
             $table->string('code', 10);
-            $table->string('type', 20);
+            $table->tinyInteger('status')->default(1);
             $table->unsignedSmallInteger('quantity');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->unsignedFloat('sub_total');
-            $table->unsignedFloat('total');
-            $table->string('status',20)->default(1);
+            $table->unsignedFloat('total');            
             $table->json('promotion_data')->nullable();
             $table->json('event_data');
             $table->json('user_data');

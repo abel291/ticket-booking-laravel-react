@@ -13,15 +13,8 @@ class CustomPathGenerator implements PathGenerator
      * Get the path for the given media, relative to the root storage path.
      */
     public function getPath(Media $media): string
-    {   
-        if ($media->model instanceof Blog) {
-            return 'posts/' . date('Y').'/';
-        }
-
-        if ($media->model instanceof Event) {
-            return 'events/' . date('Y').'/';
-        }
-        return 'images/';
+    {
+        return 'images/'.$this->getBasePath($media).'/';
     }
 
     /*
@@ -29,7 +22,7 @@ class CustomPathGenerator implements PathGenerator
      */
     public function getPathForConversions(Media $media): string
     {
-        return $this->getPath($media);
+        return 'images/'.$this->getBasePath($media).'/conversions/';
     }
 
     /*
@@ -37,6 +30,20 @@ class CustomPathGenerator implements PathGenerator
      */
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getPath($media) . 'responsive/';
+        return 'images/'.$this->getBasePath($media).'/responsive-images/';
+    }
+
+    /*
+     * Get a unique base path for the given media.
+     */
+    protected function getBasePath(Media $media): string
+    {
+        $prefix = config('media-library.prefix', '');
+
+        if ($prefix !== '') {
+            return $prefix . '/' . $media->getKey();
+        }
+
+        return $media->getKey();
     }
 }

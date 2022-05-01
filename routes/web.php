@@ -7,6 +7,8 @@ use App\Http\Livewire\Promotion\ListPromotion;
 use App\Http\Livewire\Blog\ListBlog;
 use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
+use App\Http\Livewire\Payment\ListPayment;
+use App\Http\Livewire\Payment\ViewPayment;
 use App\Http\Livewire\Session\ListSession;
 use App\Http\Livewire\TicketType\ListTicketType;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +37,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Home/Home');
 })->name('home');
+//Route::get('/', HomeController::class)->name('home');
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');
@@ -88,6 +91,8 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/events', ListEvent::class)->name('events');
     Route::get('/event/{event}/ticket-types', ListTicketType::class)->name('ticket-types');
     Route::get('/event/{event}/sessions', ListSession::class)->name('sessions');
+    Route::get('/payments', ListPayment::class)->name('payments');
+    Route::get('/payments-view/{payment}', ViewPayment::class)->name('payments-view');
     // Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
     //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
     //Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');
