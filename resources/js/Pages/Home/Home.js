@@ -39,21 +39,21 @@ const Home = () => {
             <ItemList
                 title="Peliculas"
                 linkText="Ver todas las peliculas"
-                items={[1, 2, 3, 4, 5, 6]}
+                items={[1, 2, 3, 4, 5, 6, 7, 8]}
             />
 
             <div className="bg-dark-blue-800">
                 <ItemList
                     title="Eventos"
                     linkText="Ver todos los Eventos"
-                    items={[1, 2, 3, 4, 5, 6]}
+                    items={[1, 2, 3, 4, 5, 6, 7, 8]}
                 />
             </div>
 
             <ItemList
                 title="Deportes"
                 linkText="Ver todos los Deportes"
-                items={[1, 2, 3, 4, 5, 6]}
+                items={[1, 2, 3, 4, 5, 6, 7, 8]}
             />
         </Layout>
     );

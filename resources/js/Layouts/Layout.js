@@ -11,7 +11,7 @@ const Layout = ({ title = "", children }) => {
                  <Navbar />
 
                 <main className="grow ">{children}</main>
-                <Footer />
+                <Footer /> 
             </div>
         </>
     );
