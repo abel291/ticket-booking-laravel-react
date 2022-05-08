@@ -17,9 +17,8 @@ class LocationFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->words(3,true);
         return [
-            "name" => ucfirst($name),
+            "name" => $this->faker->buildingNumber()." ".$this->faker->streetName(),
             "address" => $this->faker->address(), //
             "phone" => $this->faker->phoneNumber(), //
             "active" => rand(0,1), //

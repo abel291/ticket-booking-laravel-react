@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('desc_max');
             $table->string('tomatoes')->nullable(); //movies
             $table->string('audience')->nullable(); //movies
-            $table->string('calificación')->nullable(); //movies
+            $table->string('score')->nullable(); //movies
             // $table->string('img_banner');
             // $table->string('img_card');
             // $table->string('img_thum')->nullable();

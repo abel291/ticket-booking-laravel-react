@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             PromotionSeeder::class,
             PaymentSeeder::class,
+            ImageSeeder::class,
         ]);
         Schema::enableForeignKeyConstraints();
     }
