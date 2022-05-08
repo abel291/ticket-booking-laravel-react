@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Location\ListLocation;
@@ -34,18 +35,23 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return Inertia::render('Home/Home');
+// })->name('home');
+Route::get('/event/{slug}', function () {
     return Inertia::render('Home/Home');
-})->name('home');
-//Route::get('/', HomeController::class)->name('home');
+})->name('event');
+
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/movies', [PageController::class, 'movies'])->name('movies');
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');
 })->name('about-us');
 
-Route::get('/movies', function () {
-    return Inertia::render('Movies/MovieList/MovieList');
-})->name('movies');
+// Route::get('/movies', function () {
+//     return Inertia::render('Movies/MovieList/MovieList');
+// })->name('movies');
 
 Route::get('/movie-details', function () {
     return Inertia::render('Movies/MovieDetails/MovieDetails');
