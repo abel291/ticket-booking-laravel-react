@@ -32,6 +32,17 @@ class Event extends Model implements HasMedia
         return $this->hasMany(Session::class);
     }
 
+    //me devuelve una sesion con la fecha futura mas cerca de la fecha actual
+    public function session()
+    {
+        return $this->hasOne(Session::class)->ofMany([
+            'date' => 'min',
+            //'id' => 'max',
+        ], function ($query) {
+            $query->where('date', '>=', now());
+        });
+    }
+
     public function ticket_types()
     {
         return $this->hasMany(TicketType::class);
