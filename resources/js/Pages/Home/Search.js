@@ -33,7 +33,7 @@ const Search = () => {
                         </span>
                     </div>
                 </div>
-                <form className="mt-6 md:mt-12">
+                <div className="mt-6 md:mt-12">
                     <div className="before:bg-black-300 relative p-4 before:absolute before:inset-0 before:bg-black before:opacity-30 before:content-[''] lg:p-7">
                         <form>
                             <div className="relative flex flex-col items-stretch justify-between gap-5 lg:grid-cols-12 lg:flex-row lg:items-center ">
@@ -86,7 +86,7 @@ const Search = () => {
                             </div>
                         </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

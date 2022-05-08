@@ -89,8 +89,10 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden items-center gap-4 font-bold uppercase text-white lg:flex ">
-                        {links.map((item) => (
-                            <Link href={item.path}>{item.title}</Link>
+                        {links.map((item, key) => (
+                            <Link key={key} href={item.path}>
+                                {item.title}
+                            </Link>
                         ))}
 
                         {auth.user ? (
@@ -156,8 +158,9 @@ const Navbar = () => {
                 }
             >
                 <div className="mx-auto max-w-3xl space-y-1 py-2">
-                    {links.map((item) => (
+                    {links.map((item, key) => (
                         <ResponsiveNavLink
+                            key={key}
                             href={item.path}
                             active={item.current}
                         >
