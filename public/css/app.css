@@ -1296,6 +1296,11 @@ select {
   margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
 }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1530,12 +1535,12 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(3 32 85 / var(--tw-bg-opacity));
 }
-.bg-transparent {
-  background-color: transparent;
-}
 .bg-dark-blue-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 50 111 / var(--tw-bg-opacity));
+}
+.bg-transparent {
+  background-color: transparent;
 }
 .bg-inherit {
   background-color: inherit;
@@ -1690,6 +1695,10 @@ select {
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+.py-96 {
+  padding-top: 24rem;
+  padding-bottom: 24rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
@@ -2008,6 +2017,9 @@ select {
 }
 .opacity-90 {
   opacity: 0.9;
+}
+.opacity-20 {
+  opacity: 0.2;
 }
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -2557,6 +2569,10 @@ select option {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
 }
+.hover\:text-gray-50:hover {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
+}
 .hover\:contrast-75:hover {
   --tw-contrast: contrast(.75);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -2720,11 +2736,11 @@ select option {
 .disabled\:opacity-25:disabled {
   opacity: 0.25;
 }
-.disabled\:opacity-50:disabled {
-  opacity: 0.5;
-}
 .disabled\:opacity-10:disabled {
   opacity: 0.1;
+}
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
 }
 @media (prefers-color-scheme: dark) {
 
@@ -3022,6 +3038,11 @@ select option {
     padding-right: 1.25rem;
   }
 
+  .md\:py-52 {
+    padding-top: 13rem;
+    padding-bottom: 13rem;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -3273,6 +3294,11 @@ select option {
   .lg\:px-7 {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
+  }
+
+  .lg\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
   }
 
   .lg\:pt-24 {

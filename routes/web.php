@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PageController;
 use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
@@ -43,7 +44,10 @@ Route::get('/event/{slug}', function () {
 })->name('event');
 
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/movies', [PageController::class, 'movies'])->name('movies');
+
+Route::get('/movies', [EventController::class, 'events'])->name('movies');
+Route::get('/events', [EventController::class, 'events'])->name('events');
+Route::get('/sports', [EventController::class, 'events'])->name('sports');
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');
@@ -102,7 +106,7 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     // Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
     //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
     //Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');
-    
+
     //
     //Route::get('/order', ListOrder::class)->name('order');
 });

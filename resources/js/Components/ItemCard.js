@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import { FaSplotch } from "react-icons/fa";
 const ItemCard = ({ item }) => {
+    
     return (
         <Link href={route("event", { slug: item.slug })}>
             <div className="flex h-full flex-col overflow-hidden rounded bg-dark-blue-700">

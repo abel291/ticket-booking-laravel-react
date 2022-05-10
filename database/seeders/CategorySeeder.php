@@ -22,25 +22,41 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::truncate();
-        
+
         Event::truncate();
         Image::truncate();
         Session::truncate();
         TicketType::truncate();
 
+        // $categories = [
+        //     'Ballet',
+        //     'Circo',
+        //     'Conciertos',
+        //     'curso',
+        //     'deportes',
+        //     'Festivales',
+        //     'Monólogo',
+        //     'museos',
+        //     'Musicales',
+        //     'Ópera',
+        //     'profesionales',
+        //     'Reservas',
+        //     'Teatro',
+        //     'Turismo',
+        // ];
+
         $location = Location::get();
-        $categories=Category::factory(12)            
+
+        $categories = Category::factory(12)
             ->has(
                 Event::factory()
                     //->hasImages(3)
                     ->hasSessions(5)
-                    ->has(TicketType::factory()->count(5),'ticket_types')
+                    ->has(TicketType::factory()->count(5), 'ticket_types')
                     ->count(8)->state(function () use ($location) {
                         return ['location_id' => $location->random()->id];
                     })
             )
             ->create();
-
-        
     }
 }

@@ -23,14 +23,14 @@ const Navbar = () => {
 
         {
             title: "Eventos",
-            path: route("movie-details"),
-            current: route().current("movie-details"),
+            path: route("events"),
+            current: route().current("events"),
         },
 
         {
             title: "Deportes",
-            path: route("select-ticket"),
-            current: route().current("select-ticket"),
+            path: route("sports"),
+            current: route().current("sports"),
         },
 
         {
@@ -65,7 +65,7 @@ const Navbar = () => {
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener("scroll");
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 

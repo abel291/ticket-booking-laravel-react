@@ -1,3 +1,4 @@
+import Search from "@/Pages/Home/Search";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import TextLoop from "react-text-loop/lib/components/TextLoop";
@@ -5,13 +6,8 @@ import TextLoop from "react-text-loop/lib/components/TextLoop";
 const BannerSearch = ({ children, img = "", search = false }) => {
     return (
         <>
-            <div
-                className={
-                    "pt-navbar relative px-4 lg:px-0" +
-                    (search && " -mb-28 pb-28")
-                }
-            >
-                <div className="flex items-center  justify-center py-32 ">
+            <div className={" relative px-4 lg:px-0" + (search && " -mb-28")}>
+                <div className="flex items-center  justify-center py-32 md:py-52 lg:py-72 ">
                     <div className="relative z-10 max-w-5xl text-center  ">
                         {children}
                     </div>
@@ -24,7 +20,11 @@ const BannerSearch = ({ children, img = "", search = false }) => {
                     }
                 ></div>
             </div>
-            
+            {search && (
+                <div>
+                    <Search />
+                </div>
+            )}
         </>
     );
 };

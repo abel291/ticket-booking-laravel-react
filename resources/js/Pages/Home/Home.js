@@ -7,8 +7,7 @@ import TextLoop from "react-text-loop/lib/components/TextLoop";
 import ItemList from "./ItemList";
 import Search from "./Search";
 
-const Home = ({events,sports,movies}) => {
-
+const Home = ({ events, sports, movies }) => {
     //console.log(events.data)
     return (
         <Layout title="Inicio">
@@ -34,9 +33,6 @@ const Home = ({events,sports,movies}) => {
                     </p>
                 </div>
             </BannerSearch>
-            <div>
-                <Search />
-            </div>
 
             <ItemList
                 title="Peliculas"
