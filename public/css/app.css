@@ -1035,6 +1035,9 @@ select {
 .w-24 {
   width: 6rem;
 }
+.w-36 {
+  width: 9rem;
+}
 .w-10 {
   width: 2.5rem;
 }
@@ -1043,9 +1046,6 @@ select {
 }
 .w-3 {
   width: 0.75rem;
-}
-.w-36 {
-  width: 9rem;
 }
 .w-9 {
   width: 2.25rem;
@@ -1271,6 +1271,11 @@ select {
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -1295,11 +1300,6 @@ select {
   --tw-space-y-reverse: 0;
   margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
-}
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
@@ -1696,10 +1696,6 @@ select {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-.py-96 {
-  padding-top: 24rem;
-  padding-bottom: 24rem;
-}
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -1735,9 +1731,6 @@ select {
 }
 .pr-4 {
   padding-right: 1rem;
-}
-.pb-28 {
-  padding-bottom: 7rem;
 }
 .pb-2 {
   padding-bottom: 0.5rem;
@@ -2015,11 +2008,11 @@ select {
 .opacity-50 {
   opacity: 0.5;
 }
-.opacity-90 {
-  opacity: 0.9;
-}
 .opacity-20 {
   opacity: 0.2;
+}
+.opacity-90 {
+  opacity: 0.9;
 }
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -2569,10 +2562,6 @@ select option {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
 }
-.hover\:text-gray-50:hover {
-  --tw-text-opacity: 1;
-  color: rgb(249 250 251 / var(--tw-text-opacity));
-}
 .hover\:contrast-75:hover {
   --tw-contrast: contrast(.75);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -3028,6 +3017,11 @@ select option {
     border-left-width: 1px;
   }
 
+  .md\:py-52 {
+    padding-top: 13rem;
+    padding-bottom: 13rem;
+  }
+
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -3036,11 +3030,6 @@ select option {
   .md\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-  }
-
-  .md\:py-52 {
-    padding-top: 13rem;
-    padding-bottom: 13rem;
   }
 
   .md\:text-2xl {
@@ -3166,12 +3155,12 @@ select option {
     grid-template-columns: repeat(10, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:flex-row {
@@ -3281,6 +3270,11 @@ select option {
     padding-right: 0px;
   }
 
+  .lg\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
   .lg\:py-24 {
     padding-top: 6rem;
     padding-bottom: 6rem;
@@ -3294,11 +3288,6 @@ select option {
   .lg\:px-7 {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
-  }
-
-  .lg\:py-72 {
-    padding-top: 18rem;
-    padding-bottom: 18rem;
   }
 
   .lg\:pt-24 {

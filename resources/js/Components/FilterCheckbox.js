@@ -2,7 +2,7 @@ import useFilters from "@/Hooks/useFilters";
 import React from "react";
 import Card from "./Card";
 
-const FilterCheckbox = ({ title, name, itemValue,itemTitle, items, itemsChecked }) => {
+const FilterCheckbox = ({ title, name, itemValue="value",itemTitle="title", items, itemsChecked }) => {
     const { sendForm } = useFilters();
 
     //quitar - agregar categorias

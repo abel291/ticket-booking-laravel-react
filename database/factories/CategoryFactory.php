@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\EventTypes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,6 +22,11 @@ class CategoryFactory extends Factory
         return [
             "name" => ucfirst($name),
             "slug" => Str::slug($name),
+            'type' => $this->faker->randomElement([
+                EventTypes::EVENT->value,
+                EventTypes::SPORT->value,
+                EventTypes::MOVIE->value,
+            ]),
             "active" => rand(0, 1), //
         ];
     }

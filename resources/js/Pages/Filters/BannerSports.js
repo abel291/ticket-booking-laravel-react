@@ -3,7 +3,7 @@ import React from "react";
 
 const BannerSports = () => {
     return (
-        <BannerSearch img="/img/home/img-banner.jpg" search={true}>
+        <BannerSearch img="/img/sports.jpg" search={true}>
             <div>
                 <h1 className="font-bold">
                     CONSEGUIR ENTRADAS{" "}

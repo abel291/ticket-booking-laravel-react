@@ -3,7 +3,7 @@ import React from "react";
 
 const BannerEvents = () => {
     return (
-        <BannerSearch img="/img/home/img-banner.jpg" search={true}>
+        <BannerSearch img="/img/events.jpg" search={true}>
             <div>
                 <h1 className="font-bold">
                     OBTENER ENTRADAS PARA{" "}

@@ -23,7 +23,7 @@ class EventController extends Controller
             'priceMin' => 'sometimes|nullable|numeric',
             'priceMax' => 'sometimes|nullable|numeric',
             'perPage' => 'sometimes|in:12,24,32|numeric',
-            'search' => 'sometimes|in:12,24,32|numeric',
+            'search' => 'sometimes|string|',
         ]);
 
         switch (Route::currentRouteName()) {
@@ -36,6 +36,8 @@ class EventController extends Controller
             case 'sports':
                 $type = EventTypes::SPORT;
                 break;
+            default:
+                $type = null;
         }
 
         $events = Event::query();
@@ -77,57 +79,5 @@ class EventController extends Controller
             'title' => $type->title(),
             'type' => $type->value
         ]);
-    }
-    public function movies(Request $request)
-    {
-
-        $request->validate([
-            'categories.*' => 'sometimes|nullable|exists:categories,slug',
-            'priceMin' => 'sometimes|nullable|numeric',
-            'priceMax' => 'sometimes|nullable|numeric',
-            'perPage' => 'sometimes|in:12,24,32|numeric',
-            'search' => 'sometimes|in:12,24,32|numeric',
-        ]);
-
-        $movies = Event::query();
-        $movies->where('active', true)
-            ->has('session')
-            ->with('session', 'location')
-            ->where('type', EventTypes::MOVIE);
-
-        $movies = $this->FiltersSearch($movies, $request);
-
-        $categories = Category::where('active', true)->get();
-        //$categories = Category::where('active', true)->where('type', $type )->get();
-
-        return Inertia::render('Movies/Movies', [
-            "items" => EventResource::collection($movies),
-            "categories" => CategoryResource::collection($categories),
-            'filters' => $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order'),
-        ]);
-    }
-    public function FiltersSearch($model, $request)
-    {
-        if ($request->categories && array_filter($request->categories)) {
-            $model->whereHas('category', function (Builder $query) use ($request) {
-                $query->whereIn('slug', $request->categories);
-            });
-        }
-
-        if ($request->priceMin) {
-            $model->whereHas('ticket_types', function (Builder $query) use ($request) {
-                $query->where('price', '>=', $$request->priceMin);
-            });
-        }
-
-        if ($request->priceMax) {
-            $model->whereHas('ticket_types', function (Builder $query) use ($request) {
-                $query->where('price', '<=', $$request->priceMax);
-            });
-        }
-        $paginate = $request->perPage ?: 12;
-
-
-        return $model->paginate($paginate);
     }
 }

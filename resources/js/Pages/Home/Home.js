@@ -2,7 +2,7 @@ import BannerSearch from "@/Components/BannerSearch";
 import Layout from "@/Layouts/Layout";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
-import TextLoop from "react-text-loop/lib/components/TextLoop";
+import { TextLoop } from "react-text-loop-next";
 
 import ItemList from "./ItemList";
 import Search from "./Search";
@@ -16,13 +16,13 @@ const Home = ({ events, sports, movies }) => {
                     <h1 className="font-bold">
                         RESERVA TU ENTRADAS PARA TU
                         <TextLoop>
-                            <Link className="ml-1 text-emerald-400" to="/">
+                            <Link href={route('movies')} className="ml-1 text-emerald-400" to="/">
                                 PELÍCULAS
                             </Link>
-                            <Link className="ml-1 text-emerald-400" to="/">
+                            <Link href={route('sports')} className="ml-1 text-emerald-400" to="/">
                                 DEPORTES
                             </Link>
-                            <Link className="ml-1 text-emerald-400" to="/">
+                            <Link href={route('events')} className="ml-1 text-emerald-400" to="/">
                                 EVENTOS
                             </Link>
                         </TextLoop>

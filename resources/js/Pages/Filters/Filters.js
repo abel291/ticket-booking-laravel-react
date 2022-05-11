@@ -3,8 +3,7 @@ import Pagination from "@/Components/Pagination";
 import Layout from "@/Layouts/Layout";
 import React, { useState } from "react";
 
-
-import BannerMovies from "../Movies/BannerMovies";
+import BannerMovies from "./BannerMovies";
 import BannerEvents from "./BannerEvents";
 import BannerSports from "./BannerSports";
 
@@ -12,6 +11,9 @@ import FilterCategories from "./FilterCategories";
 import FilterOrder from "./FilterOrder";
 import FilterPrice from "./FilterPrice";
 import FilterReset from "./FilterReset";
+import FilterExperieces from "./FilterExperieces";
+import FilterIdioms from "./FilterIdioms";
+
 
 const Filters = ({ title, items, type }) => {
     return (
@@ -25,7 +27,13 @@ const Filters = ({ title, items, type }) => {
                         <FilterReset />
 
                         <div className=" space-y-6 ">
-                            <FilterCategories />
+                            <FilterCategories
+                                title={
+                                    type == "movie" ? "Generos" : "Categorias"
+                                }
+                            />
+                            {/* {type === "movie" && <FilterIdioms />}
+                            {type === "movie" && <FilterExperieces />} */}
                             <FilterPrice />
                         </div>
                     </div>

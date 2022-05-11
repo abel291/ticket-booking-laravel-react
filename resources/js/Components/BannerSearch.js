@@ -1,9 +1,9 @@
 import Search from "@/Pages/Home/Search";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
-import TextLoop from "react-text-loop/lib/components/TextLoop";
 
-const BannerSearch = ({ children, img = "", search = false }) => {
+
+const BannerSearch = ({ children, img = "",  search = false }) => {
     return (
         <>
             <div className={" relative px-4 lg:px-0" + (search && " -mb-28")}>
