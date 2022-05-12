@@ -6,6 +6,7 @@ use App\Enums\EventTypes;
 use App\Enums\TicketTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
@@ -18,26 +19,17 @@ class EventFactory extends Factory
      */
     public function definition()
     {
-        $img = rand(1, 20);
-        $name=$this->faker->sentence(4);
+        
+        $title = $this->faker->sentence(4);
         return [
-            'name' => ucfirst($name),
-            'slug' => Str::slug($name),            
+            'title' => ucfirst($title),
+            'slug' => Str::slug($title),
             'duration' => rand(1, 3) . ' hrs ' . rand(1, 59) . ' mins',
-            'type' => $this->faker->randomElement([
-                EventTypes::EVENT->value,
-                EventTypes::SPORT->value,
-                EventTypes::MOVIE->value,
-            ]),
-
             'desc_min' => $this->faker->text(250),
             'desc_max' => $this->faker->text(500),
-            'tomatoes' => rand(50, 100),
-            'audience' => rand(50, 100),
-            'score' => rand(70, 100),
-           // 'img_banner' => "/event/banner/img-" . $img . ".jpg",
+            // 'img_banner' => "/event/banner/img-" . $img . ".jpg",
             //'img_card' => "/event/card/img-" . $img . ".jpg",
-           // 'img_thum' => "/event/thumb/img-" . $img . ".jpg",
+            // 'img_thum' => "/event/thumb/img-" . $img . ".jpg",
             'ceo_title' => $this->faker->words(3, true),
             'ceo_desc' => $this->faker->sentence(),
             'social_fa' => $this->faker->domainName(),

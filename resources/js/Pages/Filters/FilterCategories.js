@@ -9,7 +9,7 @@ const FilterCategories = ({ title = "Categorias" }) => {
 
     return (
         <FilterCheckbox
-            title={title}
+            title={'Categorias'}
             name="categories"
             itemValue="slug"
             itemTitle="name"

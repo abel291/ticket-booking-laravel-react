@@ -16,20 +16,20 @@ const Navbar = () => {
         },
 
         {
-            title: "Peliculas",
-            path: route("movies"),
+            title: "Conciertos",
+            path: route("events", { category: "conciertos" }),
             current: route().current("movies"),
         },
 
         {
-            title: "Eventos",
-            path: route("events"),
+            title: "Turismo",
+            path: route("events", { category: "turismo" }),
             current: route().current("events"),
         },
 
         {
-            title: "Deportes",
-            path: route("sports"),
+            title: "Festivales",
+            path: route("events", { formats: ["festival"] }),
             current: route().current("sports"),
         },
 

@@ -5,10 +5,8 @@ import React from "react";
 import { TextLoop } from "react-text-loop-next";
 
 import ItemList from "./ItemList";
-import Search from "./Search";
 
-const Home = ({ events, sports, movies }) => {
-    //console.log(events.data)
+const Home = ({ homeCategories }) => {
     return (
         <Layout title="Inicio">
             <BannerSearch img="/img/home/img-banner.jpg" search={true}>
@@ -16,13 +14,25 @@ const Home = ({ events, sports, movies }) => {
                     <h1 className="font-bold">
                         RESERVA TU ENTRADAS PARA TU
                         <TextLoop>
-                            <Link href={route('movies')} className="ml-1 text-emerald-400" to="/">
+                            <Link
+                                href={route("events")}
+                                className="ml-1 text-emerald-400"
+                                to="/"
+                            >
                                 PELÍCULAS
                             </Link>
-                            <Link href={route('sports')} className="ml-1 text-emerald-400" to="/">
+                            <Link
+                                href={route("events")}
+                                className="ml-1 text-emerald-400"
+                                to="/"
+                            >
                                 DEPORTES
                             </Link>
-                            <Link href={route('events')} className="ml-1 text-emerald-400" to="/">
+                            <Link
+                                href={route("events")}
+                                className="ml-1 text-emerald-400"
+                                to="/"
+                            >
                                 EVENTOS
                             </Link>
                         </TextLoop>
@@ -34,25 +44,16 @@ const Home = ({ events, sports, movies }) => {
                 </div>
             </BannerSearch>
 
-            <ItemList
-                title="Peliculas"
-                linkText="Ver todas las peliculas"
-                items={movies.data}
-            />
-
-            <div className="bg-dark-blue-800">
-                <ItemList
-                    title="Eventos"
-                    linkText="Ver todos los Eventos"
-                    items={events.data}
-                />
-            </div>
-
-            <ItemList
-                title="Deportes"
-                linkText="Ver todos los Deportes"
-                items={sports.data}
-            />
+            {homeCategories.data.map((item, key) => (
+                <div key={key} className=" even:bg-dark-blue-800">
+                    {/*Striped color bg-dark-blue-800 */}
+                    <ItemList
+                        title={item.name}
+                        linkPath={route("events", { categories: [item.slug] })}
+                        events={item.events}
+                    />
+                </div>
+            ))}
         </Layout>
     );
 };

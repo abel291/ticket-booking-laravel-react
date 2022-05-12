@@ -46,12 +46,8 @@ Route::get('/event/{slug}', function () {
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
-Route::get('/movies', [EventController::class, 'events'])->name('movies');
 Route::get('/events', [EventController::class, 'events'])->name('events');
-Route::get('/sports', [EventController::class, 'events'])->name('sports');
 
-
-Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');

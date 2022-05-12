@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CategoryType;
 use App\Enums\EventTypes;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\EventResource;
@@ -10,7 +11,6 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Enum;
 
@@ -18,20 +18,19 @@ class PageController extends Controller
 {
     public function home()
     {
-        $data  = Event::where('active', true)
-            ->has('session')
-            ->with('session', 'location')
-            ->get();
 
-        $events = $data->where('type', EventTypes::EVENT)->take(8);
-        $movies = $data->where('type', EventTypes::MOVIE)->take(8);
-        $sports = $data->where('type', EventTypes::SPORT)->take(8);
+        $home_categories = Category::where('type', CategoryType::EVENT)->active()->where('home', true)->has('events.session')
+            ->with(['events' => function ($query) {
+                $query->with('session', 'location')->active()->limit(8);
+            }])->take(4)->get();
 
+
+        //dd($categories[2]->events);
         return Inertia::render('Home/Home', [
-            "events" => EventResource::collection($events),
-            "movies" => EventResource::collection($movies),
-            "sports" => EventResource::collection($sports),
+            "homeCategories" => CategoryResource::collection($home_categories),
         ]);
     }
-    
+    function search(){
+        
+    }
 }

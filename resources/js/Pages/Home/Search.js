@@ -9,10 +9,11 @@ import { Spanish } from "flatpickr/dist/l10n/es.js";
 import { useForm, usePage } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
 const Search = () => {
-    const { filters } = usePage().props;
+    const { filters, categories } = usePage().props;
+
     const { data, setData, get, processing, errors } = useForm({
         date: filters?.date || "",
-        type: filters?.type || "",
+        category: filters?.category || "",
         search: filters?.search || "",
     });
 
@@ -22,7 +23,7 @@ const Search = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        get(route("search"), data, {
+        get(route("events"), data, {
             preserveState: true,
             preserveScroll: false,
         });
@@ -94,31 +95,21 @@ const Search = () => {
                                 <Select
                                     required={true}
                                     className="w-full lg:w-auto"
-                                    name="type"
+                                    name="category"
                                     value={data.type}
                                     handleChange={handleChange}
                                 >
                                     <option className="text-black" value="all">
-                                        Todo tipo de eventos
+                                        Todas las categorias
                                     </option>
-                                    <option
-                                        className="text-black"
-                                        value="movie"
-                                    >
-                                        Peliculas
-                                    </option>
-                                    <option
-                                        className="text-black"
-                                        value="event"
-                                    >
-                                        Eventos
-                                    </option>
-                                    <option
-                                        className="text-black"
-                                        value="sport"
-                                    >
-                                        Deportes
-                                    </option>
+                                    {categories.data.map((item) => (
+                                        <option
+                                            key={item.slug}
+                                            value={item.slug}
+                                        >
+                                            {item.name}
+                                        </option>
+                                    ))}
                                 </Select>
 
                                 <Button>Buscar</Button>

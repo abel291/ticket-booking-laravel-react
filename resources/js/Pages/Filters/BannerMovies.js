@@ -3,7 +3,7 @@ import React from "react";
 
 const BannerMovies = ({ image }) => {
     return (
-        <BannerSearch img="/img/movies.jpg" search={true}>
+        <BannerSearch img="/img/movies.jpg" search={false}>
             <div>
                 <h1 className="font-bold">
                     CONSIGUE <span className="text-emerald-400">TICKETS</span>{" "}

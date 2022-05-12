@@ -16,8 +16,7 @@ module.exports = {
                 DEFAULT: "1rem",
                 sm: "2rem",
                 lg: "3rem",
-                xl: "5rem",
-                "2xl": "6.5rem",
+                xl: "4rem",
             },
         },
 

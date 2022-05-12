@@ -2,15 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CategoryType;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Format;
 use App\Models\Session;
 use App\Models\Image;
 use App\Models\Location;
 use App\Models\TicketType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -23,40 +26,35 @@ class CategorySeeder extends Seeder
     {
         Category::truncate();
 
-        Event::truncate();
-        Image::truncate();
-        Session::truncate();
-        TicketType::truncate();
+        $categories = [
+            'Ballet',
+            'Circo',
+            'Conciertos',
+            'Curso',
+            'deportes',
+            'Festivales',
+            'Monólogo',
+            'Museos',
+            'Musicales',
+            'Ópera',
+            'profesionales',
+            'Reservas',
+            'Teatro',
+            'Turismo',
+        ];
 
-        // $categories = [
-        //     'Ballet',
-        //     'Circo',
-        //     'Conciertos',
-        //     'curso',
-        //     'deportes',
-        //     'Festivales',
-        //     'Monólogo',
-        //     'museos',
-        //     'Musicales',
-        //     'Ópera',
-        //     'profesionales',
-        //     'Reservas',
-        //     'Teatro',
-        //     'Turismo',
-        // ];
+        //event
+        foreach ($categories as $key => $value) {
+            Category::factory()->create([
+                "name" => ucfirst($value),
+                "slug" => Str::slug($value),
+                'type' => CategoryType::EVENT
+            ]);
+        }
 
-        $location = Location::get();
-
-        $categories = Category::factory(12)
-            ->has(
-                Event::factory()
-                    //->hasImages(3)
-                    ->hasSessions(5)
-                    ->has(TicketType::factory()->count(5), 'ticket_types')
-                    ->count(8)->state(function () use ($location) {
-                        return ['location_id' => $location->random()->id];
-                    })
-            )
-            ->create();
+        //blog
+        Category::factory(12)->state([
+            'type' => CategoryType::BLOG
+        ])->create();
     }
 }

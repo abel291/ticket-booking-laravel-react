@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\EventResource;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Format;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
@@ -18,37 +19,33 @@ class EventController extends Controller
     public function events(Request $request)
     {
 
-        $request->validate([
-            'categories.*' => 'sometimes|nullable|exists:categories,slug',
-            'priceMin' => 'sometimes|nullable|numeric',
-            'priceMax' => 'sometimes|nullable|numeric',
-            'perPage' => 'sometimes|in:12,24,32|numeric',
-            'search' => 'sometimes|string|',
-        ]);
-
-        switch (Route::currentRouteName()) {
-            case 'movies':
-                $type = EventTypes::MOVIE;
-                break;
-            case 'events':
-                $type = EventTypes::EVENT;
-                break;
-            case 'sports':
-                $type = EventTypes::SPORT;
-                break;
-            default:
-                $type = null;
-        }
+        // $request->validate([
+        //     'categories.*' => 'sometimes|nullable|exists:categories,slug',
+        //     'priceMin' => 'sometimes|nullable|numeric',
+        //     'priceMax' => 'sometimes|nullable|numeric',
+        //     'perPage' => 'sometimes|in:12,24,32|numeric',
+        //     'search' => 'sometimes|string|',
+        // ]);
 
         $events = Event::query();
-        $events->where('active', true)
+        $events->active()
             ->has('session')
-            ->with('session', 'location')
-            ->where('type', $type);
+            ->with('session', 'location');
+
 
         if ($request->categories && array_filter($request->categories)) {
             $events->whereHas('category', function (Builder $query) use ($request) {
                 $query->whereIn('slug', $request->categories);
+            });
+        } elseif ($request->category) {
+            $events->whereHas('category', function (Builder $query) use ($request) {
+                $query->where('slug', $request->category);
+            });
+        }
+
+        if ($request->formats && array_filter($request->formats)) {
+            $events->whereHas('format', function (Builder $query) use ($request) {
+                $query->whereIn('slug', $request->formats);
             });
         }
 
@@ -63,21 +60,24 @@ class EventController extends Controller
                 $query->where('price', '<=', $$request->priceMax);
             });
         }
+
+        if ($request->search) {
+            $events->where('title', 'like', "%" . $request->search . "%");
+        }
+
+        if ($request->date) {
+            $events->whereRelation('sessions', 'date', '=', $request->date);
+        }
+
         $paginate = $request->perPage ?: 12;
 
-        $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order');
-        $events = $events->paginate($paginate)->appends($filters);;
-
-        $categories = Category::where('active', true)->get();
-        //$categories = Category::where('active', true)->where('type', $type )->get();
-
+        $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order', 'search', 'category', 'date', 'formats');
+        $events = $events->paginate($paginate)->appends($filters);
 
         return Inertia::render('Filters/Filters', [
-            "items" => EventResource::collection($events),
-            "categories" => CategoryResource::collection($categories),
+            "events" => EventResource::collection($events),
+            "formats" => CategoryResource::collection(Format::active()->get()),
             'filters' => $filters,
-            'title' => $type->title(),
-            'type' => $type->value
         ]);
     }
 }

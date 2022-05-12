@@ -16,7 +16,7 @@ class EventResource extends JsonResource
     {
         return [
             'slug' => $this->slug,
-            'name' => $this->name,
+            'title' => $this->title,
             'duration' => $this->duration,
             'type' => $this->type,
             'desc_min' => $this->desc_min,
@@ -29,7 +29,7 @@ class EventResource extends JsonResource
             'social_fa' => $this->social_fa,
             'social_tw' => $this->social_tw,
             'social_yt' => $this->social_yt,
-            'card' => '/img/events/img-' . rand(1, 8) . '.jpg',
+            'card' => '/img/events/img-' . rand(1, 20) . '.jpg',
             //'card'=>$this->getFirstMediaUrl('card'), 
             'session' => $this->session,
             'session' => SessionResource::make($this->whenLoaded('session')),

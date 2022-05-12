@@ -1,4 +1,5 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import Section from "@/Components/Section";
 
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
@@ -7,25 +8,13 @@ import Newsletter from "./Newsletter";
 
 const Footer = () => {
     return (
-        <>
-            <div className="relative ">
+        <div className="bg-dark-blue-700">
+            <Section>
                 <div className="container relative z-10">
                     <Newsletter />
                 </div>
-                <div className="absolute bottom-0 w-full ">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 1440 320"
-                    >
-                        <path
-                            fill="#032055"
-                            fillOpacity="1"
-                            d="M0,64L80,80C160,96,320,128,480,122.7C640,117,800,75,960,53.3C1120,32,1280,32,1360,32L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-                        ></path>
-                    </svg>
-                </div>
-            </div>
-            <div className="bg-dark-blue-700 pt-20 lg:pt-24 xl:pt-32">
+            </Section>
+            <div className="">
                 <div className="container">
                     <div>
                         <div className="flex items-center justify-between gap-3 border-b border-dark-blue-400  pb-6">
@@ -97,7 +86,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

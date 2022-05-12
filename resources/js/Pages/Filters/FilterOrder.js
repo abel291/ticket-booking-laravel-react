@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Select from "@/Components/Select";
 import useFilters from "@/Hooks/useFilters";
 import { usePage } from "@inertiajs/inertia-react";
-const FilterOrder = ( ) => {
+import Button from "@/Components/Button";
+import Input from "@/Components/Input";
+const FilterOrder = () => {
     const { filters } = usePage().props;
     const { sendForm } = useFilters();
+    const [search, setSearch] = useState("");
 
     const filterPerPage = filters?.perPage || 12;
 
@@ -12,6 +15,17 @@ const FilterOrder = ( ) => {
         let target = e.target;
         sendForm({ [target.name]: target.value });
     };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        sendForm({
+            search: search,
+        });
+    };
+
+    useEffect(() => {
+        setSearch(filters?.search || "");
+    }, []);
 
     return (
         <div className="rounded-lg border border-dark-blue-400 py-3 px-7 ">
@@ -29,19 +43,23 @@ const FilterOrder = ( ) => {
                         <option value="32">32</option>
                     </Select>
                 </div>
-                {/* <div className="flex items-center gap-2 text-sm">
-                    <span>Ordenar Por:</span>
-                    <Select
-                        name="order"
-                        className="text-sm"
-                        handleChange={handleChange}
-                        value={filterOrder || 1}
-                    >
-                        <option value="recent">Recientes</option>                        
-                        <option value="3">Mas Vendidos</option>
-                        <option value="4">Mayoría de la vista</option>
-                    </Select>
-                </div> */}
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex items-center gap-4 text-sm"
+                >
+                    <input
+                        type="text"
+                        value={search}
+                        className="input w-full text-sm"
+                        placeholder="Busca tu evento"
+                        name="search"
+                        onChange={(e) => {
+                            console.log(search);
+                            setSearch(e.target.value);
+                        }}
+                    />
+                    <Button>Buscar</Button>
+                </form>
             </div>
         </div>
     );

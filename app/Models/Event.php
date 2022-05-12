@@ -9,37 +9,35 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
+use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 class Event extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
-
-    protected $casts = [
-        'type' => EventTypes::class,
-    ];
+    use HasEagerLimit;
+    
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    // public function images()
-    // {
-    //     return $this->morphMany(Image::class, 'imageable');
-    // }
-
+    public function format()
+    {
+        return $this->belongsTo(Format::class);
+    }
+    
     public function sessions()
     {
         return $this->hasMany(Session::class);
     }
 
-    //me devuelve una sesion con la fecha futura mas cerca de la fecha actual
+    //me devuelve una sola  sesion con la fecha futura mas cerca de la fecha actual
     public function session()
     {
         return $this->hasOne(Session::class)->ofMany([
             'date' => 'min',
             //'id' => 'max',
         ], function ($query) {
-            $query->where('date', '>=', now());
+            $query->where('active',1)->where('date', '>=', now());
         });
     }
 
@@ -77,4 +75,17 @@ class Event extends Model implements HasMedia
         //             ->height(320);
         //     });
     }
+
+    /**
+     * Scope a query to only include active users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        $query->where('active', 1);
+    }
+
+    
 }

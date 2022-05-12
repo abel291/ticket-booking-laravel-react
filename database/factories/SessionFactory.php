@@ -21,7 +21,7 @@ class SessionFactory extends Factory
         return [
             'date' => $this->faker->dateTimeBetween('now', '+1 week')->format('Y-m-d'),
             'time' => $this->faker->time('h:i A'),
-            'active' => rand(0, 1)
+            'active' => 1
 
         ];
     }
