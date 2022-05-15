@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CategoryType;
-use App\Enums\EventTypes;
+
 use App\Http\Resources\CategoryResource;
-use App\Http\Resources\EventResource;
+
 use App\Models\Category;
-use App\Models\Event;
-use Illuminate\Http\Request;
+
 use Inertia\Inertia;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\Rules\Enum;
+
 
 class PageController extends Controller
 {
@@ -30,7 +27,7 @@ class PageController extends Controller
             "homeCategories" => CategoryResource::collection($home_categories),
         ]);
     }
-    function search(){
-        
+    function search()
+    {
     }
 }

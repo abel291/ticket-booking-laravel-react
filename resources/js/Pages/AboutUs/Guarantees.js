@@ -9,7 +9,7 @@ const Guarantees = () => {
                         <p className="sub-title">
                             Echa un vistazo a nuestro recorrido
                         </p>
-                        <h2 className="mt-4 ">
+                        <h2 className="mt-4 font-bold ">
                             Garantías de que puedes confiar.
                         </h2>
                         <p className="text mt-4">

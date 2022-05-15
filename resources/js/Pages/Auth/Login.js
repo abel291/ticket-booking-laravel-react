@@ -40,21 +40,24 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Iniciar sesión" />
 
             {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
+                <div className="mb-4 text-sm font-medium text-emerald-500">
                     {status}
                 </div>
             )}
 
             <ValidationErrors errors={errors} />
-            <div className="text-center text-white">
+            <div className="text-center ">
                 <span className="text-2xl text-emerald-500">Hola</span>
-                <div className="font-bold text-3xl mt-3">BIENVENIDO DE NUEVO</div>
+                <div className="mt-3 text-3xl font-bold">
+                    BIENVENIDO DE NUEVO
+                </div>
             </div>
-            <form onSubmit={submit} className="text-white mt-9">
+            <form onSubmit={submit} className="mt-9 ">
                 <div>
-                    <Label forInput="email" value="Email" />
+                    <Label forInput="email" value="Correo" />
 
                     <Input
+                        required
                         type="text"
                         name="email"
                         value={data.email}
@@ -66,9 +69,10 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <Label forInput="password" value="Password" />
+                    <Label forInput="password" value="Contraseña" />
 
                     <Input
+                        required
                         type="password"
                         name="password"
                         value={data.password}
@@ -78,33 +82,42 @@ export default function Login({ status, canResetPassword }) {
                     />
                 </div>
 
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            value={data.remember}
-                            handleChange={onHandleChange}
-                        />
-
-                        <span className="ml-2 text-sm">
-                            Remember me
-                        </span>
-                    </label>
+                <div className="mt-4 block">
+                    <div className="flex items-center justify-between">
+                        <label className="flex items-center">
+                            <Checkbox
+                                name="remember"
+                                value={data.remember}
+                                handleChange={onHandleChange}
+                            />
+                            <span className="ml-2 text-sm">
+                                Acuérdate de mí
+                            </span>
+                        </label>
+                        {canResetPassword && (
+                            <Link
+                                href={route("password.request")}
+                                className="text-sm underline hover:text-gray-300"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </Link>
+                        )}
+                    </div>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route("password.request")}
-                            className="underline text-sm hover:text-gray-900"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
+                <div className="mt-8 flex items-center justify-end">
                     <Button className="ml-4" processing={processing}>
-                        Log in
+                        Iniciar sesión
                     </Button>
+                </div>
+                <div className="mt-4 text-center text-sm">
+                    ¿No tienes una cuenta?{" "}
+                    <Link
+                        href={route("register")}
+                        className="font-bold text-emerald-500 hover:underline"
+                    >
+                        Regístrate ahora
+                    </Link>
                 </div>
             </form>
         </Guest>

@@ -3,12 +3,46 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 import "swiper/css";
 
+const members = [
+    {
+        name: "lorem",
+        img: "/img/about/member-1.jpg",
+        position: "manager",
+    },
+    {
+        name: "lorem",
+        img: "/img/about/member-2.jpg",
+        position: "manager",
+    },
+    {
+        name: "lorem",
+        img: "/img/about/member-3.jpg",
+        position: "manager",
+    },
+    {
+        name: "lorem",
+        img: "/img/about/member-4.jpg",
+        position: "manager",
+    },
+    {
+        name: "lorem",
+        img: "/img/about/member-5.jpg",
+        position: "manager",
+    },
+    {
+        name: "lorem",
+        img: "/img/about/member-6.jpg",
+        position: "manager",
+    },
+];
 const Members = () => {
     return (
         <div className="py-section container">
             <div className="mx-auto max-w-3xl text-center">
                 <p className="sub-title">CONOCE A NUESTROS MÁS VALIOSOS</p>
-                <h2 className="mt-4 font-bold">MIEMBROS DEL EQUIPO DE EXPERTOS</h2>
+                <h2 className="mt-4 font-bold">
+                    MIEMBROS DEL EQUIPO DE EXPERTOS
+                </h2>
                 <p className="text  mt-4">
                     World se compromete a hacer que la participación en el
                     evento sea una experiencia libre de acoso para todos,

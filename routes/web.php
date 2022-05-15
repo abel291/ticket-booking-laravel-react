@@ -48,7 +48,6 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/events', [EventController::class, 'events'])->name('events');
 
-
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');
 })->name('about-us');
@@ -74,11 +73,11 @@ Route::get('/checkout', function () {
 })->name('checkout');
 
 Route::get('/event-details', function () {
-    return Inertia::render('Events/EventDetails/EventDetails');
+    return Inertia::render('EventDetails/EventDetails');
 })->name('event-details');
 
-Route::get('/event-ticket', function () {
-    return Inertia::render('Events/EventTicket/EventTicket');
+Route::get('/event{event:slug}', function () {
+    
 })->name('event-ticket');
 
 

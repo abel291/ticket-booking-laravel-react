@@ -21,7 +21,7 @@ const FilterCheckbox = ({ title, name, itemValue="value",itemTitle="title", item
     };
 
     return (
-        <Card title={title}>
+        <Card title={title} className="bg-dark-blue-800">
             <div className="space-y-3">
                 {items.map((item, key) => (
                     <div className="flex items-center gap-2" key={key}>

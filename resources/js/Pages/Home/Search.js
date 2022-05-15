@@ -74,6 +74,7 @@ const Search = () => {
                                     />
                                 </div>
                                 <Flatpickr
+                                    placeholder="Fecha"
                                     required={true}
                                     className="w-36 border-r-0 border-l-0 border-t-0 border-b border-white border-opacity-70 bg-inherit ring-0 focus:border-emerald-500 focus:ring-0"
                                     name="search"

@@ -24,7 +24,7 @@ export default function ForgotPassword({ status }) {
         <Guest>
             <Head title="¿Olvidaste tu contraseña?" />
 
-            <div className="mb-4 text-sm font-light leading-normal">
+            <div className="mb-4 text-sm leading-7">
                 ¿Olvidaste tu contraseña? No hay problema. Solo háganos saber su
                 dirección de correo electrónico y le enviaremos un correo
                 electrónico con un enlace de restablecimiento de contraseña que
@@ -32,7 +32,7 @@ export default function ForgotPassword({ status }) {
             </div>
 
             {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
+                <div className="mb-4 font-medium text-sm text-emerald-500">
                     {status}
                 </div>
             )}
@@ -51,7 +51,7 @@ export default function ForgotPassword({ status }) {
 
                 <div className="flex items-center justify-end mt-4">
                     <Button className="ml-4" processing={processing}>
-                        Email Password Reset Link
+                        Restablecimiento de contraseña
                     </Button>
                 </div>
             </form>

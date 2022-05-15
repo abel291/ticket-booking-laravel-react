@@ -4,13 +4,13 @@ import { Link } from "@inertiajs/inertia-react";
 
 export default function Guest({ children }) {
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-dark-blue-900">
+        <div className="flex min-h-screen flex-col items-center bg-dark-blue-900 pt-6 sm:justify-center sm:pt-0">
             <div>
                 <Link href="/">
-                    <ApplicationLogo className="text-white text-4xl" />
+                    <ApplicationLogo className="text-4xl text-white" />
                 </Link>
             </div>
-            <div className=" text-white w-full sm:max-w-md mt-6 px-6 py-4 bg-dark-blue-700 brightness-100 shadow-lg overflow-hidden sm:rounded">
+            <div className=" mt-6 w-full overflow-hidden bg-dark-blue-800 px-10 py-14 text-white shadow-lg brightness-100 sm:max-w-lg sm:rounded">
                 {children}
             </div>
         </div>

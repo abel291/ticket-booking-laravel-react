@@ -8,7 +8,7 @@ const Section3 = () => {
                 <div className="grid grid-cols-12 items-center gap-4">
                     <div className="col-span-12 pb-10 lg:col-span-4 lg:pb-0 ">
                         <p className="sub-title">HECHOS RÁPIDOS</p>
-                        <h2 className="mt-4">HECHOS GRACIOSOS</h2>
+                        <h2 className="mt-4 font-bold">HECHOS GRACIOSOS</h2>
                         <p className="text mt-4">
                             Obtenga métricas escalables de manera objetiva,
                             mientras que los servicios proactivos potencian sin

@@ -8,11 +8,19 @@ import Section3 from "./Section3";
 import Members from "./Members";
 import Gallery from "./Gallery";
 import Guarantees from "./Guarantees";
+import BannerSearch from "@/Components/BannerSearch";
 
 const AboutUs = () => {
     return (
         <Layout title="Sobre nosotros">
-            <Banner />
+            <BannerSearch img="/img/about/banner.jpg" search={false}>
+                <div className="text-center">
+                    <h1 className="font-bold">Sobre Nosotros</h1>
+                    <p className="mt-4 opacity-90 md:text-xl">
+                        Inicio > Sobre nosotros
+                    </p>
+                </div>
+            </BannerSearch>
             <div className="bg-dark-blue-800">
                 <Section1 />
                 <Section2 />

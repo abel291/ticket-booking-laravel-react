@@ -6,11 +6,11 @@ const Section2 = () => {
         <div className=" lg:bg-transparent lg:bg-[url('/img/about/img-2.jpg')] lg:bg-[length:85%]  lg:bg-left  lg:bg-no-repeat">
             <div className="py-section container ">
                 <div className=" grid lg:grid-cols-12">
-                    <div className="rounded lg:col-span-8 lg:col-start-5 lg:bg-dark-blue-900 lg:p-8">
+                    <div className="rounded lg:col-span-8 lg:col-start-5 lg:bg-dark-blue-800 lg:p-8">
                         <p className="sub-title">
                             ECHA UN VISTAZO
                         </p>
-                        <h2 className="mt-4">NUESTRA FILOSOFÍA</h2>
+                        <h2 className="mt-4 font-bold">NUESTRA FILOSOFÍA</h2>
                         <div className="mt-4  ">
                             <p className="text">
                                 Lorem ipsum dolor sit amet, consectetur

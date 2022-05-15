@@ -17,13 +17,13 @@ const Navbar = () => {
 
         {
             title: "Conciertos",
-            path: route("events", { category: "conciertos" }),
+            path: route("events", { categories: ["conciertos"] }),
             current: route().current("movies"),
         },
 
         {
             title: "Turismo",
-            path: route("events", { category: "turismo" }),
+            path: route("events", { categories: ["turismo"] }),
             current: route().current("events"),
         },
 

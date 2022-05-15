@@ -10,6 +10,7 @@ use App\Models\Event;
 use App\Models\Format;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
@@ -37,11 +38,12 @@ class EventController extends Controller
             $events->whereHas('category', function (Builder $query) use ($request) {
                 $query->whereIn('slug', $request->categories);
             });
-        } elseif ($request->category) {
-            $events->whereHas('category', function (Builder $query) use ($request) {
-                $query->where('slug', $request->category);
-            });
         }
+        // elseif ($request->category) {
+        //     $events->whereHas('category', function (Builder $query) use ($request) {
+        //         $query->where('slug', $request->category);
+        //     });            
+        // }
 
         if ($request->formats && array_filter($request->formats)) {
             $events->whereHas('format', function (Builder $query) use ($request) {
@@ -71,7 +73,7 @@ class EventController extends Controller
 
         $paginate = $request->perPage ?: 12;
 
-        $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order', 'search', 'category', 'date', 'formats');
+        $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order', 'search', 'date', 'formats');
         $events = $events->paginate($paginate)->appends($filters);
 
         return Inertia::render('Filters/Filters', [
@@ -79,5 +81,11 @@ class EventController extends Controller
             "formats" => CategoryResource::collection(Format::active()->get()),
             'filters' => $filters,
         ]);
+    }
+
+    public function event_details(Event $event)
+    {
+
+        return Inertia::render('EventTicket/EventTicket', ['event' => $event]);
     }
 }
