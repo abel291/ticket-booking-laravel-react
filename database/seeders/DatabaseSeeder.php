@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             FormatSeeder::class,
             EventSeeder::class,
+            PivotSessionTicketTypesSeeder::class,
             BlogSeeder::class,
             PromotionSeeder::class,
-            PaymentSeeder::class,
+            //PaymentSeeder::class,
             ImageSeeder::class,
         ]);
         Schema::enableForeignKeyConstraints();

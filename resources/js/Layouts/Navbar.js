@@ -41,8 +41,8 @@ const Navbar = () => {
 
         {
             title: "Contactenos",
-            path: route("checkout"),
-            current: route().current("checkout"),
+            path: route("home"),
+            current: route().current("home"),
         },
     ];
     const [showingNavigationDropdown, setShowingNavigationDropdown] =

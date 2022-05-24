@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
             $table->unsignedTinyInteger('quantity');
             $table->float('total');
-            $table->string('session');
+            $table->datetime('session');
             $table->json('ticket_type');
             
             $table->timestamps();

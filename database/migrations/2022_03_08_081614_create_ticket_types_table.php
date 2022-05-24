@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('type');
             $table->float('price');
-            $table->boolean('default');
-            $table->string('desc');
+            $table->boolean('default')->default(0);
+            $table->string('desc')->nullable();
             $table->tinyInteger('min_tickets_purchase');
             $table->tinyInteger('max_tickets_purchase');
             $table->boolean('show_remaining_entries');

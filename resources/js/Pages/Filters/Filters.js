@@ -13,6 +13,7 @@ import ItemsLoading from "./ItemsLoading";
 import { Inertia } from "@inertiajs/inertia";
 
 const Filters = ({ events }) => {
+    console.log(events)
     const [loading, setLoading] = useState(false);
     Inertia.on("start", () => setLoading(true));
     Inertia.on("finish", () => setLoading(false));

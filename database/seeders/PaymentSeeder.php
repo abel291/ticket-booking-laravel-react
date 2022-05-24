@@ -44,7 +44,7 @@ class PaymentSeeder extends Seeder
                     $new_ticket = new Ticket([
                         'quantity' => $quantity,
                         'total' => $price_ticket_type_quantity,
-                        'session' => $session->date->format('d-m-Y') . " " . $session->time,
+                        'session' => $session->date,
                         'ticket_type' => $ticket_type->only(['name', 'price', 'type']),
                     ]);
                     array_push($tickets, $new_ticket);

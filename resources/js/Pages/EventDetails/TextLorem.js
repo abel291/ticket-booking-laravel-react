@@ -1,19 +1,19 @@
 import React from "react";
 
-const Text = () => {
+const TextLorem = () => {
     return (
         <div id="">
-            <div class="g-group l-lg-mar-bot-6 l-md-mar-bot-4 l-pad-bot-6">
-                <div class="g-cell g-cell-2-12 show-small">
-                    <i class="ico-document ico--medium"></i>
-                    <span class="is-hidden-accessible">
+            <div className="g-group l-lg-mar-bot-6 l-md-mar-bot-4 l-pad-bot-6">
+                <div className="g-cell g-cell-2-12 show-small">
+                    <i className="ico-document ico--medium"></i>
+                    <span className="is-hidden-accessible">
                         Descripción del evento
                     </span>
                 </div>
-                <div class="g-cell g-cell-10-12 g-cell-md-1-1">
-                    <div class="has-user-generated-content">
+                <div className="g-cell g-cell-10-12 g-cell-md-1-1">
+                    <div className="has-user-generated-content">
                         <div
-                            class="text-body-medium"
+                            className="textLorem-body-medium"
                             data-automation="listing-event-description"
                         >
                             <strong>
@@ -25,17 +25,14 @@ const Text = () => {
                     </div>
                 </div>
             </div>
-            <div class="g-group l-mar-bot-6 l-sm-mar-bot-4">
-                <div class="g-cell g-cell-2-12 show-small"></div>
-                <div class="structured-content g-cell g-cell-10-12 g-cell-md-1-1">
-                    <h2 class="text-body-large hide-small">
-                        Acerca de este evento
-                    </h2>
+            <div className="g-group l-mar-bot-6 l-sm-mar-bot-4">
+                <div className="g-cell g-cell-2-12 show-small"></div>
+                <div className="structured-content g-cell g-cell-10-12 g-cell-md-1-1">
                     <div
-                        class="has-user-generated-content"
+                        className="has-user-generated-content"
                         data-automation="about-this-event-sc"
                     >
-                        <div class="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium">
+                        <div className="structured-content-rich-text structured-content__module l-align-left l-mar-vert-6 l-sm-mar-vert-4 text-body-medium">
                             <p>
                                 Esta charla te acercará a la concentración
                                 mental, sus beneficios y su práctica. Aprenderás
@@ -113,8 +110,6 @@ const Text = () => {
                             </p>
                             <p></p>
                         </div>
-                        <div class="structured-content-video structured-content__module l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"></div>
-                        <div class="structured-content__module l-mar-vert-6 l-sm-mar-vert-4 text-body-medium"></div>
                     </div>
                 </div>
             </div>
@@ -122,4 +117,4 @@ const Text = () => {
     );
 };
 
-export default Text;
+export default TextLorem;

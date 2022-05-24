@@ -4,7 +4,7 @@ import Layout from "@/Layouts/Layout";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import ListFood from "./ListFood";
-import OrderSummary from "./OrderSummary";
+import OrderSummary from "../../Checkout/OrderSummary";
 
 const MovieFood = () => {
     return (
@@ -34,7 +34,7 @@ const MovieFood = () => {
                         <OrderSummary />
                         <div className="bg-dark-blue-700 py-6">
                             <div className="text-center">
-                                <Link href={route("checkout")} className="btn">
+                                <Link href={route("home")} className="btn">
                                     Proceder a pagar
                                 </Link>
                             </div>

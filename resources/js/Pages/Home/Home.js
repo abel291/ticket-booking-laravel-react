@@ -44,7 +44,7 @@ const Home = ({ homeCategories }) => {
                 </div>
             </BannerSearch>
 
-            {homeCategories.data.map((item, key) => (
+            {homeCategories.map((item, key) => (
                 <div key={key} className=" even:bg-dark-blue-800">
                     {/*Striped color bg-dark-blue-800 */}
                     <ItemList

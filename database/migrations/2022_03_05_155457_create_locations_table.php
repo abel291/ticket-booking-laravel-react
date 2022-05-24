@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
+            $table->text('map')->nullable();
             $table->string('phone');
             $table->boolean('active')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
-        
     }
 
     /**

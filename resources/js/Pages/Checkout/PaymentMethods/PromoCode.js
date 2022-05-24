@@ -4,14 +4,18 @@ import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import { useForm } from "@inertiajs/inertia-react";
 const PromoCode = () => {
-    const applyDiscount = useForm({ code: "" });
+
+    const applyDiscount = useForm({
+        code: "",
+
+    });
     const handleSubmitDiscount = (e) => {
         e.preventDefault();
         if (applyDiscount.data.code === "") {
             return;
         }
-
-        applyDiscount.get(route("home"), {
+        let route = window.location.pathname + window.location.search;
+        applyDiscount.get(route, {
             preserveScroll: true,
         });
     };

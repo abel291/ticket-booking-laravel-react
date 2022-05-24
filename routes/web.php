@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\SearchController;
 use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Location\ListLocation;
 use App\Http\Livewire\Promotion\ListPromotion;
 use App\Http\Livewire\Blog\ListBlog;
-use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
 use App\Http\Livewire\Payment\ListPayment;
 use App\Http\Livewire\Payment\ViewPayment;
@@ -37,16 +36,21 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-// Route::get('/', function () {
-//     return Inertia::render('Home/Home');
-// })->name('home');
-Route::get('/event/{slug}', function () {
-    return Inertia::render('Home/Home');
-})->name('event');
+
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/events', [EventController::class, 'events'])->name('events');
+
+Route::get('/event/{event:slug}', [EventController::class, 'event_details'])->name('event');
+
+
+
+// Route::post('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+});
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');
@@ -68,16 +72,15 @@ Route::get('/movie-food', function () {
     return Inertia::render('Movies/MovieFood/MovieFood');
 })->name('select-food');
 
-Route::get('/checkout', function () {
-    return Inertia::render('Checkout/Checkout');
-})->name('checkout');
+// Route::get('/checkout', function () {
+//     return Inertia::render('Checkout/Checkout');
+// })->name('checkout');
 
-Route::get('/event-details', function () {
-    return Inertia::render('EventDetails/EventDetails');
-})->name('event-details');
+// Route::get('/event-details', function () {
+//     return Inertia::render('EventDetails/EventDetails');
+// })->name('event-details');
 
-Route::get('/event{event:slug}', function () {
-    
+Route::get('/event-ticket', function () {
 })->name('event-ticket');
 
 

@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Format;
 use App\Models\Location;
 use App\Models\Session;
+use App\Models\Speaker;
 use App\Models\TicketType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,7 @@ class EventSeeder extends Seeder
         Event::truncate();
         Session::truncate();
         TicketType::truncate();
+        Speaker::truncate();
 
         $locations = Location::get();
         $formats = Format::get();
@@ -33,6 +35,7 @@ class EventSeeder extends Seeder
             Event::factory(20)
                 //->hasImages(3)
                 ->hasSessions(5)
+                ->hasSpeakers(8)
                 ->has(TicketType::factory()->count(5), 'ticket_types')
                 ->state(function () use ($locations, $formats, $category) {
                     return [

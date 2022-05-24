@@ -1,19 +1,17 @@
 import Card from "@/Components/Card";
 import Input from "@/Components/Input";
+import { usePage } from "@inertiajs/inertia-react";
 import React from "react";
 
-const ContactDetails = ({ data, setData }) => {
-    const onHandleChange = (e) => {
-        let target = e.target;
-        setData(target.name, target.value);
-    };
+const ContactDetails = ({ data, handleChange }) => {
+    const { auth } = usePage().props
     return (
         <Card title="Comparta sus Datos de Contacto">
-            <div className=" border-t border-dashed border-dark-blue-400">
+            <div >
                 <div className="mt-7 grid grid-cols-2 gap-4">
                     <div>
                         <Input
-                            handleChange={onHandleChange}
+                            handleChange={handleChange}
                             className="w-full"
                             required={true}
                             name="name"
@@ -23,18 +21,7 @@ const ContactDetails = ({ data, setData }) => {
                     </div>
                     <div>
                         <Input
-                            handleChange={onHandleChange}
-                            className="w-full"
-                            required={true}
-                            name="email"
-                            type="email"
-                            value={data.email}
-                            placeholder="Correo electronico *"
-                        />
-                    </div>
-                    <div>
-                        <Input
-                            handleChange={onHandleChange}
+                            handleChange={handleChange}
                             className="w-full"
                             required={true}
                             name="phone"
@@ -42,6 +29,16 @@ const ContactDetails = ({ data, setData }) => {
                             placeholder="Telefono *"
                         />
                     </div>
+                    <div className=" col-span-2">
+                        <input
+                            disabled={true}
+                            className="input w-full disabled:opacity-10 disabled:bg-dark-blue-800"
+                            type="text"
+                            value={auth.user.email}
+                            placeholder="Correo electronico *"
+                        />
+                    </div>
+
                 </div>
             </div>
         </Card>

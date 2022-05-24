@@ -13,7 +13,7 @@ const FilterFormat = () => {
             name="formats"
             itemValue="slug"
             itemTitle="name"
-            items={formats.data}
+            items={formats}
             itemsChecked={formatsChecked}
         />
     );

@@ -13,7 +13,7 @@ const FilterCategories = ({ title = "Categorias" }) => {
             name="categories"
             itemValue="slug"
             itemTitle="name"
-            items={categories.data}
+            items={categories}
             itemsChecked={categoriesChecked}
         />
     );

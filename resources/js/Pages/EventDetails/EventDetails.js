@@ -1,37 +1,51 @@
-import BannerSearch from "@/Components/BannerSearch";
+
 import Layout from "@/Layouts/Layout";
 import React from "react";
-import CarouselMembers from "@/Components/CarouselMembers";
-import AboutContent from "./AboutContent";
 import AskedQuestions from "./AskedQuestions";
-import Gallery from "./Gallery";
-import SectionCountdown from "./SectionCountdown";
+import EventSidebar from "./EventSidebar";
+import EventContent from "./EventContent";
+import EventGallery from "./EventGallery";
+import CarouselSpeakers from "./CarouselSpeakers";
+import BannerEvent from "./BannerEvent";
 
-const EventDetails = () => {
+const EventDetails = ({ event }) => {
+    console.log(event);
     return (
-        <Layout title="title">
-            <BannerSearch img="/img/event/banner.jpg" search={false}>
-                <div>
-                    <h1 className="font-bold">
-                        CÓMO EL JUEGO PUEDE GENERAR NUEVAS IDEAS PARA TU NEGOCIO
-                    </h1>
-                    <p className="mt-5 font-medium md:text-xl xl:text-2xl">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Ipsa pariatur adipisci quaerat architecto, ab enim
-                        sapiente dolores itaque vitae accusantium magnam quis
-                    </p>
-                </div>
-            </BannerSearch>
+        <Layout title={event.title}>
+            <BannerEvent img="/img/event/banner.jpg" title={event.title} desc={event.desc_min}/>
 
-            <SectionCountdown />
-
-            <AboutContent />
-
-            <Gallery />
-
-            <CarouselMembers />
-
+            {/* <SectionCountdown 
+            descMin={event.desc_min} 
+            address={event.location} /> */}
             <div className="container">
+                <div className="py-section">
+                    <div className="flex flex-col-reverse justify-between gap-y-8 gap-x-8 lg:flex-row lg:gap-y-0">
+                        <div className="w-full lg:w-9/12 ">
+                            <EventContent
+                                img={event.card}
+                                desc_max={event.desc_max}
+                            />
+                        </div>
+                        <div className="w-full lg:w-3/12 ">
+                            <div className="space-y-10">
+                                <EventSidebar
+                                    sessions={event.sessions}
+                                    location={event.location}
+                                    ticket_types={event.ticket_types}
+                                    slug={event.slug}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="py-section">
+                    <EventGallery />
+                </div>
+            </div>
+            {event.speakers.length && <CarouselSpeakers speakers={event.speakers} />}
+
+            <div className="">
                 <div className="border-t border-dark-blue-400"></div>
             </div>
 

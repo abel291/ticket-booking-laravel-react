@@ -15,8 +15,11 @@ class SessionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'date' => $this->date->format('d-m-Y'),
-            'time' => $this->time,
+            //'id' => $this->id,
+            'date' => $this->date,
+            'ticket_types' => TicketTypeResource::collection($this->whenLoaded('ticket_types')), 
+            //'time' => $this->time,
+            
         ];
     }
 }

@@ -80,7 +80,7 @@ const FilterCategories = ({ title = "Categorias" }) => {
             title={"Precios"}
             name="prices"
             
-            items={categories.data}
+            items={categories}
             itemsChecked={categoriesChecked}
         />
     );

@@ -10,12 +10,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
 class Event extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
     use HasEagerLimit;
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -24,10 +25,14 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsTo(Format::class);
     }
-    
+
     public function sessions()
     {
-        return $this->hasMany(Session::class);
+        return $this->hasMany(Session::class)->orderBy('date');;
+    }
+    public function speakers()
+    {
+        return $this->hasMany(Speaker::class);
     }
 
     //me devuelve una sola  sesion con la fecha futura mas cerca de la fecha actual
@@ -37,9 +42,11 @@ class Event extends Model implements HasMedia
             'date' => 'min',
             //'id' => 'max',
         ], function ($query) {
-            $query->where('active',1)->where('date', '>=', now());
+            $query->where('active', 1)->where('date', '>=', now());
         });
     }
+
+
 
     public function ticket_types()
     {
@@ -76,16 +83,20 @@ class Event extends Model implements HasMedia
         //     });
     }
 
-    /**
-     * Scope a query to only include active users.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return void
-     */
     public function scopeActive($query)
     {
         $query->where('active', 1);
     }
 
-    
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('slug', $value)->active()->firstOrFail();
+    }
 }

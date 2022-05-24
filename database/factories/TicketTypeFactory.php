@@ -27,7 +27,7 @@ class TicketTypeFactory extends Factory
             'min_tickets_purchase' => 1,
             'max_tickets_purchase' => 20,
             'show_remaining_entries' => rand(0,1),
-            'active' => rand(0,1),
+            'active' => 1,
 
         ];
     }

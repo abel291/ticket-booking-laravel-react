@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id();            
-            $table->date('date');
-            $table->time('time');
+            $table->id();
+            $table->datetime('date');
+            //$table->time('time');
             $table->boolean('active')->default(0);
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
-            //$table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
-
             $table->timestamps();
         });
     }

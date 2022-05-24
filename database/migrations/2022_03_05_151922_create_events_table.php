@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title');
+            //$table->string('sub_title');
             $table->boolean('active');
             $table->string('duration');
             $table->string('desc_min');

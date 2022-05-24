@@ -36,7 +36,7 @@ const Events = ({ items, image }) => {
                     <div className="lg:col-span-8">
                         <FilterOrder />
                         <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-                            {items.data.map((item, key) => (
+                            {items.map((item, key) => (
                                 <ItemCard key={key} item={item} />
                             ))}
                         </div>

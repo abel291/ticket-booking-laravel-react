@@ -16,7 +16,10 @@ class PageController extends Controller
     public function home()
     {
 
-        $home_categories = Category::where('type', CategoryType::EVENT)->active()->where('home', true)->has('events.session')
+        $home_categories = Category::where('type', CategoryType::EVENT)
+            ->active()
+            ->where('home', true)
+            ->has('events.session')
             ->with(['events' => function ($query) {
                 $query->with('session', 'location')->active()->limit(8);
             }])->take(4)->get();

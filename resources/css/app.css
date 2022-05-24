@@ -84,6 +84,9 @@ select option {
     -webkit-mask: var(--mask);
     mask: var(--mask);
 }
+.ticket-border-rounded {
+    @apply relative;
+}
 .ticket-border-rounded::before,
 .ticket-border-rounded::after {
     @apply absolute -top-6 h-12 w-7
@@ -95,7 +98,21 @@ select option {
 .ticket-border-rounded::after {
     @apply -right-[34px] rounded-l-full;
 }
-.input{
+.input {
     @apply border-r-0 border-l-0 border-t-0 border-b border-white border-opacity-70 bg-inherit pl-0 ring-0  placeholder:text-blue-300 focus:border-emerald-500 focus:ring-0;
 }
 
+.gallery-img-event .swiper-container {
+    width: 100%;
+}
+.gallery-img-event .swiper-wrapper {
+    width: 50% !important;
+}
+.gallery-img-event .swiper-slide {
+    text-align: center !important;
+    width: auto !important;
+}
+/* .slide-image {
+    height: 400px !important;
+    width: auto !important;
+  } */

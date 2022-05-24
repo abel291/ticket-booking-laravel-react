@@ -92,7 +92,7 @@ const Members = () => {
 };
 const MembersCard = ({ img, name, position }) => {
     return (
-        <div>
+        <div className="h-[400px]">
             <img src={img} alt="" className="w-full rounded-md object-cover" />
             <div className="mt-7 text-center">
                 <h5 className="font-normal">{name}</h5>

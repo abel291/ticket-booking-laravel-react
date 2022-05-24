@@ -103,7 +103,7 @@ const Search = () => {
                                     <option className="text-black" value="all">
                                         Todas las categorias
                                     </option>
-                                    {categories.data.map((item) => (
+                                    {categories.map((item) => (
                                         <option
                                             key={item.slug}
                                             value={item.slug}

@@ -8,6 +8,7 @@ use App\Http\Resources\EventResource;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Format;
+use App\Models\TicketType;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Redis;
@@ -32,7 +33,7 @@ class EventController extends Controller
         $events->active()
             ->has('session')
             ->with('session', 'location');
-
+            
 
         if ($request->categories && array_filter($request->categories)) {
             $events->whereHas('category', function (Builder $query) use ($request) {
@@ -75,7 +76,7 @@ class EventController extends Controller
 
         $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order', 'search', 'date', 'formats');
         $events = $events->paginate($paginate)->appends($filters);
-
+        
         return Inertia::render('Filters/Filters', [
             "events" => EventResource::collection($events),
             "formats" => CategoryResource::collection(Format::active()->get()),
@@ -85,7 +86,11 @@ class EventController extends Controller
 
     public function event_details(Event $event)
     {
-
-        return Inertia::render('EventTicket/EventTicket', ['event' => $event]);
+        $event->load('location', 'session', 'sessions', 'ticket_types','speakers');        
+        return Inertia::render('EventDetails/EventDetails', [
+            'event' => new EventResource($event)
+        ]);
     }
 }
+
+//responsive event details , agrega campos db speakers

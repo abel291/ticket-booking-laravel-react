@@ -31,11 +31,7 @@ const SectionCountdown = () => {
                                     renderer={renderer}
                                 />
                             </div>
-                            <div>
-                                <Link className="btn" href={route("home")}>
-                                    RESERVAR ENTRADAS
-                                </Link>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

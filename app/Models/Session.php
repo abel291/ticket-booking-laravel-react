@@ -13,7 +13,7 @@ class Session extends Model
     use HasFactory;
 
     protected $casts = [
-        'date' => 'datetime:Y-m-d',
+        //'date' => 'datetime:Y-m-d',
     ];
 
     /**
@@ -21,17 +21,28 @@ class Session extends Model
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    protected function time(): Attribute
-    {
+    // protected function time(): Attribute
+    // {
 
-        return Attribute::make(
-            get: fn ($value) => Carbon::createFromFormat('H:i:s', $value)->format('h:i A'),
-            set: fn ($value) => Carbon::createFromFormat('h:i A', $value)->format('H:i:00'),
-        );
+    //     return Attribute::make(
+    //         get: fn ($value) => Carbon::createFromFormat('H:i:s', $value)->format('h:i A'),
+    //         set: fn ($value) => Carbon::createFromFormat('h:i A', $value)->format('H:i:00'),
+    //     );
+    // }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 
     public function ticket_types()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity');
+    }
+
+    //scope
+    public function scopeActive($query)
+    {
+        $query->where('active', 1);
     }
 }

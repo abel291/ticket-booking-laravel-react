@@ -51,10 +51,10 @@ const EventSearch = ({ items, filters }) => {
                     <div className="mb-8 text-xl">Resultados de busqueda para : " {filters.search} "</div>
                 )}
 
-                {items.data.length ? (
+                {items.length ? (
                     <>
                         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
-                            {items.data.map((item, key) => (
+                            {items.map((item, key) => (
                                 <ItemCard key={key} item={item} />
                             ))}
                         </div>
