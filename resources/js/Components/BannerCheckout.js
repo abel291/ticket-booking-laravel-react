@@ -14,7 +14,7 @@ const BannerCheckout = ({ title,lang }) => {
                 ></div>
                 <div className="relative place-self-center text-center">
                     <div>
-                        <h3 className="uppercase">
+                        <h3 className="uppercase font-bold">
                             {title}
                         </h3>
                         <span className="mt-2 text-blue-300">

@@ -5,31 +5,32 @@ import React from "react";
 import { formatCurrency } from "@/Helpers/Helpers";
 import Select from "@/Components/Select";
 
-const QuantityTicket = ({ handleChange, tickets }) => {
+const QuantityTicket = ({ tickets, tickets_quantity, handleChange, session_selected }) => {
+
     return (
         <Card title="Tipos de entradas">
-            <div className="">
+            <div >
                 {tickets.map((item, key) => (
                     <div
-                        key={item.id}
-                        className="flex justify-between gap-x-8 border-b border-dark-blue-400 py-4"
+                        key={item.id + session_selected}
+                        className="flex justify-between items-center gap-x-8 border-b border-dark-blue-400 py-4"
                     >
-                        <div>
+                        <div className="w-full">
+
                             <div className="textl-lg font-medium">
                                 {item.name}
                             </div>
                             <span className="text-base">
-                                {item.type == "free"
-                                    ? "Gratis"
-                                    : formatCurrency(item.price)}
+                                {item.type == "free" ? "Gratis" : formatCurrency(item.price)}
                             </span>
-                            <div>
+
+                            <div className="mt-3">
                                 <p className="text-xs">{item.desc}</p>
                             </div>
                         </div>
                         <div>
                             <select
-                                value={item.quantity_selected}
+                                value={tickets_quantity[item.id]}
                                 onChange={handleChange}
                                 name={item.id}
                                 className="border border-dark-blue-400 bg-dark-blue-700"

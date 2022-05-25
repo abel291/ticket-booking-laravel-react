@@ -10,67 +10,59 @@ import ContactDetails from "./PaymentMethods/ContactDetails";
 import PromoCode from "./PaymentMethods/PromoCode";
 import PaymentOption from "./PaymentMethods/PaymentOption";
 import { useForm, usePage } from "@inertiajs/inertia-react";
-const Checkout = ({ event, sessions, sessionSelected, tickets, summary }) => {
+const Checkout = ({ event, sessions, tickets, filters, summary }) => {
     const { auth } = usePage().props
+
+    const [data, setData,] = useState({
+        date: filters.date || sessions[0].date,
+        tickets_quantity: typeof filters.tickets_quantity === 'object' ? filters.tickets_quantity : {},
+        code_promotion: filters.code_promotion || ""
+    })
     
     const handleChangeSession = (e) => {
-
-        fetch({
+        setData({
+            ...data,
             date: e.target.value,
+            tickets_quantity: {}
         });
     };
-
     const handleChangeTickets = (e) => {
-        let id = parseInt(e.target.name);
+        let id = e.target.name;
+        let quantity_selected = parseInt(e.target.value);
 
-        let quantitySelected = parseInt(e.target.value);
+        let new_tickets_quantity = data.tickets_quantity;
 
-        let ticketFind = tickets.find((item) => item.id == id);
-        ticketFind.quantitySelected = quantitySelected;
-        // if (quantitySelected > 0) {
-        //     ticketFind.quantitySelected = quantitySelected;
-        // } else {
-        //     delete ticketFind.quantitySelected;
-        // }
-
-        fetch({
-            date: sessionSelected,
-            tickets_quantity: tickets,
-        });
+        if (quantity_selected > 0) {
+            new_tickets_quantity[id] = quantity_selected;
+        } else {
+            delete new_tickets_quantity[id];
+        }
+        setData({ ...data, tickets_quantity: new_tickets_quantity });
     };
 
-    const fetch = (data) => {
-        if (data.tickets_quantity) {
+    const initUpdate = useRef(true)
+    useEffect(() => {
 
-            let ticketSelectedNotEmpty = data.tickets_quantity.filter(function (item, index) {
-                return item.quantitySelected;
-            });
-            let idsQuantityTickets = {};
-            ticketSelectedNotEmpty.forEach(({ id, quantitySelected }) => {
-                return (idsQuantityTickets[id] = quantitySelected);
-            });
-            data.tickets_quantity = idsQuantityTickets
+        if (initUpdate.current) {
+            initUpdate.current = false
+            return
         }
         Inertia.get(route("checkout", { slug: event.slug }), data, {
             preserveScroll: true,
             replace: true,
             preserveState: true,
         });
-    };
+    }, [data])
 
-    const { data, setData } = useForm({
+    const { data: user, setData: setUser } = useForm({
         name: auth.user.name,
         phone: auth.user.phone,
     })
+    
     const handleChangeContact = (e) => {
         let target = e.target;
-        setData(target.name, target.value)
+        setUser(target.name, target.value)
     }
-
-    // const handleSubmitPromoCode = (e) => {
-    //     let target = e.target;
-
-    // }
 
     return (
         <Layout title="Checkout">
@@ -90,18 +82,20 @@ const Checkout = ({ event, sessions, sessionSelected, tickets, summary }) => {
 
                             <SelectDate
                                 sessions={sessions}
-                                sessionSelected={sessionSelected}
+                                session_selected={data.date}
                                 handleChange={handleChangeSession}
                             />
 
                             <QuantityTicket
-                                handleChange={handleChangeTickets}
                                 tickets={tickets}
+                                tickets_quantity={data.tickets_quantity}
+                                handleChange={handleChangeTickets}
+                                session_selected={data.date}
                             />
 
-                            <ContactDetails data={data} handleChange={handleChangeContact} />
+                            {/* <ContactDetails data={data} handleChange={handleChangeContact}/>*/}
 
-                            {/* <PromoCode handleSubmit={handleSubmitPromoCode} /> */}
+                            <PromoCode data={data} setData={setData} />
                             {/* <PaymentOption /> */}
                         </div>
                     </div>
@@ -110,7 +104,7 @@ const Checkout = ({ event, sessions, sessionSelected, tickets, summary }) => {
                         <div className="space-y-6">
                             <OrderSummary
                                 event={event}
-                                sessionSelected={sessionSelected}
+                                session_selected={data.date}
                                 summary={summary}
                             />
                         </div>

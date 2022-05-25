@@ -3,45 +3,40 @@ import Card from "@/Components/Card";
 import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import { useForm } from "@inertiajs/inertia-react";
-const PromoCode = () => {
+import { useState, useRef, useEffect } from "react";
+const PromoCode = ({ data, setData }) => {
 
-    const applyDiscount = useForm({
-        code: "",
+    const codRef = useRef();
 
-    });
-    const handleSubmitDiscount = (e) => {
+    useEffect(() => {
+        codRef.current.value = data.code_promotion;
+    }, []);
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (applyDiscount.data.code === "") {
-            return;
-        }
-        let route = window.location.pathname + window.location.search;
-        applyDiscount.get(route, {
-            preserveScroll: true,
-        });
-    };
-
+        if (data.code_promotion == codRef.current.value) return
+        setData({ ...data, code_promotion: codRef.current.value })
+    }
     return (
         <Card title="Codigo de Promocion">
-            <div className=" border-t border-dashed border-dark-blue-400">
-                <form onSubmit={handleSubmitDiscount} className="mb-3">
-                    <div className="mt-7 grid grid-cols-2 gap-4">
-                        <Input
-                            handleChange={(e) =>
-                                applyDiscount.setData("code", e.target.value)
-                            }
-                            className="w-full"
-                            required={true}
-                            name="Code"
-                            placeholder="Codigo *"
-                        />
-                        <div>
-                            <Button processing={applyDiscount.processing}>
-                                Verificar
-                            </Button>
-                        </div>
+
+            <form onSubmit={handleSubmit} className="mb-3">
+                <div className="mt-7 grid grid-cols-2 gap-4">
+                    <input
+                        ref={codRef}
+                        className="input w-full"
+                        required={true}
+                        name="code"
+                        placeholder="Codigo *"
+                    />
+                    <div>
+                        <Button>
+                            Verificar
+                        </Button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+
         </Card>
     );
 };

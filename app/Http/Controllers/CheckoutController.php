@@ -28,57 +28,56 @@ class CheckoutController extends Controller
             $session_selected = $sessions->firstWhere('date', $request->date);
         } else {
             $session_selected = $sessions->first();
-        }
-        //dd($request->all());
-        $tickets = $session_selected->ticket_types;
-
-        if ($request->date && $request->tickets_quantity) {
-            $tickets_quantity = $request->tickets_quantity ? $request->tickets_quantity : [];
-            $tickets = $tickets->map(function ($item, $key) use ($tickets_quantity) {
-                if (array_key_exists($item->id, $tickets_quantity)) {
-                    $item->quantity_selected = $tickets_quantity[$item->id];
-                    $item->price_quantity = $item->quantity_selected * $item->price;
-                }
-                return $item;
-            });
+            
         }
         
-        $summary = $this->summary_totals($tickets);
+        $tickets = $session_selected->ticket_types;
+        $summary = $this->summary_totals($tickets, $request->tickets_quantity);
 
         return Inertia::render('Checkout/Checkout', [
             'event' => new EventResource($event),
             'sessions' => SessionResource::collection($sessions),
-            'sessionSelected' => $session_selected->date,
-            'tickets' => $tickets,
+            'tickets' => TicketTypeResource::collection($tickets),
+            'filters' => $request->only('date', 'tickets_quantity', 'code_promotion'),
             'summary' => $summary,
         ]);
     }
-    public function payment_methods(Event $event, Request $request)
+    // public function payment_methods(Event $event, Request $request)
+    // {
+    //     //dd($request->all());
+
+    //     $session = Session::where('date', '>=', now())
+    //         ->whereBelongsTo($event)
+    //         ->active()
+    //         ->where('date', $request->session)
+    //         ->with(['ticket_types' => function ($query) {
+    //             $query->active()->wherePivot('remaining', '>', 0);
+    //         }])->firstOrFail();
+
+
+    //     $summary = $this->summary_totals($session->ticket_types, $request->ticket_types_selected);
+
+    //     return Inertia::render('Checkout/PaymentMethods/PaymentMethods', [
+    //         'event' => new EventResource($event),
+    //         'session' => $session->date,
+    //         'summary' => $summary,
+    //     ]);
+    // }
+
+    public function summary_totals(object $tickets, $tickets_quantity)
     {
-        //dd($request->all());
-
-        $session = Session::where('date', '>=', now())
-            ->whereBelongsTo($event)
-            ->active()
-            ->where('date', $request->session)
-            ->with(['ticket_types' => function ($query) {
-                $query->active()->wherePivot('remaining', '>', 0);
-            }])->firstOrFail();
-
-
-        $summary = $this->summary_totals($session->ticket_types, $request->ticket_types_selected);
-
-        return Inertia::render('Checkout/PaymentMethods/PaymentMethods', [
-            'event' => new EventResource($event),
-            'session' => $session->date,
-            'summary' => $summary,
-        ]);
-    }
-
-    public function summary_totals(object $tickets, string $discount = "")
-    {
-
-        $tickets = $tickets->filter(fn ($ticket) => $ticket->quantity_selected);
+        //dd($tickets_quantity);
+        if (is_array($tickets_quantity)) {
+            $array_ids_ticket_selected = array_keys($tickets_quantity);
+            $ticket_selected = $tickets->whereIn('id', $array_ids_ticket_selected)
+                ->map(function ($item, $key) use ($tickets_quantity) {
+                    $item->quantity_selected = $tickets_quantity[$item->id];
+                    $item->price_quantity = $item->quantity_selected * $item->price;
+                    return $item;
+                })->filter(fn ($ticket) => $ticket->quantity_selected);
+        } else {
+            $ticket_selected = collect([]);
+        }
 
         $summary['sub_total'] = $tickets->sum('price_quantity');
 
@@ -88,7 +87,7 @@ class CheckoutController extends Controller
 
         $summary['total'] = $summary['sub_total'] + $summary['fee'];
 
-        $summary['ticket_selected_quantity'] = $tickets->values();
+        $summary['ticket_selected'] = $ticket_selected->values();
 
         return $summary;
     }

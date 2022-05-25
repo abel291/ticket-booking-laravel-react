@@ -4,7 +4,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
-const OrderSummary = ({ event, sessionSelected, summary }) => {
+const OrderSummary = ({ event, session_selected, summary }) => {
     console.log(summary)
     return (
         <div className="divide-y divide-dashed divide-dark-blue-400 rounded border border-dark-blue-500 bg-dark-blue-700 p-7">
@@ -21,13 +21,13 @@ const OrderSummary = ({ event, sessionSelected, summary }) => {
                 <div>
                     <Tilte>Fecha</Tilte>
                     <SubTitle className="mt-2">
-                        {formatDate(sessionSelected)}
+                        {formatDate(session_selected)}
                     </SubTitle>
                 </div>
 
                 <div>
                     <Tilte>Boletos</Tilte>
-                    {summary.ticket_selected_quantity.map((item) => (
+                    {summary.ticket_selected.map((item) => (
                         <SubTitle className="mt-2" key={item.id}>
                             <div className="flex justify-between gap-3">
                                 <div>
