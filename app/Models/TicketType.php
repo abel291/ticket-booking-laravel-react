@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,14 +14,14 @@ class TicketType extends Model
     {
         return $this->belongsTo(Event::class);
     }
+    
     public function sessions()
     {
         return $this->belongsToMany(Session::class);
     }
 
-    //scope
-    public function scopeActive($query)
+    protected static function booted()
     {
-        $query->where('active', 1);
+        static::addGlobalScope(new ActiveScope);
     }
 }

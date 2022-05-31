@@ -21,7 +21,7 @@ class PromotionFactory extends Factory
             'type' => $this->faker->randomElement(['amount', 'percent']),
             'value' => rand(1, 100),
             'quantity' => rand(1, 100),
-            'expired' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
+            'expired' => $this->faker->dateTimeBetween('now', '+4 week'),
             'description' => $this->faker->sentence(),
         ];
     }

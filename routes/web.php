@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Payment\CheckoutController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Livewire\User\ListUsers;
 use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Location\ListLocation;
@@ -44,12 +46,23 @@ Route::get('/events', [EventController::class, 'events'])->name('events');
 
 Route::get('/event/{event:slug}', [EventController::class, 'event_details'])->name('event');
 
-
-
-// Route::post('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/my-account', 'my_account')->name('my_account');
+
+        Route::get('/account-details', 'account_details')->name('account_details');
+        Route::post('/account-details', 'store_account_details')->name('store_account_details');
+
+        Route::get('/shopping', 'shopping')->name('shopping');
+        Route::get('/shopping-details/{code}', 'shopping_details')->name('shopping_details');
+        
+        Route::get('/change-password', 'change_password')->name('change_password');
+        Route::post('/change-password', 'store_change_password')->name('store_change_password');
+    });
+
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });
 
 Route::get('/about-us', function () {

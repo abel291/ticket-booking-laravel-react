@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\TicketType;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventResource extends JsonResource
@@ -31,6 +31,7 @@ class EventResource extends JsonResource
             'social_tw' => $this->social_tw,
             'social_yt' => $this->social_yt,
             'card' => '/img/events/img-' . rand(1, 20) . '.jpg',
+            'banner' => '/img/events/img-' . rand(1, 20) . '.jpg',
             //'card'=>$this->getFirstMediaUrl('card'), 
             'session' => SessionResource::make($this->whenLoaded('session')),
             'sessions' => SessionResource::collection($this->whenLoaded('sessions')),

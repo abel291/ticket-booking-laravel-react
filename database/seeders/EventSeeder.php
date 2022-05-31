@@ -30,9 +30,8 @@ class EventSeeder extends Seeder
         $locations = Location::get();
         $formats = Format::get();
 
-
         foreach (Category::get() as $key => $category) {
-            Event::factory(20)
+            Event::factory(10)
                 //->hasImages(3)
                 ->hasSessions(5)
                 ->hasSpeakers(8)

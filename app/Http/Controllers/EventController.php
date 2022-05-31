@@ -30,7 +30,7 @@ class EventController extends Controller
         // ]);
 
         $events = Event::query();
-        $events->active()
+        $events
             ->has('session')
             ->with('session', 'location');
             

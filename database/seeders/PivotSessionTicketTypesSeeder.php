@@ -34,8 +34,7 @@ class PivotSessionTicketTypesSeeder extends Seeder
                         'remaining' => $ticket_type->quantity,
                         'quantity' => $ticket_type->quantity,
                     ];
-                }
-                
+                }               
 
                 $session->ticket_types()->attach($pivot_ticket_types);
             }

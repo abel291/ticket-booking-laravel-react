@@ -192,6 +192,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Helpers' => App\Helpers\Helpers::class,
+        'Checkout' => App\Helpers\Checkout::class,
     ])->toArray(),
 
 ];

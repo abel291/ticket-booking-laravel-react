@@ -18,8 +18,6 @@ class Payment extends Model
     protected $attributes = [
         'code' => '',
         'status' => PaymentStatus::SUCCESSFUL,
-        'email' => '',
-        'phone' => '',
         'sub_total' => 0,
         'total' => 0,
     ];

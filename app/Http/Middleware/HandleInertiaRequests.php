@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'categories' => fn () => CategoryResource::collection(Category::active()->typeEvent()->get()),
+            'categories' => fn () => CategoryResource::collection(Category::typeEvent()->get()),
             'flash' => [
                 'success' => fn () => $request->session()->get('success')
             ],

@@ -19,12 +19,21 @@ class PromotionSeeder extends Seeder
     {
         Promotion::truncate();
         DB::table('event_promotion')->truncate();
-        $promotions = Promotion::factory(20)->create();
 
         $events = Event::get();
+        $promotions = Promotion::factory()->count(4)->create();
+        foreach ($events as $event) {
+            $promotions = Promotion::factory()->count(4)->create();
+            $pivot_promotions = [];
+            foreach ($promotions as $promotion) {
+                $pivot_promotions[$promotion->id] = [
+                    'remaining' => $promotion->quantity,
+                    'quantity' => $promotion->quantity,
+                ];
+            }
+            
 
-        foreach ($promotions as $promotion) {
-            $promotion->events()->attach($events->random(4)->pluck('id')->toArray());
+            $event->promotions()->attach($pivot_promotions);
         }
     }
 }

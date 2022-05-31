@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\ActiveScope;
 use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -40,9 +41,8 @@ class Session extends Model
         return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity');
     }
 
-    //scope
-    public function scopeActive($query)
+    protected static function booted()
     {
-        $query->where('active', 1);
+        static::addGlobalScope(new ActiveScope);
     }
 }

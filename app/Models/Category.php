@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CategoryType;
+use App\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
@@ -29,10 +30,10 @@ class Category extends Model
         return $this->hasMany(Event::class);
     }
 
-    
-    public function scopeActive($query)
+
+    protected static function booted()
     {
-        $query->where('active', 1);
+        static::addGlobalScope(new ActiveScope);
     }
     public function scopeTypeEvent($query)
     {

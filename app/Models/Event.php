@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\EventTypes;
+use App\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,8 +47,6 @@ class Event extends Model implements HasMedia
         });
     }
 
-
-
     public function ticket_types()
     {
         return $this->hasMany(TicketType::class);
@@ -58,8 +57,16 @@ class Event extends Model implements HasMedia
     }
     public function promotions()
     {
-        return $this->belongsToMany(Promotion::class);
+        return $this->belongsToMany(Promotion::class)->withPivot('remaining', 'quantity');;
     }
+    public function promotions_available()
+    {
+        return $this->belongsToMany(Promotion::class)
+            ->where('active', true)
+            ->where('expired', '>', now())
+            ->wherePivot('remaining', '>', 0);
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);
@@ -83,9 +90,10 @@ class Event extends Model implements HasMedia
         //     });
     }
 
-    public function scopeActive($query)
+   
+    protected static function booted()
     {
-        $query->where('active', 1);
+        static::addGlobalScope(new ActiveScope);
     }
 
     /**
@@ -97,6 +105,6 @@ class Event extends Model implements HasMedia
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        return $this->where('slug', $value)->active()->firstOrFail();
+        return $this->where('slug', $value)->firstOrFail();
     }
 }

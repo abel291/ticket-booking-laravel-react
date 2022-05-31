@@ -46,6 +46,10 @@ class User extends Authenticatable
         'active' => 0,
        
     ];
+    public function payments()
+    {
+        return  $this->hasMany(Payment::class);
+    }
    
     
 }
