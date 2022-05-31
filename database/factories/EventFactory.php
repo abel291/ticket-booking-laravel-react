@@ -36,6 +36,7 @@ class EventFactory extends Factory
             'social_tw' => $this->faker->domainName(),
             'social_yt' => $this->faker->domainName(),
             'active' => 1,
+            'home' => rand(0,1),
         ];
     }
 }

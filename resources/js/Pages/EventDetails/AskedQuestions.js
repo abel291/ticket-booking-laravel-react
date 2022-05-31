@@ -11,7 +11,7 @@ const AskedQuestions = () => {
     };
 
     return (
-        <div className="py-section container">
+        <div className="py-section">
             <SectionHeader
                 subTitle="¿CÓMO PODEMOS AYUDAR?"
                 title="PREGUNTAS FRECUENTES"

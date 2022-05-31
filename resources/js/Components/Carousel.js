@@ -5,9 +5,11 @@ import { Navigation, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-const Carousel = ({ children }) => {
+const Carousel = ({ children, breakpoints }) => {
     return (
-        <div className="relative gallery-img-event">
+
+        <div className="relative ">
+            {/*<div className="relative carousel-img"> */}
             <div className="absolute top-2/4 z-10 flex w-full items-center ">
                 <button
                     aria-label="prev-button"
@@ -24,22 +26,24 @@ const Carousel = ({ children }) => {
             </div>
             <Swiper
                 modules={[Navigation, Autoplay]}
-                spaceBetween={20}
                 loop={true}
-                slidesPerView={"auto"}
+                slidesPerView={1}
                 centeredSlides={true}
+                breakpoints={breakpoints}
                 navigation={{
                     nextEl: ".button-next-marcas",
                     prevEl: ".button-prev-marcas",
                 }}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: true,
-                }}
+            // autoplay={{
+            //     delay: 2500,
+            //     disableOnInteraction: true,
+            // }}
             >
+
                 {children}
+
             </Swiper>
-        </div>
+        </div >
     );
 };
 

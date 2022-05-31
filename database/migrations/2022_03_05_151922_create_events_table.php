@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             //$table->string('sub_title');
             $table->boolean('active');
+            $table->boolean('home')->default(0);
             $table->string('duration');
             $table->string('desc_min');
             $table->text('desc_max');

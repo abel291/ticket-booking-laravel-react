@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Enums\CategoryType;
 
 use App\Http\Resources\CategoryResource;
-
+use App\Http\Resources\EventResource;
 use App\Models\Category;
-
+use App\Models\Event;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 
@@ -15,18 +16,19 @@ class PageController extends Controller
 {
     public function home()
     {
+        $carousel = Event::where('home', true)->has('session')->get()->random(10);
 
-        $home_categories = Category::where('type', CategoryType::EVENT)            
-            ->where('home', true)
-            ->has('events.session')
-            ->with(['events' => function ($query) {
-                $query->with('session', 'location')->limit(8);
-            }])->take(4)->get();
+        $featured = Event::has('session')->with('session','category','location')->get()->random(8);
 
+        $free = Event::has('session')->with('session','category','location')->whereRelation('ticket_types', 'type', 'free')->get()->random(8);
 
-        //dd($categories[2]->events);
+        $home_categories = Category::where('type', CategoryType::EVENT)->get();
+
         return Inertia::render('Home/Home', [
-            "homeCategories" => CategoryResource::collection($home_categories),
+            'eventsCarousel' => EventResource::collection($carousel),
+            'eventsFeacture' => EventResource::collection($featured),
+            'eventsFree' => EventResource::collection($free),
+            "categories" => CategoryResource::collection($home_categories),
         ]);
     }
     function search()

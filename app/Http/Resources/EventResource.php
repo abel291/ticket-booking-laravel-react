@@ -31,7 +31,7 @@ class EventResource extends JsonResource
             'social_tw' => $this->social_tw,
             'social_yt' => $this->social_yt,
             'card' => '/img/events/img-' . rand(1, 20) . '.jpg',
-            'banner' => '/img/events/img-' . rand(1, 20) . '.jpg',
+            'banner' => '/img/home/carousel-' . rand(1, 9) . '.jpg',
             //'card'=>$this->getFirstMediaUrl('card'), 
             'session' => SessionResource::make($this->whenLoaded('session')),
             'sessions' => SessionResource::collection($this->whenLoaded('sessions')),

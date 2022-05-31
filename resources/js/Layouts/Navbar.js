@@ -18,7 +18,7 @@ const Navbar = () => {
         {
             title: "Conciertos",
             path: route("events", { categories: ["conciertos"] }),
-            current: route().current("movies"),
+            current: route().current("events"),
         },
 
         {
@@ -29,8 +29,8 @@ const Navbar = () => {
 
         {
             title: "Festivales",
-            path: route("events", { formats: ["festival"] }),
-            current: route().current("sports"),
+            path: route("events", { categories: ["festivales"] }),
+            current: route().current("events"),
         },
 
         {

@@ -1,6 +1,6 @@
 
 import React from "react";
-import {  SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 const images = [
     {
         img: "/img/event/gallery-1.jpg",
@@ -32,22 +32,31 @@ const images = [
         name: "Kathryn Cooper",
         position: "ANIMATOR",
     },
+    {
+        img: "/img/event/gallery-3.jpg",
+        name: "Shane Watson",
+        position: "CHIEF OPERATING OFFICER",
+    },
+    {
+        img: "/img/event/gallery-4.jpg",
+        name: "Francisco Pena",
+        position: "CHIEF FINANCIAL OFFICER",
+    },
+
 ];
-import Carousel from "@/Components/Carousel";
+
 const EventGallery = () => {
     return (
         <div className="relative ">
-            <Carousel>
+            <div className="grid grid-cols-4 gap-4">
                 {images.map((item, key) => (
-                    <SwiperSlide key={key}>
-                        <img
-                            src={item.img}
-                            alt=""
-                            className=" h-[600px] w-full  rounded-lg object-cover"
-                        />
-                    </SwiperSlide>
+                    <img key={key}
+                        src={item.img}
+                        alt=""
+                        className=" h-[200px] w-full  rounded-lg object-cover"
+                    />
                 ))}
-            </Carousel>
+            </div>
         </div>
     );
 };

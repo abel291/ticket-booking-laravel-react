@@ -13,7 +13,7 @@ const EventDetails = ({ event }) => {
     console.log(event);
     return (
         <Layout title={event.title}>
-            <BannerHero img={event.banner} title={event.title} desc={event.desc_min}/>
+            <BannerHero img={event.banner} title={event.title} desc={event.desc_min} />
 
             {/* <SectionCountdown 
             descMin={event.desc_min} 
@@ -43,14 +43,14 @@ const EventDetails = ({ event }) => {
                 <div className="py-section">
                     <EventGallery />
                 </div>
-            </div>
-            {event.speakers.length && <CarouselSpeakers speakers={event.speakers} />}
 
-            <div className="">
-                <div className="border-t border-dark-blue-400"></div>
+                {event.speakers.length && <CarouselSpeakers speakers={event.speakers} />}
+
+                <AskedQuestions />
             </div>
 
-            <AskedQuestions />
+
+
         </Layout>
     );
 };

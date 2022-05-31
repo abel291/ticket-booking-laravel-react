@@ -3,10 +3,12 @@ import Layout from "@/Layouts/Layout";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import { TextLoop } from "react-text-loop-next";
+import CarouselHome from "./CarouselHome";
 
 import ItemList from "./ItemList";
 
-const Home = ({ homeCategories }) => {
+const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
+
     return (
         <Layout title="Inicio">
             <BannerSearch img="/img/home/img-banner.jpg" search={true}>
@@ -44,17 +46,32 @@ const Home = ({ homeCategories }) => {
                 </div>
             </BannerSearch>
 
-            {homeCategories.map((item, key) => (
-                <div key={key} className=" even:bg-dark-blue-800">
-                    {/*Striped color bg-dark-blue-800 */}
-                    <ItemList
-                        title={item.name}
-                        linkPath={route("events", { categories: [item.slug] })}
-                        events={item.events}
-                    />
+            <div className="container mt-16">
+
+                <ItemList
+                    title="Destacados"
+                    linkPath={route("events")}
+                    events={eventsFeacture}
+                />
+
+                <div className="py-5">
+                    <CarouselHome eventsCarousel={eventsCarousel} />
                 </div>
-            ))}
-        </Layout>
+                {/* <div className="py-section">
+                    <CarouselCategories carouselEvents={carouselEvents} />
+                </div> */}
+                <ItemList
+                    title="Gratis"
+
+                    linkPath={route("events")}
+                    events={eventsFree}
+                />
+
+
+            </div>
+
+
+        </Layout >
     );
 };
 

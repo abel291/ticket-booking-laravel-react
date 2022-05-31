@@ -1,5 +1,5 @@
 
-import { formatCurrency, formatDate } from "@/helpers/helpers";
+import { formatCurrency, formatDate } from "@/Helpers/Helpers";
 import MyAccount from "./MyAccount";
 
 const ShoppingDetails = ({ shoppingDetails }) => {

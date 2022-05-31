@@ -1,6 +1,6 @@
 //import Pagination from "@/componentss/Pagination";
 import Pagination from "@/Components/Pagination";
-import { formatCurrency, formatDate } from "@/helpers/helpers";
+import { formatCurrency, formatDate } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/inertia-react";
 
 import MyAccount from "./MyAccount";

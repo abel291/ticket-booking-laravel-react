@@ -738,6 +738,12 @@ select {
 .top-2\/4 {
   top: 50%;
 }
+.bottom-8 {
+  bottom: 2rem;
+}
+.left-8 {
+  left: 2rem;
+}
 .left-7 {
   left: 1.75rem;
 }
@@ -869,6 +875,9 @@ select {
 .mb-4 {
   margin-bottom: 1rem;
 }
+.mt-5 {
+  margin-top: 1.25rem;
+}
 .-mb-28 {
   margin-bottom: -7rem;
 }
@@ -893,17 +902,17 @@ select {
 .ml-10 {
   margin-left: 2.5rem;
 }
-.mt-5 {
-  margin-top: 1.25rem;
-}
 .mb-8 {
   margin-bottom: 2rem;
 }
-.mr-1 {
-  margin-right: 0.25rem;
+.mt-\[97px\] {
+  margin-top: 97px;
 }
 .mt-16 {
   margin-top: 4rem;
+}
+.mr-1 {
+  margin-right: 0.25rem;
 }
 .block {
   display: block;
@@ -974,8 +983,11 @@ select {
 .h-20 {
   height: 5rem;
 }
-.h-\[600px\] {
-  height: 600px;
+.h-\[300px\] {
+  height: 300px;
+}
+.h-\[200px\] {
+  height: 200px;
 }
 .h-11 {
   height: 2.75rem;
@@ -1040,6 +1052,9 @@ select {
 .w-44 {
   width: 11rem;
 }
+.w-10\/12 {
+  width: 83.333333%;
+}
 .w-10 {
   width: 2.5rem;
 }
@@ -1063,9 +1078,6 @@ select {
 }
 .w-9 {
   width: 2.25rem;
-}
-.w-10\/12 {
-  width: 83.333333%;
 }
 .min-w-full {
   min-width: 100%;
@@ -1744,10 +1756,6 @@ select {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -1775,6 +1783,10 @@ select {
 .py-1\.5 {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
+}
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
@@ -2369,21 +2381,21 @@ h6 {
   }
 }
 .py-section {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 @media (min-width: 1024px) {
 
   .py-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 @media (min-width: 1280px) {
 
   .py-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 }
 body {
@@ -2463,20 +2475,16 @@ select option {
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
-.gallery-img-event .swiper-container {
+.carousel-img .swiper-container {
     width: 100%;
 }
-.gallery-img-event .swiper-wrapper {
+.carousel-img .swiper-wrapper {
     width: 50% !important;
 }
-.gallery-img-event .swiper-slide {
+.carousel-img .swiper-slide {
     text-align: center !important;
     width: auto !important;
 }
-/* .slide-image {
-    height: 400px !important;
-    width: auto !important;
-  } */
 .placeholder\:text-white::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2546,10 +2554,6 @@ select option {
         --tw-gradient-to: #1d4ed8;
     }
 .odd\:bg-dark-blue-800:nth-child(odd) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(1 23 63 / var(--tw-bg-opacity));
-}
-.even\:bg-dark-blue-800:nth-child(even) {
   --tw-bg-opacity: 1;
   background-color: rgb(1 23 63 / var(--tw-bg-opacity));
 }
@@ -3066,16 +3070,16 @@ select option {
     margin-top: -0.5rem;
   }
 
+  .md\:mt-16 {
+    margin-top: 4rem;
+  }
+
   .md\:mt-2 {
     margin-top: 0.5rem;
   }
 
   .md\:mt-12 {
     margin-top: 3rem;
-  }
-
-  .md\:mt-16 {
-    margin-top: 4rem;
   }
 
   .md\:block {
@@ -3169,6 +3173,11 @@ select option {
     padding-right: 1.25rem;
   }
 
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
@@ -3182,11 +3191,6 @@ select option {
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .md\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
   }
 
   .md\:text-6xl {
@@ -3455,11 +3459,6 @@ select option {
     padding-bottom: 14rem;
   }
 
-  .lg\:py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
   .lg\:py-10 {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -3521,14 +3520,10 @@ select option {
     flex-direction: row;
   }
 
-  .xl\:py-20 {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
   .xl\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
   }
 }
+
 

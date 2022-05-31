@@ -20,7 +20,7 @@ const Filters = ({ events }) => {
     return (
         <Layout title="Eventos">
 
-            <BannerSearch img="/img/movies.jpg" search={false}>
+            {/* <BannerSearch img="/img/movies.jpg" search={false}>
                 <BannerTitle>
                     CONSIGUE <span className="text-emerald-400">TICKETS</span>{" "}
                     DE CINE
@@ -30,9 +30,9 @@ const Filters = ({ events }) => {
                     películas, vea avances, lea reseñas de películas y mucho más
                 </BannerContent>
 
-            </BannerSearch>
+            </BannerSearch> */}
 
-            <div className="py-section container">
+            <div className="py-section container mt-[97px]">
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-10">
                     <div className="lg:col-span-3 xl:col-span-2">
                         <FilterReset />

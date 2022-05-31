@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <div className="bg-dark-blue-700">
             <Section>
-                <div className="container relative z-10">
+                <div className="py-section container relative z-10">
                     <Newsletter />
                 </div>
             </Section>
