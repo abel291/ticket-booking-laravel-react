@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->datetime('date');
+            $table->dateTime('date');
             //$table->time('time');
             $table->boolean('active')->default(0);
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();

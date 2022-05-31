@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignId('location_id')->nullable()->constrained('locations')->nullOnDelete();
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->foreignId('format_id')->nullable()->constrained('formats')->nullOnDelete();
-            $table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();
+            //$table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

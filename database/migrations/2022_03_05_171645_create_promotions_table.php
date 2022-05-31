@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->integer('value');
-            $table->string('type',20); //percent- value
+            $table->string('type',20); //percent- amount
             $table->integer('quantity');
             $table->timestamp('expired');
             $table->string('description')->nullable();

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->unsignedFloat('price');
+            $table->unsignedInteger('quantity');
+            $table->unsignedFloat('total');            
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
-            $table->unsignedTinyInteger('quantity');
-            $table->float('total');
-            $table->datetime('session');
-            $table->json('ticket_type');
-            
+            $table->foreignId('ticket_type_id')->constrained('ticket_types')->cascadeOnDelete();
             $table->timestamps();
         });
     }

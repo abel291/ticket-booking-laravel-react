@@ -14,17 +14,26 @@ return new class extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->string('code', 10);
             $table->tinyInteger('status')->default(1);
-            $table->unsignedSmallInteger('quantity');
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->unsignedFloat('sub_total');
-            $table->unsignedFloat('total');            
+            $table->unsignedMediumInteger('quantity');
+            $table->dateTime('session');
+            $table->string('stripe_id');            
+
+            //json
             $table->json('promotion_data')->nullable();
             $table->json('event_data');
             $table->json('user_data');
+            
+            //amount
+            $table->unsignedFloat('fee');
+            $table->unsignedFloat('fee_porcent');
+            $table->unsignedFloat('sub_total');
+            $table->unsignedFloat('total');
+            
+            //relationships
+            $table->foreignId('session_id')->constrained('session');
             $table->foreignId('event_id')->constrained('events');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();

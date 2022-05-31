@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('event_promotion', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
-            $table->foreignId('promotion_id')->constrained('promotions')->cascadeOnDelete();            
+            $table->foreignId('promotion_id')->constrained('promotions')->cascadeOnDelete();
+            $table->integer('remaining')->default(0);
+            $table->integer('quantity')->default(0);
         });
     }
 
