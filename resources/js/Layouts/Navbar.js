@@ -78,7 +78,7 @@ const Navbar = () => {
                     : " shadow lg:bg-dark-blue-700")
             }
 
-            //ref={scrollRef}
+        //ref={scrollRef}
         >
             <div className="container">
                 <div className="flex h-20 items-center justify-between lg:h-24">
@@ -114,6 +114,13 @@ const Navbar = () => {
                                         </Dropdown.Trigger>
 
                                         <Dropdown.Content>
+                                            <Dropdown.Link
+                                                href={route("my_account")}
+                                                method="get"
+                                                as="button"
+                                            >
+                                                Perfil
+                                            </Dropdown.Link>
                                             <Dropdown.Link
                                                 href={route("logout")}
                                                 method="post"

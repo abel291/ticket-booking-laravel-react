@@ -1,9 +1,7 @@
 import ItemCard from "@/Components/ItemCard";
 import Pagination from "@/Components/Pagination";
 import Layout from "@/Layouts/Layout";
-import React, { useState, useEffect } from "react";
-
-import BannerMovies from "./BannerMovies";
+import React, { useState } from "react";
 import FilterCategories from "./FilterCategories";
 import FilterOrder from "./FilterOrder";
 import FilterPrice from "./FilterPrice";
@@ -11,16 +9,29 @@ import FilterReset from "./FilterReset";
 import FilterFormat from "./FilterFormat";
 import ItemsLoading from "./ItemsLoading";
 import { Inertia } from "@inertiajs/inertia";
+import BannerFilters from "./BannerFilters";
+import BannerSearch, { BannerContent, BannerTitle } from "@/Components/BannerSearch";
 
 const Filters = ({ events }) => {
-    console.log(events)
     const [loading, setLoading] = useState(false);
     Inertia.on("start", () => setLoading(true));
     Inertia.on("finish", () => setLoading(false));
 
     return (
         <Layout title="Eventos">
-            <BannerMovies />
+
+            <BannerSearch img="/img/movies.jpg" search={false}>
+                <BannerTitle>
+                    CONSIGUE <span className="text-emerald-400">TICKETS</span>{" "}
+                    DE CINE
+                </BannerTitle>
+                <BannerContent>
+                    Compre Tickets de cine por adelantado, encuentre horarios de
+                    películas, vea avances, lea reseñas de películas y mucho más
+                </BannerContent>
+
+            </BannerSearch>
+
             <div className="py-section container">
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-10">
                     <div className="lg:col-span-3 xl:col-span-2">

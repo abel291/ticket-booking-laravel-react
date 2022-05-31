@@ -6,7 +6,7 @@ import FilterCategories from "@/Pages/Filters/FilterCategories";
 import FilterOrder from "@/Pages/Filters/FilterOrder";
 import FilterPrice from "@/Pages/Filters/FilterPrice";
 import FilterReset from "@/Pages/Filters/FilterReset";
-import BannerMovies from "../Filters/BannerMovies";
+
 import BannerSearch from "@/Components/BannerSearch";
 
 const Movies = ({ items, image }) => {

@@ -3,8 +3,14 @@ import Input from "@/Components/Input";
 import { usePage } from "@inertiajs/inertia-react";
 import React from "react";
 
-const ContactDetails = ({ data, handleChange }) => {
+const ContactDetails = ({ data, setData }) => {
     const { auth } = usePage().props
+
+    const handleChange = (e) => {
+        let target = e.target;
+        setData(target.name, target.value)
+    }
+
     return (
         <Card title="Comparta sus Datos de Contacto">
             <div >
@@ -32,7 +38,7 @@ const ContactDetails = ({ data, handleChange }) => {
                     <div className=" col-span-2">
                         <input
                             disabled={true}
-                            className="input w-full disabled:opacity-10 disabled:bg-dark-blue-800"
+                            className="input w-full disabled:opacity-25 "
                             type="text"
                             value={auth.user.email}
                             placeholder="Correo electronico *"

@@ -3,15 +3,18 @@ import React from "react";
 import Select from "@/Components/Select";
 import { formatDate } from "@/Helpers/Helpers";
 import { usePage } from "@inertiajs/inertia-react";
-const SelectDate = ({ sessions, session_selected, handleChange }) => {   
-    
+const SelectDate = ({ sessions, data, setData }) => {
 
+    const handleChangeSession = (e) => {
+        setData('date', e.target.value)
+        setData('tickets_quantity', {})
+    };
     return (
         <Card title="Seleccione La Fecha">
             <Select
-                handleChange={handleChange}
+                handleChange={handleChangeSession}
                 className="capitalize"
-                value={session_selected}
+                value={data.date}
             >
                 {sessions.map((item, key) => (
                     <option key={key} value={item.date}>

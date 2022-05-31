@@ -1,25 +1,28 @@
+import { formatCurrency, formatDate } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
-const EventSidebar = ({sessions,location,ticket_types,slug}) => {
+const EventSidebar = ({ sessions, location, ticket_types, slug }) => {
     return (
         <div className="space-y-10">
+
             <CardSideBar title="Fechas y horas">
                 <div className="space-y-2">
                     {sessions.map((item, key) => (
-                        <div key={key}>
-                            {item.date} {item.time}
+                        <div className="capitalize" key={key}>
+                            {formatDate(item.date)}
                         </div>
                     ))}
                 </div>
             </CardSideBar>
+
             <CardSideBar title="Tipos de Boletos">
                 {ticket_types.map((item, key) => (
                     <div key={key} className="p-2 odd:bg-dark-blue-800">
                         <div className="flex items-start justify-between gap-x-2">
                             <div>{item.name} </div>
                             <div>
-                                {item.type == "free" ? "Gratis" : item.price}
+                                {item.type == "free" ? "Gratis" : formatCurrency(item.price)}
                             </div>
                         </div>
                     </div>
@@ -27,15 +30,15 @@ const EventSidebar = ({sessions,location,ticket_types,slug}) => {
             </CardSideBar>
 
             <CardSideBar title="Ubicacion">
-                <div className="space-y-2">
+                <div className="space-y-3">
                     <div>
-                        <div className=" text-xs font-medium text-emerald-600">
+                        <div className=" text-xs font-medium text-emerald-500">
                             Nombre del lugar
                         </div>
                         <div className="block ">{location.name}</div>
                     </div>
                     <div>
-                        <div className=" text-xs font-medium text-emerald-600">
+                        <div className=" text-xs font-medium text-emerald-500">
                             Direccion
                         </div>
                         <div className="block ">
@@ -59,6 +62,7 @@ const EventSidebar = ({sessions,location,ticket_types,slug}) => {
                     </div>
                 </div>
             </CardSideBar>
+
             <div>
                 <Link
                     className="btn"

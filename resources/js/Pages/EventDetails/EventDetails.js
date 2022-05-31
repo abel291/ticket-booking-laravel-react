@@ -6,13 +6,14 @@ import EventSidebar from "./EventSidebar";
 import EventContent from "./EventContent";
 import EventGallery from "./EventGallery";
 import CarouselSpeakers from "./CarouselSpeakers";
-import BannerEvent from "./BannerEvent";
+
+import BannerHero from "@/Components/BannerHero";
 
 const EventDetails = ({ event }) => {
     console.log(event);
     return (
         <Layout title={event.title}>
-            <BannerEvent img="/img/event/banner.jpg" title={event.title} desc={event.desc_min}/>
+            <BannerHero img={event.banner} title={event.title} desc={event.desc_min}/>
 
             {/* <SectionCountdown 
             descMin={event.desc_min} 

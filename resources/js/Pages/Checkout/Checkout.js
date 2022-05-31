@@ -10,35 +10,20 @@ import ContactDetails from "./PaymentMethods/ContactDetails";
 import PromoCode from "./PaymentMethods/PromoCode";
 import PaymentOption from "./PaymentMethods/PaymentOption";
 import { useForm, usePage } from "@inertiajs/inertia-react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 const Checkout = ({ event, sessions, tickets, filters, summary }) => {
+
     const { auth } = usePage().props
-
-    const [data, setData,] = useState({
-        date: filters.date || sessions[0].date,
-        tickets_quantity: typeof filters.tickets_quantity === 'object' ? filters.tickets_quantity : {},
-        code_promotion: filters.code_promotion || ""
-    })
     
-    const handleChangeSession = (e) => {
-        setData({
-            ...data,
-            date: e.target.value,
-            tickets_quantity: {}
-        });
-    };
-    const handleChangeTickets = (e) => {
-        let id = e.target.name;
-        let quantity_selected = parseInt(e.target.value);
-
-        let new_tickets_quantity = data.tickets_quantity;
-
-        if (quantity_selected > 0) {
-            new_tickets_quantity[id] = quantity_selected;
-        } else {
-            delete new_tickets_quantity[id];
-        }
-        setData({ ...data, tickets_quantity: new_tickets_quantity });
-    };
+    const { data, setData, post, processing } = useForm({
+        date: filters.date || sessions[0].date,
+        tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
+        code_promotion: filters.code_promotion || "",
+        name: auth.user.name,
+        phone: auth.user.phone,
+        event_slug: event.slug,
+    })
 
     const initUpdate = useRef(true)
     useEffect(() => {
@@ -47,22 +32,18 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
             initUpdate.current = false
             return
         }
-        Inertia.get(route("checkout", { slug: event.slug }), data, {
+        Inertia.get(route("checkout", { slug: event.slug }), {
+            date: data.date,
+            tickets_quantity: data.tickets_quantity,
+            code_promotion: data.code_promotion,
+        }, {
             preserveScroll: true,
             replace: true,
             preserveState: true,
         });
-    }, [data])
+    }, [data.date, data.tickets_quantity, data.code_promotion])
 
-    const { data: user, setData: setUser } = useForm({
-        name: auth.user.name,
-        phone: auth.user.phone,
-    })
-    
-    const handleChangeContact = (e) => {
-        let target = e.target;
-        setUser(target.name, target.value)
-    }
+    const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
 
     return (
         <Layout title="Checkout">
@@ -82,21 +63,21 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 
                             <SelectDate
                                 sessions={sessions}
-                                session_selected={data.date}
-                                handleChange={handleChangeSession}
+                                data={data} setData={setData}
                             />
 
                             <QuantityTicket
                                 tickets={tickets}
-                                tickets_quantity={data.tickets_quantity}
-                                handleChange={handleChangeTickets}
-                                session_selected={data.date}
+                                data={data} setData={setData}
                             />
-
-                            {/* <ContactDetails data={data} handleChange={handleChangeContact}/>*/}
-
                             <PromoCode data={data} setData={setData} />
-                            {/* <PaymentOption /> */}
+
+                            <ContactDetails data={data} setData={setData} />
+
+                            <Elements stripe={stripePromise} >
+                                <PaymentOption data={data} setData={setData} post={post} processing={processing} />
+                            </Elements>
+
                         </div>
                     </div>
 

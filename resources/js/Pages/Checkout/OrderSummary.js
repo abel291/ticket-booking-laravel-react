@@ -5,7 +5,7 @@ import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
 const OrderSummary = ({ event, session_selected, summary }) => {
-    console.log(summary)
+    console.log(summary);
     return (
         <div className="divide-y divide-dashed divide-dark-blue-400 rounded border border-dark-blue-500 bg-dark-blue-700 p-7">
             <div className="pb-6 text-center">
@@ -27,8 +27,8 @@ const OrderSummary = ({ event, session_selected, summary }) => {
 
                 <div>
                     <Tilte>Boletos</Tilte>
-                    {summary.ticket_selected.map((item) => (
-                        <SubTitle className="mt-2" key={item.id}>
+                    {summary.ticket_selected.map((item,key) => (
+                        <SubTitle className="mt-2" key={item.name}>
                             <div className="flex justify-between gap-3">
                                 <div>
                                     {item.quantity_selected} x {item.name}
@@ -50,6 +50,12 @@ const OrderSummary = ({ event, session_selected, summary }) => {
                         <div>Tarifa {summary.fee_porcent * 100}%</div>
                         <div>{formatCurrency(summary.fee)}</div>
                     </div>
+                    {summary.promotion && (
+                        <div className="mt-1 flex justify-between gap-3 text-emerald-600">
+                            <div>Descuento ({summary.promotion.code}) </div>
+                            <div>-{formatCurrency(summary.promotion.applied)}</div>
+                        </div>
+                    )}
                 </SubTitle>
                 <Tilte>
                     <div className="mt-1 flex justify-between gap-3">

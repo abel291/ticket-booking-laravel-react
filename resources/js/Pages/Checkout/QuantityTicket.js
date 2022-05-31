@@ -5,14 +5,30 @@ import React from "react";
 import { formatCurrency } from "@/Helpers/Helpers";
 import Select from "@/Components/Select";
 
-const QuantityTicket = ({ tickets, tickets_quantity, handleChange, session_selected }) => {
+const QuantityTicket = ({ tickets, data, setData }) => {
+
+    const handleChange = (e) => {
+        let id = e.target.name;
+        let quantity_selected = parseInt(e.target.value);
+
+        let new_tickets_quantity = { ...data.tickets_quantity };
+        //let new_tickets_quantity = data.tickets_quantity; no activa el useEffect en checkout
+
+        if (quantity_selected > 0) {
+            new_tickets_quantity[id] = quantity_selected;
+        } else {
+            delete new_tickets_quantity[id];
+        }
+        //console.log(new_tickets_quantity)
+        setData('tickets_quantity', new_tickets_quantity);
+    };
 
     return (
         <Card title="Tipos de entradas">
             <div >
                 {tickets.map((item, key) => (
                     <div
-                        key={item.id + session_selected}
+                        key={item.id + data.date}
                         className="flex justify-between items-center gap-x-8 border-b border-dark-blue-400 py-4"
                     >
                         <div className="w-full">
@@ -30,7 +46,7 @@ const QuantityTicket = ({ tickets, tickets_quantity, handleChange, session_selec
                         </div>
                         <div>
                             <select
-                                value={tickets_quantity[item.id]}
+                                value={data.tickets_quantity[item.id]}
                                 onChange={handleChange}
                                 name={item.id}
                                 className="border border-dark-blue-400 bg-dark-blue-700"

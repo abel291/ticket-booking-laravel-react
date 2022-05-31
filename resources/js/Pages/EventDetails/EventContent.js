@@ -1,16 +1,18 @@
 import React from "react";
 import TextLorem from "./TextLorem";
 
-const EventContent = ({img,desc_max}) => {
+const EventContent = ({ img, desc_max }) => {
     return (
         <div>
             <img src={img} className="w-full rounded-md" />
-            <div className="leading-7">
-                <div className="my-5 text-2xl font-semibold">
+            <div className="leading-7 mt-8 md:mt-16 space-y-4">
+                <div className="text-2xl font-semibold">
                     Acerca de este evento
                 </div>
-                {desc_max}
-                <TextLorem/>
+                <div>
+                    {desc_max}
+                </div>
+                <TextLorem />
             </div>
         </div>
     );

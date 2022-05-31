@@ -6,8 +6,8 @@ const BannerSearch = ({ children, img = "", search = false }) => {
     return (
         <>
             <div className={" relative px-4 lg:px-0" + (search && " -mb-28")}>
-                <div className="container flex items-center  justify-center py-32 md:py-52 lg:py-56 ">
-                    <div className="relative z-10  text-center  ">
+                <div className="container flex items-center  justify-center py-32 md:py-52 lg:py-56 w-10/12 mx-auto">
+                    <div className="relative z-10  text-center w-10/12 mx-auto">
                         {children}
                     </div>
                 </div>
@@ -27,5 +27,21 @@ const BannerSearch = ({ children, img = "", search = false }) => {
         </>
     );
 };
-//
+
+
+export const BannerTitle = ({ children }) => {
+    return (
+        <div className="relative z-10  text-center ">
+            <h1 className="font-bold">{children}</h1>
+        </div>
+
+    );
+};
+export const BannerContent = ({ children }) => {
+    return (
+        <p className="mt-5 font-medium md:text-xl xl:text-2xl">
+            {children}
+        </p>
+    );
+};
 export default BannerSearch;

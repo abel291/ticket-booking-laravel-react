@@ -1,58 +1,131 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Card from "@/Components/Card";
-import { FaCcPaypal, FaRegCreditCard } from "react-icons/fa";
+import { FaPaypal, FaStripe } from "react-icons/fa";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
-import { Link } from "@inertiajs/inertia-react";
-const PaymentOption = () => {
-    return (
-        <Card title="Opciones de Pago">
-            <div className=" flex flex-wrap gap-4">
-                <CardOptionPayment active="true">
-                    <FaRegCreditCard className="h-auto w-4/5 text-blue-300" />
-                    <span className=" mt-2 block text-xs font-light text-white">
-                        Credito
-                    </span>
-                </CardOptionPayment>
+import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 
-                <CardOptionPayment>
-                    <FaCcPaypal className="h-auto w-4/5 text-blue-300" />
-                    <span className=" mt-2 block text-xs font-light text-white">
-                        Paypal
-                    </span>
-                </CardOptionPayment>
-            </div>
-            <div className="mt-10">
+
+import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Inertia } from "@inertiajs/inertia";
+
+const PaymentOption = ({ data, setData }) => {
+    const { event } = usePage().props
+    const nameCreditCard = useRef();
+    const [errorStripe, setErrorStripe] = useState();
+    const [paymentMethod, setPaymentMethod] = useState();
+
+    const [loading, setLoading] = useState(false);
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const handleSubmit = async (e) => {
+
+        setPaymentMethod("test");
+
+
+        e.preventDefault();
+
+        setErrorStripe("");
+        setLoading(true);
+
+        if (elements == null) {
+            return;
+        }
+
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
+        //     type: "card",
+        //     card: elements.getElement(CardElement),
+        //     billing_details: {
+        //         name: nameCreditCard.current.value,
+        //     },
+        // });
+
+        if (error) {
+            setLoading(false);
+            if (error.type === "validation_error") {
+                setErrorStripe(error.message);
+            } else {
+                setErrorStripe("Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.");
+            }
+        } else {
+            setPaymentMethod(paymentMethod.id);
+        }
+
+    };
+    useEffect(() => {
+        console.log(data)
+        if (paymentMethod) {
+
+            Inertia.post(route("payment"), { ...data, paymentMethod },
+                {
+                    preserveScroll: true,
+                    replace: true,
+                    preserveState: true,
+                });
+
+        }
+    }, [paymentMethod]);
+    const options = {
+        style: {
+            base: {
+                color: "white",
+                fontSize: "16px",
+                fontFamily: '"Poppins", sans-serif',
+                fontSmoothing: "antialiased",
+                "::placeholder": {
+                    color: "#7f85ad",
+                },
+            },
+            invalid: {
+                color: "#e5424d",
+                ":focus": {
+                    color: "#303238",
+                },
+            },
+        },
+    };
+    return (
+        <Card title="Información de pago">
+
+            <form onSubmit={handleSubmit} className="mt-10">
                 <div className="space-y-5">
                     <div className="font-medium  text-white lg:text-lg">
-                        Ingrese los Detalles de su Tarjeta{" "}
+                        Datos de la tarjeta de crédito
                     </div>
                     <div className=" space-y-4">
                         <div>
-                            <label className="block font-light" htmlFor="name">
+                            <label className="block text-sm" htmlFor="name">
                                 Nombre del titular
                             </label>
                             <input
+                                ref={nameCreditCard}
                                 type="text"
                                 name="name"
-                                className="mt-1 w-full rounded-md border border-dark-blue-400 bg-transparent py-2 text-sm ring-0 placeholder:text-blue-300  focus:border-white focus:ring-0 md:w-1/2 "
+                                defaultValue={"USER"}
+                                className="mt-1 w-full rounded border border-dark-blue-400 bg-transparent p-2.5 text-sm ring-0 placeholder:text-blue-300  focus:border-gray-200 focus:ring-0 md:w-1/2 "
                                 required={true}
                             />
                         </div>
                         <div>
-                            <label className="block font-light" htmlFor="card">
-                                Numero de targeta
+                            <label className="block text-sm" htmlFor="card">
+                                Numero de tarjeta
                             </label>
-                            <input
-                                type="text"
-                                name="card"
-                                className={`mt-1 w-full rounded-md border border-dark-blue-400  bg-transparent py-2 text-sm ring-0  placeholder:text-blue-300 focus:border-white focus:ring-0 `}
-                                required={true}
-                            />
+                            <div className="mt-1 w-full rounded border border-dark-blue-400 bg-transparent p-2.5 text-sm ring-0 md:w-3/4">
+                                {/* <CardElement options={options} /> */}
+                            </div>
+                            {errorStripe && (
+                                <div>
+                                    <span className="text-red-500 text-sm font-medium mt-1">
+                                        {errorStripe}
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div>
-                        <Button>Realizar pago</Button>
+                        <Button processing={loading}>Realizar pago</Button>
+
                         <span className="mt-4 block text-sm font-light">
                             Al hacer clic en 'Realizar pago', acepta los{" "}
                             <Link className="text-blue-300 hover:text-emerald-400">
@@ -61,21 +134,8 @@ const PaymentOption = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </form>
         </Card>
-    );
-};
-
-const CardOptionPayment = ({ children, active = false }) => {
-    return (
-        <div
-            className={
-                "flex w-24 flex-col items-center justify-center rounded-xl border-2 border-dark-blue-400 py-3 px-2 " +
-                (active ? "border-emerald-400" : "border-dark-blue-400")
-            }
-        >
-            {children}
-        </div>
     );
 };
 
