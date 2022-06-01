@@ -33,10 +33,10 @@ const Filters = ({ events }) => {
             </BannerSearch> */}
 
             <div className="py-section container mt-[97px]">
-                <div className="grid grid-cols-1 gap-5 lg:grid-cols-10">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-10">
                     <div className="lg:col-span-3 xl:col-span-2">
                         <FilterReset />
-                        <div className=" space-y-5 ">
+                        <div className=" space-y-8 ">
                             <FilterCategories />
                             <FilterFormat />
                             <FilterPrice />
@@ -50,7 +50,7 @@ const Filters = ({ events }) => {
                                     <ItemsLoading />
                                 ) : (
                                     <>
-                                        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                                        <div className="mt-7 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
                                             {events.data.map((item, key) => (
                                                 <ItemCard
                                                     key={key}

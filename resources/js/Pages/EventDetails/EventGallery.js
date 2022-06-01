@@ -48,7 +48,7 @@ const images = [
 const EventGallery = () => {
     return (
         <div className="relative ">
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-6">
                 {images.map((item, key) => (
                     <img key={key}
                         src={item.img}

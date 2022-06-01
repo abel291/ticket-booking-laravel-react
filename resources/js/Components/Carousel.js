@@ -34,10 +34,10 @@ const Carousel = ({ children, breakpoints }) => {
                     nextEl: ".button-next-marcas",
                     prevEl: ".button-prev-marcas",
                 }}
-            // autoplay={{
-            //     delay: 2500,
-            //     disableOnInteraction: true,
-            // }}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: true,
+                }}
             >
 
                 {children}
