@@ -14,7 +14,7 @@ const ChangePassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        post(route("store_change_password"), {
+        post(route("profile.store_change_password"), {
             preserveScroll: true,
             onSuccess: () =>
                 reset("current_password", "password", "password_confirmation"),

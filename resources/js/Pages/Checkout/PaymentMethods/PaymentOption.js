@@ -4,13 +4,12 @@ import { FaPaypal, FaStripe } from "react-icons/fa";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
-
-
+import ValidationErrors from '@/Components/ValidationErrors';
 import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Inertia } from "@inertiajs/inertia";
 
 const PaymentOption = ({ data, setData }) => {
-    const { event } = usePage().props
+    const { errors } = usePage().props
     const nameCreditCard = useRef();
     const [errorStripe, setErrorStripe] = useState();
     const [paymentMethod, setPaymentMethod] = useState();
@@ -41,16 +40,17 @@ const PaymentOption = ({ data, setData }) => {
         //     },
         // });
 
-        if (error) {
-            setLoading(false);
-            if (error.type === "validation_error") {
-                setErrorStripe(error.message);
-            } else {
-                setErrorStripe("Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.");
-            }
-        } else {
-            setPaymentMethod(paymentMethod.id);
-        }
+        // if (error) {
+        //     setLoading(false);
+        //     if (error.type === "validation_error") {
+        //         setErrorStripe(error.message);
+        //     } else {
+        //         setErrorStripe("Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.");
+        //     }
+        // } else {
+        //     setPaymentMethod(paymentMethod.id);
+        // }
+        setPaymentMethod(paymentMethod.id);
 
     };
     useEffect(() => {
@@ -124,15 +124,19 @@ const PaymentOption = ({ data, setData }) => {
                         </div>
                     </div>
                     <div>
-                        <Button processing={loading}>Realizar pago</Button>
-
-                        <span className="mt-4 block text-sm font-light">
-                            Al hacer clic en 'Realizar pago', acepta los{" "}
-                            <Link className="text-blue-300 hover:text-emerald-400">
-                                Términos y condiciones
-                            </Link>
-                        </span>
+                        <Button processing={false}>Realizar pago</Button>
                     </div>
+                    <ValidationErrors errors={errors} />
+
+                    {/* {errors.payment && (
+                        <span className="text-red-500 font-semibold">errors.payment</span>
+                    )} */}
+                    <span className="mt-4 block text-sm font-light">
+                        Al hacer clic en 'Realizar pago', acepta los{" "}
+                        <Link className="text-blue-300 hover:text-emerald-400">
+                            Términos y condiciones
+                        </Link>
+                    </span>
                 </div>
             </form>
         </Card>

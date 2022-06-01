@@ -7,6 +7,7 @@ import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 
 const MyAccount = ({ children, title }) => {
     const { errors } = usePage().props;
+    
     const logout = useForm();
     const handleLogout = () => {
         logout.post(route("logout"));
@@ -14,23 +15,23 @@ const MyAccount = ({ children, title }) => {
     const profileRoutes = [
         {
             name: "Dashboard",
-            path: route("my_account"),
-            active: route().current("my_account"),
+            path: route("profile.my_account"),
+            active: route().current("profile.my_account"),
         },
         {
             name: "Mis Compras",
-            path: route("shopping"),
-            active: route().current("shopping"),
+            path: route("profile.my_shopping"),
+            active: route().current("profile.my_shopping"),
         },
         {
             name: "Detalles de cuenta",
-            path: route("account_details"),
-            active: route().current("account_details"),
+            path: route("profile.account_details"),
+            active: route().current("profile.account_details"),
         },
         {
             name: "Cambiar contraseña",
-            path: route("change_password"),
-            active: route().current("change_password"),
+            path: route("profile.change_password"),
+            active: route().current("profile.change_password"),
         },
     ];
     return (

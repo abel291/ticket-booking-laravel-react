@@ -5,7 +5,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 import MyAccount from "./MyAccount";
 
-const Shopping = ({ shopping }) => {
+const MyShopping = ({ shopping }) => {
 
     return (
         <MyAccount title="Mis Compras">
@@ -40,7 +40,7 @@ const Shopping = ({ shopping }) => {
                             <td className="px-4 py-5 text-left underline">
                                 <Link
                                     className="text-sm"
-                                    href={route("shopping_details", [item.code])}
+                                    href={route("profile.shopping_details", [item.code])}
                                 >
                                     #{item.code}
                                 </Link>
@@ -89,4 +89,4 @@ const Shopping = ({ shopping }) => {
     );
 };
 
-export default Shopping;
+export default MyShopping;

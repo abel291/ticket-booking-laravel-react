@@ -74,7 +74,7 @@ const ShoppingDetails = ({ shoppingDetails }) => {
                         {shoppingDetails.tickets.map((item, index) => (
                             <tr key={index}>
                                 <td className="p-3">
-                                    {item.quantity} x {item.name}
+                                    {item.quantity} {item.name}
                                 </td>
                                 <td className="p-3">
                                     {formatCurrency(

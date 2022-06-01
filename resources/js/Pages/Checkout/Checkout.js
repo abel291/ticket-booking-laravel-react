@@ -12,10 +12,11 @@ import PaymentOption from "./PaymentMethods/PaymentOption";
 import { useForm, usePage } from "@inertiajs/inertia-react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import ValidationErrors from "@/Components/ValidationErrors";
 const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 
-    const { auth } = usePage().props
-    
+    const { auth, errors } = usePage().props
+
     const { data, setData, post, processing } = useForm({
         date: filters.date || sessions[0].date,
         tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
@@ -56,11 +57,13 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
                 title="La Familia Mitchell Vs. Las Máquinas"
                 lang="ENGLISH, HINDI TELEGU TAMIL"
             />
+
             <div className="py-section container">
+
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
                     <div className=" lg:col-span-8">
                         <div className="space-y-6">
-
+                            <ValidationErrors errors={errors} />
                             <SelectDate
                                 sessions={sessions}
                                 data={data} setData={setData}

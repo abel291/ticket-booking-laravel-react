@@ -3,6 +3,8 @@ import { Link } from "@inertiajs/inertia-react";
 import MyAccount from "./MyAccount";
 
 const Dashboard = () => {
+    
+    
     return (
         <MyAccount active="dashboard" title="Tablero">
             <div>
@@ -13,7 +15,7 @@ const Dashboard = () => {
                 </Link>
                 , administrar los
                 <Link
-                    href={route("account_details")}
+                    href={route("profile.account_details")}
                     className="font-medium underline px-1 "
                 >
                     detalles de su cuenta

@@ -115,7 +115,7 @@ const Navbar = () => {
 
                                         <Dropdown.Content>
                                             <Dropdown.Link
-                                                href={route("my_account")}
+                                                href={route("profile.my_account")}
                                                 method="get"
                                                 as="button"
                                             >

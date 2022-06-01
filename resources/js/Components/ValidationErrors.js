@@ -1,10 +1,11 @@
 import { XCircleIcon } from '@heroicons/react/solid';
-import React from 'react';
+
 
 export default function ValidationErrors({ errors }) {
+    
     return (
         Object.keys(errors).length > 0 && (
-            <div className="text-red-100 bg-red-500 p-2 md:p-4 space-x-3 rounded-md">
+            <div id="error-message" className="text-red-100 bg-red-500 p-2 md:p-4 space-x-3 rounded-md ">
                 <div className='flex items-start gap-4'>
                     <div>
                         <XCircleIcon className="h-5 w-5 mt-1" />
