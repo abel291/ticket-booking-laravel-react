@@ -40,7 +40,7 @@ class PaymentSeeder extends Seeder
             $tickets_selected = Checkout::tickets_quantity_selected($tickets, $ticket_quantity);
             $promotion = $event->promotions->random();
             $summary = Checkout::summary($tickets_selected, $promotion);
-
+            dd($promotion);
 
             $payment = new Payment;
             $payment->code = rand(1000, 9999) . date('md') . $user->id;

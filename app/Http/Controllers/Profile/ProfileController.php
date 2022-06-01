@@ -49,28 +49,29 @@ class ProfileController extends Controller
             );
     }
 
-    public function shopping()
-    {
+    public function my_shopping()
+    {   
+        
         $user = auth()->user();
         $payments = $user->payments()->paginate(10);
         //dd($payments->first());
-        return Inertia::render('Profile/Shopping', [
+        return Inertia::render('Profile/MyShopping', [
             'shopping' => PaymentResource::collection($payments)
         ]);
     }
 
     public function shopping_details(Request $request)
     {
-
+        
         $user = auth()->user();
 
-        $payment = $user->payments()->where('code', $request->code)->with('tickets')->first();
+        $payment = $user->payments()->where('code', $request->code)->with('tickets')->firstOrFail();
         
         // if (!$payment) {
         //     return Redirect::route('shopping')->withErrors(['message' => 'Al Parecer hubo un error']);;
         // }
 
-        //dd($payment);
+        //dd(new PaymentResource($payment));
 
         return Inertia::render('Profile/ShoppingDetails', [
             'shoppingDetails' => new PaymentResource($payment),

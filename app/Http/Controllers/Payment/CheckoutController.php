@@ -20,7 +20,8 @@ use Psy\VersionUpdater\Checker;
 class CheckoutController extends Controller
 {
     public function checkout(Event $event, Request $request)
-    {
+    {   
+        //dd($event);
         $sessions = Session::where('date', '>=', now())
             ->whereBelongsTo($event)            
             ->with(['ticket_types' => function ($query) {

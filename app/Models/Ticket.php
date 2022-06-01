@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $casts = [
-        'ticket_type' => 'object',        
-    ];
+    protected $guarded = [];
     public function payment()
     {
         return  $this->belongsTo(Payment::class);
+    }
+    public function ticket_type()
+    {
+        return  $this->hasOne(TicketType::class);
     }
 }
