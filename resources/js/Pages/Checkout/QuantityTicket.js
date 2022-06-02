@@ -46,7 +46,7 @@ const QuantityTicket = ({ tickets, data, setData }) => {
                         </div>
                         <div>
                             <select
-                                value={data.tickets_quantity[item.id]}
+                                value={data.tickets_quantity[item.id] || 0}
                                 onChange={handleChange}
                                 name={item.id}
                                 className="border border-dark-blue-400 bg-dark-blue-700"

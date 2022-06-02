@@ -14,7 +14,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import ValidationErrors from "@/Components/ValidationErrors";
 const Checkout = ({ event, sessions, tickets, filters, summary }) => {
-
+   
     const { auth, errors } = usePage().props
 
     const { data, setData, post, processing } = useForm({
@@ -25,6 +25,7 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
         phone: auth.user.phone,
         event_slug: event.slug,
     })
+    console.log(data)
 
     const initUpdate = useRef(true)
     useEffect(() => {

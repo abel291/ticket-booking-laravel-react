@@ -11,7 +11,7 @@ import PromoCode from "./PromoCode";
 
 const PaymentMethods = ({ event, sessionSelected,ticketTypesSelected, summary }) => {
     const { auth } = usePage().props;
-    console.log(summary);
+
     const { data, setData, post, processing, errors } = useForm({
         email: "",
         name: "",

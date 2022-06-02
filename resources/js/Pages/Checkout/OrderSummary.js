@@ -5,7 +5,7 @@ import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
 const OrderSummary = ({ event, session_selected, summary }) => {
-    console.log(summary);
+    
     return (
         <div className="divide-y divide-dashed divide-dark-blue-400 rounded border border-dark-blue-500 bg-dark-blue-700 p-7">
             <div className="pb-6 text-center">

@@ -54,7 +54,7 @@ const PaymentOption = ({ data, setData }) => {
 
     };
     useEffect(() => {
-        console.log(data)
+       
         if (paymentMethod) {
 
             Inertia.post(route("payment"), { ...data, paymentMethod },
