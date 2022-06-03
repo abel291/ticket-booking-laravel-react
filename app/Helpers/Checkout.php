@@ -15,10 +15,60 @@ use Illuminate\Support\Str;
 
 class Checkout
 {
+
+    public static function event_with_data(
+        $slug,
+        //string $date,
+        //array $tickets_selected,
+        //string $code_promotion
+    ) {
+
+        $event = Event::where('slug', $slug)->has('session')
+            ->with('sessions.ticket_types_available', 'promotions_available', 'location')
+            ->firstOrFail();
+
+        return $event;
+        // $event->with(
+        //     [
+        //         'sessions' => function ($session) use ($date, $tickets_selected) {
+
+        //             $session->where('date', $date)
+
+        //                 ->with(['ticket_types' => function ($ticket) use ($tickets_selected) {
+        //                     $ticket
+        //                         ->whereIn('ticket_type_id', array_keys($tickets_selected))
+        //                         ->wherePivot('remaining', '>', 0);
+        //                 }]);
+        //         }
+        //     ],
+        //     [
+        //         'promotions_available' => function ($data) use ($code_promotion) {
+        //             $data->where('code', $code_promotion);
+        //         }
+        //     ]
+        // );
+
+
+        // $event = $event->firstOrFail();
+        // $promotion = $event->promotions_available->first();
+
+        // $session_selected = $event->sessions->firstWhere('date', $request->date);
+        // if (!$session_selected) {
+        //     return 'La Fecha selecionada no esta disponibles';
+        // }
+
+        // $tickets = $session_selected->ticket_types_available;
+        // if ($tickets->isEmpty()) {
+        //     return back()->withErrors([
+        //         'payment' => 'Los Boletos selecionados no estan disponibles'
+        //     ]);
+        // }
+
+        return $event;
+    }
+    
     public static function summary(object $ticket_selected, $promotion = null)
-
     {
-
 
         $sub_total = $ticket_selected->sum('price_quantity');
 
@@ -42,7 +92,9 @@ class Checkout
                 $total -= $promotion->applied;
             }
             $promotion = $promotion->only('code', 'value', 'type', 'applied');
-        };
+        } else {
+            $promotion = null;
+        }
 
 
         $summary = [
@@ -62,24 +114,25 @@ class Checkout
         if ($tickets_quantity) {
 
             $tickets_quantity = array_filter($tickets_quantity);
-            $array_ids_ticket_selected = array_keys($tickets_quantity);
-            $ticket_selected = $tickets->whereIn('id', $array_ids_ticket_selected)
+            $array_ids_tickets_selected = array_keys($tickets_quantity);
+            $tickets_selected = $tickets
+                ->whereIn('id', $array_ids_tickets_selected)
                 ->map(function ($item) use ($tickets_quantity) {
                     $item->quantity_selected = $tickets_quantity[$item->id];
                     $item->price_quantity = $item->quantity_selected * $item->price;
-
                     return $item;
                 });
-            return $ticket_selected;
+            return $tickets_selected;
         } else {
             return collect([]);
         }
     }
+
     public static function process_payment(
-        Session $session_selected,
+        $session_selected,
         $tickets_selected,
-        array $summary,
-        Event $event,
+        $summary,
+        $event,
         $promotion,
         $user,
         $name,
@@ -91,9 +144,8 @@ class Checkout
         $user = auth()->user();
         $payment->code = rand(1000, 9999) . date('md') . $user->id;
         $payment->session = $session_selected->date;
-        $payment->quantity = $summary['ticket_selected']->sum('quantity_selected');
-        $payment->event_data = $event->only('name', 'duration');
-
+        $payment->quantity = $tickets_selected->sum('quantity_selected');
+        $payment->status = PaymentStatus::SUCCESSFUL;
 
         //amount
         $payment->fee = $summary['fee'];
@@ -103,14 +155,21 @@ class Checkout
 
         //json
         $payment->promotion_data = $summary['promotion'];
-        $payment->event_data = $event->only(['title', 'duration', 'location.address', 'location.name']);
+        $payment->event_data = [
+            'title'=>$event->title,
+            'duration'=>$event->duration,
+            'location_address'=>$event->location->address,
+            'location_name'=>$event->location->name
+         ] ;
         $payment->user_data = ['name' => $name, 'phone' => $phone, 'email' => $user->email];
 
         //relationships
         $payment->event_id = $event->id;
         $payment->session_id = $session_selected->id;
         $payment->user_id = $user->id;
-        $payment->promotion_id = $promotion; //nullable
+        if ($promotion) {
+            $payment->promotion_id = $promotion->id;
+        }
 
         try {
 
@@ -130,22 +189,21 @@ class Checkout
             } else {
                 $payment->stripe_id = Str::random();
             }
-            $payment->status = PaymentStatus::SUCCESSFUL;
-            $payment->stripe_id = Str::random();
+
             $payment->save();
 
             $tickets = [];
-            foreach ($tickets_selected as $key => $ticket) {
+            foreach ($tickets_selected as $key => $item) {
                 $tickets[$key] = [
-                    'name' => $ticket->name,
-                    'price' => $ticket->price,
-                    'quantity' => $ticket->quantity_selected,
-                    'total' => $ticket->price_quantity,
-                    'ticket_type_id' => $ticket->id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity_selected,
+                    'total' => $item->price_quantity,
+                    'ticket_type_id' => $item->id,
                 ];
             }
-
             $payment->tickets()->createMany($tickets);
+
 
             DB::commit();
         } catch (\Throwable $e) {

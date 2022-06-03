@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PaymentResource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProfileController extends Controller
 {
@@ -49,33 +51,50 @@ class ProfileController extends Controller
             );
     }
 
-    public function my_shopping()
-    {   
-        
+    public function my_orders()
+    {
+
         $user = auth()->user();
-        $payments = $user->payments()->paginate(10);
+        $payments = $user->payments()->orderBy('id', 'DESC')->paginate(10);
         //dd($payments->first());
-        return Inertia::render('Profile/MyShopping', [
-            'shopping' => PaymentResource::collection($payments)
+        return Inertia::render('Profile/MyOrders', [
+            'orders' => PaymentResource::collection($payments)
         ]);
     }
 
-    public function shopping_details(Request $request)
+    public function order_details(Request $request)
     {
-        
+
         $user = auth()->user();
 
         $payment = $user->payments()->where('code', $request->code)->with('tickets')->firstOrFail();
-        
+
         // if (!$payment) {
         //     return Redirect::route('shopping')->withErrors(['message' => 'Al Parecer hubo un error']);;
         // }
 
         //dd(new PaymentResource($payment));
 
-        return Inertia::render('Profile/ShoppingDetails', [
-            'shoppingDetails' => new PaymentResource($payment),
+        return Inertia::render('Profile/OrderDetails', [
+            'orderDetails' => new PaymentResource($payment),
         ]);
+    }
+    public function order_details_pdf($code)
+    {
+        $user = auth()->user();
+        $payment = $user->payments()->where('code', $code)->with('tickets')->firstOrFail();
+        
+        $qrcode = QrCode::format('svg')->size(200)->generate(route('order_validate', ['code' => $payment->code]));
+        $session_format=$payment->session->isoFormat('dddd, D MMMM , YYYY hh:mm A');
+        $payment = json_decode(json_encode($payment), true);
+        $data = [
+            'qrcode' => $qrcode,
+            'session_format' => $session_format,            
+            ...$payment
+        ];
+        $pdf = PDF::loadView('pdf.ticket', $data);
+        return $pdf->stream();
+        return view('pdf.ticket', $data);
     }
 
     public function change_password()

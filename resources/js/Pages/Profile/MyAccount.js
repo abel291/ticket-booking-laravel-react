@@ -20,8 +20,8 @@ const MyAccount = ({ children, title }) => {
         },
         {
             name: "Mis Compras",
-            path: route("profile.my_shopping"),
-            active: route().current("profile.my_shopping"),
+            path: route("profile.my_orders"),
+            active: route().current("profile.my_orders"),
         },
         {
             name: "Detalles de cuenta",

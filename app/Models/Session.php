@@ -40,6 +40,10 @@ class Session extends Model
     {
         return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity');
     }
+    public function ticket_types_available()
+    {
+        return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity')->wherePivot('remaining', '>', 0);
+    }
 
     protected static function booted()
     {

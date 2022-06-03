@@ -10,7 +10,7 @@ const Dashboard = () => {
             <div>
                 Desde el panel de control de su cuenta, puede ver sus ,
                 administrar los
-                <Link href="/" className="font-medium underline px-1 ">
+                <Link href={route("profile.my_orders")} className="font-medium underline px-1 ">
                     pedidos recientes
                 </Link>
                 , administrar los

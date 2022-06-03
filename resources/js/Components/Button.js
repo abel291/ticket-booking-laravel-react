@@ -5,14 +5,15 @@ export default function Button({
     className = "",
     processing,
     children,
+    disabled = false
 }) {
     return (
         <button
             type={type}
             className={
-                "btn relative " + (processing ? " opacity-50 " : "") + className
+                "btn relative disabled:opacity-50 " + className
             }
-            disabled={processing}
+            disabled={processing || disabled}
         >
             {processing && (
                 <div className="absolute inset-0 grid place-items-center">

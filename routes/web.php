@@ -54,8 +54,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/account-details', 'account_details')->name('account_details');
         Route::post('/account-details', 'store_account_details')->name('store_account_details');
 
-        Route::get('/my-shopping', 'my_shopping')->name('my_shopping');
-        Route::get('/shopping-details/{code}', 'shopping_details')->name('shopping_details');
+        Route::get('/my-orders', 'my_orders')->name('my_orders');
+        Route::get('/order-details/{code}', 'order_details')->name('order_details');
+        Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
 
         Route::get('/change-password', 'change_password')->name('change_password');
         Route::post('/change-password', 'store_change_password')->name('store_change_password');
@@ -64,6 +65,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });
+Route::get('/order-validate/{code}', function ($code) {
+    return "Aquí se valida el ticket a través de la aplicación que nunca haré :D";
+})->name('order_validate');
 
 Route::get('/about-us', function () {
     return Inertia::render('AboutUs/AboutUs');

@@ -13,6 +13,7 @@ class Payment extends Model
         'event_data' => 'object',
         'user_data' => 'object',
         'promotion_data' => 'object',
+        'session' => 'datetime',
         'status' => PaymentStatus::class,
     ];
     protected $attributes = [

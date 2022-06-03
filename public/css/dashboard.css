@@ -669,6 +669,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .left-0 {
   left: 0px;
 }
+.bottom-0 {
+  bottom: 0px;
+}
 .z-0 {
   z-index: 0;
 }
@@ -875,6 +878,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .w-44 {
   width: 11rem;
 }
+.w-36 {
+  width: 9rem;
+}
+.w-24 {
+  width: 6rem;
+}
+.w-28 {
+  width: 7rem;
+}
 .min-w-full {
   min-width: 100%;
 }
@@ -887,6 +899,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .max-w-6xl {
   max-width: 72rem;
 }
+.max-w-3xl {
+  max-width: 48rem;
+}
 .max-w-full {
   max-width: 100%;
 }
@@ -895,6 +910,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+.grow {
+  flex-grow: 1;
 }
 .table-fixed {
   table-layout: fixed;
@@ -1039,6 +1057,16 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1047,6 +1075,14 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
+}
+.divide-gray-400 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-divide-opacity));
+}
+.divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-divide-opacity));
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1087,6 +1123,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .border {
   border-width: 1px;
+}
+.border-2 {
+  border-width: 2px;
 }
 .border-t {
   border-top-width: 1px;
@@ -1205,6 +1244,12 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .p-2\.5 {
   padding: 0.625rem;
 }
+.p-5 {
+  padding: 1.25rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1301,6 +1346,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .align-middle {
   vertical-align: middle;
 }
+.align-bottom {
+  vertical-align: bottom;
+}
 .font-sans {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -1316,6 +1364,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -1324,9 +1376,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   font-size: 1rem;
   line-height: 1.5rem;
 }
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .font-medium {
   font-weight: 500;
@@ -1448,6 +1500,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   --tw-text-opacity: 1;
   color: rgb(234 88 12 / var(--tw-text-opacity));
 }
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
 .text-green-700 {
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
@@ -1455,6 +1511,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+.text-emerald-500 {
+  --tw-text-opacity: 1;
+  color: rgb(16 185 129 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;

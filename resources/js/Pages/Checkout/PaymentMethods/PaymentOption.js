@@ -8,7 +8,8 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Inertia } from "@inertiajs/inertia";
 
-const PaymentOption = ({ data, setData }) => {
+const PaymentOption = ({ auth,data, setData }) => {
+    
     const { errors } = usePage().props
     const nameCreditCard = useRef();
     const [errorStripe, setErrorStripe] = useState();
@@ -54,9 +55,7 @@ const PaymentOption = ({ data, setData }) => {
 
     };
     useEffect(() => {
-       
         if (paymentMethod) {
-
             Inertia.post(route("payment"), { ...data, paymentMethod },
                 {
                     preserveScroll: true,
@@ -87,7 +86,6 @@ const PaymentOption = ({ data, setData }) => {
     };
     return (
         <Card title="Información de pago">
-
             <form onSubmit={handleSubmit} className="mt-10">
                 <div className="space-y-5">
                     <div className="font-medium  text-white lg:text-lg">
@@ -102,8 +100,8 @@ const PaymentOption = ({ data, setData }) => {
                                 ref={nameCreditCard}
                                 type="text"
                                 name="name"
-                                defaultValue={"USER"}
-                                className="mt-1 w-full rounded border border-dark-blue-400 bg-transparent p-2.5 text-sm ring-0 placeholder:text-blue-300  focus:border-gray-200 focus:ring-0 md:w-1/2 "
+                                defaultValue={data.name}
+                                className="mt-1 w-full rounded border border-dark-blue-400 bg-transparent p-2.5 text-sm ring-0 placeholder:text-blue-300  focus:border-gray-200 focus:ring-0 md:w-1/2 uppercase"
                                 required={true}
                             />
                         </div>
@@ -124,7 +122,9 @@ const PaymentOption = ({ data, setData }) => {
                         </div>
                     </div>
                     <div>
-                        <Button processing={false}>Realizar pago</Button>
+                        <Button
+                            disabled={Object.keys(data.tickets_quantity).length === 0}
+                            processing={data.processing}>Realizar pago</Button>
                     </div>
                     <ValidationErrors errors={errors} />
 
