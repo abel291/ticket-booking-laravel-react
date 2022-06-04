@@ -1,16 +1,24 @@
+import { formatCurrency } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/inertia-react";
+import { format } from "prettier";
 import React from "react";
 import { FaSplotch } from "react-icons/fa";
 const ItemCard = ({ event }) => {
     return (
         <Link href={route("event", { slug: event.slug })}>
             <div className="flex h-full flex-col overflow-hidden rounded bg-dark-blue-700">
-                <div className=" overflow-hidden">
+                <div className="relative overflow-hidden">
                     <img
                         src={event.card}
                         alt="movie"
                         className="w-full transition hover:scale-105"
                     />
+                    {event.price!=null && (
+                        <div className="absolute pt-2 px-2 pb-1 rounded-b right-3 top-0 bg-emerald-500 text-center">
+                            <span className=" block font-medium text-sm">desde</span>
+                            <span className=" block font-bold ">{formatCurrency(event.price)}</span>
+                        </div>
+                    )}
                 </div>
                 <div className="flex grow flex-col p-5 ">
                     <div className="overflow-hidden  pb-2">
@@ -29,29 +37,7 @@ const ItemCard = ({ event }) => {
                             </div>
                         </div>
                         <div className=" mt-3 text-xs line-clamp-none lg:line-clamp-2">
-                            {event.type == "movie" ? (
-                                <div className="flex items-center gap-4 text-base">
-                                    <div
-                                        className="flex items-center gap-1"
-                                        title="tomatoes"
-                                    >
-                                        <img
-                                            src="img/tomatoes.svg"
-                                            className="h-4 w-4"
-                                        />
-                                        <span>{event.tomatoes}%</span>
-                                    </div>
-                                    <div
-                                        className="flex items-center gap-1"
-                                        title="Calificaion"
-                                    >
-                                        <FaSplotch className="h-4 w-4 text-yellow-500" />
-                                        <span>{event.score}%</span>
-                                    </div>
-                                </div>
-                            ) : (
-                                <span>{event.location.address}</span>
-                            )}
+                            <span>{event.location.address}</span>
                         </div>
                     </div>
                 </div>

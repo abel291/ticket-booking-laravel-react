@@ -11,7 +11,6 @@ const FilterReset = () => {
             <Link
                 className="text-sm text-emerald-400"
                 href={location.pathname}
-                preserveState
                 preserveScroll
             >
                 Limpiar todo

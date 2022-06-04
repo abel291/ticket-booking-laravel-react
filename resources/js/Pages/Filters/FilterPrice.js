@@ -1,38 +1,31 @@
 import Button from "@/Components/Button";
 import Card from "@/Components/Card";
 import Input from "@/Components/Input";
+import Select from "@/Components/Select";
 import useFilters from "@/Hooks/useFilters";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useRef, useEffect, useState } from "react";
 
-const FilterPrice = () => {
-    const { filters } = usePage().props;
-    const { sendForm } = useFilters();
-    const priceMinReF = useRef();
-    const priceMaxReF = useRef();
-
-    useEffect(() => {
-        priceMinReF.current.value = filters?.price_min || "";
-        priceMaxReF.current.value = filters?.price_max || "";
-    }, []);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // setFilters({
-        //     ...filters,
-        //     price_min: priceMinReF.current.value,
-        //     price_max: priceMaxReF.current.value,
-        // });
-
-        sendForm({
-            price_min: priceMinReF.current.value,
-            price_max: priceMaxReF.current.value,
-        });
+const FilterPrice = ({ data, setData }) => {
+    
+    const handleChange = (e) => {
+        setData('price', e.target.value);
     };
 
     return (
         <Card title="Precio" className="bg-dark-blue-800">
-            <form onSubmit={handleSubmit}>
+            <Select value={data.price} className="text-sm" name="price"
+                handleChange={handleChange}>
+                <option value="">Todos los precios</option>
+                <option value="free">GRATUITO</option>
+                <option value="0-20">$0 a $20</option>
+                <option value="20-40">$20 a $40</option>
+                <option value="40-60">$40 a $60</option>
+                <option value="60-80">$60 a $80</option>
+                <option value="80-100">$80 a $100</option>
+                <option value="100++">mas de $100</option>
+            </Select>
+            {/* <form onSubmit={handleSubmit}>
                 <div className="gap-4">
                     <input
                         ref={priceMinReF}
@@ -53,7 +46,7 @@ const FilterPrice = () => {
                 <button className="btn relative mt-4 text-sm disabled:opacity-50">
                     Buscar
                 </button>
-            </form>
+            </form> */}
         </Card>
     );
 };

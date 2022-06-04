@@ -2,22 +2,22 @@ import useFilters from "@/Hooks/useFilters";
 import React from "react";
 import Card from "./Card";
 
-const FilterCheckbox = ({ title, name, itemValue="value",itemTitle="title", items, itemsChecked }) => {
+const FilterCheckbox = ({ title, name, itemValue = "value", itemTitle = "title", items, itemsChecked, setData }) => {
     const { sendForm } = useFilters();
-
+    console.log(itemsChecked)
     //quitar - agregar categorias
     const handleChange = (e) => {
         let target = e.target;
-        let newCategoriesChecked = itemsChecked;
+        let newItemsChecked = [...itemsChecked];
 
         if (target.checked) {
-            newCategoriesChecked.push(target.value);
+            newItemsChecked.push(target.value);
         } else {
-            newCategoriesChecked = newCategoriesChecked.filter(
+            newItemsChecked = newItemsChecked.filter(
                 (item) => item !== target.value
             );
         }
-        sendForm({ [name]: newCategoriesChecked });
+        setData(name, newItemsChecked);
     };
 
     return (

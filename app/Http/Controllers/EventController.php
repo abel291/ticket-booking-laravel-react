@@ -30,21 +30,13 @@ class EventController extends Controller
         // ]);
 
         $events = Event::query();
-        $events
-            ->has('session')
-            ->with('session', 'location');
-            
+        $events->has('session')->with(['session', 'location']);
 
         if ($request->categories && array_filter($request->categories)) {
             $events->whereHas('category', function (Builder $query) use ($request) {
                 $query->whereIn('slug', $request->categories);
             });
         }
-        // elseif ($request->category) {
-        //     $events->whereHas('category', function (Builder $query) use ($request) {
-        //         $query->where('slug', $request->category);
-        //     });            
-        // }
 
         if ($request->formats && array_filter($request->formats)) {
             $events->whereHas('format', function (Builder $query) use ($request) {
@@ -52,15 +44,38 @@ class EventController extends Controller
             });
         }
 
-        if ($request->priceMin) {
+        if ($request->price) {
             $events->whereHas('ticket_types', function (Builder $query) use ($request) {
-                $query->where('price', '>=', $$request->priceMin);
-            });
-        }
+                switch ($request->price) {
+                    case 'free':
+                        $query->where('type', 'free');
+                        break;
+                    case '0-20':
+                        $query->where('price', '<=', 20);
+                        break;
 
-        if ($request->priceMax) {
-            $events->whereHas('ticket_types', function (Builder $query) use ($request) {
-                $query->where('price', '<=', $$request->priceMax);
+                    case '20-40':
+                        $query->whereBetween('price', [20, 40]);
+                        break;
+
+                    case '40-60':
+                        $query->whereBetween('price', [40, 60]);
+                        break;
+
+                    case '60-80':
+                        $query->whereBetween('price', [60, 80]);
+                        break;
+
+                    case '80-100':
+                        $query->whereBetween('price', [80, 100]);
+                        break;
+
+                    case '100++':
+                        $query->where('price', '>', 100);
+                        break;
+                    default:
+                        break;
+                }
             });
         }
 
@@ -69,14 +84,22 @@ class EventController extends Controller
         }
 
         if ($request->date) {
-            $events->whereRelation('sessions', 'date', '=', $request->date);
+            $events->whereRelation('sessions_available', 'date', $request->date);
         }
 
         $paginate = $request->perPage ?: 12;
 
-        $filters = $request->only('categories', 'priceMin', 'priceMax', 'perPage', 'order', 'search', 'date', 'formats');
+        $filters = $request->only(
+            'categories',
+            'price',
+            'perPage',
+            'order',
+            'search',
+            'date',
+            'formats'
+        );
         $events = $events->paginate($paginate)->appends($filters);
-        
+
         return Inertia::render('Filters/Filters', [
             "events" => EventResource::collection($events),
             "formats" => CategoryResource::collection(Format::active()->get()),
@@ -86,7 +109,8 @@ class EventController extends Controller
 
     public function event_details(Event $event)
     {
-        $event->load('location', 'session', 'sessions', 'ticket_types','speakers');        
+        $event->load(['location', 'session', 'sessions', 'ticket_types', 'speakers']);
+
         return Inertia::render('EventDetails/EventDetails', [
             'event' => new EventResource($event)
         ]);

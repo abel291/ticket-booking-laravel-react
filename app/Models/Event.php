@@ -22,6 +22,7 @@ class Event extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+
     public function format()
     {
         return $this->belongsTo(Format::class);
@@ -31,25 +32,37 @@ class Event extends Model implements HasMedia
     {
         return $this->hasMany(Session::class)->orderBy('date');;
     }
+
+    //me devuelve una sola  sesion con la fecha mas cerca de la fecha actual
+    public function session()
+    {
+        return $this->hasOne(Session::class)->ofMany([
+            'date' => 'min',
+        ], function ($query) {
+            $query->where('date', '>=', now());
+        });
+    }
+    public function sessions_available()
+    {
+        return $this->hasMany(Session::class)
+            ->where('date', '>=', now())
+            ->where('active', 1)
+            ->orderBy('date');
+    }
     public function speakers()
     {
         return $this->hasMany(Speaker::class);
     }
 
-    //me devuelve una sola  sesion con la fecha futura mas cerca de la fecha actual
-    public function session()
-    {
-        return $this->hasOne(Session::class)->ofMany([
-            'date' => 'min',
-            //'id' => 'max',
-        ], function ($query) {
-            $query->where('active', 1)->where('date', '>=', now());
-        });
-    }
-
     public function ticket_types()
     {
         return $this->hasMany(TicketType::class);
+    }
+    public function ticket_default_price()
+    {
+        return $this->hasOne(TicketType::class)->ofMany(['price' => 'max'], function ($query) {
+            $query->where('default', 1)->where('active', 1);
+        });
     }
     public function location()
     {
@@ -90,7 +103,7 @@ class Event extends Model implements HasMedia
         //     });
     }
 
-   
+
     protected static function booted()
     {
         static::addGlobalScope(new ActiveScope);

@@ -590,6 +590,39 @@ select {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+
+  .container {
+    max-width: 1536px;
+  }
+}
 input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="number"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="search"], input[type="tel"], input[type="time"], input[type="week"], select[multiple], textarea, select {
   margin-top: 0.25rem;
   display: block;
@@ -668,9 +701,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .left-0 {
   left: 0px;
-}
-.bottom-0 {
-  bottom: 0px;
 }
 .z-0 {
   z-index: 0;
@@ -779,6 +809,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .mb-4 {
   margin-bottom: 1rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
+}
+.ml-auto {
+  margin-left: auto;
+}
 .block {
   display: block;
 }
@@ -872,20 +911,14 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .w-4\/12 {
   width: 33.333333%;
 }
+.w-28 {
+  width: 7rem;
+}
 .w-48 {
   width: 12rem;
 }
 .w-44 {
   width: 11rem;
-}
-.w-36 {
-  width: 9rem;
-}
-.w-24 {
-  width: 6rem;
-}
-.w-28 {
-  width: 7rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -899,9 +932,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .max-w-6xl {
   max-width: 72rem;
 }
-.max-w-3xl {
-  max-width: 48rem;
-}
 .max-w-full {
   max-width: 100%;
 }
@@ -910,9 +940,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .flex-shrink-0 {
   flex-shrink: 0;
-}
-.grow {
-  flex-grow: 1;
 }
 .table-fixed {
   table-layout: fixed;
@@ -1047,6 +1074,11 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1057,16 +1089,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1075,14 +1097,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
-}
-.divide-gray-400 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-divide-opacity));
-}
-.divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-divide-opacity));
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1241,14 +1255,14 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .p-4 {
   padding: 1rem;
 }
-.p-2\.5 {
-  padding: 0.625rem;
+.p-1 {
+  padding: 0.25rem;
 }
 .p-5 {
   padding: 1.25rem;
 }
-.p-1 {
-  padding: 0.25rem;
+.p-2\.5 {
+  padding: 0.625rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -1334,6 +1348,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .pr-4 {
   padding-right: 1rem;
 }
+.pt-0 {
+  padding-top: 0px;
+}
 .text-left {
   text-align: left;
 }
@@ -1375,10 +1392,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 .font-medium {
   font-weight: 500;
@@ -1504,6 +1517,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+.text-emerald-500 {
+  --tw-text-opacity: 1;
+  color: rgb(16 185 129 / var(--tw-text-opacity));
+}
 .text-green-700 {
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
@@ -1511,10 +1528,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
-}
-.text-emerald-500 {
-  --tw-text-opacity: 1;
-  color: rgb(16 185 129 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;

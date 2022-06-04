@@ -2,10 +2,8 @@ import FilterCheckbox from "@/Components/FilterCheckbox";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
-const FilterFormat = () => {
-    const { formats, filters } = usePage().props; // all format
-
-    const formatsChecked = filters?.formats || [];
+const FilterFormat = ({ data, setData }) => {
+    const { formats } = usePage().props; // all format   
 
     return (
         <FilterCheckbox
@@ -14,7 +12,8 @@ const FilterFormat = () => {
             itemValue="slug"
             itemTitle="name"
             items={formats}
-            itemsChecked={formatsChecked}
+            itemsChecked={data.formats}//formats Selected
+            setData={setData}
         />
     );
 };

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-
+use App\Enums\TicketTypes;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventResource extends JsonResource
@@ -15,6 +15,7 @@ class EventResource extends JsonResource
      */
     public function toArray($request)
     {
+        //dd($this->ticket_default_price);
         return [
             'slug' => $this->slug,
             'title' => $this->title,
@@ -32,6 +33,7 @@ class EventResource extends JsonResource
             'social_yt' => $this->social_yt,
             'card' => '/img/events/img-' . rand(1, 20) . '.jpg',
             'banner' => '/img/home/carousel-' . rand(1, 9) . '.jpg',
+            'price' => $this->whenLoaded('ticket_default_price'),
             //'card'=>$this->getFirstMediaUrl('card'), 
             'session' => SessionResource::make($this->whenLoaded('session')),
             'sessions' => SessionResource::collection($this->whenLoaded('sessions')),
@@ -39,7 +41,6 @@ class EventResource extends JsonResource
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'ticket_types' => TicketTypeResource::collection($this->whenLoaded('ticket_types')),
             'speakers' => SpeakerResource::collection($this->whenLoaded('speakers')),
-            
             //'promotions' => PromotionResource::make($this->whenLoaded('promotions')),
         ];
     }

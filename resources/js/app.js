@@ -10,7 +10,8 @@ createInertiaApp({
     title: (title) => `${title} | ${appName}`,
     resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props }) {
-        return render(<App {...props} />, el);
+        return render(
+            <React.StrictMode><App {...props} /></React.StrictMode>, el);
     },
 });
 

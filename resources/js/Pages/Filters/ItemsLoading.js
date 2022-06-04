@@ -1,30 +1,25 @@
 import React from "react";
-
-const ItemsLoading = () => {
+import { Transition } from '@headlessui/react';
+import { Fragment } from 'react'
+const ItemsLoading = ({ children, loading }) => {
     return (
-        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6].map((key) => (
-                <div
-                    key={key}
-                    className="flex h-full animate-pulse flex-col overflow-hidden rounded  bg-dark-blue-800"
-                >
-                    <div className="h-48  w-full  overflow-hidden bg-dark-blue-700"></div>
-                    <div className="flex grow flex-col p-5  ">
-                        <div className="overflow-hidden  pb-3">
-                            <div className="h-4 w-4/5  rounded-lg bg-dark-blue-700"></div>
-                        </div>
-
-                        <div className="grow border-t border-dashed  border-dark-blue-500 pt-2">
-                            <div className="flex justify-between gap-x-4 ">
-                                <div className="h-4 w-full  rounded-lg bg-dark-blue-700"></div>
-                                <div className="h-4 w-full  rounded-lg bg-dark-blue-700"></div>
-                            </div>
-                            <div className="mt-3 h-4 w-full  rounded-lg bg-dark-blue-700"></div>
-                        </div>
-                    </div>
-                </div>
-            ))}
+        <div className="relative">
+            {children}
+            <Transition
+                as={Fragment}
+                show={loading}
+                enter="transition duration-300"
+                enterFrom="opacity-0 "
+                enterTo="opacity-100"
+                leave="transition duration-300"
+                leaveFrom="opacity-100 "
+                leaveTo="opacity-0">
+                <div className="absolute inset-0 bg-dark-blue-400/50 backdrop-filter backdrop-blur-sm"></div>
+            </Transition >
         </div>
+
+
+
     );
 };
 
