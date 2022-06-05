@@ -41,7 +41,7 @@ const EventDetails = ({ event }) => {
                 </div>
 
                 <div className="py-section">
-                    <EventGallery />
+                    {event.images.length  && <EventGallery images={event.images} />}
                 </div>
 
                 {event.speakers.length && <CarouselSpeakers speakers={event.speakers} />}

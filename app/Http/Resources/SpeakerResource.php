@@ -22,7 +22,7 @@ class SpeakerResource extends JsonResource
             'desc' => $this->desc,
             'twitter' => $this->twitter,
             'instagram' => $this->instagram,
-            'img' => '/img/speakers/img-' . rand(1, 10) . '.jpg',
+            'img' => $this->img
         ];
     }
 }

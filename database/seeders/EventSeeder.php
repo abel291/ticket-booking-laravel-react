@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Format;
+use App\Models\Image;
 use App\Models\Location;
 use App\Models\Session;
 use App\Models\Speaker;
@@ -26,13 +27,14 @@ class EventSeeder extends Seeder
         Session::truncate();
         TicketType::truncate();
         Speaker::truncate();
+        Image::truncate();
 
         $locations = Location::get();
         $formats = Format::get();
 
         foreach (Category::get() as $key => $category) {
             Event::factory(10)
-                //->hasImages(3)
+                ->hasImages(8)
                 ->hasSessions(5)
                 ->hasSpeakers(8)
                 ->has(TicketType::factory()->count(5), 'ticket_types')

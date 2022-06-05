@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
-class Event extends Model implements HasMedia
+class Event extends Model
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -26,6 +26,10 @@ class Event extends Model implements HasMedia
     public function format()
     {
         return $this->belongsTo(Format::class);
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function sessions()
@@ -84,25 +88,6 @@ class Event extends Model implements HasMedia
     {
         return $this->hasMany(Payment::class);
     }
-
-    /**
-     * Register the media collections
-     */
-    public function registerMediaCollections(): void
-    {
-
-        $this->addMediaCollection('banner')->singleFile();
-        $this->addMediaCollection('card')->singleFile();
-
-        // $this->addMediaCollection('image')->singleFile()
-        //     ->registerMediaConversions(function (Media $media) {
-        //         $this
-        //             ->addMediaConversion('thumb')
-        //             //->width(320)
-        //             ->height(320);
-        //     });
-    }
-
 
     protected static function booted()
     {

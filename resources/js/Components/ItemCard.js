@@ -9,16 +9,16 @@ const ItemCard = ({ event }) => {
             <div className="flex h-full flex-col overflow-hidden rounded bg-dark-blue-700">
                 <div className="relative overflow-hidden">
                     <img
-                        src={event.card}
+                        src={event.thumb}
                         alt="movie"
                         className="w-full transition hover:scale-105"
                     />
-                    {event.price!=null && (
+                    {/* {event.price!=null && (
                         <div className="absolute pt-2 px-2 pb-1 rounded-b right-3 top-0 bg-emerald-500 text-center">
                             <span className=" block font-medium text-sm">desde</span>
                             <span className=" block font-bold ">{formatCurrency(event.price)}</span>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <div className="flex grow flex-col p-5 ">
                     <div className="overflow-hidden  pb-2">

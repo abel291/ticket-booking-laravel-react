@@ -30,7 +30,7 @@ class EventController extends Controller
         // ]);
 
         $events = Event::query();
-        $events->has('session')->with(['session', 'location']);
+        $events->has('session')->with(['session', 'location','ticket_default_price']);
 
         if ($request->categories && array_filter($request->categories)) {
             $events->whereHas('category', function (Builder $query) use ($request) {
@@ -109,12 +109,12 @@ class EventController extends Controller
 
     public function event_details(Event $event)
     {
-        $event->load(['location', 'session', 'sessions', 'ticket_types', 'speakers']);
-
+        $event->load(['location', 'session', 'sessions', 'ticket_types', 'speakers','images']);
+        //dd($event->images);
         return Inertia::render('EventDetails/EventDetails', [
             'event' => new EventResource($event)
         ]);
     }
 }
 
-//responsive event details , agrega campos db speakers
+

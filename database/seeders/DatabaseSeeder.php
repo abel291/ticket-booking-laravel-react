@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //dd(EventTypes::Event->value);
-        Schema::disableForeignKeyConstraints();       
+        Schema::disableForeignKeyConstraints();
         $this->call([
             UserSeeder::class,
             LocationSeeder::class,
@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             FormatSeeder::class,
             EventSeeder::class,
             PivotSessionTicketTypesSeeder::class,
-            //BlogSeeder::class,
+            BlogSeeder::class,
             PromotionSeeder::class,
             //PaymentSeeder::class,
-            //ImageSeeder::class,
+
         ]);
         Schema::enableForeignKeyConstraints();
     }

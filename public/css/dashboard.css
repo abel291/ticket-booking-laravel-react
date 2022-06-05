@@ -788,6 +788,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .mr-3 {
   margin-right: 0.75rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
+}
+.ml-auto {
+  margin-left: auto;
+}
 .mr-4 {
   margin-right: 1rem;
 }
@@ -808,15 +817,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .mb-4 {
   margin-bottom: 1rem;
-}
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-.mb-0 {
-  margin-bottom: 0px;
-}
-.ml-auto {
-  margin-left: auto;
 }
 .block {
   display: block;
@@ -1321,6 +1321,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 .pl-3 {
   padding-left: 0.75rem;
 }
+.pt-0 {
+  padding-top: 0px;
+}
 .pt-5 {
   padding-top: 1.25rem;
 }
@@ -1347,9 +1350,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, in
 }
 .pr-4 {
   padding-right: 1rem;
-}
-.pt-0 {
-  padding-top: 0px;
 }
 .text-left {
   text-align: left;

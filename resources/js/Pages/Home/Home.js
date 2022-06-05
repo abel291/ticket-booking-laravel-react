@@ -1,4 +1,5 @@
 import BannerSearch from "@/Components/BannerSearch";
+import ItemCard from "@/Components/ItemCard";
 import Layout from "@/Layouts/Layout";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
@@ -51,21 +52,24 @@ const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
                 <ItemList
                     title="Destacados"
                     linkPath={route("events")}
-                    events={eventsFeacture}
-                />
 
-                <div className="py-5">
+                >
+                    <ItemList.Grid events={eventsFeacture} />
+                </ItemList>
+
+                <ItemList
+                    title="Especiales"
+                >
                     <CarouselHome eventsCarousel={eventsCarousel} />
-                </div>
-                {/* <div className="py-section">
-                    <CarouselCategories carouselEvents={carouselEvents} />
-                </div> */}
+                </ItemList>
+
                 <ItemList
                     title="Gratis"
-
                     linkPath={route("events")}
-                    events={eventsFree}
-                />
+                >
+                    <ItemList.Grid events={eventsFree} />
+
+                </ItemList>
 
 
             </div>

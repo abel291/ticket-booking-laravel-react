@@ -21,6 +21,9 @@ return new class extends Migration
             $table->boolean('active');
             $table->boolean('home')->default(0);
             $table->string('duration');
+            $table->string('banner');
+            $table->string('card');
+            $table->string('thumb');
             $table->string('desc_min');
             $table->text('desc_max');
             $table->string('ceo_title');

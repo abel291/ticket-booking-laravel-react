@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->string('img')->nullable();
             $table->text('desc')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
