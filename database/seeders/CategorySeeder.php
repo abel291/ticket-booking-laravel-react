@@ -31,23 +31,24 @@ class CategorySeeder extends Seeder
             'Circo',
             'Conciertos',
             'Curso',
-            'deportes',
+            'Deportes',
             'Festivales',
             'Monólogo',
             'Museos',
             'Musicales',
             'Ópera',
             'profesionales',
-            'Reservas',
             'Teatro',
             'Turismo',
         ];
 
         //event
         foreach ($categories as $key => $value) {
+            $slug = Str::slug($value);
             Category::factory()->create([
                 "name" => ucfirst($value),
-                "slug" => Str::slug($value),
+                "slug" => $slug,
+                "img" => "/img/categories/" . $slug . ".jpg",
                 'type' => CategoryType::EVENT
             ]);
         }

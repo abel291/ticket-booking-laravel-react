@@ -4,6 +4,7 @@ import Layout from "@/Layouts/Layout";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import { TextLoop } from "react-text-loop-next";
+import CarouselCategories from "./CarouselCategories";
 import CarouselHome from "./CarouselHome";
 
 import ItemList from "./ItemList";
@@ -68,6 +69,14 @@ const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
                     linkPath={route("events")}
                 >
                     <ItemList.Grid events={eventsFree} />
+
+                </ItemList>
+
+                <ItemList
+                    title="Categorias"
+                    linkPath={route("events")}
+                >
+                    <CarouselCategories />
 
                 </ItemList>
 

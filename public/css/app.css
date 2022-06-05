@@ -750,6 +750,18 @@ select {
 .left-7 {
   left: 1.75rem;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
+.left-4 {
+  left: 1rem;
+}
+.bottom-2 {
+  bottom: 0.5rem;
+}
+.left-2 {
+  left: 0.5rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -1006,6 +1018,9 @@ select {
 }
 .h-36 {
   height: 9rem;
+}
+.h-40 {
+  height: 10rem;
 }
 .max-h-\[400px\] {
   max-height: 400px;
@@ -3066,6 +3081,14 @@ select option {
 }
 @media (min-width: 768px) {
 
+  .md\:bottom-8 {
+    bottom: 2rem;
+  }
+
+  .md\:left-8 {
+    left: 2rem;
+  }
+
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
   }
@@ -3520,6 +3543,10 @@ select option {
     grid-column: span 8 / span 8;
   }
 
+  .xl\:mt-6 {
+    margin-top: 1.5rem;
+  }
+
   .xl\:h-10 {
     height: 2.5rem;
   }
@@ -3530,6 +3557,10 @@ select option {
 
   .xl\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .xl\:flex-row {

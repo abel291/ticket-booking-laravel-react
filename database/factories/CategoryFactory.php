@@ -28,6 +28,7 @@ class CategoryFactory extends Factory
                 CategoryType::BLOG->value,
 
             ]),
+            
             "active" => 1, //
             "home" => rand(0, 1), //
         ];

@@ -20,7 +20,6 @@ const EventGallery = ({ images }) => {
             <div className="">
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 4 }}
-
                 >
                     <Masonry gutter="20px">
                         {images.map((item, key) => (

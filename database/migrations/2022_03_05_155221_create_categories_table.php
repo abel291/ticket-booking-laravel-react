@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('type',20); //events //blog
+            $table->string('img')->nullable();
+            $table->string('type', 20); //events //blog
             $table->boolean('active')->default(1);
             $table->boolean('home')->default(0);
             $table->timestamps();
