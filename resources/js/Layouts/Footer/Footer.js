@@ -8,7 +8,7 @@ import Newsletter from "./Newsletter";
 
 const Footer = () => {
     return (
-        <div className="bg-dark-blue-700">
+        <div className="bg-dark-blue-900">
             <Section>
                 <div className="py-section container relative z-10">
                     <Newsletter />
@@ -59,19 +59,19 @@ const Footer = () => {
                             </div>
 
                             <Link
-                                href={route("about-us")}
+                                href={route("about_us")}
                                 className="hover:text-emerald-400"
                             >
                                 Sobre nosotros
                             </Link>
                             <Link
-                                href={route("home")}
+                                href={route("terms_of_service")}
                                 className="hover:text-emerald-400"
                             >
-                                Condiciones de uso
+                                Términos de servicio
                             </Link>
                             <Link
-                                href={route("home")}
+                                href={route("privacy_policy")}
                                 className="hover:text-emerald-400"
                             >
                                 Política de privacidad

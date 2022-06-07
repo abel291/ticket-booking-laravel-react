@@ -31,7 +31,17 @@ class PageController extends Controller
             "categories" => CategoryResource::collection($home_categories),
         ]);
     }
-    function search()
+    public function privacy_policy()
     {
+        return Inertia::render('PrivacyPolicy/PrivacyPolicy');
+    }
+
+    public function about_us()
+    {
+        return Inertia::render('AboutUs/AboutUs');
+    }
+    public function terms_of_service()
+    {
+        return Inertia::render('TermsOfService/TermsOfService');
     }
 }

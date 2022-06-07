@@ -35,8 +35,8 @@ const Navbar = () => {
 
         {
             title: "Acerca",
-            path: route("about-us"),
-            current: route().current("about-us"),
+            path: route("about_us"),
+            current: route().current("about_us"),
         },
 
         {
