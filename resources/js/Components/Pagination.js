@@ -32,7 +32,6 @@ const Pagination = ({ data }) => {
                             </span>
                         ) : (
                             <Link
-                                preserveScroll
                                 href={data.links.prev}
                                 className="px-4 py-2 text-sm  font-medium  transition hover:text-white"
                             >
@@ -46,7 +45,6 @@ const Pagination = ({ data }) => {
                             </span>
                         ) : (
                             <Link
-                                preserveScroll
                                 href={data.links.next}
                                 className="px-4 py-2 text-sm font-medium transition hover:text-white"
                             >

@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Select from "@/Components/Select";
-import useFilters from "@/Hooks/useFilters";
+
 import { usePage } from "@inertiajs/inertia-react";
 import Button from "@/Components/Button";
 import Input from "@/Components/Input";
-const FilterOrder = () => {
-    const { filters } = usePage().props;
-    const { sendForm } = useFilters();
-    const [search, setSearch] = useState("");
+const FilterOrder = ({ data, setData }) => {
 
-    const filterPerPage = filters?.perPage || 12;
-
+    const [search, setSearch] = useState(data.search);
     const handleChange = (e) => {
         let target = e.target;
-        sendForm({ [target.name]: target.value });
+        setData(target.name, target.value);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        sendForm({
-            search: search,
-        });
+        setData('search', search);
     };
-
-    useEffect(() => {
-        setSearch(filters?.search || "");
-    }, []);
 
     return (
         <div className="rounded-lg border border-dark-blue-400 py-3 px-7 ">
@@ -36,7 +26,7 @@ const FilterOrder = () => {
                         name="perPage"
                         className="text-sm"
                         handleChange={handleChange}
-                        value={filterPerPage}
+                        value={data.perPage}
                     >
                         <option value="12">12</option>
                         <option value="24">24</option>
@@ -53,10 +43,7 @@ const FilterOrder = () => {
                         className="input w-full text-sm"
                         placeholder="Busca tu evento"
                         name="search"
-                        onChange={(e) => {
-                            console.log(search);
-                            setSearch(e.target.value);
-                        }}
+                        onChange={(e) => { setSearch(e.target.value); }}
                     />
                     <Button>Buscar</Button>
                 </form>

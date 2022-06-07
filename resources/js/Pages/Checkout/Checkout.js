@@ -1,4 +1,4 @@
-import BannerCheckout from "@/Components/BannerCheckout";
+
 import Layout from "@/Layouts/Layout";
 import React from "react";
 import OrderSummary from "./OrderSummary";
@@ -13,11 +13,13 @@ import { useForm, usePage } from "@inertiajs/inertia-react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import ValidationErrors from "@/Components/ValidationErrors";
+import ItemsLoading from "@/Components/ItemsLoading";
+import BannerHero from "@/Components/BannerHero";
 const Checkout = ({ event, sessions, tickets, filters, summary }) => {
-   
+
     const { auth, errors } = usePage().props
 
-    const { data, setData, post, processing } = useForm({
+    const { data, setData, post } = useForm({
         date: filters.date || sessions[0].date,
         tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
         code_promotion: filters.code_promotion || "",
@@ -25,9 +27,9 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
         phone: auth.user.phone,
         event_slug: event.slug,
     })
-    console.log(data)
 
     const initUpdate = useRef(true)
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
 
         if (initUpdate.current) {
@@ -42,6 +44,8 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
             preserveScroll: true,
             replace: true,
             preserveState: true,
+            onStart: visit => { setLoading(true) },
+            onFinish: visit => { setLoading(false) },
         });
     }, [data.date, data.tickets_quantity, data.code_promotion])
 
@@ -49,15 +53,7 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 
     return (
         <Layout title="Checkout">
-            {/* <BannerEvent
-                img="/img/event/banner.jpg"
-                title={event.title}
-                desc={event.desc_min}
-            /> */}
-            <BannerCheckout
-                title="La Familia Mitchell Vs. Las Máquinas"
-                lang="ENGLISH, HINDI TELEGU TAMIL"
-            />
+            <BannerHero img={event.banner} title="Checkout" desc="" />
 
             <div className="py-section container">
 
@@ -74,12 +70,10 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
                                 tickets={tickets}
                                 data={data} setData={setData}
                             />
-                            <PromoCode data={data} setData={setData} />
-
                             <ContactDetails data={data} setData={setData} />
 
                             <Elements stripe={stripePromise} >
-                                <PaymentOption data={data} setData={setData} post={post} processing={processing} />
+                                <PaymentOption data={data} setData={setData} />
                             </Elements>
 
                         </div>
@@ -87,11 +81,14 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 
                     <div className="lg:col-span-4  ">
                         <div className="space-y-6">
-                            <OrderSummary
-                                event={event}
-                                session_selected={data.date}
-                                summary={summary}
-                            />
+                            <ItemsLoading loading={loading}>
+                                <OrderSummary
+                                    event={event}
+                                    session_selected={data.date}
+                                    summary={summary}
+                                />
+                            </ItemsLoading>
+                            <PromoCode data={data} setData={setData} />
                         </div>
                     </div>
                 </div>

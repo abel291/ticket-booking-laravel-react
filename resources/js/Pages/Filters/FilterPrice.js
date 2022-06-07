@@ -1,20 +1,15 @@
-import Button from "@/Components/Button";
 import Card from "@/Components/Card";
-import Input from "@/Components/Input";
 import Select from "@/Components/Select";
-import useFilters from "@/Hooks/useFilters";
-import { usePage } from "@inertiajs/inertia-react";
-import React, { useRef, useEffect, useState } from "react";
 
 const FilterPrice = ({ data, setData }) => {
-    
+
     const handleChange = (e) => {
         setData('price', e.target.value);
     };
 
     return (
         <Card title="Precio" className="bg-dark-blue-800">
-            <Select value={data.price} className="text-sm" name="price"
+            <Select value={data.price} className="text-sm w-full" name="price"
                 handleChange={handleChange}>
                 <option value="">Todos los precios</option>
                 <option value="free">GRATUITO</option>

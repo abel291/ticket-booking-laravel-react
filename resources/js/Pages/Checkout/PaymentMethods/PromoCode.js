@@ -22,11 +22,11 @@ const PromoCode = ({ data, setData }) => {
                 ))}
             </div>
             <form onSubmit={handleSubmit} className="mb-3">
-                <div className="mt-7 grid grid-cols-2 gap-4">
+                <div className="mt-7 flex items-center gap-4">
                     <input
                         ref={codRef}
                         defaultValue=""
-                        className="input w-full uppercase"
+                        className="input w-full uppercase grow"
                         required={true}
                         name="code"
                         placeholder="Codigo *"

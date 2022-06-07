@@ -7,9 +7,9 @@ import FilterOrder from "./FilterOrder";
 import FilterPrice from "./FilterPrice";
 import FilterReset from "./FilterReset";
 import FilterFormat from "./FilterFormat";
-import ItemsLoading from "./ItemsLoading";
-import { Inertia } from "@inertiajs/inertia";
+import ItemsLoading from "@/Components/ItemsLoading";
 import { useForm } from "@inertiajs/inertia-react";
+import BannerHero from "@/Components/BannerHero";
 
 const Filters = ({ events, filters }) => {
 
@@ -19,9 +19,9 @@ const Filters = ({ events, filters }) => {
         price: filters.price || "",
         search: filters.search || "",
         date: filters.date,
-        perPage: filters.perPage || null,
+        perPage: filters.perPage || 12,
     });
-    console.log(data)
+
 
     const initUpdate = useRef(true)
     useEffect(() => {
@@ -41,24 +41,17 @@ const Filters = ({ events, filters }) => {
 
     return (
         <Layout title="Eventos">
+            <BannerHero
+                img="/img/movies.jpg"
+                title=" CONSIGUE TICKETS PARA TUS EVENTOS FAVORITOS"
+                desc="Emisión de boletos segura y confiable. ¡Su boleto para entretenimiento en vivo!"
+            />
 
-            {/* <BannerSearch img="/img/movies.jpg" search={false}>
-                <BannerTitle>
-                    CONSIGUE <span className="text-emerald-400">TICKETS</span>{" "}
-                    DE CINE
-                </BannerTitle>
-                <BannerContent>
-                    Compre Tickets de cine por adelantado, encuentre horarios de
-                    películas, vea avances, lea reseñas de películas y mucho más
-                </BannerContent>
-
-            </BannerSearch> */}
-
-            <div className="py-section container mt-[97px]">
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-10">
+            <div className="py-section container ">
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-10">
                     <div className="lg:col-span-3 xl:col-span-2">
                         <FilterReset />
-                        <div className="space-y-8 ">
+                        <div className="space-y-5 ">
                             <FilterCategories data={data} setData={setData} />
                             <FilterFormat data={data} setData={setData} />
                             <FilterPrice data={data} setData={setData} />
@@ -68,12 +61,9 @@ const Filters = ({ events, filters }) => {
                         <FilterOrder data={data} setData={setData} />
                         {events.data.length ? (
                             <ItemsLoading loading={processing}>
-                                <div className="mt-7 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+                                <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                                     {events.data.map((item, key) => (
-                                        <ItemCard
-                                            key={key}
-                                            event={item}
-                                        />
+                                        <ItemCard key={key} event={item} />
                                     ))}
                                 </div>
                                 <div className="mt-7">

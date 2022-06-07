@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import Card from "@/Components/Card";
-import { FaPaypal, FaStripe } from "react-icons/fa";
-import Input from "@/Components/Input";
 import Button from "@/Components/Button";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 import ValidationErrors from '@/Components/ValidationErrors';
 import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Inertia } from "@inertiajs/inertia";
 
-const PaymentOption = ({ auth,data, setData }) => {
-    
+const PaymentOption = ({ auth, data, setData, processing }) => {
+
     const { errors } = usePage().props
     const nameCreditCard = useRef();
     const [errorStripe, setErrorStripe] = useState();
@@ -22,10 +20,7 @@ const PaymentOption = ({ auth,data, setData }) => {
     const handleSubmit = async (e) => {
 
         setPaymentMethod("test");
-
-
         e.preventDefault();
-
         setErrorStripe("");
         setLoading(true);
 
@@ -33,25 +28,25 @@ const PaymentOption = ({ auth,data, setData }) => {
             return;
         }
 
-        // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        //     type: "card",
-        //     card: elements.getElement(CardElement),
-        //     billing_details: {
-        //         name: nameCreditCard.current.value,
-        //     },
-        // });
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardElement),
+            billing_details: {
+                name: nameCreditCard.current.value,
+            },
+        });
 
-        // if (error) {
-        //     setLoading(false);
-        //     if (error.type === "validation_error") {
-        //         setErrorStripe(error.message);
-        //     } else {
-        //         setErrorStripe("Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.");
-        //     }
-        // } else {
-        //     setPaymentMethod(paymentMethod.id);
-        // }
-        setPaymentMethod(paymentMethod.id);
+        if (error) {
+            setLoading(false);
+            if (error.type === "validation_error") {
+                setErrorStripe(error.message);
+            } else {
+                setErrorStripe("Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.");
+            }
+        } else {
+            setPaymentMethod(paymentMethod.id);
+        }
+        //setPaymentMethod(paymentMethod.id);
 
     };
     useEffect(() => {
@@ -61,6 +56,7 @@ const PaymentOption = ({ auth,data, setData }) => {
                     preserveScroll: true,
                     replace: true,
                     preserveState: true,
+
                 });
 
         }
@@ -86,7 +82,7 @@ const PaymentOption = ({ auth,data, setData }) => {
     };
     return (
         <Card title="Información de pago">
-            <form onSubmit={handleSubmit} className="mt-10">
+            <form onSubmit={handleSubmit}>
                 <div className="space-y-5">
                     <div className="font-medium  text-white lg:text-lg">
                         Datos de la tarjeta de crédito
@@ -124,7 +120,7 @@ const PaymentOption = ({ auth,data, setData }) => {
                     <div>
                         <Button
                             disabled={Object.keys(data.tickets_quantity).length === 0}
-                            processing={data.processing}>Realizar pago</Button>
+                            processing={loading}>Realizar pago</Button>
                     </div>
                     <ValidationErrors errors={errors} />
 
@@ -133,7 +129,9 @@ const PaymentOption = ({ auth,data, setData }) => {
                     )} */}
                     <span className="mt-4 block text-sm font-light">
                         Al hacer clic en 'Realizar pago', acepta los{" "}
-                        <Link className="text-blue-300 hover:text-emerald-400">
+                        <Link
+                            href={route('terms_of_service')}
+                            className="text-emerald-400">
                             Términos y condiciones
                         </Link>
                     </span>

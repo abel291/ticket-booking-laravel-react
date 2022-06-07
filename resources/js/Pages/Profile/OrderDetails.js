@@ -1,10 +1,10 @@
 
 import { formatCurrency, formatDate } from "@/Helpers/Helpers";
-import { Link } from "@inertiajs/inertia-react";
+
 import MyAccount from "./MyAccount";
 
 const OrderDetails = ({ orderDetails }) => {
-    console.log(orderDetails)
+    
     return (
         <MyAccount title={"Codigo: #" + orderDetails.code}>
             <div className="grid grid-cols-2 gap-3">

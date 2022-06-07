@@ -1,13 +1,12 @@
-import BannerSearch from "@/Components/BannerSearch";
-
+import BannerHero from "@/Components/BannerHero";
 import NotificationSuccess from "@/Components/NotificationSuccess";
 import ValidationErrors from "@/Components/ValidationErrors";
 import Layout from "@/Layouts/Layout";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 
 const MyAccount = ({ children, title }) => {
-    const { errors } = usePage().props;
-    
+    const { errors, auth } = usePage().props;
+
     const logout = useForm();
     const handleLogout = () => {
         logout.post(route("logout"));
@@ -36,18 +35,7 @@ const MyAccount = ({ children, title }) => {
     ];
     return (
         <Layout title="Perfil">
-            <BannerSearch img="/img/movies.jpg" search={false}>
-                <div>
-                    <h1 className="font-bold">
-                        CONSIGUE <span className="text-emerald-400">TICKETS</span>{" "}
-                        DE CINE
-                    </h1>
-                    <p className="mt-5 font-medium md:text-xl xl:text-2xl">
-                        Compre Tickets de cine por adelantado, encuentre horarios de
-                        películas, vea avances, lea reseñas de películas y mucho más
-                    </p>
-                </div>
-            </BannerSearch>
+            <BannerHero img="/img/movies.jpg" title={auth.user.name} />
 
             <div className="container py-section">
                 <div className="grid grid-cols-12 md:gap-4 gap-y-10">

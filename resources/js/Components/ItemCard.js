@@ -3,6 +3,15 @@ import { Link } from "@inertiajs/inertia-react";
 import { format } from "prettier";
 import React from "react";
 import { FaSplotch } from "react-icons/fa";
+const dtf = new Intl.DateTimeFormat("es", {
+    weekday: "long",
+    day: "2-digit",
+    //year: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h12",
+});
 const ItemCard = ({ event }) => {
     return (
         <Link href={route("event", { slug: event.slug })}>
@@ -27,16 +36,16 @@ const ItemCard = ({ event }) => {
                         </h5>
                     </div>
 
-                    <div className="grow border-t border-dashed border-dark-blue-400 pt-2">
-                        <div className="flex justify-between ">
-                            <div className="inline-block text-xs font-medium text-emerald-400">
-                                {event.session.date} {event.session.time}
+                    <div className="grow border-t border-dashed border-dark-blue-400 pt-2 ">
+                        <div className="flex justify-between text-xs ">
+                            <div className="inline-block font-medium text-emerald-400 capitalize">
+                                {dtf.format(new Date(event.session.date))}
                             </div>
-                            <div className="inline-block text-xs font-medium text-emerald-400">
+                            <div className="inline-block  font-medium text-emerald-400">
                                 {event.duration}
                             </div>
                         </div>
-                        <div className=" mt-3 text-xs line-clamp-none lg:line-clamp-2">
+                        <div className=" mt-3 text-sm  line-clamp-none lg:line-clamp-2">
                             <span>{event.location.address}</span>
                         </div>
                     </div>

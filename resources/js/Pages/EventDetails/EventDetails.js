@@ -8,6 +8,7 @@ import EventGallery from "./EventGallery";
 import CarouselSpeakers from "./CarouselSpeakers";
 
 import BannerHero from "@/Components/BannerHero";
+import SectionCountdown from "./SectionCountdown";
 
 const EventDetails = ({ event }) => {
     console.log(event);
@@ -16,8 +17,8 @@ const EventDetails = ({ event }) => {
             <BannerHero img={event.banner} title={event.title} desc={event.desc_min} />
 
             {/* <SectionCountdown 
-            descMin={event.desc_min} 
-            address={event.location} /> */}
+            title={event.title}
+            location={event.location} /> */}
             <div className="container">
                 <div className="py-section">
                     <div className="flex flex-col-reverse justify-between gap-y-8 gap-x-8 lg:flex-row lg:gap-y-0">
@@ -41,7 +42,7 @@ const EventDetails = ({ event }) => {
                 </div>
 
                 <div className="py-section">
-                    {event.images.length  && <EventGallery images={event.images} />}
+                    {event.images.length && <EventGallery images={event.images} />}
                 </div>
 
                 {event.speakers.length && <CarouselSpeakers speakers={event.speakers} />}

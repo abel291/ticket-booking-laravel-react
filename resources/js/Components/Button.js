@@ -3,7 +3,7 @@ import React from "react";
 export default function Button({
     type = "submit",
     className = "",
-    processing,
+    processing = false,
     children,
     disabled = false
 }) {

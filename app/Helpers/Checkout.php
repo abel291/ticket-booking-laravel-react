@@ -141,7 +141,6 @@ class Checkout
 
     ) {
         $payment = new Payment();
-        $user = auth()->user();
         $payment->code = rand(1000, 9999) . date('md') . $user->id;
         $payment->session = $session_selected->date;
         $payment->quantity = $tickets_selected->sum('quantity_selected');

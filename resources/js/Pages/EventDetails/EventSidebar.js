@@ -7,7 +7,7 @@ const EventSidebar = ({ sessions, location, ticket_types, slug }) => {
         <div className="space-y-10">
 
             <CardSideBar title="Fechas y horas">
-                <div className="space-y-2">
+                <div className="space-y-3">
                     {sessions.map((item, key) => (
                         <div className="capitalize" key={key}>
                             {formatDate(item.date)}

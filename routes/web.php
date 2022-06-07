@@ -46,6 +46,11 @@ Route::get('/events', [EventController::class, 'events'])->name('events');
 
 Route::get('/event/{event:slug}', [EventController::class, 'event_details'])->name('event');
 
+Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
+Route::get('/privacy-policy', [PageController::class, 'privacy_policy'])->name('privacy_policy');
+Route::get('/terms-of-service', [PageController::class, 'terms_of_service'])->name('terms_of_service');
+
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
@@ -66,45 +71,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });
 Route::get('/order-validate/{code}', function ($code) {
-    return "Aquí se valida el ticket a través de la aplicación que nunca haré :D";
+    return "Aquí se valida el ticket a través de la aplicación que no voi hacer :D";
 })->name('order_validate');
 
-Route::get('/about-us', function () {
-    return Inertia::render('AboutUs/AboutUs');
-})->name('about-us');
-
-// Route::get('/movies', function () {
-//     return Inertia::render('Movies/MovieList/MovieList');
-// })->name('movies');
-
-Route::get('/movie-details', function () {
-    return Inertia::render('Movies/MovieDetails/MovieDetails');
-})->name('movie-details');
-
-Route::get('/movie-ticket', function () {
-    return Inertia::render('Movies/MovieTicket/MovieTicket');
-})->name('select-ticket');
-
-Route::get('/movie-food', function () {
-    return Inertia::render('Movies/MovieFood/MovieFood');
-})->name('select-food');
-
-// Route::get('/checkout', function () {
-//     return Inertia::render('Checkout/Checkout');
-// })->name('checkout');
-
-// Route::get('/event-details', function () {
-//     return Inertia::render('EventDetails/EventDetails');
-// })->name('event-details');
-
-Route::get('/event-ticket', function () {
-})->name('event-ticket');
 
 
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboard.')->group(function () {
 
