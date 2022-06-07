@@ -37,9 +37,10 @@ class CategorySeeder extends Seeder
             'Museos',
             'Musicales',
             'Ópera',
-            'profesionales',
+            'Profesionales',
             'Teatro',
             'Turismo',
+            'Peliculas',
         ];
 
         //event

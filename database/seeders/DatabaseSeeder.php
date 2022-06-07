@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             PivotSessionTicketTypesSeeder::class,
             BlogSeeder::class,
             PromotionSeeder::class,
-            //PaymentSeeder::class,
+            PaymentSeeder::class,
 
         ]);
         Schema::enableForeignKeyConstraints();

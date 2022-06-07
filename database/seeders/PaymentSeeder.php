@@ -25,70 +25,39 @@ class PaymentSeeder extends Seeder
     {
         Payment::truncate();
         Ticket::truncate();
-        $users = User::get();
+        $events = Event::with(['sessions_available.ticket_types_available', 'promotions_available'])->get();
+        $user = User::where('email', 'user2@user.com')->first();
+        //dd($user->id);
         $faker = Faker\Factory::create();
-        $events = Event::with(['sessions.ticket_types', 'location', 'promotions'])->get();
+
         foreach ($events as $event) {
-            $user = $users->random();
-            $session = $event->session;
-            $tickets = $session->ticket_types;
+            $session = $event->sessions_available->random();
 
-            $ticket_quantity = [];
-            foreach ($tickets as  $item) {
-                $ticket_quantity[$item->id] = rand(1, 20);
+            $tickets = $session->ticket_types_available;
+
+            for ($i = 0; $i < rand(1, 20); $i++) {
+                $tickets_quantity[$tickets->random()->id] = rand(1, 10);
             }
-            $tickets_selected = Checkout::tickets_quantity_selected($tickets, $ticket_quantity);
-            $promotion = $event->promotions->random();
+
+            $tickets_selected = Checkout::tickets_quantity_selected(
+                $tickets,
+                $tickets_quantity
+            );
+            $promotion = $event->promotions_available->random();
+
             $summary = Checkout::summary($tickets_selected, $promotion);
-            dd($promotion);
 
-            $payment = new Payment;
-            $payment->code = rand(1000, 9999) . date('md') . $user->id;
-            $payment->stripe_id = $faker->regexify('[A-Z]{5}[0-9]{3}');
-            $payment->session = $session->date;
-            $payment->status = $faker->randomElement([
-                PaymentStatus::SUCCESSFUL,
-                PaymentStatus::CANCELED,
-                PaymentStatus::REFUNDED,
-            ]);
-            $payment->quantity = $summary['ticket_selected']->sum('quantity_selected');
-
-            //amount
-            $payment->fee = $summary['fee'];
-            $payment->fee_porcent = $summary['fee_porcent'];
-            $payment->sub_total = $summary['sub_total'];
-            $payment->total = $summary['total'];
-
-            //json
-            $payment->promotion_data = $summary['promotion'];
-            $payment->event_data = $event->only(['title', 'duration', 'location.address', 'location.name']);
-            $payment->user_data = $user->only(['name', 'phone', 'email']);
-
-            //relationships
-            $payment->event_id = $event->id;
-            $payment->session_id = $session->id;
-            $payment->user_id = $user->id;
-            $payment->promotion_id = $promotion->id;
-
-            // foreach ($event->ticket_types as  $ticket_type) {
-            //     $quantity = rand(1, 10);
-
-
-            //     $price_ticket_type_quantity = ($ticket_type->price * $quantity);
-            //     $new_ticket = new Ticket([
-            //         'quantity' => $quantity,
-            //         'total' => $price_ticket_type_quantity,
-            //         'price' => $ticket_type->price,
-            //         'name' => $ticket_type->name,
-            //         'ticket_type_id' => $ticket_type->id,
-            //     ]);
-            //     array_push($tickets, $new_ticket);
-            //     $sub_total += $price_ticket_type_quantity;
-            //     $total_quantity += $quantity;
-            // }
-
-            $payment->save();
-
+            $payment = Checkout::process_payment(
+                session_selected: $session,
+                tickets_selected: $tickets_selected,
+                summary: $summary,
+                event: $event,
+                promotion: $promotion,
+                user: $user,
+                name: $faker->name(),
+                phone: $faker->phoneNumber(),
+                paymentMethod: Str::random()
+            );
             foreach ($tickets_selected as $value) {
                 $payment->tickets()->create([
                     'name' => $value->name,

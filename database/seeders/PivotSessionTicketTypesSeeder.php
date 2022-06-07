@@ -26,10 +26,9 @@ class PivotSessionTicketTypesSeeder extends Seeder
             
             foreach ($sessions as $session) {
 
-                $ramdom_ticket_types = $ticket_types->random(rand(1, $ticket_types->count()));
+                $random_ticket_types = $ticket_types->random(rand(1, $ticket_types->count()));
                 $pivot_ticket_types = [];
-                foreach ($ramdom_ticket_types as $ticket_type) {
-
+                foreach ($random_ticket_types as $ticket_type) {
                     $pivot_ticket_types[$ticket_type->id] = [
                         'remaining' => $ticket_type->quantity,
                         'quantity' => $ticket_type->quantity,
