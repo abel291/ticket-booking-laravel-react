@@ -18,9 +18,9 @@ class PageController extends Controller
     {
         $carousel = Event::where('home', true)->has('session')->get()->random(10);
 
-        $featured = Event::has('session')->with('session','category','location')->get()->random(8);
+        $featured = Event::has('session')->with('session', 'category', 'location')->get()->random(8);
 
-        $free = Event::has('session')->with('session','category','location')->whereRelation('ticket_types', 'type', 'free')->get()->random(8);
+        $free = Event::has('session')->with('session', 'category', 'location')->whereRelation('ticket_types', 'type', 'free')->get()->random(8);
 
         $home_categories = Category::where('type', CategoryType::EVENT)->get();
 
@@ -43,5 +43,9 @@ class PageController extends Controller
     public function terms_of_service()
     {
         return Inertia::render('TermsOfService/TermsOfService');
+    }
+    public function faq()
+    {
+        return Inertia::render('Faq/Faq');
     }
 }

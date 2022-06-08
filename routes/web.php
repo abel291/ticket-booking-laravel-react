@@ -38,8 +38,6 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-
-
 Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/events', [EventController::class, 'events'])->name('events');
@@ -47,25 +45,32 @@ Route::get('/events', [EventController::class, 'events'])->name('events');
 Route::get('/event/{event:slug}', [EventController::class, 'event_details'])->name('event');
 
 Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
-Route::get('/privacy-policy', [PageController::class, 'privacy_policy'])->name('privacy_policy');
-Route::get('/terms-of-service', [PageController::class, 'terms_of_service'])->name('terms_of_service');
 
+Route::get('/privacy-policy', [PageController::class, 'privacy_policy'])->name('privacy_policy');
+
+Route::get('/terms-of-service', [PageController::class, 'terms_of_service'])
+    ->name('terms_of_service');
+
+Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
-        Route::get('/my-account', 'my_account')->name('my_account');
+    Route::controller(ProfileController::class)
+        ->prefix('profile')
+        ->name('profile.')
+        ->group(function () {
+            Route::get('/my-account', 'my_account')->name('my_account');
 
-        Route::get('/account-details', 'account_details')->name('account_details');
-        Route::post('/account-details', 'store_account_details')->name('store_account_details');
+            Route::get('/account-details', 'account_details')->name('account_details');
+            Route::post('/account-details', 'store_account_details')->name('store_account_details');
 
-        Route::get('/my-orders', 'my_orders')->name('my_orders');
-        Route::get('/order-details/{code}', 'order_details')->name('order_details');
-        Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
+            Route::get('/my-orders', 'my_orders')->name('my_orders');
+            Route::get('/order-details/{code}', 'order_details')->name('order_details');
+            Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
 
-        Route::get('/change-password', 'change_password')->name('change_password');
-        Route::post('/change-password', 'store_change_password')->name('store_change_password');
-    });
+            Route::get('/change-password', 'change_password')->name('change_password');
+            Route::post('/change-password', 'store_change_password')->name('store_change_password');
+        });
 
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
@@ -73,9 +78,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::get('/order-validate/{code}', function ($code) {
     return "Aquí se valida el ticket a través de la aplicación que no voi hacer :D";
 })->name('order_validate');
-
-
-
 
 
 Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboard.')->group(function () {

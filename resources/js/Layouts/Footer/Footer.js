@@ -77,7 +77,7 @@ const Footer = () => {
                                 Política de privacidad
                             </Link>
                             <Link
-                                href={route("home")}
+                                href={route("faq")}
                                 className="hover:text-emerald-400"
                             >
                                 FAQ
