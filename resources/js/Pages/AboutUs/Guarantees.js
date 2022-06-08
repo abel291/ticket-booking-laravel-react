@@ -26,10 +26,10 @@ const Guarantees = () => {
                                     alt=""
                                 />
                                 <div className="">
-                                    <h5 className="normal-case">
+                                    <h5 className="normal-case font-medium">
                                         Obtener garantía
                                     </h5>
-                                    <p className="mt-2 leading-7 text-white text-opacity-90">
+                                    <p className="mt-1 leading-7 text-white text-opacity-90">
                                         Billetes auténticos, entrega a tiempo y
                                         acceso a su evento. O su dinero de
                                         vuelta. Período.
@@ -43,10 +43,10 @@ const Guarantees = () => {
                                     alt=""
                                 />
                                 <div className="">
-                                    <h5 className="normal-case">
+                                    <h5 className="normal-case font-medium">
                                         Garantía en partido de precios
                                     </h5>
-                                    <p className="mt-2 leading-7 text-white text-opacity-90">
+                                    <p className="mt-1 leading-7 text-white text-opacity-90">
                                         Los mejores precios están aquí. Si
                                         observa un mejor trato en otro lugar,
                                         cubriremos la diferencia.

@@ -5,7 +5,7 @@ import CarouselCategories from "./CarouselCategories";
 import CarouselHome from "./CarouselHome";
 
 import ItemList from "./ItemList";
-//falta la pagina de las FAQ 
+////falta la pagina de las FAQ 
 //quitar imagenes copiadas del sitio de boletos
 //arreglar loading en boton de pagar
 const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
