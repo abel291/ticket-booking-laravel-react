@@ -35,6 +35,7 @@
         "@stripe/react-stripe-js": "^1.8.1",
         "@stripe/stripe-js": "^1.29.0",
         "flatpickr": "^4.6.11",
+        "framer-motion": "^6.3.11",
         "fslightbox-react": "^1.6.2-2",
         "react-countdown": "^2.3.2",
         "react-flatpickr": "^3.10.12",

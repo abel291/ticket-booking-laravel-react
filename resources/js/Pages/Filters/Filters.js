@@ -10,6 +10,7 @@ import FilterFormat from "./FilterFormat";
 import ItemsLoading from "@/Components/ItemsLoading";
 import { useForm } from "@inertiajs/inertia-react";
 import BannerHero from "@/Components/BannerHero";
+import EventList from "./EventList";
 
 const Filters = ({ events, filters }) => {
 
@@ -39,6 +40,7 @@ const Filters = ({ events, filters }) => {
         );
     }, [data])
 
+
     return (
         <Layout title="Eventos">
             <BannerHero
@@ -60,16 +62,12 @@ const Filters = ({ events, filters }) => {
                     <div className="lg:col-span-7 xl:col-span-8">
                         <FilterOrder data={data} setData={setData} />
                         {events.data.length ? (
-                            <ItemsLoading loading={processing}>
-                                <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                                    {events.data.map((item, key) => (
-                                        <ItemCard key={key} event={item} />
-                                    ))}
-                                </div>
+                            <>
+                                <EventList events={events.data} processing={processing} />
                                 <div className="mt-7">
                                     <Pagination data={events} />
                                 </div>
-                            </ItemsLoading>
+                            </>
                         ) : (
                             <div className="mt-7 text-center text-lg">
                                 <span>No hay resultados</span>
