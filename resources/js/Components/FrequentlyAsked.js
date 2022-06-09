@@ -5,7 +5,7 @@ const FrequentlyAsked = ({ question, children }) => {
     return (
         <Disclosure>
             {({ open }) => (
-                <div className="w-full rounded-md bg-dark-blue-700 p-6">
+                <div className="w-full rounded-md bg-dark-blue-800 p-6">
                     <Disclosure.Button className="w-full">
                         <div className="flex items-center justify-between">
                             <h6 className="font-semibold">{question}</h6>

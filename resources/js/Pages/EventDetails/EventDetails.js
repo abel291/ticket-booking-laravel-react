@@ -11,7 +11,6 @@ import BannerHero from "@/Components/BannerHero";
 import SectionCountdown from "./SectionCountdown";
 
 const EventDetails = ({ event }) => {
-    console.log(event);
     return (
         <Layout title={event.title}>
             <BannerHero img={event.banner} title={event.title} desc={event.desc_min} />
