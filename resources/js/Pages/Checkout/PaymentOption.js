@@ -18,8 +18,6 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
     const elements = useElements();
 
     const handleSubmit = async (e) => {
-
-        setPaymentMethod("test");
         e.preventDefault();
         setErrorStripe("");
         setLoading(true);
@@ -35,7 +33,7 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
                 name: nameCreditCard.current.value,
             },
         });
-
+        console.log(paymentMethod)
         if (error) {
             setLoading(false);
             if (error.type === "validation_error") {
@@ -46,7 +44,7 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
         } else {
             setPaymentMethod(paymentMethod.id);
         }
-        //setPaymentMethod(paymentMethod.id);
+        
 
     };
     useEffect(() => {
@@ -56,7 +54,8 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
                     preserveScroll: true,
                     replace: true,
                     preserveState: true,
-
+                    onStart: visit => { setLoading(true) },
+                    onFinish: visit => { setLoading(false) },
                 });
 
         }
@@ -106,7 +105,7 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
                                 Numero de tarjeta
                             </label>
                             <div className="mt-1 w-full rounded border border-dark-blue-400 bg-transparent p-2.5 text-sm ring-0 md:w-3/4">
-                                {/* <CardElement options={options} /> */}
+                                <CardElement options={options} />
                             </div>
                             {errorStripe && (
                                 <div>
