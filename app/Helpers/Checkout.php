@@ -66,7 +66,7 @@ class Checkout
 
         return $event;
     }
-    
+
     public static function summary(object $ticket_selected, $promotion = null)
     {
 
@@ -155,11 +155,11 @@ class Checkout
         //json
         $payment->promotion_data = $summary['promotion'];
         $payment->event_data = [
-            'title'=>$event->title,
-            'duration'=>$event->duration,
-            'location_address'=>$event->location->address,
-            'location_name'=>$event->location->name
-         ] ;
+            'title' => $event->title,
+            'duration' => $event->duration,
+            'location_address' => $event->location->address,
+            'location_name' => $event->location->name
+        ];
         $payment->user_data = ['name' => $name, 'phone' => $phone, 'email' => $user->email];
 
         //relationships
@@ -173,10 +173,10 @@ class Checkout
         try {
 
             $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-            //if (env('APP_ENV') != "testing") {
-            if (env('APP_ENV') != "local") {
+            if (env('APP_ENV') != "testing") {
+                //if (env('APP_ENV') != "local") {
                 $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
-                $payment = $stripe->paymentIntents->create([
+                $pay = $stripe->paymentIntents->create([
                     'amount' => $payment->total * 100,
                     'currency' => 'usd',
                     'description' => $description_stripe,
@@ -184,7 +184,7 @@ class Checkout
                     'confirmation_method' => 'manual',
                     'confirm' => true,
                 ]);
-                $payment->stripe_id = $payment->id;
+                $payment->stripe_id = $pay->id;
             } else {
                 $payment->stripe_id = Str::random();
             }
@@ -206,7 +206,7 @@ class Checkout
 
             DB::commit();
         } catch (\Throwable $e) {
-
+            //dd($e);
             DB::rollBack();
 
             return 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.';
