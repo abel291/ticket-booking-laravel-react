@@ -1,7 +1,6 @@
 # Sitio web de compra de boletos para eventos
 
 Esta hecha con React ,laravel ,Inertia y Tailwind
-[Restaurant-react](https://restaurant-laravel-inertia-rea.herokuapp.com).
 
 ### Screenshot 🖥️️
 
