@@ -8,6 +8,7 @@ class CreateMediaTable extends Migration
 {
     public function up()
     {
+Schema::disableForeignKeyConstraints();
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('model');

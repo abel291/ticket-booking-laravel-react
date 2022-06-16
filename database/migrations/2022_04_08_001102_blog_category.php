@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+Schema::disableForeignKeyConstraints();
         Schema::create('blog_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('blog_id')->constrained('blog')->cascadeOnDelete();

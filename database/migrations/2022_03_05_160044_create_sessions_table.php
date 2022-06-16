@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+Schema::disableForeignKeyConstraints();
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
