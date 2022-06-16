@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
-            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -31,9 +31,9 @@ return new class extends Migration
             $table->string('social_fa')->nullable();
             $table->string('social_tw')->nullable();
             $table->string('social_yt')->nullable();
-            $table->foreignId('location_id')->nullable()->constrained('locations')->nullOnDelete();
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
-            $table->foreignId('format_id')->nullable()->constrained('formats')->nullOnDelete();
+            $table->foreignId('location_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('format_id')->nullable()->constrained()->nullOnDelete();
             //$table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();

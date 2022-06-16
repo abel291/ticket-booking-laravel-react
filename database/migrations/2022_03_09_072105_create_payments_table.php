@@ -33,10 +33,10 @@ return new class extends Migration
             $table->unsignedFloat('total');
             
             //relationships
-            $table->foreignId('session_id')->constrained('sessions');
-            $table->foreignId('event_id')->constrained('events');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('promotion_id')->nullable()->constrained('promotions')->nullOnDelete();
+            $table->foreignId('session_id')->constrained();
+            $table->foreignId('event_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

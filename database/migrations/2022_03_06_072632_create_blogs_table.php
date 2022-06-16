@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('desc_min');
             $table->text('desc_max');
             $table->boolean('active')->default(0);
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
