@@ -173,7 +173,7 @@ class Checkout
         try {
 
             $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-            if (env('APP_ENV') != "testing") {
+            if (env('APP_ENV') != "local") {
                 //if (env('APP_ENV') != "local") {
                 $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
                 $pay = $stripe->paymentIntents->create([
