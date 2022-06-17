@@ -14,7 +14,7 @@ class CreatePermissionTables extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
         $teams = config('permission.teams');

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10);
@@ -34,10 +34,10 @@ Schema::disableForeignKeyConstraints();
             $table->unsignedFloat('total');
             
             //relationships
-            $table->foreignId('session_id')->constrained();
-            $table->foreignId('event_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
+            // $table->foreignId('session_id')->constrained();
+            // $table->foreignId('event_id')->constrained();
+            // $table->foreignId('user_id')->constrained();
+            // $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

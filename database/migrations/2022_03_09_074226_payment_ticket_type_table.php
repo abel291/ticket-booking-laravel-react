@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->unsignedFloat('price');
             $table->unsignedInteger('quantity');
             $table->unsignedFloat('total');            
-            $table->foreignId('payment_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('ticket_type_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('payment_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('ticket_type_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

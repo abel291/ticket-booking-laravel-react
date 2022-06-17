@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -24,7 +24,7 @@ Schema::disableForeignKeyConstraints();
             $table->text('desc')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
-            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

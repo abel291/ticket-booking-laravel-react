@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string("alt")->nullable();;

@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
             //$table->time('time');
             $table->boolean('active')->default(0);
-            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

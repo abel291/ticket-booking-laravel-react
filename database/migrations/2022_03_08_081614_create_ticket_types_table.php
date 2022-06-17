@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -26,7 +26,7 @@ Schema::disableForeignKeyConstraints();
             $table->tinyInteger('max_tickets_purchase');
             $table->boolean('show_remaining_entries');
             $table->boolean('active');            
-            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
+            // $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });
     }

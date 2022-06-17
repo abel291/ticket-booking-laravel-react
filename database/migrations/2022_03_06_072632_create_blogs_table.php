@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-Schema::disableForeignKeyConstraints();
+
         Schema::create('blog', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -22,7 +22,7 @@ Schema::disableForeignKeyConstraints();
             $table->text('desc_min');
             $table->text('desc_max');
             $table->boolean('active')->default(0);
-            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            // $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
