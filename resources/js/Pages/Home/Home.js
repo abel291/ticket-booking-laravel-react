@@ -5,9 +5,7 @@ import CarouselCategories from "./CarouselCategories";
 import CarouselHome from "./CarouselHome";
 
 import ItemList from "./ItemList";
-////falta la pagina de las FAQ 
-//quitar imagenes copiadas del sitio de boletos
-//arreglar loading en boton de pagar
+// modal para cancelar los boletos
 const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
 
     return (
