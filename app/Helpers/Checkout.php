@@ -170,47 +170,78 @@ class Checkout
             $payment->promotion_id = $promotion->id;
         }
 
-        try {
-
-            $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-            if (env('APP_ENV') != "local") {
-                //if (env('APP_ENV') != "local") {
-                $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
-                $pay = $stripe->paymentIntents->create([
-                    'amount' => $payment->total * 100,
-                    'currency' => 'usd',
-                    'description' => $description_stripe,
-                    'payment_method' => $paymentMethod,
-                    'confirmation_method' => 'manual',
-                    'confirm' => true,
-                ]);
-                $payment->stripe_id = $pay->id;
-            } else {
-                $payment->stripe_id = Str::random();
-            }
-
-            $payment->save();
-
-            $tickets = [];
-            foreach ($tickets_selected as $key => $item) {
-                $tickets[$key] = [
-                    'name' => $item->name,
-                    'price' => $item->price,
-                    'quantity' => $item->quantity_selected,
-                    'total' => $item->price_quantity,
-                    'ticket_type_id' => $item->id,
-                ];
-            }
-            $payment->tickets()->createMany($tickets);
-
-
-            DB::commit();
-        } catch (\Throwable $e) {
-            //dd($e);
-            DB::rollBack();
-
-            return 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.';
+        $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
+        if (env('APP_ENV') != "local") {
+            //if (env('APP_ENV') != "local") {
+            $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
+            $pay = $stripe->paymentIntents->create([
+                'amount' => $payment->total * 100,
+                'currency' => 'usd',
+                'description' => $description_stripe,
+                'payment_method' => $paymentMethod,
+                'confirmation_method' => 'manual',
+                'confirm' => true,
+            ]);
+            $payment->stripe_id = $pay->id;
+        } else {
+            $payment->stripe_id = Str::random();
         }
+
+        $payment->save();
+
+        $tickets = [];
+        foreach ($tickets_selected as $key => $item) {
+            $tickets[$key] = [
+                'name' => $item->name,
+                'price' => $item->price,
+                'quantity' => $item->quantity_selected,
+                'total' => $item->price_quantity,
+                'ticket_type_id' => $item->id,
+            ];
+        }
+        $payment->tickets()->createMany($tickets);
+
+        // try {
+
+        //     $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
+        //     if (env('APP_ENV') != "local") {
+        //         //if (env('APP_ENV') != "local") {
+        //         $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
+        //         $pay = $stripe->paymentIntents->create([
+        //             'amount' => $payment->total * 100,
+        //             'currency' => 'usd',
+        //             'description' => $description_stripe,
+        //             'payment_method' => $paymentMethod,
+        //             'confirmation_method' => 'manual',
+        //             'confirm' => true,
+        //         ]);
+        //         $payment->stripe_id = $pay->id;
+        //     } else {
+        //         $payment->stripe_id = Str::random();
+        //     }
+
+        //     $payment->save();
+
+        //     $tickets = [];
+        //     foreach ($tickets_selected as $key => $item) {
+        //         $tickets[$key] = [
+        //             'name' => $item->name,
+        //             'price' => $item->price,
+        //             'quantity' => $item->quantity_selected,
+        //             'total' => $item->price_quantity,
+        //             'ticket_type_id' => $item->id,
+        //         ];
+        //     }
+        //     $payment->tickets()->createMany($tickets);
+
+
+        //     DB::commit();
+        // } catch (\Throwable $e) {
+        //     //dd($e);
+        //     DB::rollBack();
+
+        //     return 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.';
+        // }
 
         return $payment;
     }
