@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 export default function Input({
     type = "text",
     name,
-    value,
+    value="",
     defaultValue,
     className,
     autoComplete,
