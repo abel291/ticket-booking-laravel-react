@@ -33,11 +33,11 @@ class EventSeeder extends Seeder
         $formats = Format::get();
 
         foreach (Category::get() as $key => $category) {
-            Event::factory(20)
-                ->hasImages(8)
-                ->hasSessions(8)
-                ->hasSpeakers(8)
-                ->has(TicketType::factory()->count(10), 'ticket_types')
+            Event::factory(10)
+                ->hasImages(4)
+                ->hasSessions(4)
+                ->hasSpeakers(5)
+                ->has(TicketType::factory()->count(5), 'ticket_types')
                 ->state(function () use ($locations, $formats, $category) {
                     return [
                         'location_id' => $locations->random()->id,
