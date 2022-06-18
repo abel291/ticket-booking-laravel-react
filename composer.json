@@ -22,10 +22,10 @@
         "spatie/laravel-permission": "^5.5",
         "staudenmeir/eloquent-eager-limit": "^1.0",
         "stripe/stripe-php": "^8.4",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "fakerphp/faker": "^1.9.1"
     },
-    "require-dev": {
-        "fakerphp/faker": "^1.9.1",
+    "require-dev": {        
         "laravel/breeze": "^1.8",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
