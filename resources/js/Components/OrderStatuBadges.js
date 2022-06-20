@@ -1,3 +1,4 @@
+import { CheckIcon, ReceiptRefundIcon, XIcon } from "@heroicons/react/solid";
 import React from "react";
 
 const OrderStatuBadges = ({ status }) => {
@@ -5,17 +6,20 @@ const OrderStatuBadges = ({ status }) => {
         <div className="text-xs font-medium">
             {status == "successful" && (
                 <div className="inline-flex items-center rounded-lg  bg-green-600 px-2 leading-5 text-green-100  ">
-                    <span>aprobado</span>
+                    <span>Aprobado</span>
+                    <CheckIcon className="ml-1 h-4 w-4" />
                 </div>
             )}
             {status == "refunded" && (
                 <div className="inline-flex items-center rounded-lg  bg-red-600 px-2 leading-5 text-red-100  ">
-                    <span>reembolsado</span>
+                    <span>Reembolsado</span>
+                    <ReceiptRefundIcon className="ml-1 h-4 w-4" />
                 </div>
             )}
             {status == "canceled" && (
                 <div className="inline-flex items-center rounded-lg  bg-gray-600 px-2 leading-5 text-gray-100  ">
-                    <span>cancelado</span>
+                    <span>Cancelado</span>
+                    <XIcon className="ml-1 h-4 w-4" />
                 </div>
             )}
         </div>
