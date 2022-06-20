@@ -176,20 +176,20 @@ class Checkout
 
             if ($payment->total > 0) {
 
-                $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-                $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
-                $pay = $stripe->paymentIntents->create([
-                    'amount' => $payment->total * 100,
-                    'currency' => 'usd',
-                    'description' => $description_stripe,
-                    'payment_method' => $paymentMethod,
-                    'confirmation_method' => 'manual',
-                    'confirm' => true,
-                ]);
+                // $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
+                // $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
+                // $pay = $stripe->paymentIntents->create([
+                //     'amount' => $payment->total * 100,
+                //     'currency' => 'usd',
+                //     'description' => $description_stripe,
+                //     'payment_method' => $paymentMethod,
+                //     'confirmation_method' => 'manual',
+                //     'confirm' => true,
+                // ]);
 
-                $payment->stripe_id = $pay->id;
+                // $payment->stripe_id = $pay->id;
 
-                //$payment->stripe_id = Str::random();
+                $payment->stripe_id = Str::random();
             } else {
                 $payment->stripe_id = "";
             }
@@ -256,17 +256,17 @@ class Checkout
     public static function refund($payment, $amount_refund, $days, $porcent_refund)
     {
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-        $stripe->refunds->create(
-            [
-                'payment_intent' => $payment->stripe_id,
-                'amount' => $amount_refund * 100,
-                'metadata' => [
-                    'order_code' => $payment->code,
-                    'days' => $days,
-                    'porcent' => ($porcent_refund * 100) . "%"
-                ]
-            ]
-        );
+        // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        // $stripe->refunds->create(
+        //     [
+        //         'payment_intent' => $payment->stripe_id,
+        //         'amount' => $amount_refund * 100,
+        //         'metadata' => [
+        //             'order_code' => $payment->code,
+        //             'days' => $days,
+        //             'porcent' => ($porcent_refund * 100) . "%"
+        //         ]
+        //     ]
+        // );
     }
 }

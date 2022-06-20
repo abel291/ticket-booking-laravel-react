@@ -43,8 +43,7 @@ const PaymentOption = ({ auth, data, setData, processing }) => {
             }
         } else {
             setPaymentMethod(paymentMethod.id);
-        }
-        
+        }        
 
     };
     useEffect(() => {

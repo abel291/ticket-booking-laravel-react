@@ -6,10 +6,10 @@ import MyAccount from "./MyAccount";
 const OrderDetails = ({ orderDetails }) => {
     return (
         <MyAccount title={"Codigo: #" + orderDetails.code}>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
                 <div>
                     <h3 className="text-xl font-medium">Datos del Evento</h3>
-                    <div className="mt-3 space-y-4 ">
+                    <div className="mt-2 space-y-3 ">
                         <Data title="Nombre del Evento">
                             {orderDetails.event_data.title}
                         </Data>
@@ -27,12 +27,24 @@ const OrderDetails = ({ orderDetails }) => {
                         <Data title="Fecha del evento">
                             {formatDate(orderDetails.session)}
                         </Data>
+                        {orderDetails.status === "successful" && (
+                            <div>
+                                <Link
+                                    href={route("profile.cancel_order", {
+                                        code: orderDetails.code,
+                                    })}
+                                    className="text-sm font-medium text-red-600"
+                                >
+                                    Cancelar Boleto
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 <div>
                     <h3 className="text-xl font-medium">Datos de Pago</h3>
-                    <div className="mt-3 space-y-4 ">
+                    <div className="mt-2 space-y-3 ">
                         <Data title="Fecha de compra">
                             {formatDate(orderDetails.created_at)}
                         </Data>
@@ -63,10 +75,10 @@ const OrderDetails = ({ orderDetails }) => {
                         </a>
                     </div>
                 </div>
-                
+
                 <div>
                     <h3 className="text-xl font-medium">Datos del Usuario</h3>
-                    <div className="mt-3 space-y-4 ">
+                    <div className="mt-2 space-y-3 ">
                         <Data title="Nombre">
                             {orderDetails.user_data.name}
                         </Data>
@@ -78,19 +90,6 @@ const OrderDetails = ({ orderDetails }) => {
                         <Data title="Email">
                             {orderDetails.user_data.email}
                         </Data>
-
-                        {orderDetails.status === "successful" && (
-                            <div>
-                                <Link
-                                    href={route("profile.cancel_order", {
-                                        code: orderDetails.code,
-                                    })}
-                                    className="text-sm font-medium text-red-600"
-                                >
-                                    Cancelar Boleto
-                                </Link>
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
