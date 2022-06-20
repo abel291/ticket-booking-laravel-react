@@ -67,6 +67,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('/my-orders', 'my_orders')->name('my_orders');
             Route::get('/order-details/{code}', 'order_details')->name('order_details');
             Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
+            Route::get('/order-cancel/{code}', 'cancel_order')->name('cancel_order');
+            Route::post('/order-cancel', 'store_cancel_order')->name('store_cancel_order');
 
             Route::get('/change-password', 'change_password')->name('change_password');
             Route::post('/change-password', 'store_change_password')->name('store_change_password');

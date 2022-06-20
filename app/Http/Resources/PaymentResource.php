@@ -16,18 +16,19 @@ class PaymentResource extends JsonResource
     {
         return [
             'code' => $this->code,
-            'status' => $this->status->text(),
+            'status' => $this->status,
             'quantity' => $this->quantity,
             'session' => $this->session,
             'promotion_data' => $this->promotion_data,
             'event_data' => $this->event_data,
             'user_data' => $this->user_data,
             'fee' => $this->fee,
-            'fee_porcent' => ($this->fee_porcent*100)."%",
+            'fee_porcent' => ($this->fee_porcent * 100) . "%",
             'sub_total' => $this->sub_total,
             'total' => $this->total,
             'created_at' => $this->created_at,
-            'tickets' => TicketResource::collection($this->whenLoaded('tickets')), 
+            'canceled_at' => $this->canceled_at,
+            'tickets' => TicketResource::collection($this->whenLoaded('tickets')),
         ];
     }
 }

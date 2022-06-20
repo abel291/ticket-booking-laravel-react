@@ -7,17 +7,10 @@ body {
 }
 @layer components {
     .btn {
-        @apply bg-gradient-red-invert inline-block rounded-full py-2 font-semibold text-white transition duration-150 ease-in-out;
-    }
-    .btn {
-        @apply px-8;
-    }
-    /* //md */
-    @media (min-width: 768px) {
-        .btn {
-            @apply px-10;
-        }
-    }
+        @apply  inline-block rounded-full py-2 px-8 md:px-10 font-semibold text-white transition duration-150 ease-in-out;
+    }  
+      
+    
     .sub-title {
         @apply text-lg uppercase text-emerald-400 sm:text-xl md:text-2xl;
     }

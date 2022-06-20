@@ -102,7 +102,7 @@ const Navbar = () => {
                                         <Dropdown.Trigger>
                                             <button
                                                 type="button"
-                                                className="btn"
+                                                className="btn bg-gradient-red-invert "
                                             >
                                                 <div className="flex items-center">
                                                     <span className="inline-flex items-center rounded-md ">
@@ -133,7 +133,7 @@ const Navbar = () => {
                                 </div>
                             </div>
                         ) : (
-                            <Link href={route("login")} className="btn">
+                            <Link href={route("login")} className="btn bg-gradient-red-invert">
                                 ÚNETE
                             </Link>
                         )}

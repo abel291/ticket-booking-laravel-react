@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Payment;
 use App\Models\Session;
 use App\Models\TicketType;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Stripe;
@@ -172,9 +173,10 @@ class Checkout
 
         try {
 
-            $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-            if (env('APP_ENV') != "local") {
-                //if (env('APP_ENV') != "local") {
+
+            if ($payment->total > 0) {
+
+                $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
                 $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
                 $pay = $stripe->paymentIntents->create([
                     'amount' => $payment->total * 100,
@@ -184,9 +186,12 @@ class Checkout
                     'confirmation_method' => 'manual',
                     'confirm' => true,
                 ]);
+
                 $payment->stripe_id = $pay->id;
+
+                //$payment->stripe_id = Str::random();
             } else {
-                $payment->stripe_id = Str::random();
+                $payment->stripe_id = "";
             }
 
             $payment->save();
@@ -206,12 +211,62 @@ class Checkout
 
             DB::commit();
         } catch (\Throwable $e) {
-            //dd($e);
+            dd($e);
             DB::rollBack();
 
             return 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.';
         }
 
         return $payment;
+    }
+
+    public static function calculate_amount_refund($payment)
+    {
+        //Politicas de cancelacion
+
+        // Cancelaciones 15 días naturales previos al evento se reembolsará el 100% del importe de inscripción, excepto los gastos de gestión que pudiera ocasionar.
+
+        // Cancelaciones entre 15 y 3 días naturales previos al evento se reembolsará el 50% del importe de inscripción, excepto los gastos de gestión que pudiera ocasionar.
+
+        // Cancelaciones con menos de 3 días naturales de anticipación no dará derecho a devolución alguna.
+
+        $days = $payment->session->diffInDays(Carbon::now());
+
+        if ($days >= 15) {
+
+            $porcent_refund = 1; //100%
+
+        } elseif ($days <= 15 && $days >= 3) {
+
+            $porcent_refund = 0.5; //50%
+
+        } else {
+
+            $porcent_refund = 0; //0%
+
+        }
+
+        $amount_refund = ($payment->total - $payment->fee) * $porcent_refund;
+        return [
+            $days,
+            $porcent_refund,
+            $amount_refund,
+        ];
+    }
+    public static function refund($payment, $amount_refund, $days, $porcent_refund)
+    {
+
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe->refunds->create(
+            [
+                'payment_intent' => $payment->stripe_id,
+                'amount' => $amount_refund * 100,
+                'metadata' => [
+                    'order_code' => $payment->code,
+                    'days' => $days,
+                    'porcent' => ($porcent_refund * 100) . "%"
+                ]
+            ]
+        );
     }
 }

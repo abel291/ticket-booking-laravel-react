@@ -65,7 +65,7 @@ const EventSidebar = ({ sessions, location, ticket_types, slug }) => {
 
             <div>
                 <Link
-                    className="btn"
+                    className="btn bg-gradient-red-invert"
                     href={route("checkout", {
                         slug: slug,
                     })}

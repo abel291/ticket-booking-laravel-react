@@ -22,7 +22,7 @@ const Section1 = () => {
                             gravida.Lorem ipsum dolor sit amet, consectetur
                             adipiscing elit
                         </p>
-                        <Link href={route("events")} className="btn ">
+                        <Link href={route("events")} className="btn bg-gradient-red-invert ">
                             RESERVAR ENTRADAS
                         </Link>
                     </div>

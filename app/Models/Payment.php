@@ -13,7 +13,9 @@ class Payment extends Model
         'event_data' => 'object',
         'user_data' => 'object',
         'promotion_data' => 'object',
+        'canceled' => 'object',
         'session' => 'datetime',
+        //'canceled_at' => 'datetime',
         'status' => PaymentStatus::class,
     ];
     protected $attributes = [

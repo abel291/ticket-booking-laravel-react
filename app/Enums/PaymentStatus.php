@@ -2,11 +2,11 @@
 
 namespace App\Enums;
 
-enum PaymentStatus: int
+enum PaymentStatus: string
 {
-    case CANCELED = 1;
-    case REFUNDED = 2;
-    case SUCCESSFUL = 3;   
+    case CANCELED = "canceled";
+    case REFUNDED = "refunded";
+    case SUCCESSFUL = "successful";  
     
     public function text():string{
 

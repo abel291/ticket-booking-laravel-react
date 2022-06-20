@@ -1,18 +1,20 @@
 import React from "react";
-
+import { twMerge } from "tailwind-merge";
 export default function Button({
     type = "submit",
     className = "",
     processing = false,
     children,
-    disabled = false
+    disabled = false,
 }) {
+    const styles = twMerge(
+        "btn bg-gradient-red-invert relative disabled:opacity-50",
+        className
+    );
     return (
         <button
             type={type}
-            className={
-                "btn relative disabled:opacity-50 " + className
-            }
+            className={styles}
             disabled={processing || disabled}
         >
             {processing && (
