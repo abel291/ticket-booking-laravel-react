@@ -35,7 +35,7 @@ class PaymentSeeder extends Seeder
 
             $tickets = $session->ticket_types_available;
 
-            for ($i = 0; $i < rand(1, 20); $i++) {
+            for ($i = 0; $i < rand(1, 10); $i++) {
                 $tickets_quantity[$tickets->random()->id] = rand(1, 10);
             }
 
