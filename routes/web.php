@@ -75,10 +75,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
 
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+	
     Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });
 Route::get('/order-validate/{code}', function ($code) {
-    return "Aquí se valida el ticket a través de la aplicación que no voi hacer :D";
+    return "Aquí se valida el ticket a través de la aplicación :D";
 })->name('order_validate');
 
 
