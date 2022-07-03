@@ -50,7 +50,7 @@ class ProfileController extends Controller
         ])->save();
 
 
-        return Redirect::route('account_details')
+        return Redirect::route('profile.account_details')
             ->with(
                 'success',
                 'Datos Actualizados correctamente'
