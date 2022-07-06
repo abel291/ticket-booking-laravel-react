@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Events\MigrationsStarted;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Schema;
 
 class DisableForeignKeyMigrations

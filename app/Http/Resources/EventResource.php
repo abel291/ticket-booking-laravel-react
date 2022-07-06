@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Enums\TicketTypes;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventResource extends JsonResource
@@ -34,7 +33,7 @@ class EventResource extends JsonResource
             'card' => $this->card,
             'banner' => $this->banner,
             'thumb' => $this->thumb,
-            //'price' => $this->whenLoaded('ticket_default_price', $this->ticket_default_price->price),             
+            //'price' => $this->whenLoaded('ticket_default_price', $this->ticket_default_price->price),
             'session' => SessionResource::make($this->whenLoaded('session')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'sessions' => SessionResource::collection($this->whenLoaded('sessions')),

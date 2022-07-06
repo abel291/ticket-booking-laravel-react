@@ -2,17 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Enums\PaymentStatus;
-use App\Enums\PromotionType;
 use App\Helpers\Checkout;
 use App\Models\Event;
 use App\Models\Payment;
 use App\Models\Ticket;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use Faker;
 
 class PaymentSeeder extends Seeder
 {

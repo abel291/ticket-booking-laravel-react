@@ -23,7 +23,7 @@ class PaymentResource extends JsonResource
             'event_data' => $this->event_data,
             'user_data' => $this->user_data,
             'fee' => $this->fee,
-            'fee_porcent' => ($this->fee_porcent * 100) . "%",
+            'fee_porcent' => ($this->fee_porcent * 100).'%',
             'sub_total' => $this->sub_total,
             'total' => $this->total,
             'created_at' => $this->created_at,

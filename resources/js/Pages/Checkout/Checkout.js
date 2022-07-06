@@ -17,84 +17,89 @@ import ItemsLoading from "@/Components/ItemsLoading";
 import BannerHero from "@/Components/BannerHero";
 const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 
-    const { auth, errors } = usePage().props
+	const { auth, errors } = usePage().props
 
-    const { data, setData, post } = useForm({
-        date: filters.date || sessions[0].date,
-        tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
-        code_promotion: filters.code_promotion || "",
-        name: auth.user.name,
-        phone: auth.user.phone,
-        event_slug: event.slug,
-    })
+	const [loading, setLoading] = useState(false)
 
-    const initUpdate = useRef(true)
-    const [loading, setLoading] = useState(false)
-    useEffect(() => {
+	const [data, setData] = useState({
+		date: filters.date || sessions[0].date,
+		tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
+		code_promotion: filters.code_promotion || "",
+		name: auth.user.name,
+		phone: auth.user.phone,
+		event_slug: event.slug,
+	})
 
-        if (initUpdate.current) {
-            initUpdate.current = false
-            return
-        }
-        Inertia.get(route("checkout", { slug: event.slug }), {
-            date: data.date,
-            tickets_quantity: data.tickets_quantity,
-            code_promotion: data.code_promotion,
-        }, {
-            preserveScroll: true,
-            replace: true,
-            preserveState: true,
-            onStart: visit => { setLoading(true) },
-            onFinish: visit => { setLoading(false) },
-        });
-    }, [data.date, data.tickets_quantity, data.code_promotion])
+	const initUpdate = useRef(true)
 
-    const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
+	useEffect(() => {
+		console.log(data.date)
+		if (initUpdate.current) {
+			initUpdate.current = false
+			return
+		}
+		Inertia.get(route("checkout", { slug: event.slug }), {
+			date: data.date,
+			tickets_quantity: data.tickets_quantity,
+			code_promotion: data.code_promotion,
+		}, {
+			preserveScroll: true,
+			replace: true,
+			preserveState: true,
+			onStart: visit => { setLoading(true) },
+			onFinish: visit => { setLoading(false) },
+		});
+	}, [data.date, data.tickets_quantity, data.code_promotion])
 
-    return (
-        <Layout title="Checkout">
-            <BannerHero img={event.banner} title="Checkout" desc="" />
+	const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
 
-            <div className="py-section container">
+	return (
+		<Layout title="Checkout">
+			<BannerHero img={event.banner} title="Checkout" desc="" />
 
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-                    <div className=" lg:col-span-8">
-                        <div className="space-y-6">
-                            <ValidationErrors errors={errors} />
-                            <SelectDate
-                                sessions={sessions}
-                                data={data} setData={setData}
-                            />
+			<div className="py-section container">
 
-                            <QuantityTicket
-                                tickets={tickets}
-                                data={data} setData={setData}
-                            />
-                            <ContactDetails data={data} setData={setData} />
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+					<div className=" lg:col-span-8">
+						<div className="space-y-6">
+							<ValidationErrors errors={errors} />
+							<SelectDate
+								sessions={sessions}
+								data={data} setData={setData}
+							/>
 
-                            <Elements stripe={stripePromise} >
-                                <PaymentOption data={data} setData={setData} />
-                            </Elements>
+							<QuantityTicket
+								tickets={tickets}
+								data={data} setData={setData}
+							/>
+							<ContactDetails data={data} setData={setData} />
 
-                        </div>
-                    </div>
+							<Elements stripe={stripePromise} >
+								<PaymentOption data={data}/>
+							</Elements>
 
-                    <div className="lg:col-span-4  ">
-                        <div className="space-y-6">
-                            <ItemsLoading loading={loading}>
-                                <OrderSummary
-                                    event={event}
-                                    session_selected={data.date}
-                                    summary={summary}
-                                />
-                            </ItemsLoading>
-                            <PromoCode data={data} setData={setData} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Layout>
-    );
+						</div>
+					</div>
+
+					<div className="lg:col-span-4  ">
+						<div className="space-y-6">
+							<ItemsLoading loading={loading}>
+								<OrderSummary
+									event={event}
+									session_selected={data.date}
+									summary={summary}
+									data={data}
+								/>
+							</ItemsLoading>
+							{summary.total ? (
+								<PromoCode data={data} setData={setData} />
+							) : ""}
+						</div>
+					</div>
+				</div>
+			</div>
+		</Layout>
+	);
 };
 
 export default Checkout;

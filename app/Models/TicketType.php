@@ -14,7 +14,7 @@ class TicketType extends Model
     {
         return $this->belongsTo(Event::class);
     }
-    
+
     public function sessions()
     {
         return $this->belongsToMany(Session::class);

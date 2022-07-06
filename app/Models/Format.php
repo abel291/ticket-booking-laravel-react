@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Format extends Model
 {
     use HasFactory;
+
     protected $attributes = [
         'active' => 0,
     ];
@@ -16,6 +17,7 @@ class Format extends Model
     {
         return $this->hasMany(Event::class);
     }
+
     public function scopeActive($query)
     {
         $query->where('active', 1);

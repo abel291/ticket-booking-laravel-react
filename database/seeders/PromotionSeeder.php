@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Event;
 use App\Models\Promotion;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +30,6 @@ class PromotionSeeder extends Seeder
                     'quantity' => $promotion->quantity,
                 ];
             }
-            
 
             $event->promotions()->attach($pivot_promotions);
         }

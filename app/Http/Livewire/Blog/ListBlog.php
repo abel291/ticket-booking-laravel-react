@@ -11,17 +11,19 @@ class ListBlog extends Component
 {
     use WithPagination;
     use WithSorting;
+
     public $label = 'Post';
+
     public $label_plural = 'Posts';
 
     protected $listeners = [
         'renderListBlog' => 'render',
-        'resetListBlog' => 'resetList'
+        'resetListBlog' => 'resetList',
     ];
 
     public function render()
     {
-        $data = Blog::where('title', 'like', '%' . $this->search . '%')
+        $data = Blog::where('title', 'like', '%'.$this->search.'%')
             ->with('categories')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
@@ -29,7 +31,7 @@ class ListBlog extends Component
         return view('livewire.blog.list-blog', [
             'data' => $data,
             'label' => $this->label,
-            'label_plural' => $this->label_plural
+            'label_plural' => $this->label_plural,
         ]);
     }
 }

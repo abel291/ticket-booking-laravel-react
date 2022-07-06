@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class DashboardCategoryTest extends TestCase
 {
-    use RefreshDatabase;    
+    use RefreshDatabase;
 
     public function test_category_list()
     {
@@ -23,18 +23,16 @@ class DashboardCategoryTest extends TestCase
 
     public function test_category_create()
     {
-        
         $this->actingAs(User::first());
         Livewire::test(CreateCategory::class)->call('create');
     }
 
     public function test_category_save()
     {
-        
         $this->actingAs(User::first());
 
-        $category = Category::factory()->make();        
-        Livewire::test(CreateCategory::class, ["category" => $category])
+        $category = Category::factory()->make();
+        Livewire::test(CreateCategory::class, ['category' => $category])
             ->call('update')
             ->assertHasNoErrors(['category'])
             ->assertDispatchedBrowserEvent('notification');
@@ -42,11 +40,11 @@ class DashboardCategoryTest extends TestCase
 
     public function test_category_edit()
     {
-        
         $this->actingAs(User::first());
         $category = Category::get()->random();
         Livewire::test(CreateCategory::class)->call('edit', $category->id);
     }
+
     public function test_category_update()
     {
         $user = User::first();
@@ -54,14 +52,14 @@ class DashboardCategoryTest extends TestCase
 
         $category = Category::get()->random();
 
-        Livewire::test(CreateCategory::class, ["category" => $category])
+        Livewire::test(CreateCategory::class, ['category' => $category])
             ->call('update')
             ->assertHasNoErrors(['category'])
             ->assertDispatchedBrowserEvent('notification');
     }
+
     public function test_category_delele()
     {
-        
         $this->actingAs(User::first());
         $category = Category::get()->random();
         Livewire::test(CreateCategory::class)->call('delete', $category->id)

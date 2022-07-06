@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CategoryType;
-
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\EventResource;
 use App\Models\Category;
 use App\Models\Event;
-use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
-
 
 class PageController extends Controller
 {
@@ -28,9 +25,10 @@ class PageController extends Controller
             'eventsCarousel' => EventResource::collection($carousel),
             'eventsFeacture' => EventResource::collection($featured),
             'eventsFree' => EventResource::collection($free),
-            "categories" => CategoryResource::collection($home_categories),
+            'categories' => CategoryResource::collection($home_categories),
         ]);
     }
+
     public function privacy_policy()
     {
         return Inertia::render('PrivacyPolicy/PrivacyPolicy');
@@ -40,10 +38,12 @@ class PageController extends Controller
     {
         return Inertia::render('AboutUs/AboutUs');
     }
+
     public function terms_of_service()
     {
         return Inertia::render('TermsOfService/TermsOfService');
     }
+
     public function faq()
     {
         return Inertia::render('Faq/Faq');

@@ -25,8 +25,9 @@
         "stripe/stripe-php": "^8.4",
         "tightenco/ziggy": "^1.0"
     },
-    "require-dev": {        
+    "require-dev": {
         "laravel/breeze": "^1.8",
+        "laravel/pint": "^0.2.3",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",

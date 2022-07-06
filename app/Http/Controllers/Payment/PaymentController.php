@@ -6,14 +6,8 @@ use App\Helpers\Checkout;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Event;
-use App\Models\Payment;
-use App\Models\Ticket;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
-use Stripe;
-use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
@@ -58,7 +52,6 @@ class PaymentController extends Controller
             );
     }
 }
-
 
 /*DB::beginTransaction();
 $user = new User;

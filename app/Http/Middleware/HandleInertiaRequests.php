@@ -41,7 +41,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'categories' => fn () => CategoryResource::collection(Category::typeEvent()->get()),
             'flash' => [
-                'success' => fn () => $request->session()->get('success')
+                'success' => fn () => $request->session()->get('success'),
             ],
         ]);
     }

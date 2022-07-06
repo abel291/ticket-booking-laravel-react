@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Scopes\ActiveScope;
 use Carbon\Carbon;
-
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +39,7 @@ class Session extends Model
     {
         return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity');
     }
+
     public function ticket_types_available()
     {
         return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity')->wherePivot('remaining', '>', 0);

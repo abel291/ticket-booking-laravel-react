@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Database\Eloquent\Builder;
 
 class SearchController extends Controller
 {
@@ -20,10 +18,10 @@ class SearchController extends Controller
             ->with('session', 'location');
 
         if ($request->search) {
-            $events->where('name', 'like', "%" . $request->search . "%");
+            $events->where('name', 'like', '%'.$request->search.'%');
         }
 
-        if ($request->type && $request->type != "all") {
+        if ($request->type && $request->type != 'all') {
             $events->where('type', $request->type);
         }
 
@@ -38,7 +36,7 @@ class SearchController extends Controller
         $events = $events->paginate($paginate)->appends($filters);
         //dd(EventResource::collection($events));
         return Inertia::render('EventSearch/EventSearch', [
-            "items" => EventResource::collection($events),
+            'items' => EventResource::collection($events),
             'filters' => $filters,
         ]);
     }

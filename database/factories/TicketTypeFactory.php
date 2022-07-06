@@ -18,7 +18,8 @@ class TicketTypeFactory extends Factory
     public function definition()
     {
         $type = $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::PAID->value]);
-        $price = $type == 'free' ? 0 : rand(1, 150);
+        $price = $type == 'free' ? 0 : rand(1, 15);
+
         return [
             'name' => ucfirst($this->faker->word()),
             'quantity' => rand(200, 500),

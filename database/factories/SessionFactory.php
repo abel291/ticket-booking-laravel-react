@@ -16,12 +16,10 @@ class SessionFactory extends Factory
      */
     public function definition()
     {
-        
-        
         return [
             'date' => $this->faker->dateTimeBetween('now', '+4 week'),
             //'time' => $this->faker->time('h:i A'),
-            'active' => 1
+            'active' => 1,
 
         ];
     }

@@ -10,7 +10,6 @@ use App\Models\Location;
 use App\Models\Session;
 use App\Models\Speaker;
 use App\Models\TicketType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
@@ -22,7 +21,6 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-
         Event::truncate();
         Session::truncate();
         TicketType::truncate();
@@ -35,14 +33,14 @@ class EventSeeder extends Seeder
         foreach (Category::get() as $key => $category) {
             Event::factory(10)
                 ->hasImages(5)
-                ->hasSessions(3)
+                ->hasSessions(8)
                 ->hasSpeakers(8)
-                ->has(TicketType::factory()->count(3), 'ticket_types')
+                ->has(TicketType::factory()->count(8), 'ticket_types')
                 ->state(function () use ($locations, $formats, $category) {
                     return [
                         'location_id' => $locations->random()->id,
                         'format_id' => $formats->random()->id,
-                        'category_id' => $category->id
+                        'category_id' => $category->id,
                     ];
                 })
                 ->create();

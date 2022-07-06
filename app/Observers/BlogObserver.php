@@ -2,13 +2,10 @@
 
 namespace App\Observers;
 
-use App\Helpers\Helpers;
 use App\Models\Blog;
-use Illuminate\Support\Str;
 
 class BlogObserver
 {
-
     private $path_image = 'blog';
 
     /**
@@ -17,10 +14,8 @@ class BlogObserver
      * @param  \App\Models\Blog  $blog
      * @return void
      */
-
     public function creating(Blog $blog)
     {
-        
     }
 
     /**

@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string("alt")->nullable();;
-            $table->string("title")->nullable();
-            $table->string("img");
+            $table->string('alt')->nullable();
+            $table->string('title')->nullable();
+            $table->string('img');
             $table->integer('imageable_id')->index();
             $table->string('imageable_type')->index();
             $table->timestamps();

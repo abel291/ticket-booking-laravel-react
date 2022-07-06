@@ -13,7 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10);
@@ -45,6 +44,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *

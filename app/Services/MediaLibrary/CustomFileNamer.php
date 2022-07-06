@@ -2,16 +2,15 @@
 
 namespace App\Services\MediaLibrary;
 
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Conversions\Conversion;
 use Spatie\MediaLibrary\Support\FileNamer\FileNamer;
-use Illuminate\Support\Str;
 
 class CustomFileNamer extends FileNamer
 {
     public function originalFileName(string $fileName): string
     {
-        
-        return $fileName . '-' . Str::slug(Str::random(4));
+        return $fileName.'-'.Str::slug(Str::random(4));
     }
 
     public function conversionFileName(string $fileName, Conversion $conversion): string

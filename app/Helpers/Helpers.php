@@ -11,13 +11,12 @@ class Helpers
 {
     public static function format_price($price = 0)
     {
-
-        return '$ ' . number_format($price, 2);
+        return '$ '.number_format($price, 2);
     }
 
     public static function move_image(string $directory, string $image, string $name, string $extension, bool $thumb)
     {
-        $new_name_img =  $name . '-' . Str::slug(Str::random(4)) . '.' . $extension;
+        $new_name_img = $name.'-'.Str::slug(Str::random(4)).'.'.$extension;
 
         //SAVE IMG
         Storage::makeDirectory($directory);
@@ -25,22 +24,21 @@ class Helpers
             ->fit(Manipulations::FIT_MAX, 1920, 1080)
             ->quality(80)
             ->optimize()
-            ->save('storage/' . $directory . '/' . $new_name_img);
+            ->save('storage/'.$directory.'/'.$new_name_img);
 
         //img thum
         if ($thumb) {
             //Storage::makeDirectory($directory);
-            $new_name_img = 'thumb-' . $new_name_img;
+            $new_name_img = 'thumb-'.$new_name_img;
             SpatieImage::load($image) //optimizo imagen
                 ->width(420)
                 ->quality(80)
                 ->optimize()
-                ->save('storage/' . $directory . '/' . $new_name_img);
+                ->save('storage/'.$directory.'/'.$new_name_img);
         }
 
         return $new_name_img;
     }
-
 
     // public static function images_store(array $images, string $path_name, $thumbnail = false)
     // {
@@ -54,12 +52,10 @@ class Helpers
     //     return $array_images;
     // }
 
-
-
     // public static function delete_images_all($model)
     // {
 
-    //     if ($model->images->isNotEmpty()) {  //isNotEmpty  -> no esta vacio 
+    //     if ($model->images->isNotEmpty()) {  //isNotEmpty  -> no esta vacio
     //         $images_delete = [];
     //         foreach ($model->images as  $img) {
     //             array_push($images_delete, $img->image);
@@ -68,9 +64,9 @@ class Helpers
     //         Storage::delete($images_delete);
     //     }
     // }
-    
+
     public static function generate_img_name(string $name, string $extension)
     {
-        return  $name . '-' . Str::slug(Str::random(5)) . '.' . $extension;
+        return  $name.'-'.Str::slug(Str::random(5)).'.'.$extension;
     }
 }

@@ -8,11 +8,10 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use Livewire\Livewire;
-use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class BlogTest extends TestCase
 {
@@ -20,20 +19,19 @@ class BlogTest extends TestCase
 
     public function test_blog_list()
     {
-        
         $this->actingAs(User::first());
         Livewire::test(ListBlog::class)->call('render');
     }
 
     public function test_blog_create()
-    {        
+    {
         $this->actingAs(User::first());
         Livewire::test(CreateBlog::class)->call('create');
     }
 
     public function test_blog_save()
     {
-        ////$this->withoutExceptionHandling();        
+        ////$this->withoutExceptionHandling();
         $this->actingAs(User::first());
 
         $blog = Blog::factory()->make();
@@ -52,15 +50,15 @@ class BlogTest extends TestCase
 
     public function test_blog_edit()
     {
-        
         $this->actingAs(User::first());
         $blog = Blog::get()->random();
         Livewire::test(CreateBlog::class)->call('edit', $blog->id);
     }
+
     public function test_blog_update()
     {
         //$this->withoutExceptionHandling();
-        
+
         $this->actingAs(User::first());
 
         Storage::fake('public');
@@ -75,10 +73,11 @@ class BlogTest extends TestCase
             ->assertHasNoErrors(['blog', 'categories', 'image'])
             ->assertDispatchedBrowserEvent('notification');
     }
+
     public function test_blog_delele()
     {
         //$this->withoutExceptionHandling();
-        
+
         $this->actingAs(User::first());
         $blog = Blog::get()->random();
         Livewire::test(CreateBlog::class)->call('delete', $blog->id)

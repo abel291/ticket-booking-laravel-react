@@ -27,7 +27,7 @@ class PaymentRequest extends FormRequest
         return [
             'event_slug' => ['required', Rule::exists('events', 'slug')->where(function ($query) {
                 return $query->where('active', 1)->where('slug', request()->event_slug);
-            }),],
+            })],
             'date' => ['date', 'required', 'after:now'],
             'tickets_quantity' => ['required', 'array', 'min:1'],
             'name' => ['required', 'max:255', 'min:3'],
@@ -35,6 +35,7 @@ class PaymentRequest extends FormRequest
             'code_promotion' => ['sometimes', 'nullable', 'exists:promotions,code'],
         ];
     }
+
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -48,6 +49,7 @@ class PaymentRequest extends FormRequest
 
         ];
     }
+
     /**
      * Get custom attributes for validator errors.
      *
@@ -61,7 +63,7 @@ class PaymentRequest extends FormRequest
             'tickets_quantity' => 'Boletos',
             'name' => 'Nombre',
             'phone' => 'Telefono',
-            'code_promotion' => 'Codigo de promocion'
+            'code_promotion' => 'Codigo de promocion',
 
         ];
     }

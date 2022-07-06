@@ -5,21 +5,18 @@ namespace App\Http\Controllers\Profile;
 use App\Enums\PaymentStatus;
 use App\Helpers\Checkout;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\EventResource;
 use App\Http\Resources\PaymentResource;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Inertia\Inertia;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Stripe\Stripe;
 
 class ProfileController extends Controller
 {
@@ -27,13 +24,14 @@ class ProfileController extends Controller
     {
         return Inertia::render('Profile/Dashboard');
     }
+
     public function account_details()
     {
         return Inertia::render('Profile/AccountDetails');
     }
+
     public function store_account_details(Request $request)
     {
-
         $user = auth()->user();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -49,7 +47,6 @@ class ProfileController extends Controller
             // 'address' => $request->address,
         ])->save();
 
-
         return Redirect::route('profile.account_details')
             ->with(
                 'success',
@@ -59,22 +56,20 @@ class ProfileController extends Controller
 
     public function my_orders()
     {
-
         $user = auth()->user();
         $payments = $user->payments()->orderBy('id', 'DESC')->paginate(10);
         //dd($payments->first());
         return Inertia::render('Profile/MyOrders', [
-            'orders' => PaymentResource::collection($payments)
+            'orders' => PaymentResource::collection($payments),
         ]);
     }
 
     public function order_details(Request $request)
     {
-
         $user = auth()->user();
 
         $payment = $user->payments()->where('code', $request->code)->with('tickets')->firstOrFail();
-        
+
         // if (!$payment) {
         //     return Redirect::route('shopping')->withErrors(['message' => 'Al Parecer hubo un error']);;
         // }
@@ -85,6 +80,7 @@ class ProfileController extends Controller
             'orderDetails' => new PaymentResource($payment),
         ]);
     }
+
     public function order_details_pdf($code)
     {
         $user = auth()->user();
@@ -96,10 +92,12 @@ class ProfileController extends Controller
         $data = [
             'qrcode' => $qrcode,
             'session_format' => $session_format,
-            ...$payment
+            ...$payment,
         ];
         $pdf = PDF::loadView('pdf.ticket', $data);
+
         return $pdf->stream();
+
         return view('pdf.ticket', $data);
     }
 
@@ -107,6 +105,7 @@ class ProfileController extends Controller
     {
         return Inertia::render('Profile/ChangePassword');
     }
+
     public function store_change_password(Request $request)
     {
         $user = auth()->user();
@@ -115,11 +114,10 @@ class ProfileController extends Controller
             'current_password' => ['required', 'string'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ])->after(function ($validator) use ($user, $request) {
-            if (!isset($request->current_password) || !Hash::check($request->current_password, $user->password)) {
+            if (! isset($request->current_password) || ! Hash::check($request->current_password, $user->password)) {
                 $validator->errors()->add('current_password', __('La contraseña proporcionada no coincide con su contraseña actual. '));
             }
         })->validate();
-
 
         $user->forceFill([
             'password' => Hash::make($request->password),
@@ -151,10 +149,11 @@ class ProfileController extends Controller
             'amount_refund' => $amount_refund,
             'days' => $days,
             'porcent_refund' => $porcent_refund,
-            'payment' => new PaymentResource($payment)
+            'payment' => new PaymentResource($payment),
 
         ]);
     }
+
     public function store_cancel_order(Request $request)
     {
         $user = auth()->user();
@@ -180,12 +179,11 @@ class ProfileController extends Controller
         $payment->cancel_data = [
             'porcent_refund' => $porcent_refund,
             'days' => $days,
-            'amount_refund' => $amount_refund
+            'amount_refund' => $amount_refund,
         ];
 
         $payment->canceled_at = Carbon::now();
         $payment->save();
-
 
         // try {
         //     DB::beginTransaction();

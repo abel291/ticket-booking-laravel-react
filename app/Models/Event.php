@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\EventTypes;
 use App\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Event extends Model
 {
@@ -27,6 +23,7 @@ class Event extends Model
     {
         return $this->belongsTo(Format::class);
     }
+
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
@@ -34,7 +31,7 @@ class Event extends Model
 
     public function sessions()
     {
-        return $this->hasMany(Session::class)->orderBy('date');;
+        return $this->hasMany(Session::class)->orderBy('date');
     }
 
     //me devuelve una sola  sesion con la fecha mas cerca de la fecha actual
@@ -46,6 +43,7 @@ class Event extends Model
             $query->where('date', '>=', now());
         });
     }
+
     public function sessions_available()
     {
         return $this->hasMany(Session::class)
@@ -53,6 +51,7 @@ class Event extends Model
             ->where('active', 1)
             ->orderBy('date');
     }
+
     public function speakers()
     {
         return $this->hasMany(Speaker::class);
@@ -62,20 +61,24 @@ class Event extends Model
     {
         return $this->hasMany(TicketType::class);
     }
+
     public function ticket_default_price()
     {
         return $this->hasOne(TicketType::class)->ofMany(['price' => 'max'], function ($query) {
             $query->where('default', 1)->where('active', 1);
         });
     }
+
     public function location()
     {
         return $this->belongsTo(Location::class);
     }
+
     public function promotions()
     {
-        return $this->belongsToMany(Promotion::class)->withPivot('remaining', 'quantity');;
+        return $this->belongsToMany(Promotion::class)->withPivot('remaining', 'quantity');
     }
+
     public function promotions_available()
     {
         return $this->belongsToMany(Promotion::class)

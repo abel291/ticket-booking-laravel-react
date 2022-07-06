@@ -20,7 +20,7 @@ class SpeakerFactory extends Factory
             'name' => $this->faker->name(),
             'position' => $this->faker->jobTitle(),
             'email' => $this->faker->email(),
-            'img' => '/img/speakers/img-' . rand(1, 10) . '.jpg',
+            'img' => '/img/speakers/img-'.rand(1, 10).'.jpg',
             'website' => $this->faker->domainName(),
             'desc' => $this->faker->text(400),
             'twitter' => $this->faker->domainName(),

@@ -13,7 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -25,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('min_tickets_purchase');
             $table->tinyInteger('max_tickets_purchase');
             $table->boolean('show_remaining_entries');
-            $table->boolean('active');            
+            $table->boolean('active');
             // $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->timestamps();
         });

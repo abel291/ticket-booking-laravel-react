@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Event;
-use App\Models\Session;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -23,9 +21,8 @@ class PivotSessionTicketTypesSeeder extends Seeder
         foreach ($events as $event) {
             $sessions = $event->sessions;
             $ticket_types = $event->ticket_types;
-            
-            foreach ($sessions as $session) {
 
+            foreach ($sessions as $session) {
                 $random_ticket_types = $ticket_types->random(3);
                 $pivot_ticket_types = [];
                 foreach ($random_ticket_types as $ticket_type) {
@@ -33,7 +30,7 @@ class PivotSessionTicketTypesSeeder extends Seeder
                         'remaining' => $ticket_type->quantity,
                         'quantity' => $ticket_type->quantity,
                     ];
-                }               
+                }
 
                 $session->ticket_types()->attach($pivot_ticket_types);
             }

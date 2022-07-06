@@ -5,7 +5,9 @@ namespace App\Http\Traits;
 trait WithSorting
 {
     public $search = '';
+
     public $sortBy = 'id';
+
     public $sortDirection = 'desc';
 
     public function sortBy($field)
@@ -23,12 +25,14 @@ trait WithSorting
             ? 'desc'
             : 'asc';
     }
+
     public function resetList()
     {
         $this->search = '';
         $this->sortDirection = 'desc';
         $this->resetPage();
     }
+
     public function updatingSearch()
     {
         $this->resetPage();

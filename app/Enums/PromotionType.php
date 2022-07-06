@@ -6,5 +6,4 @@ enum PromotionType: string
 {
     case PERCENT = 'percent';
     case AMOUNT = 'amount';
-    
 }

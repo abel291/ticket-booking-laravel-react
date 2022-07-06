@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Format;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -39,8 +38,8 @@ class FormatSeeder extends Seeder
         Format::truncate();
         foreach ($formats as $key => $value) {
             Format::factory()->create([
-                "name" => ucfirst($value),
-                "slug" => Str::slug($value),
+                'name' => ucfirst($value),
+                'slug' => Str::slug($value),
             ]);
         }
     }
