@@ -22,7 +22,7 @@ class CreateSession extends Component
     protected function rules()
     {
         $rules = [
-            'session.date' => 'required|date_format:"Y-m-d"',
+            'session.date' => 'required|date_format:"Y-m-d H:i"',
             'session.active' => 'required|boolean',
             'event_id' => 'required|exists:App\Models\Event,id',
         ];
@@ -33,7 +33,7 @@ class CreateSession extends Component
     public function mount()
     {
         $this->session = Session::factory()->make();
-
+		
         $this->resetErrorBag();
     }
 
@@ -43,8 +43,8 @@ class CreateSession extends Component
     }
 
     public function save()
-    {
-        $this->validate();
+    {	
+		$this->validate();
         $session = $this->session;
         $session->event_id = $this->event_id;
         $session->save();

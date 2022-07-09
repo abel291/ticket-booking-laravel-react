@@ -29,8 +29,9 @@ class ListSession extends Component
     }
 
     public function render()
-    {
-        $sessions = $this->event->sessions()->paginate(20);
+    {	
+		
+        $sessions = $this->event->sessions()->where('date', 'like', '%'."$this->search".'%')->paginate(20);
 
         return view('livewire.session.list-session', [
             'data' => $sessions,
