@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CategoryType;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Format;
@@ -30,8 +31,8 @@ class EventSeeder extends Seeder
         $locations = Location::get();
         $formats = Format::get();
 
-        foreach (Category::get() as $key => $category) {
-            Event::factory(10)
+        foreach (Category::where('type',CategoryType::EVENT)->get() as $category) { //category -> 14
+            Event::factory(100)
                 ->hasImages(5)
                 ->hasSessions(8)
                 ->hasSpeakers(8)
