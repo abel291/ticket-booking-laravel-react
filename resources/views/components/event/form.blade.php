@@ -2,8 +2,8 @@
     <div class="col-span-2">
         <x-form.label class="block">Nombre</x-form.label>
         <div>
-            <x-form.input required type="text" class="w-full" wire:model.defer="event.name" />
-            <x-form.input-error for="event.name" />
+            <x-form.input required type="text" class="w-full" wire:model.defer="event.title" />
+            <x-form.input-error for="event.title" />
         </div>
     </div>
     <div class="col-span-2">

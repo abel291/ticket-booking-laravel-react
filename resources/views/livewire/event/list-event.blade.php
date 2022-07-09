@@ -15,10 +15,10 @@
 
                         <td class="px-6 py-3">
                             <div class="font-medium text-gray-900">
-                                <a href="#" class="text-blue-500 underline" target="_blank">{{ $item->name }}</a>
+                                <span class="">{{ $item->title }}</span>
                             </div>
                             <div class="text-gray-500 text-xs">
-                                {{ $item->type->value }}
+                                {{ $item->category->name }}
                             </div>
                         </td>
                         <td class="px-6 py-3 text-xs text-gray-500">
@@ -54,17 +54,17 @@
                         <td class="px-6 py-3  text-right font-medium whitespace-nowrap">
                             <div class="flex items-center gap-x-4">
                                 <a class="font-medium text-green-600 hover:text-green-900"
-                                    href="{{ route('dashboard.ticket-types', $item->id) }}">Tickets</a>
+                                    href="{{ route('dashboard.ticket-types', $item->id) }}">Boletos</a>
 
                                 <a class="font-medium text-orange-600 hover:text-green-900"
-                                    href="{{ route('dashboard.sessions', $item->id) }}">Sessiones</a>
+                                    href="{{ route('dashboard.sessions', $item->id) }}">Sesiones</a>
 
                                     <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
-                                    x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Edit</a>
+                                    x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Editar</a>
 
 
                                 <a href="#" class="font-medium text-red-600 hover:text-red-900 " x-data
-                                    x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }})">Delete</a>
+                                    x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }})">Eliminar</a>
                             </div>
                         </td>
                     </tr>

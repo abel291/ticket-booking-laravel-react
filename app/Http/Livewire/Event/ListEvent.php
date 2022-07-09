@@ -23,7 +23,7 @@ class ListEvent extends Component
 
     public function render()
     {
-        $data = Event::where('name', 'like', '%'.$this->search.'%')
+        $data = Event::where('title', 'like', '%'.$this->search.'%')
             ->with('category', 'payments')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);

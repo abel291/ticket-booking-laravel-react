@@ -13,155 +13,163 @@ use Livewire\WithFileUploads;
 
 class CreateEvent extends Component
 {
-    use WithFileUploads;
+	use WithFileUploads;
 
-    public $label;
+	public $label;
 
-    public $label_plural;
+	public $label_plural;
 
-    public $open = false;
+	public $open = false;
 
-    public Event $event;
+	public Event $event;
 
-    public $open_modal_confirmation_delete = false;
+	public $open_modal_confirmation_delete = false;
 
-    public $banner;
+	public $banner;
 
-    public $card;
+	public $card;
 
-    protected function rules()
-    {
-        $rules = [
-            'event.name' => 'required|string|max:255',
-            'event.slug' => 'required|string|max:255',
-            'event.active' => 'required|boolean',
-            'event.duration' => 'nullable|string',
-            'event.type' => new Enum(EventTypes::class),
+	protected function rules()
+	{
+		$rules = [
+			'event.title' => 'required|string|max:255',
+			'event.slug' => 'required|string|max:255',
+			'event.active' => 'required|boolean',
+			'event.duration' => 'nullable|string',
+			// 'event.type' => new Enum(EventTypes::class),
 
-            'event.tomatoes' => 'nullable|numeric|max:255',
-            'event.audience' => 'nullable|numeric|max:255',
-            'event.calificación' => 'nullable|numeric|max:255',
+			// 'event.tomatoes' => 'nullable|numeric|max:255',
+			// 'event.audience' => 'nullable|numeric|max:255',
+			// 'event.calificación' => 'nullable|numeric|max:255',
 
-            'event.ceo_title' => 'required|string|max:255',
-            'event.ceo_desc' => 'nullable|string|max:255',
+			'event.ceo_title' => 'required|string|max:255',
+			'event.ceo_desc' => 'nullable|string|max:255',
 
-            'event.social_fa' => 'nullable|string|max:255',
-            'event.social_tw' => 'nullable|string|max:255',
-            'event.social_yt' => 'nullable|string|max:255',
+			'event.social_fa' => 'nullable|string|max:255',
+			'event.social_tw' => 'nullable|string|max:255',
+			'event.social_yt' => 'nullable|string|max:255',
 
-            'event.desc_min' => 'required|string|max:255',
-            'event.desc_max' => 'required|string|max:1000',
-            'event.category_id' => 'required|exists:App\Models\Category,id',
-            'event.location_id' => 'required|exists:App\Models\Location,id',
+			'event.desc_min' => 'required|string|max:255',
+			'event.desc_max' => 'required|string|max:1000',
+			'event.category_id' => 'required|exists:App\Models\Category,id',
+			'event.location_id' => 'required|exists:App\Models\Location,id',
 
-            'banner' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
-            'card' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
-        ];
+			'banner' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
+			'card' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
+		];
 
-        return $rules;
-    }
+		return $rules;
+	}
 
-    public function mount()
-    {
-        $this->reset('banner', 'card');
-        $this->event = Event::factory()->make();
-        //$this->categories = Category::get()->random(5)->pluck('id')->toArray();
-        $this->resetErrorBag();
-    }
+	public function mount()
+	{
+		$this->reset('banner', 'card');
+		$this->event = Event::factory()->make();
+		//$this->categories = Category::get()->random(5)->pluck('id')->toArray();
+		$this->resetErrorBag();
+	}
 
-    public function create()
-    {
-        $this->mount();
-    }
+	public function create()
+	{
+		$this->mount();
+	}
 
-    public function save()
-    {
-        //dd($this->card,$this->banner);
-        $this->validate();
-        $event = $this->event;
-        $event->slug = Str::slug($event->slug);
-        $event->save();
+	public function save()
+	{
+		//dd($this->card,$this->banner);
+		$this->validate();
+		$event = $this->event;
+		$event->slug = Str::slug($event->slug);
 
-        $name_img = Helpers::generate_img_name($event->slug, $this->card->extension());
-        $event->addMedia($this->card->getRealPath())->usingName('event-card'.$event->slug)->usingFileName($name_img)->toMediaCollection('card');
+		$event->banner = Helpers::image_upload(
+			img: $this->banner,
+			name: 'banner-' . $event->slug,
+			directory: "events"
+		);
 
-        $name_img = Helpers::generate_img_name($event->slug, $this->banner->extension());
-        $event->addMedia($this->banner->getRealPath())->usingName('event-banner'.$event->slug)->usingFileName($name_img)->toMediaCollection('banner');
+		$event->card = Helpers::image_upload(
+			img: $this->card,
+			name: 'card-' . $event->slug,
+			directory: "events",
+			thumbnail: true
+		);
+		$event->save();
 
-        $this->emit('resetListEvent');
-        $this->reset('open');
-        $this->mount();
-        $this->dispatchBrowserEvent('notification', [
-            'title' => 'Registro Agregado',
-        ]);
-    }
+		$this->emit('resetListEvent');
+		$this->reset('open');
+		$this->mount();
+		$this->dispatchBrowserEvent('notification', [
+			'title' => 'Registro Agregado',
+		]);
+	}
 
-    public function edit(Event $event)
-    {
-        $this->event = $event;
-        $this->reset('card', 'banner');
-        $this->resetErrorBag();
-    }
+	public function edit(Event $event)
+	{
 
-    public function update()
-    {
-        $this->validate();
-        $event = $this->event;
-        $event->slug = Str::slug($event->slug);
-        $event->save();
+		$this->event = $event;
+		$this->reset('card', 'banner');
+		$this->resetErrorBag();
+	}
 
-        if ($this->card) {
-            $event->clearMediaCollection('card');
-            $name_img = Helpers::generate_img_name($event->slug, $this->card->extension());
-            $event->addMedia($this->card->getRealPath())->usingName('event-card'.$event->slug)->usingFileName($name_img)->toMediaCollection('card');
-        }
+	public function update()
+	{
+		$this->validate();
+		$event = $this->event;
+		$event->slug = Str::slug($event->slug);
+		$event->save();
 
-        if ($this->banner) {
-            $event->clearMediaCollection('banner');
-            $name_img = Helpers::generate_img_name($event->slug, $this->banner->extension());
-            $event->addMedia($this->banner->getRealPath())->usingName('event-banner'.$event->slug)->usingFileName($name_img)->toMediaCollection('banner');
-        }
+		if ($this->card) {
+			$event->clearMediaCollection('card');
+			$name_img = Helpers::generate_img_name($event->slug, $this->card->extension());
+			$event->addMedia($this->card->getRealPath())->usingName('event-card' . $event->slug)->usingFileName($name_img)->toMediaCollection('card');
+		}
 
-        $this->dispatchBrowserEvent('notification', [
-            'title' => 'Registro Editado',
-        ]);
+		if ($this->banner) {
+			$event->clearMediaCollection('banner');
+			$name_img = Helpers::generate_img_name($event->slug, $this->banner->extension());
+			$event->addMedia($this->banner->getRealPath())->usingName('event-banner' . $event->slug)->usingFileName($name_img)->toMediaCollection('banner');
+		}
 
-        $this->emit('resetListEvent');
-        $this->reset('open');
-        $this->mount();
-    }
+		$this->dispatchBrowserEvent('notification', [
+			'title' => 'Registro Editado',
+		]);
 
-    public function delete(Event $event)
-    {
-        $event->delete();
-        $this->dispatchBrowserEvent('notification', [
-            'title' => 'Registro Eliminado',
-        ]);
-        $this->emit('resetListEvent');
-        $this->reset('open', 'open_modal_confirmation_delete');
-        $this->mount();
-    }
+		$this->emit('resetListEvent');
+		$this->reset('open');
+		$this->mount();
+	}
 
-    public function updateBanner(): void
-    {
-        $this->validate([
-            'banner' => 'image|max:1024|mimes:jpeg,jpg,png',
-        ]);
-    }
+	public function delete(Event $event)
+	{
+		$event->delete();
+		$this->dispatchBrowserEvent('notification', [
+			'title' => 'Registro Eliminado',
+		]);
+		$this->emit('resetListEvent');
+		$this->reset('open', 'open_modal_confirmation_delete');
+		$this->mount();
+	}
 
-    public function updateCard(): void
-    {
-        $this->validate([
-            'card' => 'image|max:1024|mimes:jpeg,jpg,png',
-        ]);
+	public function updateBanner(): void
+	{
+		$this->validate([
+			'banner' => 'image|max:1024|mimes:jpeg,jpg,png',
+		]);
+	}
 
-        // File is an image that is < 10mb
-    }
+	public function updateCard(): void
+	{
+		$this->validate([
+			'card' => 'image|max:1024|mimes:jpeg,jpg,png',
+		]);
 
-    public function render()
-    {
-        return view('livewire.event.create-event');
-    }
+		// File is an image that is < 10mb
+	}
 
-    //termianr el form de event vovler a intalar spatie
+	public function render()
+	{
+		return view('livewire.event.create-event');
+	}
+
+	//termianr el form de event vovler a intalar spatie
 }
