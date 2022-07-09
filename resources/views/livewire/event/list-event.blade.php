@@ -3,10 +3,10 @@
         {{ __($label_plural) }}
     </x-slot>
     <div>
-        <x-list-data :data="$data" :fields="['Nombre - Tipo', 'Compras de Tickets', 'Sessiones','Tipos Tickets', 'Activo']">
+        <x-list-data :data="$data" :fields="['Nombre - Tipo', 'Compras de Tickets', 'Sessiones', 'Tipos Tickets', 'Activo']">
 
             <x-slot name="component_create">
-                @livewire('event.create-event',['label'=>$label,'label_plural'=>$label_plural])
+                @livewire('event.create-event', ['label' => $label, 'label_plural' => $label_plural])
             </x-slot>
 
             <x-slot name="table_body">
@@ -24,23 +24,23 @@
                         <td class="px-6 py-3 text-xs text-gray-500">
                             <div>
                                 Cancelados:
-                                {{ $item->payments->where('type', \App\Enums\PaymentStatus::CANCELED->value)->count() }}
+                                {{ $item->payments->where('status', \App\Enums\PaymentStatus::CANCELED)->count() }}
                             </div>
                             <div>
                                 Exitosos:
-                                {{ $item->payments->where('type', \App\Enums\PaymentStatus::REFUNDED->value)->count() }}
+                                {{ $item->payments->where('status', \App\Enums\PaymentStatus::SUCCESSFUL)->count() }}
                             </div>
                             <div>
                                 Reembolsados:
-                                {{ $item->payments->where('type', \App\Enums\PaymentStatus::SUCCESSFUL->value)->count() }}
+                                {{ $item->payments->where('status', \App\Enums\PaymentStatus::REFUNDED)->count() }}
                             </div>
                         </td>
 
                         <td class="px-6 py-3">
-                            {{$item->sessions->count()}}
+                            {{ $item->sessions->count() }}
                         </td>
                         <td class="px-6 py-3">
-                            {{$item->ticket_types->count()}}
+                            {{ $item->ticket_types->count() }}
                         </td>
 
                         <td class="px-6 py-3">
@@ -59,7 +59,7 @@
                                 <a class="font-medium text-orange-600 hover:text-green-900"
                                     href="{{ route('dashboard.sessions', $item->id) }}">Sesiones</a>
 
-                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
+                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
                                     x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Editar</a>
 
 

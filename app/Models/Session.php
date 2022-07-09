@@ -13,7 +13,7 @@ class Session extends Model
     use HasFactory;
 
     protected $casts = [
-        'date' => 'datetime:Y-m-d',
+        'date' => 'datetime:Y-m-d H:i',
     ];
 
     /**

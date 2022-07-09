@@ -27,7 +27,7 @@ class ListEvent extends Component
             ->with('category', 'payments')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
-
+		
         return view('livewire.event.list-event', [
             'data' => $data,
             'label' => $this->label,

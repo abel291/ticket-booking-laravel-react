@@ -1,11 +1,13 @@
 @props(['date', 'ref'])
 <div>
 
-    <div x-data x-init="flatpickr($refs.{{ $ref }}, {
+    <div x-data x-init="
+	
+	flatpickr($refs.{{ $ref }}, {
         altInput: true,
-        altFormat: 'j F Y',
-        dateFormat: 'Y-m-d',
-        //minDate: 'today',        
+        altFormat: 'j F Y G:i K',
+        enableTime: true,
+		time_24hr: false,    	         
         defaultDate: '{{ $date }}'
     })">
 

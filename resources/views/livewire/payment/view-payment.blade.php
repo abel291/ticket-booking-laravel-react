@@ -35,9 +35,14 @@
                     </div>
                 </div>
                 <div>
-                    @if ($payment->status != \App\Enums\PaymentStatus::REFUNDED)
+					
+                    @if (
+						$payment->status == \App\Enums\PaymentStatus::SUCCESSFUL || (
+						$payment->status == \App\Enums\PaymentStatus::CANCELED && $payment->total >0)
+					) 
                         <x-danger-button x-data class="ml-3" x-on:click="$dispatch('open-modal-confirmation-delete')">
-                            {{ $payment->status != \App\Enums\PaymentStatus::SUCCESSFUL ? 'Rembolsar' : 'Cancelar' }} pago
+                            {{ $payment->status != \App\Enums\PaymentStatus::SUCCESSFUL ? 'Reembolsar' : 'Cancelar' }}
+                            Boleto
                         </x-danger-button>
                     @endif
                 </div>
@@ -49,9 +54,7 @@
                             <th class="px-4 py-2 bg-gray-100 text-heading font-semibold text-left">
                                 Tickets
                             </th>
-                            <th class="px-4 py-2 bg-gray-100 text-heading font-semibold text-left">
-                                Fechas
-                            </th>
+
                             <th class="px-4 py-2 bg-gray-100 text-heading font-semibold text-left">
                                 Monto
                             </th>
@@ -61,10 +64,7 @@
                         @foreach ($payment->tickets as $ticket)
                             <tr>
                                 <td class="px-4 py-2 text-left">
-                                    {{ $ticket->quantity }} x {{ $ticket->ticket_type->name }}
-                                </td>
-                                <td class="px-4 py-2 text-left">
-                                    {{ $ticket->session }}
+                                    {{ $ticket->quantity }} x {{ $ticket->name }}
                                 </td>
                                 <td class="px-4 py-2 text-left">
                                     <x-money amount="{{ $ticket->total }}" currency="USD" convert />
@@ -73,7 +73,7 @@
                         @endforeach
 
                         <tr class="font-semibold italic bg-gray-100">
-                            <td class="px-4 py-2 text-left " colspan="2">Subtotal</td>
+                            <td class="px-4 py-2 text-left ">Subtotal</td>
                             <td class="px-4 py-2 text-left">
                                 <x-money amount="{{ $payment->sub_total }}" currency="USD" convert />
                             </td>
@@ -81,7 +81,7 @@
 
                         @if ($payment->promotion_data)
                             <tr class="font-semibold italic text-green-600">
-                                <td class="px-4 py-2 text-left" colspan="2">Descuento</td>
+                                <td class="px-4 py-2 text-left">Descuento</td>
                                 <td class="px-4 py-2 text-left">
                                     -
                                     <x-money amount="{{ $payment->promotion_data->applied }}" currency="USD"
@@ -105,7 +105,7 @@
                             </td>
                         </tr> --}}
                         <tr class="font-bold  text-lg bg-gray-100">
-                            <td class="px-4 py-2 text-left " colspan="2">Total</td>
+                            <td class="px-4 py-2 text-left ">Total</td>
                             <td class="px-4 py-2 text-left">
                                 <x-money amount="{{ $payment->total }}" currency="USD" convert />
                             </td>
@@ -115,8 +115,8 @@
             </div>
             <div class="mt-6 text-right">
 
-                <a href="{{route('dashboard.payments')}}">
-                    <x-secondary-button >
+                <a href="{{ route('dashboard.payments') }}">
+                    <x-secondary-button>
                         volver
                     </x-secondary-button>
                 </a>
@@ -127,7 +127,7 @@
         <!--Modal confirmation delete-->
         <div>
             <div x-data="{
-                show: @entangle('open_modal_confirmation').defer,                
+                show: @entangle('open_modal_confirmation').defer,
             }" @open-modal-confirmation-delete.window="show = true">
 
                 <x-modal>
@@ -139,16 +139,21 @@
                         <p class="mb-2">
                             ¿Estás seguro de que deseas Cancelar este PAGO?
                         </p>
-                        <div class="flex items-center">
-                            <input type="checkbox" id="refund" class="mr-3 text-red-500 focus:ring-red-500 rounded"
-                                wire:model.defer="refund_checkbox">
-                            <label for="refund">
-                                Rembolsar dinero
-                                <span class="text-green-600 font-medium">
-                                    <x-money amount="{{ $payment->total }}" currency="USD" convert />
-                                </span>
-                            </label>
-                        </div>
+                        @if ($payment->total > 0)
+                            <div class="flex items-center">
+                                <input type="checkbox" id="refund"
+                                    class="mr-3 text-red-500 focus:ring-red-500 rounded"
+                                    wire:model.defer="refund_checkbox">
+
+                                <label for="refund">
+                                    Rembolsar dinero
+                                    <span class="text-green-600 font-medium">
+                                        <x-money amount="{{ $payment->total }}" currency="USD" convert />
+                                    </span>
+                                </label>
+
+                            </div>
+                        @endif
                     </x-slot>
 
                     <x-slot name="footer">
@@ -156,7 +161,7 @@
                             cancelar
                         </x-secondary-button>
 
-                        <x-danger-button class="ml-2" x-on:click="$wire.delete({{$payment->id}})"
+                        <x-danger-button class="ml-2" x-on:click="$wire.delete({{ $payment->id }})"
                             wire:loading.attr="disabled">
                             <span wire:loading.class="hidden" wire:target="delete">Cancelar Pago</span>
                             <span wire:loading wire:target="delete"> Cancelando... </span>

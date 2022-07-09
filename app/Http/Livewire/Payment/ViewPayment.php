@@ -22,7 +22,7 @@ class ViewPayment extends Component
 
     public function mount(Payment $payment)
     {
-        $payment->load('event', 'user');
+        $payment->load('event','tickets' ,'user');
         $this->payment = $payment;
     }
 
