@@ -37,13 +37,13 @@
                                 <div wire.key="banner">
                                     <span class="block font-medium text-sm text-gray-700">Banner</span>
                                     
-                                    <x-form.image :image="$event->getFirstMediaUrl('banner')" wire:model="banner" />
+                                    <x-form.image :image="'/storage'.$event->banner" wire:model="banner" />
                                     <x-form.input-error for="banner" />
                                 </div>
                                 <div wire.key="card">
                                     <span class="block font-medium text-sm text-gray-700">Card</span>
                                     
-                                    <x-form.image :image="$event->getFirstMediaUrl('card')" wire:model="card" />
+                                    <x-form.image :image="'/storage'.$event->card" wire:model="card" />
                                     <x-form.input-error for="card" />
                                 </div>
 

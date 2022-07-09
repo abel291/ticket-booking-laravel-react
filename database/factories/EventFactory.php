@@ -27,7 +27,7 @@ class EventFactory extends Factory
             'desc_min' => $this->faker->text(250),
             'desc_max' => $this->faker->text(500),
             'card' => '/img/events/img-'.rand(1, 20).'.jpg',
-            'thumb' => '/img/events/img-'.rand(1, 20).'.jpg',
+            //'thumb' => '/img/events/img-'.rand(1, 20).'.jpg',
             'banner' => '/img/events/banners/carousel-'.rand(1, 9).'.jpg',
             'ceo_title' => $this->faker->words(3, true),
             'ceo_desc' => $this->faker->sentence(),
