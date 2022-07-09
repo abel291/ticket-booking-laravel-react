@@ -13,7 +13,7 @@ class Session extends Model
     use HasFactory;
 
     protected $casts = [
-        //'date' => 'datetime:Y-m-d',
+        'date' => 'datetime:Y-m-d',
     ];
 
     /**
@@ -45,8 +45,12 @@ class Session extends Model
         return $this->belongsToMany(TicketType::class)->withPivot('remaining', 'quantity')->wherePivot('remaining', '>', 0);
     }
 
-    protected static function booted()
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new ActiveScope);
+    // }
+	public function scopeActive($query)
     {
-        static::addGlobalScope(new ActiveScope);
+        $query->where('active', 1);
     }
 }

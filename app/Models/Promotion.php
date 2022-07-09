@@ -39,8 +39,12 @@ class Promotion extends Model
         return  $this->hasMany(Payment::class);
     }
 
-    protected static function booted()
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new ActiveScope);
+    // }
+	public function scopeActive($query)
     {
-        static::addGlobalScope(new ActiveScope);
+        $query->where('active', 1);
     }
 }

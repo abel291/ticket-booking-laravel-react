@@ -10,34 +10,33 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Category extends Model
 {
-    use HasFactory;
-    use HasEagerLimit;
+	use HasFactory;
+	use HasEagerLimit;
 
-    protected $attributes = [
-        'active' => 0,
-    ];
+	protected $attributes = [
+		'active' => 0,
+	];
 
-    protected $cats = [
-        'type' => CategoryType::class,
-    ];
+	protected $casts = [
+		'type' => CategoryType::class,
+	];
 
-    public function posts()
-    {
-        return $this->belongsToMany(Blog::class);
-    }
+	public function posts()
+	{
+		return $this->belongsToMany(Blog::class);
+	}
 
-    public function events()
-    {
-        return $this->hasMany(Event::class);
-    }
-
-    protected static function booted()
-    {
-        static::addGlobalScope(new ActiveScope);
-    }
-
-    public function scopeTypeEvent($query)
-    {
-        $query->where('type', CategoryType::EVENT);
-    }
+	public function events()
+	{
+		return $this->hasMany(Event::class);
+	}
+	
+	public function scopeTypeEvent($query)
+	{
+		$query->where('type', CategoryType::EVENT);
+	}
+	public function scopeActive($query)
+	{
+		$query->where('active', 1);
+	}
 }
