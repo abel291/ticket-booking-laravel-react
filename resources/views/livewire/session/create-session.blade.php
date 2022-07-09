@@ -16,19 +16,11 @@
                     <div>
                         <x-form.label class="block">Fecha</x-form.label>
                         <div>
-                            <x-form.input-date :ref="'session_date'" :date="$session->date->format('Y-m-d')" type="text" required
+                            <x-form.input-date :ref="'session_date'" :date="$session->date" type="text" required
                                 class="w-full" wire:model.defer="session.date" />
                             <x-form.input-error for="session.date" />
                         </div>
-                    </div>
-                    <div>
-                        <x-form.label class="block">Hora</x-form.label>
-                        <div>
-                            <x-form.input-time :ref="'session_time'" :time="$session->time" type="text" required
-                                class="w-full" wire:model.defer="session.time" />
-                            <x-form.input-error for="session.time" />
-                        </div>
-                    </div>
+                    </div>                   
 
                     <div>
                         <x-form.label class="block">Activo</x-form.label>

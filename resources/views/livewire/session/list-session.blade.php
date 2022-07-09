@@ -3,24 +3,20 @@
         {{ $label_plural }}
     </x-slot>
 
-    <div class="inline-flex gap-4 items-start">
+    <div class="flex gap-2 ">
 
-        <img class="w-40 rounded " src="{{ $event->card }}" alt="">
-        <div class="inline-grid grid-cols-2 gap-4">
-            <table>
-                <tr>
-                    <td class="font-medium pr-3">Evento:</td>
-                    <td><span class="">{{ $event->name }}</span></td>
-                </tr>
-            </table>
+        <img class="w-40 rounded " src="/storage{{ $event->card }}" alt="">
+        <div class="flex gap-2">
+            <span class="font-medium">Evento:</span>
+            <span><span class="">{{ $event->title }}</span></span>
         </div>
     </div>
 
     <div class="mt-6">
-        <x-list-data :data="$data" :fields="['Fecha','Activo']">
+        <x-list-data :data="$data" :fields="['Fecha', 'Activo']">
 
             <x-slot name="component_create">
-                @livewire('session.create-session',['event_id'=>$event->id,'label'=>$label,'label_plural'=>$label_plural])
+                @livewire('session.create-session', ['event_id' => $event->id, 'label' => $label, 'label_plural' => $label_plural])
             </x-slot>
 
             <x-slot name="table_body">
@@ -29,7 +25,7 @@
 
                         <td class="px-6 py-3 ">
                             <div class="font-medium text-gray-900 capitalize">
-                                {{ $item->date->isoFormat('MMMM  DD , YYYY  hh:mm a') }}
+                                <x-table.date :date="$item->date" />
                             </div>
                         </td>
 
