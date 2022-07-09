@@ -4,6 +4,8 @@ namespace App\Http\Livewire\TicketType;
 
 use App\Http\Traits\WithSorting;
 use App\Models\Event;
+use App\Models\TicketType;
+use App\Scopes\ActiveScope;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -31,10 +33,9 @@ class ListTicketType extends Component
     public function render()
     {
         $ticket_types = $this->event->ticket_types()->paginate(20);
-
+		
         return view('livewire.ticket-type.list-ticket-type', [
             'data' => $ticket_types,
-
         ]);
     }
 }

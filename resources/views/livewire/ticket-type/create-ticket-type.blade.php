@@ -51,8 +51,8 @@
                             <x-form.select required type="number" class="w-full"
                                 wire:model.defer="ticket_type.type">
                                 <option>Selecione un tipo de Boleto </option>
-                                <option value="{{ \App\Enums\TicketTypes::FREE->value }}">Gratis</option>
-                                <option value="{{ \App\Enums\TicketTypes::PAID->value }}">de Pago</option>
+                                <option value="{{ \App\Enums\TicketTypesEnum::FREE->value }}">Gratis</option>
+                                <option value="{{ \App\Enums\TicketTypesEnum::PAID->value }}">de Pago</option>
                             </x-form.select>
                             <x-form.input-error for="ticket_type.type" />
                         </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\TicketType;
 
-use App\Enums\TicketTypes;
+use App\Enums\TicketTypesEnum;
 use App\Models\TicketType;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
@@ -26,7 +26,7 @@ class CreateTicketType extends Component
         $rules = [
             'ticket_type.name' => 'required|string|max:255',
             'ticket_type.quantity' => 'required|integer|min:1',
-            'ticket_type.type' => new Enum(TicketTypes::class),
+            'ticket_type.type' => new Enum(TicketTypesEnum::class),
             'ticket_type.price' => 'required|integer|min:0',
             'ticket_type.default' => 'required|boolean',
             'ticket_type.desc' => 'required|string|max:255',
@@ -77,6 +77,7 @@ class CreateTicketType extends Component
     {
         $this->validate();
         $ticket_type = $this->ticket_type;
+		//$ticket_type->active=0;
         $ticket_type->save();
 
         $this->dispatchBrowserEvent('notification', [

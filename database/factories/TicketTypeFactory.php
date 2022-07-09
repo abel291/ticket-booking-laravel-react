@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\TicketTypes;
+use App\Enums\TicketTypesEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +17,7 @@ class TicketTypeFactory extends Factory
      */
     public function definition()
     {
-        $type = $this->faker->randomElement([TicketTypes::FREE->value, TicketTypes::PAID->value]);
+        $type = $this->faker->randomElement([TicketTypesEnum::FREE->value, TicketTypesEnum::PAID->value]);
         $price = $type == 'free' ? 0 : rand(1, 15);
 
         return [
