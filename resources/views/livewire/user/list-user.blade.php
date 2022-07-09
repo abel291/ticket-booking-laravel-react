@@ -37,10 +37,10 @@
                         </td>
                         <td class="px-6 py-3  text-right font-medium whitespace-nowrap">
                             <button class="font-medium text-indigo-600 hover:text-indigo-900" x-data="{ id: {{ $item->id }} }"
-                                x-on:click="$dispatch('open-modal-edit',id)">Edit</button>
+                                x-on:click="$dispatch('open-modal-edit',id)">Editar</button>
 
                             <a href="#" class="font-medium text-red-600 hover:text-red-900 ml-3 " x-data="{ id: {{ $item->id }} }"
-                                x-on:click="$dispatch('open-modal-confirmation-delete',id)">Delete</a>
+                                x-on:click="$dispatch('open-modal-confirmation-delete',id)">Eliminar</a>
                         </td>
                     </tr>
                 @endforeach
