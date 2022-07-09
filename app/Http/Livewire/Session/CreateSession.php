@@ -23,7 +23,6 @@ class CreateSession extends Component
     {
         $rules = [
             'session.date' => 'required|date_format:"Y-m-d"',
-            'session.time' => 'required|date_format:"h:i A"',
             'session.active' => 'required|boolean',
             'event_id' => 'required|exists:App\Models\Event,id',
         ];

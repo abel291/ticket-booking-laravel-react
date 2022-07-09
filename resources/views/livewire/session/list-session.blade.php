@@ -5,7 +5,7 @@
 
     <div class="inline-flex gap-4 items-start">
 
-        <img class="w-40 rounded " src="{{ $event->getFirstMediaUrl('card') }}" alt="">
+        <img class="w-40 rounded " src="{{ $event->card }}" alt="">
         <div class="inline-grid grid-cols-2 gap-4">
             <table>
                 <tr>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="mt-6">
-        <x-list-data :data="$data" :fields="['Fecha ', 'Hora', 'Activo']">
+        <x-list-data :data="$data" :fields="['Fecha','Activo']">
 
             <x-slot name="component_create">
                 @livewire('session.create-session',['event_id'=>$event->id,'label'=>$label,'label_plural'=>$label_plural])
@@ -29,12 +29,8 @@
 
                         <td class="px-6 py-3 ">
                             <div class="font-medium text-gray-900 capitalize">
-                                {{ $item->date->isoFormat('MMMM  DD , YYYY') }}
+                                {{ $item->date->isoFormat('MMMM  DD , YYYY  hh:mm a') }}
                             </div>
-                        </td>
-
-                        <td class="px-6 py-3">
-                            {{ $item->time }}
                         </td>
 
                         <td class="px-6 py-3">
@@ -47,10 +43,10 @@
 
                         <td class="px-6 py-3  text-right font-medium whitespace-nowrap">
                             <a x-data href="#" class="font-medium text-indigo-600 hover:text-indigo-900"
-                                x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Edit</a>
+                                x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Editar</a>
 
                             <a x-data href="#" class="font-medium text-red-600 hover:text-red-900 ml-3 "
-                                x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }});console.log({{ $item->id }})">Delete</a>
+                                x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }});console.log({{ $item->id }})">Eliminar</a>
                         </td>
                     </tr>
                 @endforeach
