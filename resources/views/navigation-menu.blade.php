@@ -1,7 +1,8 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-end h-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between h-16 items-center">
+			<a href="/" class="text-sm text-blue-400" target="_blank">Ver Sitio</a>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 
                 <div class="ml-3 relative">

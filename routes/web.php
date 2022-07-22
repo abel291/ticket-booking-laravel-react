@@ -42,7 +42,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/events', [EventController::class, 'events'])->name('events');
 
-Route::get('/event/{event:slug}', [EventController::class, 'event_details'])->name('event');
+Route::get('/event/{slug}', [EventController::class, 'event_details'])->name('event');
 
 Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
 
@@ -73,6 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
 
     Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
+	
 
     //Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });

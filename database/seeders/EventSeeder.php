@@ -32,7 +32,7 @@ class EventSeeder extends Seeder
         $formats = Format::get();
 
         foreach (Category::where('type',CategoryType::EVENT)->get() as $category) { //category -> 14
-            Event::factory(100)
+            Event::factory(5)
                 ->hasImages(5)
                 ->hasSessions(8)
                 ->hasSpeakers(8)

@@ -28,7 +28,7 @@ class PaymentResource extends JsonResource
             'total' => $this->total,
             'created_at' => $this->created_at,
             'canceled_at' => $this->canceled_at,
-            'tickets' => TicketResource::collection($this->whenLoaded('tickets')),
+            'tickets' => TicketPaymentResource::collection($this->whenLoaded('tickets')),
         ];
     }
 }

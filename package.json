@@ -39,6 +39,7 @@
         "fslightbox-react": "^1.6.2-2",
         "react-countdown": "^2.3.2",
         "react-flatpickr": "^3.10.12",
+        "react-hot-toast": "^2.2.0",
         "react-icons": "^4.3.1",
         "react-responsive-masonry": "^2.1.4",
         "swiper": "^8.0.6",

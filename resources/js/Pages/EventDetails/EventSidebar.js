@@ -2,7 +2,7 @@ import { formatCurrency, formatDate } from "@/Helpers/Helpers";
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
-const EventSidebar = ({ sessions, location, ticket_types, slug }) => {
+const EventSidebar = ({ sessions, location, ticket_types }) => {
     return (
         <div className="space-y-10">
 
@@ -61,18 +61,7 @@ const EventSidebar = ({ sessions, location, ticket_types, slug }) => {
                         <div className="block ">{location.phone}</div>
                     </div>
                 </div>
-            </CardSideBar>
-
-            <div>
-                <Link
-                    className="btn bg-gradient-red-invert"
-                    href={route("checkout", {
-                        slug: slug,
-                    })}
-                >
-                    RESERVAR ENTRADAS
-                </Link>
-            </div>
+            </CardSideBar>            
         </div>
     );
 };

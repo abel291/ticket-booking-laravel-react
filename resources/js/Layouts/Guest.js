@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/inertia-react";
 export default function Guest({ children }) {
     return (
         <div className="flex min-h-screen flex-col items-center bg-dark-blue-900 pt-6 sm:justify-center sm:pt-0">
+			
             <div>
                 <Link href="/">
                     <ApplicationLogo className="text-4xl text-white" />

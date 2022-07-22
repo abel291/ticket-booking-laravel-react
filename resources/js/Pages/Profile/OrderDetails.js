@@ -115,7 +115,7 @@ const OrderDetails = ({ orderDetails }) => {
 									{item.quantity} x {item.name}
 								</td>
 								<td className="p-3">
-									{formatCurrency(item.total)}
+									{formatCurrency(item.price_quantity)}
 								</td>
 							</tr>
 						))}

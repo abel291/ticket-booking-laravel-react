@@ -29,7 +29,6 @@ const PaymentOption = ({ data }) => {
 			return;
 		}
 
-
 		if (elements == null) {
 			return;
 		}
@@ -41,7 +40,7 @@ const PaymentOption = ({ data }) => {
 				name: nameCreditCard.current.value,
 			},
 		});
-		
+
 		if (error) {
 			setLoading(false);
 			if (error.type === "validation_error") {
@@ -51,13 +50,13 @@ const PaymentOption = ({ data }) => {
 			}
 		} else {
 			setPaymentMethod(paymentMethod.id);
-			fetchPayment(paymentMethod.id)
+			fetchPayment({ ...data, paymentMethod: paymentMethod.id })
 		}
 	};
 
-	const fetchPayment = (dataPayment,paymentMethod = null) => {
+	const fetchPayment = (data) => {
 
-		Inertia.post(route("payment"), { ...dataPayment, paymentMethod },
+		Inertia.post(route("payment"), data,
 			{
 				preserveScroll: true,
 				replace: true,
@@ -65,7 +64,7 @@ const PaymentOption = ({ data }) => {
 				onStart: visit => { setLoading(true) },
 				onFinish: visit => { setLoading(false) },
 			});
-			
+
 	}
 
 	const options = {

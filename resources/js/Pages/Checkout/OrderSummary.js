@@ -5,8 +5,8 @@ import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
-const OrderSummary = ({ data, event, session_selected, summary }) => {
-
+const OrderSummary = ({ data, event, summary,tickets_selected }) => {
+	console.log(summary);
 	const [loading, setLoading] = useState(false);
 
 	// const handleSubmit = (e) => {
@@ -35,13 +35,13 @@ const OrderSummary = ({ data, event, session_selected, summary }) => {
 				<div>
 					<Tilte>Fecha</Tilte>
 					<SubTitle className="mt-2">
-						{formatDate(session_selected)}
+						{formatDate(data.date)}
 					</SubTitle>
 				</div>
 
 				<div>
 					<Tilte>Boletos</Tilte>
-					{summary.ticket_selected.map((item, key) => (
+					{tickets_selected.map((item, key) => (
 						<SubTitle className="mt-2" key={item.name}>
 							<div className="flex justify-between gap-3">
 								<div>
@@ -64,10 +64,10 @@ const OrderSummary = ({ data, event, session_selected, summary }) => {
 						<div>Tarifa {summary.fee_porcent * 100}%</div>
 						<div>{formatCurrency(summary.fee)}</div>
 					</div>
-					{summary.promotion && (
+					{summary.discount > 0 && (
 						<div className="mt-1 flex justify-between gap-3 text-emerald-600">
-							<div>Descuento ({summary.promotion.code}) </div>
-							<div>-{formatCurrency(summary.promotion.applied)}</div>
+							<div>Descuento  </div>
+							<div>-{formatCurrency(summary.discount)}</div>
 						</div>
 					)}
 				</SubTitle>

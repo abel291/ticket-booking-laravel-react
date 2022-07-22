@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Payment;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Services\CheckoutService;
 use Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -29,42 +30,48 @@ class PaymentSeeder extends Seeder
 		$faker = Faker\Factory::create();
 
 		foreach ($events as $event) {
-			for ($i = 0; $i < 50; $i++) {
+			for ($i = 0; $i < 10; $i++) {
 				# code...
 
-				$session = $event->sessions_available->random();
+				$session_selected = $event->sessions_available->random();
 
-				$tickets = $session->ticket_types_available;
+				$tickets = $session_selected->ticket_types_available;
 
-				// for ($i = 0; $i < rand(1, 2); $i++) {
-				// 	$tickets_quantity[$tickets->random()->id] = rand(1, 10);
-				// }
-				$tickets_quantity=[];
+				$tickets_quantity = [];
 				$tickets_quantity[$tickets->random()->id] = rand(1, 10);
 
-				$tickets_selected = Checkout::tickets_quantity_selected(
+				$promotion = $event->promotions_available->random();
+
+				$tickets_selected = CheckoutService::tickets_quantity_selected(
 					$tickets,
 					$tickets_quantity
 				);
+		
+				$summary = CheckoutService::summary(
+					sub_total: $tickets_selected->sum('price_quantity'),
+					promotion_selected: $promotion
+				);
 				
-				$promotion = $event->promotions_available->random();
-
-				$summary = Checkout::summary($tickets_selected, $promotion);
 
 				$payment = new Payment();
 				$payment->code = rand(1000, 9999) . date('md') . $user->id;
-				$payment->session = $session->date;
+				$payment->session = $session_selected->date;
 				$payment->quantity = $tickets_selected->sum('quantity_selected');
 				$payment->status = PaymentStatus::SUCCESSFUL;
 
-				//amount
+				//amount				
 				$payment->fee = $summary['fee'];
 				$payment->fee_porcent = $summary['fee_porcent'];
 				$payment->sub_total = $summary['sub_total'];
 				$payment->total = $summary['total'];
 
 				//json
-				$payment->promotion_data = $summary['promotion'];
+				$payment->promotion_data = [
+					'code' => $promotion->code,
+					'value' => $promotion->value,
+					'type' => $promotion->type,
+					'applied' => $summary['discount'],
+				];
 				$payment->event_data = [
 					'title' => $event->title,
 					'duration' => $event->duration,
@@ -75,24 +82,24 @@ class PaymentSeeder extends Seeder
 
 				//relationships
 				$payment->event_id = $event->id;
-				$payment->session_id = $session->id;
+				$payment->session_id = $session_selected->id;
 				$payment->user_id = $user->id;
 				$payment->stripe_id = Str::random();
 				$payment->promotion_id = $promotion->id;
 				$payment->save();
-
-				$tickets = [];
+				
+				$tickets_payments = [];
 				foreach ($tickets_selected as $key => $item) {
-					$tickets[$key] = [
+					$tickets_payments[$key] = [
 						'name' => $item->name,
 						'price' => $item->price,
 						'quantity' => $item->quantity_selected,
-						'total' => $item->price_quantity,
+						'price_quantity' => $item->price_quantity,
 						'ticket_type_id' => $item->id,
 					];
 				}
 				
-				$payment->tickets()->createMany($tickets);
+				$payment->tickets()->createMany($tickets_payments );
 			}
 		}
 	}

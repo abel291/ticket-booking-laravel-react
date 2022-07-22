@@ -15,8 +15,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import ValidationErrors from "@/Components/ValidationErrors";
 import ItemsLoading from "@/Components/ItemsLoading";
 import BannerHero from "@/Components/BannerHero";
-const Checkout = ({ event, sessions, tickets, filters, summary }) => {
-
+const Checkout = ({ event, sessions, tickets, filters, summary, tickets_selected }) => {
+	console.log(tickets_selected);
 	const { auth, errors } = usePage().props
 
 	const [loading, setLoading] = useState(false)
@@ -75,9 +75,8 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 							<ContactDetails data={data} setData={setData} />
 
 							<Elements stripe={stripePromise} >
-								<PaymentOption data={data}/>
+								<PaymentOption data={data} />
 							</Elements>
-
 						</div>
 					</div>
 
@@ -86,9 +85,9 @@ const Checkout = ({ event, sessions, tickets, filters, summary }) => {
 							<ItemsLoading loading={loading}>
 								<OrderSummary
 									event={event}
-									session_selected={data.date}
 									summary={summary}
 									data={data}
+									tickets_selected={tickets_selected}
 								/>
 							</ItemsLoading>
 							{summary.total ? (

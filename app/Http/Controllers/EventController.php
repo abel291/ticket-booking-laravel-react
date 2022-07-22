@@ -34,7 +34,7 @@ class EventController extends Controller
 
         if ($request->formats && array_filter($request->formats)) {
             $events->whereHas('format', function (Builder $query) use ($request) {
-                $query->whereIn('slug', $request->formats);
+                $query->whereIn('slug', $request->formats)->active();
             });
         }
 
@@ -101,10 +101,13 @@ class EventController extends Controller
         ]);
     }
 
-    public function event_details(Event $event)
-    {
-        $event->load(['location', 'session', 'sessions', 'ticket_types', 'speakers', 'images']);
-        //dd($event->images);
+    public function event_details(Request $request)
+    {	
+		
+        $event = Event::where('slug',$request->slug)->active()->with(['location', 'session','sessions', 'ticket_types', 'speakers', 'images'])->firstOrFail();
+
+		
+		
         return Inertia::render('EventDetails/EventDetails', [
             'event' => new EventResource($event),
         ]);

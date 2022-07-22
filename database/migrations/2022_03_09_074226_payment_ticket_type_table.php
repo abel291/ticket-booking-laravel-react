@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedFloat('price');
             $table->unsignedInteger('quantity');
-            $table->unsignedFloat('total');
+            $table->unsignedFloat('price_quantity');
             // $table->foreignId('payment_id')->constrained()->cascadeOnDelete();
             // $table->foreignId('ticket_type_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

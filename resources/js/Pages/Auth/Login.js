@@ -51,6 +51,11 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-3 text-3xl font-bold">
                     BIENVENIDO DE NUEVO
                 </div>
+				<div className="text-left text-sm mt-4 font-medium text-gray-300">
+					<span className="block">admin: user@user.com</span>
+					<span className="block">invitado: user2@user.com</span>
+					<span className="block">contraseña : password</span>
+				</div>
             </div>
             <form onSubmit={submit} className="mt-9 ">
                 <div>

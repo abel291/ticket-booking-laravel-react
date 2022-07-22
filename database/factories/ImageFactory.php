@@ -19,7 +19,7 @@ class ImageFactory extends Factory
         return [
             'alt' => $this->faker->sentence(3),
             'title' => $this->faker->sentence(3),
-            'img' => '/img/images/img-'.rand(1, 9).'.jpg',
+            'img' => '/img/images/img-'.rand(1, 8).'.jpg',
         ];
     }
 }
