@@ -27,6 +27,48 @@ class CheckoutController extends Controller
 			return back()->withErrors(['message' => "Este evento no tiene fechas disponibles"]);
 		}
 
+		// if ($request->date) {
+		// 	$session_selected = $event->sessions_available->firstWhere('date', $request->date);
+		// } else {
+		// 	$session_selected = $event->sessions_available->first();
+		// }
+
+		// $tickets = $session_selected->ticket_types_available;
+
+		// if ($request->code_promotion) {
+		// 	$promotion_selected = $event->promotions_available->firstWhere('code', $request->code_promotion);
+		// } else {
+		// 	$promotion_selected = null;
+		// }
+
+		// $tickets_selected = CheckoutService::tickets_quantity_selected(
+		// 	$tickets,
+		// 	$request->input('tickets_quantity',[])
+		// );
+
+		// $summary = CheckoutService::summary(
+		// 	sub_total: $tickets_selected->sum('price_quantity'),
+		// 	promotion_selected: $promotion_selected
+		// );
+		//dd($event->sessions_available);
+
+		return Inertia::render('Checkout/Checkout', [
+			'event' => new EventResource($event),
+			'sessions' => SessionResource::collection($event->sessions_available),
+			'fee_porcent' => config('fee.event'),
+
+		]);
+	}
+
+	public function checkout_payment(Request $request)
+	{
+		dd($request->all());
+		$event = Event::where('slug', $request->event_slug)->with('sessions_available', 'sessions_available.ticket_types_available')->active()->firstOrFail();
+		
+		if ($event->sessions_available->isEmpty()) {
+			return back()->withErrors(['message' => "Este evento no tiene fechas disponibles"]);
+		}
+
 		if ($request->date) {
 			$session_selected = $event->sessions_available->firstWhere('date', $request->date);
 		} else {
@@ -51,14 +93,15 @@ class CheckoutController extends Controller
 			promotion_selected: $promotion_selected
 		);
 
-		return Inertia::render('Checkout/Checkout', [
+		//dd($event->sessions_available);
+
+		return Inertia::render('Checkout/Payment', [
 			'event' => new EventResource($event),
-			'sessions' => SessionResource::collection($event->sessions_available),
-			'tickets' => TicketTypeResource::collection($tickets),
-			'filters' => $request->only('date', 'tickets_quantity', 'code_promotion'),
+			'session_selected' => SessionResource::collection($event->sessions_available),
+			'tickets_selected' => $tickets_selected,
 			'summary' => $summary,
-			'tickets_selected' => TicketPaymentResource::collection($tickets_selected),
-			'promotions' => $event->promotions_available, //temporal
+					
+
 		]);
 	}
 }

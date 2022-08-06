@@ -5,21 +5,8 @@ import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
-const OrderSummary = ({ data, event, summary,tickets_selected }) => {
-	console.log(summary);
-	const [loading, setLoading] = useState(false);
+const OrderSummary = ({ date, summary, event, tickets_selected }) => {
 
-	// const handleSubmit = (e) => {
-
-	// 	Inertia.post(route("payment_option"), { ...data },
-	// 		{
-	// 			preserveScroll: true,
-	// 			replace: true,
-	// 			preserveState: true,
-	// 			onStart: visit => { setLoading(true) },
-	// 			onFinish: visit => { setLoading(false) },
-	// 		});
-	// }
 	return (
 		<div className="divide-y divide-dashed divide-dark-blue-500 rounded border border-dark-blue-500 bg-dark-blue-700 p-7">
 			<div className="pb-6 text-center">
@@ -28,19 +15,19 @@ const OrderSummary = ({ data, event, summary,tickets_selected }) => {
 
 			<div className=" space-y-4 py-6 ">
 				<div>
-					<Tilte>Evento</Tilte>
+					<Title>Evento</Title>
 					<SubTitle className="mt-2">{event.title}</SubTitle>
 				</div>
 
 				<div>
-					<Tilte>Fecha</Tilte>
+					<Title>Fecha</Title>
 					<SubTitle className="mt-2">
-						{formatDate(data.date)}
+						{formatDate(date)}
 					</SubTitle>
 				</div>
 
 				<div>
-					<Tilte>Boletos</Tilte>
+					<Title>Boletos</Title>
 					{tickets_selected.map((item, key) => (
 						<SubTitle className="mt-2" key={item.name}>
 							<div className="flex justify-between gap-3">
@@ -64,36 +51,22 @@ const OrderSummary = ({ data, event, summary,tickets_selected }) => {
 						<div>Tarifa {summary.fee_porcent * 100}%</div>
 						<div>{formatCurrency(summary.fee)}</div>
 					</div>
-					{summary.discount > 0 && (
-						<div className="mt-1 flex justify-between gap-3 text-emerald-600">
-							<div>Descuento  </div>
-							<div>-{formatCurrency(summary.discount)}</div>
-						</div>
-					)}
 				</SubTitle>
-				<Tilte>
+				<Title>
 					<div className="mt-1 flex justify-between gap-3">
 						<div>Monto a Pagar</div>
 						<div>{formatCurrency(summary.total)}</div>
 					</div>
-				</Tilte>
+				</Title>
 
 			</div>
-			{/* <div>
-				<form onSubmit={handleSubmit}>
-					<Button className="w-full btn bg-gradient-red-invert relative disabled:opacity-50"
-						disabled={Object.keys(data.tickets_quantity).length === 0}
-						processing={loading}
-					>Proceder al Pago</Button>
-				</form>
 
-			</div> */}
 
 		</div>
 	);
 };
 
-const Tilte = ({ children }) => {
+const Title = ({ children }) => {
 	return (
 		<div className="text-lg font-medium uppercase text-white">
 			{children}

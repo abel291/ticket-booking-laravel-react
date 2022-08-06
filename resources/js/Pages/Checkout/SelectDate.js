@@ -6,10 +6,16 @@ import { usePage } from "@inertiajs/inertia-react";
 const SelectDate = ({ sessions, data, setData }) => {
 
 	const handleChangeSession = (e) => {
+		let session_selected = sessions.find((i) => i.date == e.target.value)
+
+		let tickets = session_selected.tickets.map((item) => {
+			item.quantity_selected = 0;
+			return item
+		})
 		setData({
 			...data,
-			date: e.target.value,
-			tickets_quantity: {}
+			date: session_selected.date,
+			tickets: tickets
 		})
 	};
 	return (

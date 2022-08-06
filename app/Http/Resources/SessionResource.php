@@ -17,7 +17,7 @@ class SessionResource extends JsonResource
         return [
             //'id' => $this->id,
             'date' => $this->date->format('Y-m-d H:i:s'),
-            'ticket_types' => TicketTypeResource::collection($this->whenLoaded('ticket_types')),
+            'tickets' => TicketTypeResource::collection($this->whenLoaded('ticket_types_available')),
             //'time' => $this->time,
 
         ];
