@@ -40,14 +40,14 @@ class Event extends Model
         return $this->hasOne(Session::class)->ofMany([
             'date' => 'min',
         ], function ($query) {
-            $query->where('date', '>=', now());
+            //$query->where('date', '>=', now());
         });
     }
 
     public function sessions_available()
     {
         return $this->hasMany(Session::class)
-            ->where('date', '>=', now())
+            //->where('date', '>=', now())
             ->where('active', 1)
             ->orderBy('date');
     }
@@ -83,7 +83,7 @@ class Event extends Model
     {
         return $this->belongsToMany(Promotion::class)
             ->where('active', true)
-            ->where('expired', '>', now())
+            //->where('expired', '>', now())
             ->wherePivot('remaining', '>', 0);
     }
 
