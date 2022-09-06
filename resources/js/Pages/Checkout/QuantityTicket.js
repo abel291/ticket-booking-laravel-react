@@ -5,33 +5,32 @@ import React from "react";
 import { formatCurrency } from "@/Helpers/Helpers";
 import Select from "@/Components/Select";
 
-const QuantityTicket = ({ data, setData }) => {
+const QuantityTicket = ({ tickets, data, setData }) => {
 
 	const handleChange = (e) => {
 		let id = e.target.name;
-
 		let quantity_selected = parseInt(e.target.value);
 
-		let new_tickets = [...data.tickets];
+		let new_tickets_quantity = { ...data.tickets_quantity };		
 
-		let item_selected = new_tickets.find((i) => i.id == id)
-
-		item_selected.quantity_selected = quantity_selected
-
-		// new_tickets_selected = new_tickets.filter(i = i.quantity_selected > 0)
-
+		if (quantity_selected > 0) {
+			new_tickets_quantity[id] = quantity_selected;
+		} else {
+			delete new_tickets_quantity[id];
+		}
+		
 		setData({
 			...data,
-			tickets: new_tickets
+			tickets_quantity: new_tickets_quantity
 		});
 	};
 
 	return (
 		<Card title="Tipos de entradas">
 			<div >
-				{data.tickets.map((item, key) => (
+				{tickets.map((item, key) => (
 					<div
-						key={item.id + data.session_selected}
+						key={item.id + data.date}
 						className="flex justify-between items-center gap-x-8 border-b border-dark-blue-400 py-4"
 					>
 						<div className="w-full">
@@ -49,7 +48,7 @@ const QuantityTicket = ({ data, setData }) => {
 						</div>
 						<div>
 							<select
-								value={item.quantity_selected || 0}
+								value={data.tickets_quantity[item.id] || 0}
 								onChange={handleChange}
 								name={item.id}
 								className="border border-dark-blue-400 bg-dark-blue-700"

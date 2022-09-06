@@ -49,61 +49,59 @@ Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
 Route::get('/privacy-policy', [PageController::class, 'privacy_policy'])->name('privacy_policy');
 
 Route::get('/terms-of-service', [PageController::class, 'terms_of_service'])
-	->name('terms_of_service');
+    ->name('terms_of_service');
 
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-	Route::controller(ProfileController::class)
-		->prefix('profile')
-		->name('profile.')
-		->group(function () {
-			Route::get('/my-account', 'my_account')->name('my_account');
-			Route::get('/account-details', 'account_details')->name('account_details');
-			Route::post('/account-details', 'store_account_details')->name('store_account_details');
-			Route::get('/my-orders', 'my_orders')->name('my_orders');
-			Route::get('/order-details/{code}', 'order_details')->name('order_details');
-			Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
-			Route::get('/order-cancel/{code}', 'cancel_order')->name('cancel_order');
-			Route::post('/order-cancel', 'store_cancel_order')->name('store_cancel_order');
-			Route::get('/change-password', 'change_password')->name('change_password');
-			Route::post('/change-password', 'store_change_password')->name('store_change_password');
-		});
+    Route::controller(ProfileController::class)
+        ->prefix('profile')
+        ->name('profile.')
+        ->group(function () {
+            Route::get('/my-account', 'my_account')->name('my_account');
+            Route::get('/account-details', 'account_details')->name('account_details');
+            Route::post('/account-details', 'store_account_details')->name('store_account_details');
+            Route::get('/my-orders', 'my_orders')->name('my_orders');
+            Route::get('/order-details/{code}', 'order_details')->name('order_details');
+            Route::get('/order-details/{code}/pdf', 'order_details_pdf')->name('order_details_pdf');
+            Route::get('/order-cancel/{code}', 'cancel_order')->name('cancel_order');
+            Route::post('/order-cancel', 'store_cancel_order')->name('store_cancel_order');
+            Route::get('/change-password', 'change_password')->name('change_password');
+            Route::post('/change-password', 'store_change_password')->name('store_change_password');
+        });
 
+    Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
 
-	Route::get('/checkout/{event:slug}', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 	
-	Route::get('/checkout_method_payment/{event:slug}', [CheckoutController::class, 'checkout_method_payment'])->name('checkout_method_payment');
 
-	Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
-
-	//Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
+    //Route::post('/payment', [PaymentController::class, 'payment'])->name('payment');
 });
 Route::get('/order-validate/{code}', function ($code) {
-	return 'Aquí se valida el ticket a través de la aplicación :D';
+    return 'Aquí se valida el ticket a través de la aplicación :D';
 })->name('order_validate');
 
 Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboard.')->group(function () {
-	Route::get('/', function () {
-		return view('dashboard');
-	})->name('home');
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('home');
 
-	Route::get('/users', ListUsers::class)->name('users');
-	Route::get('/categories', ListCategory::class)->name('categories');
-	Route::get('/locations', ListLocation::class)->name('locations');
-	Route::get('/promotions', ListPromotion::class)->name('promotions');
-	Route::get('/blog', ListBlog::class)->name('blog');
-	Route::get('/events', ListEvent::class)->name('events');
-	Route::get('/event/{event}/ticket-types', ListTicketType::class)->name('ticket-types');
-	Route::get('/event/{event}/sessions', ListSession::class)->name('sessions');
-	Route::get('/payments', ListPayment::class)->name('payments');
-	Route::get('/payments-view/{payment}', ViewPayment::class)->name('payments-view');
-	// Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
-	//Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
-	//Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');
+    Route::get('/users', ListUsers::class)->name('users');
+    Route::get('/categories', ListCategory::class)->name('categories');
+    Route::get('/locations', ListLocation::class)->name('locations');
+    Route::get('/promotions', ListPromotion::class)->name('promotions');
+    Route::get('/blog', ListBlog::class)->name('blog');
+    Route::get('/events', ListEvent::class)->name('events');
+    Route::get('/event/{event}/ticket-types', ListTicketType::class)->name('ticket-types');
+    Route::get('/event/{event}/sessions', ListSession::class)->name('sessions');
+    Route::get('/payments', ListPayment::class)->name('payments');
+    Route::get('/payments-view/{payment}', ViewPayment::class)->name('payments-view');
+    // Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
+    //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
+    //Route::get('/event/{id}/session', CreateEvent::class)->name('create-event');
 
-	//
-	//Route::get('/order', ListOrder::class)->name('order');
+    //
+    //Route::get('/order', ListOrder::class)->name('order');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

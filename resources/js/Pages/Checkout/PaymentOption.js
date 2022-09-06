@@ -5,7 +5,7 @@ import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 import ValidationErrors from '@/Components/ValidationErrors';
 import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Inertia } from "@inertiajs/inertia";
-import OrderSummary from "../OrderSummary";
+import OrderSummary from "./OrderSummary";
 
 const PaymentOption = ({ data }) => {
 

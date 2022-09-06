@@ -6,87 +6,52 @@ import QuantityTicket from "./QuantityTicket";
 import SelectDate from "./SelectDate";
 import { useState, useEffect, useRef } from "react";
 import { Inertia } from "@inertiajs/inertia";
-// import ContactDetails from "./ContactDetails";
-// import PromoCode from "./PromoCode";
-// import PaymentOption from "./PaymentOption";
-import { usePage } from "@inertiajs/inertia-react";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+import ContactDetails from "./ContactDetails";
+import PromoCode from "./PromoCode";
+import PaymentOption from "./PaymentOption";
+import { useForm, usePage } from "@inertiajs/inertia-react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import ValidationErrors from "@/Components/ValidationErrors";
 import ItemsLoading from "@/Components/ItemsLoading";
 import BannerHero from "@/Components/BannerHero";
-
-const Checkout = ({ event, sessions_available, fee_porcent }) => {
-
+const Checkout = ({ event, sessions, tickets, filters, summary, tickets_selected }) => {
+	console.log(tickets_selected);
 	const { auth, errors } = usePage().props
 
 	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState({
-		sessions: sessions_available,
-		tickets: sessions_available[0].tickets_available,
-		session_selected: sessions_available[0].date,
-		tickets_selected: [],
+		date: filters.date || sessions[0].date,
+		tickets_quantity: typeof filters.tickets_quantity == "object" ? filters.tickets_quantity : {},
+		code_promotion: filters.code_promotion || "",
+		name: auth.user.name,
+		phone: auth.user.phone,
 		event_slug: event.slug,
-		summary: {}
 	})
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-
-		let new_tickets_selected = {}
-
-		data.tickets_selected.forEach((i) => {
-			new_tickets_selected[i.id] = i.quantity_selected
-		})
-
-		Inertia.get(route("checkout_method_payment", { slug: event.slug }), {
-			session_selected: data.session_selected,
-			tickets_selected: new_tickets_selected,
-			//code_promotion: data.code_promotion,
-		},
-			{
-				preserveScroll: true,
-				replace: true,
-				preserveState: true,
-				onStart: visit => { setLoading(true) },
-				onFinish: visit => { setLoading(false) },
-			});
-	}
+	const initUpdate = useRef(true)
 
 	useEffect(() => {
-		let summary = { sub_total: 0, fee_porcent }
-
-		let tickets_selected = data.tickets
-			.filter((i) => i.quantity_selected > 0)
-			.map((i) => {
-
-				let price_quantity = i.price * i.quantity_selected;
-				summary.sub_total += price_quantity;
-				return {
-					...i,
-					price_quantity: price_quantity
-				}
-			})
-
-		summary.fee = summary.sub_total * fee_porcent
-
-		summary.total = parseFloat(summary.sub_total + summary.fee)
-		console.log(summary)
-		setData({
-			...data,
-			tickets_selected,
-			summary
-
+		console.log(data.date)
+		if (initUpdate.current) {
+			initUpdate.current = false
+			return
+		}
+		Inertia.get(route("checkout", { slug: event.slug }), {
+			date: data.date,
+			tickets_quantity: data.tickets_quantity,
+			code_promotion: data.code_promotion,
+		}, {
+			preserveScroll: true,
+			replace: true,
+			preserveState: true,
+			onStart: visit => { setLoading(true) },
+			onFinish: visit => { setLoading(false) },
 		});
+	}, [data.date, data.tickets_quantity, data.code_promotion])
 
-
-
-
-
-	}, [data.session_selected, data.tickets])
-
-	// const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
+	const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
 
 	return (
 		<Layout title="Checkout">
@@ -99,35 +64,35 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 						<div className="space-y-6">
 							<ValidationErrors errors={errors} />
 							<SelectDate
+								sessions={sessions}
 								data={data} setData={setData}
 							/>
 
 							<QuantityTicket
+								tickets={tickets}
 								data={data} setData={setData}
 							/>
-							{/* <ContactDetails data={data} setData={setData} />
+							<ContactDetails data={data} setData={setData} />
 
 							<Elements stripe={stripePromise} >
 								<PaymentOption data={data} />
-							</Elements> */}
+							</Elements>
 						</div>
 					</div>
 
 					<div className="lg:col-span-4  ">
 						<div className="space-y-6">
-							<OrderSummary
-								event={event}
-								summary={data.summary}
-								session_selected={data.session_selected}
-								tickets_selected={data.tickets_selected}
-								handleSubmit={handleSubmit}
-								loading={loading}
-
-							/>
-
-							{/* {summary.total ? (
+							<ItemsLoading loading={loading}>
+								<OrderSummary
+									event={event}
+									summary={summary}
+									data={data}
+									tickets_selected={tickets_selected}
+								/>
+							</ItemsLoading>
+							{summary.total ? (
 								<PromoCode data={data} setData={setData} />
-							) : ""} */}
+							) : ""}
 						</div>
 					</div>
 				</div>

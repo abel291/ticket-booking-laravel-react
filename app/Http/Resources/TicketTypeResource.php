@@ -28,9 +28,6 @@ class TicketTypeResource extends JsonResource
 			'remaining' => $this->whenPivotLoaded('session_ticket_type', function () {
 				return $this->show_remaining_entries ? $this->pivot->remaining : null;
 			}),
-
-			'quantity_selected' => $this->min_tickets_purchase,
-			'price_quantity' => $this->min_tickets_purchase,
 		];
 	}
 }
