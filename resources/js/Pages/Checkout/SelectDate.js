@@ -3,13 +3,17 @@ import React from "react";
 import Select from "@/Components/Select";
 import { formatDate } from "@/Helpers/Helpers";
 import { usePage } from "@inertiajs/inertia-react";
-const SelectDate = ({ sessions, data, setData }) => {
+const SelectDate = ({ data, setData }) => {
 
 	const handleChangeSession = (e) => {
+
+		let target = e.target
+		let session_selected = data.sessions.find((i) => i.date == target.value)
+
 		setData({
 			...data,
-			date: e.target.value,
-			tickets_quantity: {}
+			session_selected: session_selected.date,
+			tickets: session_selected.tickets_available
 		})
 	};
 	return (
@@ -17,9 +21,9 @@ const SelectDate = ({ sessions, data, setData }) => {
 			<Select
 				handleChange={handleChangeSession}
 				className="capitalize"
-				value={data.date}
+				value={data.session_selected}
 			>
-				{sessions.map((item, key) => (
+				{data.sessions.map((item, key) => (
 					<option key={key} value={item.date}>
 						{formatDate(item.date)}
 					</option>

@@ -4,14 +4,13 @@ import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useState, useRef, useEffect } from "react";
-const PromoCode = ({ data, setData }) => {
+const PromoCode = ({ data, setData,handleSubmit }) => {
 	const promotions = usePage().props.promotions || [];
-	const codRef = useRef();
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		setData({ ...data, code_promotion: codRef.current.value })
-		codRef.current.value = "";
+		
+	const handleChange = (e) => {
+		
+		setData({ ...data, code_promotion: e.target.value })
+		
 	}
 	return (
 		<Card title="Codigo de Promocion">
@@ -23,7 +22,7 @@ const PromoCode = ({ data, setData }) => {
 			<form onSubmit={handleSubmit} className="mb-3">
 				<div className="mt-7 flex items-center gap-4">
 					<input
-						ref={codRef}
+						onChange={handleChange}
 						defaultValue=""
 						className="input w-full uppercase grow"
 						required={true}

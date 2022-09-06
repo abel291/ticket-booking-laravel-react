@@ -15,23 +15,25 @@ import { usePage } from "@inertiajs/inertia-react";
 import ValidationErrors from "@/Components/ValidationErrors";
 import ItemsLoading from "@/Components/ItemsLoading";
 import BannerHero from "@/Components/BannerHero";
+import PromoCode from "./PromoCode";
+import ContactDetails from "./ContactDetails";
 
-const Checkout = ({ event, sessions_available, fee_porcent }) => {
-
+const MethodPayment = ({ event, summary, session_selected, tickets_selected }) => {
+	console.log(tickets_selected)
 	const { auth, errors } = usePage().props
 
 	const [loading, setLoading] = useState(false)
 
 	const [data, setData] = useState({
-		sessions: sessions_available,
-		tickets: sessions_available[0].tickets_available,
-		session_selected: sessions_available[0].date,
-		tickets_selected: [],
-		event_slug: event.slug,
-		summary: {}
+		name: "",
+		phone: "",
+		code_promotion: ""
 	})
-
 	const handleSubmit = (e) => {
+		e.preventDefault()
+	}
+
+	const handleSubmitCodePromotion = (e) => {
 		e.preventDefault()
 
 		let new_tickets_selected = {}
@@ -41,9 +43,9 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 		})
 
 		Inertia.get(route("checkout_method_payment", { slug: event.slug }), {
-			session_selected: data.session_selected,
+			session_selected: session_selected,
 			tickets_selected: new_tickets_selected,
-			//code_promotion: data.code_promotion,
+			code_promotion: data.code_promotion,
 		},
 			{
 				preserveScroll: true,
@@ -54,39 +56,9 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 			});
 	}
 
-	useEffect(() => {
-		let summary = { sub_total: 0, fee_porcent }
 
-		let tickets_selected = data.tickets
-			.filter((i) => i.quantity_selected > 0)
-			.map((i) => {
+	
 
-				let price_quantity = i.price * i.quantity_selected;
-				summary.sub_total += price_quantity;
-				return {
-					...i,
-					price_quantity: price_quantity
-				}
-			})
-
-		summary.fee = summary.sub_total * fee_porcent
-
-		summary.total = parseFloat(summary.sub_total + summary.fee)
-		console.log(summary)
-		setData({
-			...data,
-			tickets_selected,
-			summary
-
-		});
-
-
-
-
-
-	}, [data.session_selected, data.tickets])
-
-	// const [stripePromise] = useState(loadStripe("pk_test_ejdWQWajqC4QwST95KoZiDZK"))
 
 	return (
 		<Layout title="Checkout">
@@ -98,16 +70,10 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 					<div className=" lg:col-span-8">
 						<div className="space-y-6">
 							<ValidationErrors errors={errors} />
-							<SelectDate
-								data={data} setData={setData}
-							/>
 
-							<QuantityTicket
-								data={data} setData={setData}
-							/>
-							{/* <ContactDetails data={data} setData={setData} />
+							<ContactDetails data={data} setData={setData} />
 
-							<Elements stripe={stripePromise} >
+							{/* <Elements stripe={stripePromise} >
 								<PaymentOption data={data} />
 							</Elements> */}
 						</div>
@@ -117,17 +83,15 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 						<div className="space-y-6">
 							<OrderSummary
 								event={event}
-								summary={data.summary}
-								session_selected={data.session_selected}
-								tickets_selected={data.tickets_selected}
+								summary={summary}
+								session_selected={session_selected}
+								tickets_selected={tickets_selected}
 								handleSubmit={handleSubmit}
 								loading={loading}
 
 							/>
 
-							{/* {summary.total ? (
-								<PromoCode data={data} setData={setData} />
-							) : ""} */}
+							<PromoCode handleSubmit={handleSubmitCodePromotion} data={data} setData={setData} />
 						</div>
 					</div>
 				</div>
@@ -136,4 +100,4 @@ const Checkout = ({ event, sessions_available, fee_porcent }) => {
 	);
 };
 
-export default Checkout;
+export default MethodPayment;
