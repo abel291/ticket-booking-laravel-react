@@ -23,14 +23,8 @@ class CategoryFactory extends Factory
         return [
             'name' => ucfirst($name),
             'slug' => Str::slug($name),
-            'type' => $this->faker->randomElement([
-                CategoryType::EVENT->value,
-                CategoryType::BLOG->value,
-
-            ]),
-
-            'active' => 1, //
-            'home' => rand(0, 1), //
+            'active' => 1,
+            'home' => rand(0, 1),
         ];
     }
 }

@@ -22,7 +22,8 @@ class ViewPayment extends Component
 
     public function mount(Payment $payment)
     {
-        $payment->load('event','tickets' ,'user');
+        $payment->load('event', 'tickets', 'user');
+        //dd($payment->tickets);
         $this->payment = $payment;
     }
 
@@ -35,7 +36,7 @@ class ViewPayment extends Component
 
         $this->dispatchBrowserEvent('notification', [
             'title' => 'pago Cancelada',
-            'subtitle' => 'El Pago  <b>'.$this->payment->code.'</b>  a sido  '.$this->payment->status->text(),
+            'subtitle' => 'El Pago  <b>' . $this->payment->code . '</b>  a sido  ' . $this->payment->status->text(),
         ]);
         $this->emit('resetListPayment');
         $this->open_modal_confirmation = false;

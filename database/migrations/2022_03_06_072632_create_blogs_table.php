@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('image')->nullable();
-            $table->text('desc_min');
-            $table->text('desc_max');
+            $table->string('entry');
+            $table->text('description');
             $table->boolean('active')->default(0);
-            // $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
+        });
+        Schema::create('blog_category', function (Blueprint $table) {
+            $table->foreignId('blog_id')->constrained('blog')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -34,5 +37,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('blog');
+        Schema::dropIfExists('blog_category');
     }
 };

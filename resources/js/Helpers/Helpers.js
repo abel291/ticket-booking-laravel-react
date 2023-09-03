@@ -8,16 +8,28 @@ export const formatCurrency = (n) => {
 };
 export const formatDate = (date) => {
     const dtf = new Intl.DateTimeFormat("es", {
-        weekday: "long",
-        day: "2-digit",
+        weekday: "short",
         year: "2-digit",
         month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-        hourCycle: "h12",
+        day: "2-digit",
     });
 
     let dateFormat = dtf.format(new Date(date));
-    
+
+    return dateFormat;
+};
+export const formatDateTime = (date) => {
+    const dtf = new Intl.DateTimeFormat("es", {
+        weekday: "short",
+        hour12: true,
+        hour: "2-digit",
+        minute: "2-digit",
+        year: "2-digit",
+        month: "short",
+        day: "2-digit",
+    });
+
+    let dateFormat = dtf.format(new Date(date));
+
     return dateFormat;
 };

@@ -1,24 +1,90 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import 'flatpickr/dist/flatpickr.css';
+@import "flatpickr/dist/flatpickr.css";
+:root {
+    font-family: "Inter", sans-serif !important;
+}
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: "Inter var", sans-serif !important;
+    }
+}
 @layer components {
-    input[type="text"],
-    input[type="email"],
-    input[type="url"],
-    input[type="password"],
-    input[type="number"],
-    input[type="date"],
-    input[type="datetime-local"],
-    input[type="month"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="week"],    
-    select[multiple],
-    textarea,
-    select {
-        @apply mt-1 block w-full rounded-md border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400
-        focus:ring-opacity-50  sm:text-sm;
+    .btn {
+        @apply rounded-md px-3.5 py-2 text-center text-sm font-semibold shadow-sm;
+    }
+    .btn-primary {
+        @apply bg-gray-800  text-white hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800 disabled:opacity-30;
+    }
+
+    .btn-secondary {
+        @apply bg-white  text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 capitalize;
+    }
+}
+.table-list tr {
+    @apply text-sm;
+}
+.table-list tbody {
+    @apply border-t border-gray-300 divide-y divide-gray-200;
+}
+.table-list tbody tr {
+    @apply hover:bg-gray-50;
+}
+.table-list tr th {
+    @apply pb-3.5 text-sm font-semibold text-left;
+}
+.table-list tr td {
+    @apply py-3;
+}
+.table-list tr th:first-child,
+.table-list tr td:first-child {
+    @apply pr-4;
+}
+.table-list tr th:last-child,
+.table-list tr td:last-child {
+    @apply pl-4;
+}
+.table-list tr th:not(:first-child, :last-child),
+.table-list tr td:not(:first-child, :last-child) {
+    @apply px-4;
+}
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    font-family: "Inter", sans-serif !important;
+}
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: "Inter var", sans-serif !important;
+    }
+}
+[x-cloak] {
+    display: none !important;
+}
+
+
+
+.btn-primary {
+    @apply rounded-md bg-gray-800 px-3.5 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800 disabled:opacity-30;
+}
+
+.btn-secondary {
+    @apply rounded-md bg-white px-3.5 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 capitalize;
+} */
+
+@layer base {
+    .select-form,
+    .input-form,
+    .input-textarea {
+        @apply block w-full rounded-md border-0 py-2 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm mt-2 disabled:bg-gray-200;
+    }
+    .input-radio {
+        @apply h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600;
+    }
+    .input-checkbox {
+        @apply h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600;
     }
 }

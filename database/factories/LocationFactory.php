@@ -17,10 +17,10 @@ class LocationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->buildingNumber().' '.$this->faker->streetName(),
+            'name' => $this->faker->buildingNumber() . ' ' . $this->faker->streetName(),
             'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
-            'map' => 'https://www.google.com/maps/@40.7749985,-73.9822853,3a,75y,289.07h,97.45t/data=!3m6!1e1!3m4!1sSGtYy3nR-jlb8iAg144LXA!2e0!7i16384!8i8192',
+            'map' => 'https://goo.gl/maps/5kz8uJCtG8cBMJBL7',
             'active' => 1, //
         ];
     }

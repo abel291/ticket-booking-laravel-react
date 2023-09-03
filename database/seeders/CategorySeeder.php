@@ -40,17 +40,13 @@ class CategorySeeder extends Seeder
         //event
         foreach ($categories as $key => $value) {
             $slug = Str::slug($value);
-            Category::factory()->create([
-                'name' => ucfirst($value),
-                'slug' => $slug,
-                'img' => '/img/categories/'.$slug.'.jpg',
-                'type' => CategoryType::EVENT,
-            ]);
+            Category::factory()
+                ->has(Category::factory()->count(3), 'subCategories')
+                ->create([
+                    'name' => ucfirst($value),
+                    'slug' => $slug,
+                    'img' => '/img/categories/' . $slug . '.jpg',
+                ]);
         }
-
-        //blog
-        Category::factory(12)->state([
-            'type' => CategoryType::BLOG,
-        ])->create();
     }
 }

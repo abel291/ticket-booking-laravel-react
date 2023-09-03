@@ -3,7 +3,8 @@
         show: @entangle('open').defer,
         edit: false,
     }" @open-modal-edit.window=" show = true;edit= true; $wire.edit($event.detail)">
-        <x-button x-on:click="show = true;edit=false;" wire:click="create">Agregar {{ $label }}</x-button>
+        <x-primary-button x-on:click="show = true;edit=false;" wire:click="create">Agregar
+            {{ $label }}</x-primary-button>
 
         <x-modal>
 
@@ -45,16 +46,16 @@
                     </x-secondary-button>
 
 
-                    <x-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
-                        Editar </x-button>
+                    <x-primary-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
+                        Editar </x-primary-button>
 
-                    <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
+                    <x-primary-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
                         Guardar
-                    </x-button>
+                    </x-primary-button>
 
                 </div>
             </x-slot>
-            
+
         </x-modal>
     </div>
 

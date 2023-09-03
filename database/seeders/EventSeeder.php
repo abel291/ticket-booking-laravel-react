@@ -11,6 +11,7 @@ use App\Models\Location;
 use App\Models\Session;
 use App\Models\Speaker;
 use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
@@ -25,23 +26,36 @@ class EventSeeder extends Seeder
         Event::truncate();
         Session::truncate();
         TicketType::truncate();
-        Speaker::truncate();
         Image::truncate();
 
-        $locations = Location::get();
         $formats = Format::get();
+        $categories =  Category::whereNull('category_id')->with('subCategories')->get();
+        $users = User::with('locations')->get();
 
-        foreach (Category::where('type',CategoryType::EVENT)->get() as $category) { //category -> 14
-            Event::factory(5)
-                ->hasImages(5)
-                ->hasSessions(8)
-                ->hasSpeakers(8)
-                ->has(TicketType::factory()->count(8), 'ticket_types')
-                ->state(function () use ($locations, $formats, $category) {
+        foreach ($users as  $user) {
+
+            Event::factory(10)
+                ->hasImages(7)
+                ->has(
+                    Session::factory()->state([
+                        'user_id' => $user->id
+                    ])->count(rand(1, 4))
+                )
+                ->has(
+                    TicketType::factory()->state([
+                        'user_id' => $user->id
+                    ])->count(rand(1, 4)),
+                    'ticket_types'
+                )
+                ->state(function () use ($formats, $categories, $user) {
+                    $category = $categories->random();
+
                     return [
-                        'location_id' => $locations->random()->id,
+                        'location_id' => $user->locations->random()->id,
                         'format_id' => $formats->random()->id,
                         'category_id' => $category->id,
+                        'sub_category_id' => $category->subCategories->random()->id,
+                        'user_id' => $user->id,
                     ];
                 })
                 ->create();

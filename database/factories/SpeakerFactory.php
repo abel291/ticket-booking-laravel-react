@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Speaker>
@@ -16,13 +17,15 @@ class SpeakerFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
         return [
-            'name' => $this->faker->name(),
+            'name' => $name,
+            'slug' => Str::slug($name . "-" . uniqid()),
             'position' => $this->faker->jobTitle(),
             'email' => $this->faker->email(),
-            'img' => '/img/speakers/img-'.rand(1, 10).'.jpg',
+            'img' => '/storage/img/speakers/img-' . rand(1, 10) . '.jpg',
             'website' => $this->faker->domainName(),
-            'desc' => $this->faker->text(400),
+            'description' => $this->faker->text(400),
             'twitter' => $this->faker->domainName(),
             'instagram' => $this->faker->domainName(),
         ];

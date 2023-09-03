@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('img')->nullable();
-            $table->string('type', 20); //events //blog
+            //$table->string('type', 20); //events //blog
             $table->boolean('active')->default(1);
             $table->boolean('home')->default(0);
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

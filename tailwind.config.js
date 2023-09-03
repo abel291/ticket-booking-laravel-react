@@ -1,46 +1,40 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-const defaultColors = require("tailwindcss/colors");
-module.exports = {
-    mode: "jit",
-    purge: [
-        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        "./storage/framework/views/*.php",
-        "./resources/views/**/*.blade.php",
-        "./resources/js/**/*.js",
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
+const colors = require("tailwindcss/colors");
+/** @type {import('tailwindcss').Config} */
+export default {
+    darkMode: 'class',
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.jsx',
     ],
-
     theme: {
         container: {
             center: true,
             padding: {
                 DEFAULT: '1rem',
-                sm: '2rem',
+                sm: '3rem',
                 lg: '4rem',
-                xl: '5rem',
-                '2xl': '6rem',
-              },
-        },
+                xl: '6rem',
 
-        colors: {
-            ...defaultColors,
-            "dark-blue": {
-                400: "#11326f",
-                500: "#062657",
-                //600: "",
-                700: "#011c45",
-                800: "#001638",
-                900: "#001232",
             },
+        },
+        colors: {
+            ...colors,
+            primary: colors.red,
         },
         extend: {
             fontFamily: {
-                sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
     plugins: [
         require("@tailwindcss/forms"),
-        require("@tailwindcss/line-clamp"),
+        //require("@tailwindcss/line-clamp"),
     ],
 };
+

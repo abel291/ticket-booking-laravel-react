@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Session;
 
 use App\Http\Traits\WithSorting;
 use App\Models\Event;
+use App\Models\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,26 +17,33 @@ class ListSession extends Component
 
     public $label_plural = 'Sesiones';
 
-    public $event_id;
+    public $event;
+
+    protected $queryString = ['sortBy', 'sortDirection', 'search'];
 
     protected $listeners = [
         'renderListSession' => 'render',
         'resetListSession' => 'resetList',
     ];
 
-    public function mount(Event $event)
+    public function mount($id)
     {
-        $this->event = $event;
+        $this->event = Event::with('category', 'subCategory')
+            ->when(auth()->user()->hasRole('user'), function ($query, string $role) {
+                $query->where('user_id', auth()->user()->id);
+            })->findOrFail($id);
     }
 
     public function render()
-    {	
-		
-        $sessions = $this->event->sessions()->where('date', 'like', '%'."$this->search".'%')->paginate(20);
+    {
+
+        $sessions = Session::with('ticket_types:id,name,price')->where('event_id', $this->event->id)
+            ->where('date', 'like', '%' . "$this->search" . '%')
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate(20);
 
         return view('livewire.session.list-session', [
-            'data' => $sessions,
-
+            'list' => $sessions,
         ]);
     }
 }

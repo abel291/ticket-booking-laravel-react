@@ -18,27 +18,28 @@ return new class extends Migration
             $table->string('code', 10);
             $table->string('status', 20)->default('successful');
 
-            $table->unsignedMediumInteger('quantity');
-            $table->dateTime('session');
+            $table->unsignedInteger('quantity');
             $table->string('stripe_id');
 
             //json
-            $table->json('promotion_data')->nullable();
+            $table->json('promotion_data')->nullable(); //??
             $table->json('event_data');
             $table->json('user_data');
             $table->json('cancel_data')->nullable();
 
             //amount
-            $table->unsignedFloat('fee');
+            $table->unsignedFloat('tax_percent');
+            $table->unsignedFloat('tax_value');
+            $table->unsignedFloat('fee_value');
             $table->unsignedFloat('fee_porcent');
             $table->unsignedFloat('sub_total');
             $table->unsignedFloat('total');
 
             //relationships
-            // $table->foreignId('session_id')->constrained();
-            // $table->foreignId('event_id')->constrained();
-            // $table->foreignId('user_id')->constrained();
-            // $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('session_id')->constrained();
+            $table->foreignId('event_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('promotion_id')->nullable()->constrained()->nullOnDelete();
 
             $table->timestamp('canceled_at')->nullable();
             $table->timestamps();

@@ -15,11 +15,13 @@ class SessionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            //'id' => $this->id,
+            'id' => $this->id,
             'date' => $this->date->format('Y-m-d H:i:s'),
+            'dateFormat' => $this->date->isoFormat('MMMM DD \, YYYY hh:mm A'),
+            'dateFormatShort' => $this->date->isoFormat('MMM DD \, hh:mm A'),
+            'active' => $this->active,
             'ticket_types' => TicketTypeResource::collection($this->whenLoaded('ticket_types')),
-            //'time' => $this->time,
-
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s')
         ];
     }
 }

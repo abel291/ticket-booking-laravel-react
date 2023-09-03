@@ -22,11 +22,12 @@ class CreateLocation extends Component
         'location.address' => 'required|string|max:255',
         'location.phone' => 'required|string|max:50',
         'location.active' => 'required|boolean',
+        'location.map' => 'required|string|max:1000',
     ];
 
     public function mount()
     {
-        $this->location = new Location();
+        $this->location = Location::factory()->make();
         $this->resetErrorBag();
     }
 
@@ -39,6 +40,7 @@ class CreateLocation extends Component
     {
         $this->validate();
         $location = $this->location;
+        $location->user()->associate(auth()->user()->id);
         $location->save();
 
         $this->dispatchBrowserEvent('notification', [

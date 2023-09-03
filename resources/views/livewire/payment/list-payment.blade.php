@@ -4,17 +4,17 @@
     </x-slot>
     <div>
         <div>
-            <x-list-data :data="$data" :fields="['Codigo','Nombre', 'Pago', 'tickets comprados', 'estado']">
+            <x-list-data :data="$data" :fields="['Codigo', 'Nombre', 'Pago', 'tickets comprados', 'estado']">
 
                 <x-slot name="component_create">
-                   
+
                 </x-slot>
 
                 <x-slot name="table_body">
                     @foreach ($data as $item)
                         <tr wire:key="button-{{ $item->id }}">
-							<td class="px-6 py-3   ">
-                                {{$item->code}}
+                            <td class="px-6 py-3   ">
+                                {{ $item->code }}
                             </td>
                             <td class="px-6 py-3 md:w-96">
                                 <div class="font-medium text-gray-900">

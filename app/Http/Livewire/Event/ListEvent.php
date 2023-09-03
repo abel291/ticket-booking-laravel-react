@@ -15,7 +15,7 @@ class ListEvent extends Component
     public $label = 'Evento';
 
     public $label_plural = 'Eventos';
-
+    protected $queryString = ['sortBy', 'sortDirection', 'search'];
     protected $listeners = [
         'renderListEvent' => 'render',
         'resetListEvent' => 'resetList',
@@ -23,13 +23,17 @@ class ListEvent extends Component
 
     public function render()
     {
-        $data = Event::where('title', 'like', '%'.$this->search.'%')
-            ->with('category', 'payments')
+        $hasRole = auth()->user()->hasRole('user');
+
+        $data = Event::where('title', 'like', '%' . $this->search . '%')
+            ->when(auth()->user()->hasRole('user'), function ($query, string $role) {
+                $query->where('user_id', auth()->user()->id);
+            })->with('category', 'payments')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
-		
+
         return view('livewire.event.list-event', [
-            'data' => $data,
+            'list' => $data,
             'label' => $this->label,
             'label_plural' => $this->label_plural,
         ]);

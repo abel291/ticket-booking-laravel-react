@@ -2,60 +2,70 @@
     <x-slot name="header">
         {{ __($label_plural) }}
     </x-slot>
+    <div class="flex flex-col md:flex-row md:justify-end md:items-end gap-2 mb-4">
+        @livewire('location.create-location', ['label' => $label, 'label_plural' => $label_plural])
+    </div>
+
     <div>
-        <div>
-            <x-list-data :data="$data" :fields="['Nombre - Direccion', 'Eventos Asociados', 'Activo']">
+        <x-content>
+            <x-table.table :data="$list" wire:target="search">
+                <thead>
+                    <tr>
 
-                <x-slot name="component_create">
-                    @livewire('location.create-location',['label'=>$label,'label_plural'=>$label_plural])
-                </x-slot>
+                        @php
+                            $tableNamesHead = [
+                                'name' => 'Nombre',
+                                'address' => 'Direccion',
+                                'sessions' => 'Eventos Asociados',
+                                'active' => 'Activo',
+                                'updated_at' => 'Ultima actualización',
+                            ];
+                        @endphp
 
-                <x-slot name="table_body">
-                    @foreach ($data as $item)
+                        @foreach ($tableNamesHead as $key => $name)
+                            <x-table.th :name="$name" />
+                        @endforeach
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($list as $item)
                         <tr wire:key="button-{{ $item->id }}">
-
-                            <td class="px-6 py-3 ">
-
-                                <div class="font-medium text-gray-900">
-                                   {{ $item->name }}
-                                </div>
-                                <div class="text-gray-500">
-                                    {{ $item->address }}
-                                </div>
-
+                            <td>
+                                <x-table.title-image :title="$item->name" :sub-title="$item->phone" />
                             </td>
-                            <td class="px-6 py-3">
+                            <td>
+                                {{ $item->address }}
+                            </td>
+
+                            <td>
                                 {{ $item->events_count }}
-
                             </td>
 
-                            <td class="px-6 py-3">
-                                <x-table.badge-active :active="$item->active" />
-
+                            <td>
+                                <x-badge-active :active="$item->active" />
                             </td>
-                            <td class="px-6 py-3">
-                                <div class="text-gray-500">
-                                    {{ $item->updated_at }}
-                                </div>
 
+                            <td>
+                                <x-date-format :date="$item->updated_at" />
                             </td>
 
                             <td class="px-6 py-3  text-right font-medium whitespace-nowrap">
-                                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-900" x-data
+
+                                <a x-data href="#" class="font-medium text-indigo-600 hover:text-indigo-900"
                                     x-on:click="$dispatch('open-modal-edit',{{ $item->id }})">Editar</a>
 
-                                <a href="#" class="font-medium text-red-600 hover:text-red-900 ml-3 " x-data
-                                    
+                                <a x-data href="#" class="font-medium text-red-600 hover:text-red-900 ml-3 "
                                     x-on:click="$dispatch('open-modal-confirmation-delete',{{ $item->id }});console.log({{ $item->id }})">Eliminar</a>
                             </td>
                         </tr>
                     @endforeach
-                </x-slot>
+                </tbody>
 
-            </x-list-data>
+            </x-table.table>
+        </x-content>
 
-
-        </div>
 
     </div>
 </div>

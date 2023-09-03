@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Profile;
 use App\Enums\PaymentStatus;
 use App\Helpers\Checkout;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Http\Resources\PaymentResource;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProfileController extends Controller
 {
@@ -57,10 +59,10 @@ class ProfileController extends Controller
     public function my_orders()
     {
         $user = auth()->user();
-        $payments = $user->payments()->orderBy('id', 'DESC')->paginate(10);
+        $payments = $user->orders()->orderBy('id', 'DESC')->paginate(10);
         //dd($payments->first());
         return Inertia::render('Profile/MyOrders', [
-            'orders' => PaymentResource::collection($payments),
+            'orders' => OrderResource::collection($payments),
         ]);
     }
 
@@ -68,33 +70,27 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $payment = $user->payments()->where('code', $request->code)->with('tickets')->firstOrFail();
+        $payment = $user->orders()->where('code', $request->code)->with('order_tickets')->firstOrFail();
 
-        // if (!$payment) {
-        //     return Redirect::route('shopping')->withErrors(['message' => 'Al Parecer hubo un error']);;
-        // }
-
-        //dd(new PaymentResource($payment));
-
-        return Inertia::render('Profile/OrderDetails', [
-            'orderDetails' => new PaymentResource($payment),
+        return Inertia::render('Profile/OrderDetails/OrderDetails', [
+            'order' => new OrderResource($payment),
         ]);
     }
 
     public function order_details_pdf($code)
     {
         $user = auth()->user();
-        $payment = $user->payments()->where('code', $code)->with('tickets')->firstOrFail();
+        $order = $user->orders()->where('code', $code)->with('order_tickets')->firstOrFail();
 
-        $qrcode = QrCode::format('svg')->size(200)->generate(route('order_validate', ['code' => $payment->code]));
-        $session_format = $payment->session->isoFormat('dddd, D MMMM , YYYY hh:mm A');
-        $payment = json_decode(json_encode($payment), true);
+        $qrcode = QrCode::format('svg')->size(200)->generate(route('order_validate', ['code' => $order->code]));
+        $session_format = $order->session->date->isoFormat('dddd, D MMMM , YYYY hh:mm A');
+        $order = json_decode(json_encode($order), true);
         $data = [
             'qrcode' => $qrcode,
             'session_format' => $session_format,
-            ...$payment,
+            ...$order,
         ];
-        $pdf = PDF::loadView('pdf.ticket', $data);
+        $pdf = Pdf::loadView('pdf.ticket', $data);
 
         return $pdf->stream();
 
@@ -114,7 +110,7 @@ class ProfileController extends Controller
             'current_password' => ['required', 'string'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ])->after(function ($validator) use ($user, $request) {
-            if (! isset($request->current_password) || ! Hash::check($request->current_password, $user->password)) {
+            if (!isset($request->current_password) || !Hash::check($request->current_password, $user->password)) {
                 $validator->errors()->add('current_password', __('La contraseña proporcionada no coincide con su contraseña actual. '));
             }
         })->validate();

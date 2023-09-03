@@ -6,6 +6,8 @@ use App\Enums\EventTypes;
 use App\Helpers\Helpers;
 use App\Models\Category;
 use App\Models\Event;
+use App\Traits\TraitUploadImage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
@@ -13,163 +15,191 @@ use Livewire\WithFileUploads;
 
 class CreateEvent extends Component
 {
-	use WithFileUploads;
+    use TraitUploadImage, WithFileUploads;
 
-	public $label;
 
-	public $label_plural;
+    public $label;
 
-	public $open = false;
+    public $label_plural;
 
-	public Event $event;
+    public $open = false;
 
-	public $open_modal_confirmation_delete = false;
+    public Event $event;
 
-	public $banner;
+    public $open_modal_confirmation_delete = false;
 
-	public $card;
+    public $locations;
+    public $categories;
 
-	protected function rules()
-	{
-		$rules = [
-			'event.title' => 'required|string|max:255',
-			'event.slug' => 'required|string|max:255',
-			'event.active' => 'required|boolean',
-			'event.duration' => 'nullable|string',
-			// 'event.type' => new Enum(EventTypes::class),
+    public $card;
+    public $banner;
+    public $thum;
 
-			// 'event.tomatoes' => 'nullable|numeric|max:255',
-			// 'event.audience' => 'nullable|numeric|max:255',
-			// 'event.calificación' => 'nullable|numeric|max:255',
+    public $isEdit;
 
-			'event.ceo_title' => 'required|string|max:255',
-			'event.ceo_desc' => 'nullable|string|max:255',
+    protected function rules()
+    {
+        $rules = [
+            'event.title' => 'required|string|max:255',
+            'event.slug' => 'required|string|max:255',
+            'event.active' => 'required|boolean',
+            'event.duration' => 'nullable|string',
+            'event.entry' => 'required|string|max:255',
+            'event.description' => 'required|string|max:1000',
 
-			'event.social_fa' => 'nullable|string|max:255',
-			'event.social_tw' => 'nullable|string|max:255',
-			'event.social_yt' => 'nullable|string|max:255',
+            // 'event.type' => new Enum(EventTypes::class),
 
-			'event.desc_min' => 'required|string|max:255',
-			'event.desc_max' => 'required|string|max:1000',
-			'event.category_id' => 'required|exists:App\Models\Category,id',
-			'event.location_id' => 'required|exists:App\Models\Location,id',
+            // 'event.tomatoes' => 'nullable|numeric|max:255',
+            // 'event.audience' => 'nullable|numeric|max:255',
+            // 'event.calificación' => 'nullable|numeric|max:255',
 
-			'banner' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
-			'card' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
-		];
+            // 'event.ceo_title' => 'required|string|max:255',
+            // 'event.ceo_desc' => 'nullable|string|max:255',
 
-		return $rules;
-	}
+            // 'event.social_fa' => 'nullable|string|max:255',
+            // 'event.social_tw' => 'nullable|string|max:255',
+            // 'event.social_yt' => 'nullable|string|max:255',
 
-	public function mount()
-	{
-		$this->reset('banner', 'card');
-		$this->event = Event::factory()->make();
-		//$this->categories = Category::get()->random(5)->pluck('id')->toArray();
-		$this->resetErrorBag();
-	}
+            'event.sub_category_id' => 'required|exists:App\Models\Category,id',
+            'event.location_id' => 'required|exists:App\Models\Location,id',
 
-	public function create()
-	{
-		$this->mount();
-	}
+            'banner' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
+            'card' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
+            'thum' => 'nullable|sometimes|image|max:1024|mimes:jpeg,jpg,png',
+        ];
 
-	public function save()
-	{
-		//dd($this->card,$this->banner);
-		$this->validate();
-		$event = $this->event;
-		$event->slug = Str::slug($event->slug);
+        return $rules;
+    }
 
-		$event->banner = Helpers::image_upload(
-			img: $this->banner,
-			name: 'banner-' . $event->slug,
-			directory: "events"
-		);
+    public function mount($id = null)
+    {
+        $this->reset('banner', 'card', 'thum');
+        $this->locations = auth()->user()->locations;
+        $this->categories = Category::with('subCategories')->whereNull('category_id')->get();
+        $this->isEdit = boolval($id);
 
-		$event->card = Helpers::image_upload(
-			img: $this->card,
-			name: 'card-' . $event->slug,
-			directory: "events",
-			thumbnail: true
-		);
-		$event->save();
+        if ($id) {
+            if (auth()->user()->hasRole('user')) {
+                $this->event = auth()->user()->events()->findOrFail($id);
+            } else {
+                $this->event = Event::findOrFail($id);
+            }
+        } else {
+            $this->event = Event::factory()->make();
+        }
+        $this->resetErrorBag();
+    }
 
-		$this->emit('resetListEvent');
-		$this->reset('open');
-		$this->mount();
-		$this->dispatchBrowserEvent('notification', [
-			'title' => 'Registro Agregado',
-		]);
-	}
+    public function create()
+    {
+        $this->mount();
+    }
 
-	public function edit(Event $event)
-	{
+    public function save()
+    {
 
-		$this->event = $event;
-		$this->reset('card', 'banner');
-		$this->resetErrorBag();
-	}
+        $this->validate();
+        $event = $this->event;
+        $event->slug = Str::slug($event->slug);
+        $event->user_id = auth()->user()->id;
 
-	public function update()
-	{
-		$this->validate();
-		$event = $this->event;
-		$event->slug = Str::slug($event->slug);
-		$event->save();
+        $event->category_id = Category::with('category')->find($event->sub_category_id)->category->id;
 
-		if ($this->card) {
-			$event->clearMediaCollection('card');
-			$name_img = Helpers::generate_img_name($event->slug, $this->card->extension());
-			$event->addMedia($this->card->getRealPath())->usingName('event-card' . $event->slug)->usingFileName($name_img)->toMediaCollection('card');
-		}
+        if ($this->card) {
+            $event->card = $this->upload_image($event->name, 'events/card', $this->card);
+        }
 
-		if ($this->banner) {
-			$event->clearMediaCollection('banner');
-			$name_img = Helpers::generate_img_name($event->slug, $this->banner->extension());
-			$event->addMedia($this->banner->getRealPath())->usingName('event-banner' . $event->slug)->usingFileName($name_img)->toMediaCollection('banner');
-		}
+        if ($this->thum) {
+            $event->thum = $this->upload_image($event->name, 'events/thum', $this->thum);
+        }
 
-		$this->dispatchBrowserEvent('notification', [
-			'title' => 'Registro Editado',
-		]);
+        if ($this->banner) {
+            $event->banner = $this->upload_image($event->name, 'events', $this->banner);
+        }
 
-		$this->emit('resetListEvent');
-		$this->reset('open');
-		$this->mount();
-	}
+        $event->save();
 
-	public function delete(Event $event)
-	{
-		$event->delete();
-		$this->dispatchBrowserEvent('notification', [
-			'title' => 'Registro Eliminado',
-		]);
-		$this->emit('resetListEvent');
-		$this->reset('open', 'open_modal_confirmation_delete');
-		$this->mount();
-	}
+        to_route('dashboard.events')->with(['success' => 'Registro Guardado']);
+    }
 
-	public function updateBanner(): void
-	{
-		$this->validate([
-			'banner' => 'image|max:1024|mimes:jpeg,jpg,png',
-		]);
-	}
+    public function edit($id)
+    {
+        $event = Event::query();
+        if (auth()->user()->hasRole('user')) {
+            $event->where('user_id', auth()->user()->id);
+        }
+        $event = $event->findOrFail($id);
+        $this->event = $event;
+        $this->reset('card', 'banner');
+        $this->resetErrorBag();
+    }
 
-	public function updateCard(): void
-	{
-		$this->validate([
-			'card' => 'image|max:1024|mimes:jpeg,jpg,png',
-		]);
+    public function update()
+    {
+        $this->validate();
+        $event = $this->event;
+        $event->slug = Str::slug($event->slug);
+        $event->category_id = Category::with('category')->find($event->sub_category_id)->category->id;
 
-		// File is an image that is < 10mb
-	}
+        if ($this->card) {
+            Storage::delete($event->card);
+            $event->card = $this->upload_image($event->name, 'events/card', $this->card);
+        }
 
-	public function render()
-	{
-		return view('livewire.event.create-event');
-	}
+        if ($this->thum) {
+            Storage::delete($event->thum);
+            $event->thum = $this->upload_image($event->name, 'events/thum', $this->thum);
+        }
 
-	//termianr el form de event vovler a intalar spatie
+        if ($this->banner) {
+            Storage::delete($event->banner);
+            $event->banner = $this->upload_image($event->name, 'events', $this->banner);
+        }
+
+        $event->save();
+
+        to_route('dashboard.events');
+    }
+
+    public function delete(Event $event)
+    {
+        $event->delete();
+        $this->dispatchBrowserEvent('notification', [
+            'title' => 'Registro Eliminado',
+        ]);
+        $this->emit('resetListEvent');
+        $this->reset('open', 'open_modal_confirmation_delete');
+        $this->mount();
+    }
+
+    public function updatedBanner(): void
+    {
+        $this->validate([
+            'banner' => 'image|max:1024|mimes:jpeg,jpg,png',
+        ]);
+    }
+
+    public function updatedCard(): void
+    {
+        $this->validate([
+            'card' => 'image|max:1024|mimes:jpeg,jpg,png',
+        ]);
+
+        // File is an image that is < 10mb
+    }
+    public function updatedThum(): void
+    {
+        $this->validate([
+            'thum' => 'image|max:1024|mimes:jpeg,jpg,png',
+        ]);
+
+        // File is an image that is < 10mb
+    }
+
+    public function render()
+    {
+        return view('livewire.event.create-event');
+    }
+
+    //termianr el form de event vovler a intalar spatie
 }

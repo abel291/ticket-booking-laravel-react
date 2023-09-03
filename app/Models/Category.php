@@ -6,37 +6,45 @@ use App\Enums\CategoryType;
 use App\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
 
 class Category extends Model
 {
-	use HasFactory;
-	use HasEagerLimit;
+    use HasFactory;
 
-	protected $attributes = [
-		'active' => 0,
-	];
 
-	protected $casts = [
-		'type' => CategoryType::class,
-	];
+    protected $attributes = [
+        'active' => 0,
+    ];
 
-	public function posts()
-	{
-		return $this->belongsToMany(Blog::class);
-	}
+    protected $casts = [
+        'type' => CategoryType::class,
+    ];
 
-	public function events()
-	{
-		return $this->hasMany(Event::class);
-	}
-	
-	public function scopeTypeEvent($query)
-	{
-		$query->where('type', CategoryType::EVENT);
-	}
-	public function scopeActive($query)
-	{
-		$query->where('active', 1);
-	}
+    public function posts()
+    {
+        return $this->belongsToMany(Blog::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+    public function subCategories()
+    {
+        return $this->hasMany(Category::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function scopeTypeEvent($query)
+    {
+        $query->where('type', CategoryType::EVENT);
+    }
+    public function scopeActive($query)
+    {
+        $query->where('active', 1);
+    }
 }

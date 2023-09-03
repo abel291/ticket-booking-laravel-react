@@ -16,13 +16,14 @@ class SpeakerResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'slug' => $this->slug,
             'position' => $this->position,
             'email' => $this->email,
             'website' => $this->website,
             'desc' => $this->desc,
             'twitter' => $this->twitter,
             'instagram' => $this->instagram,
-            'img' => $this->img,
+            'img' =>  $this->img,
         ];
     }
 }

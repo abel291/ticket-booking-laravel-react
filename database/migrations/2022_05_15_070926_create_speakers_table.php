@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('position');
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->string('img')->nullable();
-            $table->text('desc')->nullable();
+            $table->text('description')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
-            // $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

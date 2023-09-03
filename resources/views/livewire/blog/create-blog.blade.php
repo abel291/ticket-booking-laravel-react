@@ -3,11 +3,11 @@
         show: @entangle('open').defer,
         edit: false,
         tab: 'form'
-    }"
-        @open-modal-edit.window=" show = true;edit= true; tab='form'; $wire.edit($event.detail)">
-        <x-button x-on:click="show = true;edit=false; tab='form'; $dispatch('reset-input-image')" wire:click="create">
+    }" @open-modal-edit.window=" show = true;edit= true; tab='form'; $wire.edit($event.detail)">
+        <x-primary-button x-on:click="show = true;edit=false; tab='form'; $dispatch('reset-input-image')"
+            wire:click="create">
             Agregar
-            {{ $label }}</x-button>
+            {{ $label }}</x-primary-button>
 
         <x-modal>
 
@@ -25,15 +25,15 @@
                     <div class="flex items-center gap-2 py-6 ">
 
                         <button class="py-2 px-3 rounded-md font-medium"
-                            x-bind:class="tab=='form' ? 'bg-gray-200 text-gray-800':'text-gray-500' "
+                            x-bind:class="tab == 'form' ? 'bg-gray-200 text-gray-800' : 'text-gray-500'"
                             x-on:click="tab='form' ">Datos</button>
 
                         <button class="py-2 px-4 rounded-md font-medium"
-                            x-bind:class="tab=='categories' ? 'bg-gray-200 text-gray-800':'text-gray-500' "
+                            x-bind:class="tab == 'categories' ? 'bg-gray-200 text-gray-800' : 'text-gray-500'"
                             x-on:click="tab='categories' ">Categorias</button>
 
                         <button class="py-2 px-4 rounded-md font-medium"
-                            x-bind:class="tab=='images' ? 'bg-gray-200 text-gray-800':'text-gray-500' "
+                            x-bind:class="tab == 'images' ? 'bg-gray-200 text-gray-800' : 'text-gray-500'"
                             x-on:click="tab='images' ">Imagenes</button>
 
                     </div>
@@ -58,12 +58,12 @@
                         volver
                     </x-secondary-button>
 
-                    <x-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
-                        Editar </x-button>
+                    <x-primary-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
+                        Editar </x-primary-button>
 
-                    <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
+                    <x-primary-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
                         Guardar
-                    </x-button>
+                    </x-primary-button>
 
                 </div>
             </x-slot>

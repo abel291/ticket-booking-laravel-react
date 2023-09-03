@@ -7,115 +7,102 @@ use App\Helpers\Checkout;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Event;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Services\CheckoutService;
+use App\Services\OrderService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-	public function payment(PaymentRequest $request)
-	{
-		$event = $event = Event::where('slug', $request->event_slug)
-			->has('sessions_available')
-			->with('sessions_available.ticket_types_available', 'promotions_available', 'location')
-			->firstOrFail();
+    public function payment(PaymentRequest $request)
+    {
 
-		$session_selected = $event->sessions_available->firstWhere('date', $request->date);
+        $event = $event = Event::with('sessions_available.ticket_types_available', 'promotions', 'location')
+            ->findOrFail($request->event_id);
 
-		$tickets = $session_selected->ticket_types_available;
+        $session_selected = $event->sessions_available->firstWhere('date', $request->date);
 
-		$promotion_selected = $event->promotions_available->firstWhere('code', $request->code_promotion);
+        $tickets = $session_selected->ticket_types_available;
 
-		$tickets_selected = CheckoutService::tickets_quantity_selected(
-			$tickets,
-			$request->input('tickets_quantity', [])
-		);
+        if ($request->code_promotion) {
+            $promotion = $event->promotions_available()->active()->where('code', $request->code_promotion)->firstOrFail();
+        } else {
+            $promotion = null;
+        }
 
-		$summary = CheckoutService::summary(
-			sub_total: $tickets_selected->sum('price_quantity'),
-			promotion_selected: $promotion_selected
-		);
+        $tickets_selected = OrderService::calculatePriceTicket(
+            $tickets,
+            $request->input('tickets_quantity', [])
+        );
 
-		$payment = new Payment();
-		$payment->code = rand(1000, 9999) . date('md') . auth()->user()->id;
-		$payment->session = $session_selected->date;
-		$payment->quantity = $tickets_selected->sum('quantity_selected');
-		$payment->status = PaymentStatus::SUCCESSFUL;
+        $order = OrderService::createOrder($event, $session_selected, $tickets_selected, $promotion);
 
-		//amount
-		$payment->fee = $summary['fee'];
-		$payment->fee_porcent = $summary['fee_porcent'];
-		$payment->sub_total = $summary['sub_total'];
-		$payment->total = $summary['total'];
+        $order->data = array_merge(
+            (array)$order->data,
+            [
+                'user' => [
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'email' => auth()->user()->email
+                ]
+            ]
+        );
 
-		//json
-		$payment->event_data = [
-			'title' => $event->title,
-			'location_address' => $event->location->address,
-			'location_name' => $event->location->name,
-		];
-		$payment->user_data = ['name' => $request->name, 'phone' => $request->phone, 'email' => auth()->user()->email];
+        try {
+            if ($order->total > 0) {
 
-		//relationships
-		$payment->event_id = $event->id;
-		$payment->session_id = $session_selected->id;
-		$payment->user_id = auth()->user()->id;
-		if ($promotion_selected) {
-			$payment->promotion_data = $promotion_selected->only('value', 'type', 'code');
-			$payment->promotion_id = $promotion_selected->id;
-		}
-		try {
-			if ($payment->total > 0) {
+                // $description_stripe = $user->name . " - " . $order->quantity . " boleto(s)";
+                // $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
+                // $pay = $stripe->paymentIntents->create([
+                //     'amount' => $order->total * 100,
+                //     'currency' => 'usd',
+                //     'description' => $description_stripe,
+                //     'payment_method' => $orderMethod,
+                //     'confirmation_method' => 'manual',
+                //     'confirm' => true,
+                // ]);
 
-				// $description_stripe = $user->name . " - " . $payment->quantity . " boleto(s)";
-				// $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
-				// $pay = $stripe->paymentIntents->create([
-				//     'amount' => $payment->total * 100,
-				//     'currency' => 'usd',
-				//     'description' => $description_stripe,
-				//     'payment_method' => $paymentMethod,
-				//     'confirmation_method' => 'manual',
-				//     'confirm' => true,
-				// ]);
+                // $order->stripe_id = $pay->id;
 
-				// $payment->stripe_id = $pay->id;
+                $order->stripe_id = Str::random();
+            } else {
+                $order->stripe_id = '';
+            }
+            $order->status = PaymentStatus::SUCCESSFUL;
+            $order->save();
 
-				$payment->stripe_id = Str::random();
-			} else {
-				$payment->stripe_id = '';
-			}
+            $tickets_payments = [];
+            foreach ($tickets_selected as $key => $item) {
+                $tickets_payments[$key] = [
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity_selected,
+                    'total' => $item->price_quantity,
+                    'ticket_type_id' => $item->id,
+                    'event_id' => $event->id,
+                    'user_id' => auth()->user()->id,
+                ];
+            }
 
-			$payment->save();
+            $order->order_tickets()->createMany($tickets_payments);
 
-			$tickets_payments = [];
-			foreach ($tickets_selected as $key => $item) {
-				$tickets_payments[$key] = [
-					'name' => $item->name,
-					'price' => $item->price,
-					'quantity' => $item->quantity_selected,
-					'price_quantity' => $item->price_quantity,
-					'ticket_type_id' => $item->id,
-				];
-			}
+            DB::commit();
+        } catch (\Throwable $e) {
+            dd($e);
+            DB::rollBack();
 
-			$payment->tickets()->createMany($tickets_payments);
+            return back()->withErrors(['message' => 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.']);
+        }
 
-			DB::commit();
-		} catch (\Throwable $e) {
-			dd($e);
-			DB::rollBack();
-
-			return back()->withErrors(['message' => 'Al parecer hubo un error! El pago a través de su targeta no se pudo realizar.']);
-		}
-
-		return Redirect::route('profile.order_details', ['code' => $payment->code])
-			->with(
-				'success',
-				'Orden completada con exito'
-			);
-	}
+        return Redirect::route('profile.order_details', ['code' => $order->code])
+            ->with(
+                'success',
+                'Orden completada con exito'
+            );
+    }
 }
 
 /*DB::beginTransaction();

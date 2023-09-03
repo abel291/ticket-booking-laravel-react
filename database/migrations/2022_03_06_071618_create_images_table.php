@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
             $table->string('img');
-            $table->integer('imageable_id')->index();
-            $table->string('imageable_type')->index();
+            $table->morphs('model');
             $table->timestamps();
         });
     }

@@ -25,14 +25,14 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'event_slug' => ['required', Rule::exists('events', 'slug')->where(function ($query) {
-                return $query->where('active', 1)->where('slug', request()->event_slug);
+            'event_id' => ['required', Rule::exists('events', 'id')->where(function ($query) {
+                return $query->where('active', 1);
             })],
             'date' => ['date', 'required', 'after:now'],
             'tickets_quantity' => ['required', 'array', 'min:1'],
             'name' => ['required', 'max:255', 'min:3'],
             'phone' => ['required', 'max:20', 'min:3'],
-            'code_promotion' => ['sometimes', 'nullable', 'exists:promotions,code'],
+            //'code_promotion' => ['nullable', 'exists:promotions,code'],
         ];
     }
 

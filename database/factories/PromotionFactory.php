@@ -22,7 +22,7 @@ class PromotionFactory extends Factory
             'value' => rand(1, 100),
             'quantity' => rand(1, 100),
             'expired' => $this->faker->dateTimeBetween('now', '+4 week'),
-            'description' => $this->faker->sentence(),
+            'entry' => $this->faker->sentence(),
         ];
     }
 }

@@ -1,17 +1,30 @@
-@props(['date', 'ref'])
+@props(['label'])
+@php
+    $id = $attributes->whereStartsWith('wire:model')->first();
+    $ref = 'd' . uniqid();
+@endphp
 <div>
+    <x-form.input-label for="{{ $id }}">{{ $label ?? $slot }}</x-form.input-label>
 
-    <div x-data x-init="
-	
-	flatpickr($refs.{{ $ref }}, {
-        altInput: true,
-        altFormat: 'j F Y G:i K',
-        enableTime: true,
-		time_24hr: false,    	         
-        defaultDate: '{{ $date }}'
-    })">
+    <div x-data="{ value: @entangle($attributes->wire('model')) }">
+        <x-form.text-input id="{{ $id }}" {{ $attributes->whereDoesntStartWith('wire:model') }}
+            x-ref="{{ $ref }}" x-init="$nextTick(() => {
+                flatpickr($refs.{{ $ref }}, {
+                    locale: 'es',
+                    time_24hr: false,
+                    dateFormat: 'Y-m-d H:i:s',
+                    altFormat: 'F j, Y h:i K',
+                    altInput: true,
+                    defaultDate: value,
+                    enableTime: true,
+                    onChange: function(selectedDates, dateStr, instance) {
+                        value = dateStr
+                    },
+                })
+            })" />
 
-        <input type="text" x-ref="{{ $ref }}" {!! $attributes->merge(['class' => ' border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}>
+
 
     </div>
+
 </div>

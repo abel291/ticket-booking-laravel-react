@@ -11,13 +11,17 @@ class Ticket extends Model
 
     protected $guarded = [];
 
-    public function payment()
+    public function event()
     {
-        return  $this->belongsTo(Payment::class);
+        return  $this->belongsTo(Event::class);
     }
 
     public function ticket_type()
     {
-        return  $this->hasOne(TicketType::class);
+        return  $this->belongsTo(TicketType::class);
+    }
+    public function session()
+    {
+        return  $this->belongsTo(Session::class);
     }
 }

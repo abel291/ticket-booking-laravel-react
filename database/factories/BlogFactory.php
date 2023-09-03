@@ -22,10 +22,10 @@ class BlogFactory extends Factory
         return [
             'title' => ucfirst($name),
             'slug' => Str::slug($name),
-            'image' => '/images/img-'.rand(1, 5).'.jpg',
+            'image' => '/images/img-' . rand(1, 5) . '.jpg',
             'active' => rand(0, 1),
-            'desc_min' => $this->faker->text(150),
-            'desc_max' => $this->faker->text(1000),
+            'entry' => $this->faker->text(150),
+            'description' => $this->faker->text(1000),
         ];
     }
 }

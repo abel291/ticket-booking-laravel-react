@@ -20,11 +20,11 @@ class DisableForeignKeyMigrations
     /**
      * Handle the event.
      *
-     * @param  \Illuminate\Database\Events\MigrationsStarted  $event
      * @return void
      */
     public function handle(MigrationsStarted $event)
     {
+
         Schema::disableForeignKeyConstraints();
     }
 }

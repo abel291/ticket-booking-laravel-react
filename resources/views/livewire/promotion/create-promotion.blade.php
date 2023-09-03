@@ -3,7 +3,8 @@
         show: @entangle('open').defer,
         edit: false,
     }" @open-modal-edit.window=" show = true;edit= true; $wire.edit($event.detail)">
-        <x-button x-on:click="show = true;edit=false;" wire:click="create">Agregar {{ $label }}</x-button>
+        <x-primary-button x-on:click="show = true;edit=false;" wire:click="create">Agregar
+            {{ $label }}</x-primary-button>
 
         <x-modal>
 
@@ -25,8 +26,7 @@
                     <div>
                         <x-form.label class="block">Valor</x-form.label>
                         <div>
-                            <x-form.input required type="number" class="w-full"
-                                wire:model.defer="promotion.value" />
+                            <x-form.input required type="number" class="w-full" wire:model.defer="promotion.value" />
                             <x-form.input-error for="promotion.value" />
                         </div>
                     </div>
@@ -34,8 +34,7 @@
                     <div>
                         <x-form.label class="block">Tipo de valor</x-form.label>
                         <div>
-                            <x-form.select required type="number" class="w-full"
-                                wire:model.defer="promotion.type">
+                            <x-form.select required type="number" class="w-full" wire:model.defer="promotion.type">
                                 <option selected>Selecione un tipo de valor </option>
                                 <option value={{ \App\Enums\PromotionType::PERCENT->value }}>Porcentaje (%)</option>
                                 <option value={{ \App\Enums\PromotionType::AMOUNT->value }}>Monto ($)</option>
@@ -58,8 +57,8 @@
                         <div>
                             <div x-data x-init="flatpickr($refs.expired, {
                                 enableTime: true,
-                                enableSeconds: false, 
-                                time_24hr:false,                               
+                                enableSeconds: false,
+                                time_24hr: false,
                                 altInput: true,
                                 altFormat: 'Y-m-d h:i K',
                                 dateFormat: 'Y-m-d H:i:S',
@@ -104,12 +103,12 @@
                         volver
                     </x-secondary-button>
 
-                    <x-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
-                        Editar </x-button>
+                    <x-primary-button x-show="edit" wire:click="update" class="ml-2" wire:loading.attr="disabled">
+                        Editar </x-primary-button>
 
-                    <x-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
+                    <x-primary-button x-show="!edit" class="ml-2" wire:click="save" wire:loading.attr="disabled">
                         Guardar
-                    </x-button>
+                    </x-primary-button>
 
                 </div>
             </x-slot>

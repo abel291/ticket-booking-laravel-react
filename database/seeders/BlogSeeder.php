@@ -19,7 +19,7 @@ class BlogSeeder extends Seeder
         Blog::truncate();
         DB::table('blog_category')->truncate();
 
-        $posts = Blog::factory()->count(20)->create();
+        $posts = Blog::factory()->count(30)->create();
         foreach (Category::get() as $key => $category) {
             $category->posts()->attach(
                 $posts->random(3)->pluck('id')

@@ -14,28 +14,32 @@ class ListTicketType extends Component
     use WithPagination;
     use WithSorting;
 
-    public $label = 'Boleto';
+    public $label = 'Entrada';
 
-    public $label_plural = 'Boletos';
+    public $label_plural = 'Entradas';
 
-    public $event_id;
+    public $event;
+
+    protected $queryString = ['sortBy', 'sortDirection', 'search'];
 
     protected $listeners = [
         'renderListTicketType' => 'render',
         'resetListTicketType' => 'resetList',
     ];
 
-    public function mount(Event $event)
+    public function mount($id)
     {
-        $this->event = $event;
+        $this->event = Event::with('category', 'subCategory')->filterByRole()->findOrFail($id);
     }
 
     public function render()
     {
-        $ticket_types = $this->event->ticket_types()->paginate(20);
-		
+        $ticket_types = $this->event->ticket_types()->where('name', 'like', '%' . "$this->search" . '%')
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate(20);
+
         return view('livewire.ticket-type.list-ticket-type', [
-            'data' => $ticket_types,
+            'list' => $ticket_types,
         ]);
     }
 }

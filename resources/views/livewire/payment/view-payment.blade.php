@@ -35,11 +35,10 @@
                     </div>
                 </div>
                 <div>
-					
+
                     @if (
-						$payment->status == \App\Enums\PaymentStatus::SUCCESSFUL || (
-						$payment->status == \App\Enums\PaymentStatus::CANCELED && $payment->total >0)
-					) 
+                        $payment->status == \App\Enums\PaymentStatus::SUCCESSFUL ||
+                            ($payment->status == \App\Enums\PaymentStatus::CANCELED && $payment->total > 0))
                         <x-danger-button x-data class="ml-3" x-on:click="$dispatch('open-modal-confirmation-delete')">
                             {{ $payment->status != \App\Enums\PaymentStatus::SUCCESSFUL ? 'Reembolsar' : 'Cancelar' }}
                             Boleto
@@ -67,7 +66,7 @@
                                     {{ $ticket->quantity }} x {{ $ticket->name }}
                                 </td>
                                 <td class="px-4 py-2 text-left">
-                                    <x-money amount="{{ $ticket->total }}" currency="USD" convert />
+                                    <x-money amount="{{ $ticket->price_quantity }}" currency="USD" convert />
                                 </td>
                             </tr>
                         @endforeach
@@ -84,8 +83,7 @@
                                 <td class="px-4 py-2 text-left">Descuento</td>
                                 <td class="px-4 py-2 text-left">
                                     -
-                                    <x-money amount="{{ $payment->promotion_data->applied }}" currency="USD"
-                                        convert />
+                                    <x-money amount="{{ $payment->promotion_data->applied }}" currency="USD" convert />
                                 </td>
                             </tr>
                         @endif

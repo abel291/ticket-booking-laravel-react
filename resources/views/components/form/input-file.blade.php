@@ -1,71 +1,38 @@
-@props(['temp', 'multiple', 'name', 'saved '])
-<div class="">
-    <div class="mr-3" x-data="{ isUploading: false, progress: 0 }"
-        x-on:livewire-upload-start="isUploading = false" x-on:livewire-upload-finish="isUploading = false"
-        x-on:livewire-upload-error="isUploading = false"
-        x-on:livewire-upload-progress="progress = $event.detail.progress">
+@props(['temp', 'model', 'saved' => null, 'label' => ''])
 
-        <label for="{{ $name }}" wire:loading.class="bg-gray-500 cursor-auto"
-            wire:loading.class.remove="bg-gray-800 cursor-pointer" wire:target="{{ $name }}"
-            class=" inline-block  mb-4 cursor-pointer  px-4 py-2 bg-gray-800 border border-transparent 
-            rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 
-            active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray 
-            sdisabled:opacity-25 transition ease-in-out duration-150">
+<div>
+    <div class="mb-3">
+        <x-form.input-label for="{{ $model }}">{{ $label }}</x-form.input-label>
+        <label for="{{ $model }}">
+            <div class="btn btn-primary w-40 cursor-pointer mt-1" wire:loading.class="opacity-50"
+                wire:loading.class.remove="cursor-pointer" wire:target="{{ $model }}">
 
-            <span wire:loading.class="hidden" wire:target="{{ $name }}">Subir Imagen</span>
-            <span wire:loading wire:target="{{ $name }}" x-text=" 'Subiendo ' + progress + '%' "></span>
+                <span wire:loading.remove wire:target="{{ $model }}">
+                    Subir Imagen
+                </span>
 
-            <input wire:target="{{ $name }}" wire:loading.attr="disabled" id="{{ $name }}" type="file"
-                class="sr-only" wire:model="{{ $name }}" accept=".png, .jpg, .jpeg"
-                {{ $multiple ? 'multiple' : '' }}>
+                <span wire:loading wire:target="{{ $model }}">
+                    Subiendo...
+                </span>
+                <input id="{{ $model }}" class="hidden" wire:target="{{ $model }}"
+                    wire:loading.attr="disabled" id="{{ $model }}" type="file"
+                    wire:model="{{ $model }}" accept=".png, .jpg, .jpeg">
+
+            </div>
+
         </label>
-
+        <x-form.input-error :for="$model" />
     </div>
-
-    <!-- img temp-->
-    @if ($temp)
-        @if (is_array($temp))
-            <div class="flex flex-wrap ">
-                @foreach ($temp as $item)
-                    <div class=" mb-3 mr-3">
-                        <img class="rounded-lg h-44 max-w-full" src="{{ $item->temporaryUrl() }}">
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <img class="inline-block rounded-lg h-44 max-w-full" src="{{ $temp->temporaryUrl() }}">
-        @endif
-    @endif
-
-    <!-- img saved-->
-    @if ($saved)
-
-        @if ($multiple && $saved->isNotEmpty())
-            <div class="flex flex-wrap relative">
-                <div wire:loading wire:target="remove_img" x-transition class="absolute inset-0 blur z-10 "></div>
-                @foreach ($saved as $item)
-                    <div wire:key="{{ $item->id }}" class="  mb-3 mr-3 rounded-lg overflow-hidden">
-                        <img class="object-cover h-44  w-44"
-                            src="{{ url('/storage/' . $item->img) }}?{{ rand(1, 300) }}">
-                        <button type="button" wire:click="remove_img({{ $item->id }})"
-                            class="py-2 w-full bg-red-500 text-sm font-medium text-white">
-                            
-                            <span wire:loading.class="hidden" wire:target="remove_img({{ $item->id }})">Eliminar</span>
-                            
-                            <span wire:loading wire:target="remove_img({{ $item->id }})">
-                                <x-spinner-loading class="w-4 h-5 text-gray-200"/>
-                            </span>
-                        </button>
-                    </div>
-                @endforeach
+    <div class="flex items-start gap-3">
+        @if ($saved)
+            <div class="w-full lg:w-1/2 flex justify-center">
+                <img class="border rounded-md overflow-hidden" src="{{ $saved }}?{{ rand(1, 300) }}">
             </div>
         @endif
-
-        @if (is_string($saved))
-            <img class="inline-block rounded-lg object-cover h-44  w-44"
-                src="{{ url('/storage/' . $saved) }}?{{ rand(1, 300) }}">
+        @if ($temp)
+            <div class="w-full lg:w-1/2 flex justify-center">
+                <img class="border rounded-md overflow-hidden" src="{{ $temp->temporaryUrl() }}">
+            </div>
         @endif
-    @endif
-
+    </div>
 </div>
-{{-- //resolver el problema de eliminar varias imagenes a la vez --}}

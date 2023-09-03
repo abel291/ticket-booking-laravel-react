@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Boleto | {{ $code }} | {{ $user_data['name'] }} </title>
+    <title>Boleto | {{ $code }} | {{ $data['user']['name'] }} </title>
     <link rel="stylesheet" href="{{ mix('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ public_path('css/dashboard.css') }}">
 
@@ -14,13 +14,12 @@
         .page-break {
             page-break-after: always;
         }
-
     </style>
 </head>
 
 <body class="">
 
-    @foreach ($tickets as $ticket)
+    @foreach ($order_tickets as $ticket)
         @for ($i = 0; $i < $ticket['quantity']; $i++)
             <div class="page-break">
                 <table class="w-full">
@@ -41,11 +40,13 @@
                             <tr>
 
                                 <td>
-                                    <h1 class="font-bold text-2xl uppercase">{{ $event_data['title'] }} ({{ $i + 1 }}/{{ $ticket['quantity'] }})</h1>
+                                    <h1 class="font-bold text-2xl uppercase">{{ $data['event']['title'] }}
+                                        ({{ $i + 1 }}/{{ $ticket['quantity'] }})</h1>
                                 </td>
                                 <td>
                                     <div>
-                                        <img class="w-40 rounded-md" src="{{ public_path('/img/events/img-1.jpg') }}" alt="">
+                                        <img class="w-40 rounded-md" src="{{ public_path('/img/events/img-1.jpg') }}"
+                                            alt="">
                                     </div>
                                 </td>
                                 {{-- //////////////////////////// --}}
@@ -69,7 +70,7 @@
                                                         Precio
                                                     </td>
                                                     <td class="p-2 text-black font-bold ">
-                                                        {{ Helpers::format_price($ticket['price']) }}
+                                                        @money($ticket['price'])
                                                     </td>
                                                 </tr>
                                                 <tr class="border-t border-gray-100">
@@ -86,10 +87,10 @@
                                                     </td>
                                                     <td class="p-2">
                                                         <div class="text-black font-bold">
-                                                            {{ $event_data['location_name'] }}
+                                                            {{ $data['event']['location_name'] }}
                                                         </div>
                                                         <div class="text-black font-bold">
-                                                            {{ $event_data['location_address'] }}
+                                                            {{ $data['event']['location_address'] }}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -98,7 +99,7 @@
                                                         Informacion del pedido</td>
                                                     <td class="p-2 text-black font-bold ">
                                                         Pedido N°{{ $code }} <br>
-                                                        Hecho por {{ $user_data['name'] }} el {{ $created_at }}
+                                                        Hecho por {{ $data['user']['name'] }} el {{ $created_at }}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -108,7 +109,8 @@
                                 <td class="align-bottom">
                                     <div class="visible-print text-center">
                                         <div class="inline-block">
-                                            <img class="w-28" src="data:image/svg+xml;base64,{{ base64_encode($qrcode) }}">
+                                            <img class="w-28"
+                                                src="data:image/svg+xml;base64,{{ base64_encode($qrcode) }}">
                                         </div>
                                         <span class="block text-xs mt-2">codigo de verificacion</span>
 

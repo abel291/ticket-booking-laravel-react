@@ -15,10 +15,12 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
             'img' => $this->img,
             'events' => EventResource::collection($this->whenLoaded('events')),
+            'subCategories' => CategoryResource::collection($this->whenLoaded('subCategories')),
         ];
     }
 }

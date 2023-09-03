@@ -2,21 +2,32 @@
 
 namespace App\Models;
 
-use App\Scopes\ActiveScope;
+use App\Enums\EventStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Event extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
-    use HasEagerLimit;
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'status' => EventStatus::class,
+
+    ];
+
+    protected $attributes = [
+        'status' => EventStatus::DRAFT,
+    ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function subCategory()
+    {
+        return $this->belongsTo(Category::class, 'sub_category_id');
     }
 
     public function format()
@@ -26,12 +37,21 @@ class Event extends Model
 
     public function images()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'model');
     }
 
     public function sessions()
     {
         return $this->hasMany(Session::class)->orderBy('date');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    public function order_tickets()
+    {
+        return $this->hasMany(OrderTicket::class);
     }
 
     //me devuelve una sola  sesion con la fecha mas cerca de la fecha actual
@@ -54,7 +74,7 @@ class Event extends Model
 
     public function speakers()
     {
-        return $this->hasMany(Speaker::class);
+        return $this->belongsToMany(Speaker::class);
     }
 
     public function ticket_types()
@@ -91,21 +111,20 @@ class Event extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
     public function scopeActive($query)
     {
         $query->where('active', 1);
     }
 
-    // /**
-    //  * Retrieve the model for a bound value.
-    //  *
-    //  * @param  mixed  $value
-    //  * @param  string|null  $field
-    //  * @return \Illuminate\Database\Eloquent\Model|null
-    //  */
-    // public function resolveRouteBinding($value, $field = null)
-    // {
-    //     return $this->where('slug', $value)->firstOrFail();
-    // }
+    public function scopeFilterByRole($query)
+    {
+        $query->when(auth()->user()->hasRole('user'), function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        });
+    }
 }

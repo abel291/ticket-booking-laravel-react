@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ticket;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -17,15 +18,15 @@ class DatabaseSeeder extends Seeder
         //dd(EventTypes::Event->value);
         Schema::disableForeignKeyConstraints();
         $this->call([
-            UserSeeder::class,
-            LocationSeeder::class,
             CategorySeeder::class,
             FormatSeeder::class,
+            UserSeeder::class,
             EventSeeder::class,
-            PivotSessionTicketTypesSeeder::class,
+            SessionTicketsSeeder::class,
             BlogSeeder::class,
             PromotionSeeder::class,
-            PaymentSeeder::class,
+            SpeakerSeeder::class,
+            //PaymentSeeder::class,
 
         ]);
         Schema::enableForeignKeyConstraints();
