@@ -8,7 +8,7 @@ export default function Guest({ children }) {
 
             <div>
                 <Link href="/">
-                    <ApplicationLogo className="text-4xl " />
+                    <ApplicationLogo className="text-4xl text-primary-500" />
                 </Link>
             </div>
             <div className="bg-white mt-6 w-full overflow-hidden bg-dark-blue-800 px-10 py-14  shadow brightness-100 sm:max-w-lg sm:rounded">
