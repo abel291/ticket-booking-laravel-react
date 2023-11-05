@@ -1,6 +1,6 @@
 @props(['date'])
 <div class="text-sm">
-    <div class="whitespace-nowrap font-medium uppercase text-gray-600 ">
+    <div class="whitespace-nowrap font-medium uppercase text-gray-600  text-xs">
         {!! $date->isoFormat('DD MMM YYYY hh:mm A') !!}
 
     </div>

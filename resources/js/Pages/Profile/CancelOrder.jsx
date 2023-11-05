@@ -19,7 +19,7 @@ const CancelOrder = ({ payment, days, porcent_refund, amount_refund }) => {
 			<div className="flex gap-6">
 				<div className="w-full md:w-1/2">
 					<table className="w-full">
-						<tbody className="divide-y divide-dark-blue-400">
+						<tbody className="divide-y divide-primary-400">
 							<tr>
 								<td className="p-3">Dias faltante al evento</td>
 								<td className="p-3">{days} </td>

@@ -34,6 +34,10 @@ class Event extends Model
     {
         return $this->belongsTo(Format::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function images()
     {
@@ -107,10 +111,7 @@ class Event extends Model
             ->wherePivot('remaining', '>', 0);
     }
 
-    public function payments()
-    {
-        return $this->hasMany(Payment::class);
-    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

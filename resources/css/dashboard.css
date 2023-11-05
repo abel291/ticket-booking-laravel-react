@@ -32,10 +32,16 @@
     @apply hover:bg-gray-50;
 }
 .table-list tr th {
-    @apply pb-3.5 text-sm font-semibold text-left;
+    @apply pb-3.5 px-2 text-sm font-semibold text-left;
 }
 .table-list tr td {
     @apply py-3;
+}
+.table-list tr th:last-child {
+    @apply text-right;
+}
+.table-list tbody tr td:last-child {
+    @apply text-right;
 }
 .table-list tr th:first-child,
 .table-list tr td:first-child {
@@ -45,9 +51,12 @@
 .table-list tr td:last-child {
     @apply pl-4;
 }
-.table-list tr th:not(:first-child, :last-child),
+/* .table-list tr th:not(:first-child, :last-child),
 .table-list tr td:not(:first-child, :last-child) {
     @apply px-4;
+} */
+.table-list tbody tr td {
+    @apply px-3;
 }
 
 /* @tailwind base;

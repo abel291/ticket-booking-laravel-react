@@ -3,7 +3,7 @@ import React from 'react'
 
 function OrderTotalPrice({ order }) {
     return (
-        <div className="mt-8 flex sm:justify-end  pr-3">
+        <div className="mt-8 flex sm:justify-end pr-3">
             <div className="sm:text-right">
 
                 <div className="space-y-4">

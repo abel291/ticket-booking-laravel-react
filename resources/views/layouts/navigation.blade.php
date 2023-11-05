@@ -1,11 +1,11 @@
     <nav x-data="{ openSidebar: false }" x-on:resize.window="
-if(window.innerWidth > 768 && openSidebar ){openSidebar=false}
+if(window.innerWidth > 1024 && openSidebar ){openSidebar=false}
 "
         x-init="" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <!-- Primary Navigation Menu -->
-        <div class=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=" mx-auto px-4">
             <div class="flex justify-between h-16">
-                <div class="items-center hidden md:flex font-semibold text-lg">
+                <div class="items-center hidden lg:flex font-semibold text-lg">
                     @php
                         $now = now()->format('H');
                     @endphp
@@ -27,7 +27,7 @@ if(window.innerWidth > 768 && openSidebar ){openSidebar=false}
                         - Admin
                     @endif
                 </div>
-                <div class="-mr-2 flex items-center md:hidden">
+                <div class="-mr-2 flex items-center lg:hidden">
                     <button x-on:click="openSidebar=!openSidebar" aria-controls="default-sidebar" type="button"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                         <x-heroicon-o-bars-3 class="w-6 h-6" />

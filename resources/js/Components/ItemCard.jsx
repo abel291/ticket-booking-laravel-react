@@ -17,7 +17,7 @@ const dtf = new Intl.DateTimeFormat("es", {
 const ItemCard = ({ event }) => {
     return (
         <Link href={route("event", { slug: event.slug })}>
-            <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white border ">
+            <div className="flex h-full flex-col overflow-hidden rounded bg-white border ">
                 <div className="relative overflow-hidden">
                     <img
                         src={event.thum}
@@ -43,14 +43,14 @@ const ItemCard = ({ event }) => {
                         <div className="line-clamp-none lg:line-clamp-2">
                             <span>{event.location.address}</span>
                         </div>
-                        <div className=" font-medium gap-x-3 mt-2 flex justify-between items-end">
-
-                            <div className="mt-1.5 capitalize">
-                                {event.session.dateFormatShort}
-                            </div>
-                            <div className="font-normal text-gray-400">
+                        <div className=" gap-x-3 mt-2 flex justify-between items-end">
+                            <div className=" text-gray-400">
                                 {event.duration}
                             </div>
+                            <div className="mt-1.5 text-gray-400">
+                                {event.session.dateFormatShort}
+                            </div>
+
 
                         </div>
                     </div>

@@ -5,7 +5,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\Manager\ManagerEventController;
 use App\Http\Controllers\Manager\ManagerSessionController;
 use App\Http\Controllers\Manager\ManagerTicketTypeController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\Pages\ContactUsController;
+use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Payment\CheckoutController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Profile\ProfileController;
@@ -15,8 +16,8 @@ use App\Http\Livewire\Category\ListCategory;
 use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
 use App\Http\Livewire\Location\ListLocation;
-use App\Http\Livewire\Payment\ListPayment;
-use App\Http\Livewire\Payment\ViewPayment;
+use App\Http\Livewire\Order\ListOrder;
+use App\Http\Livewire\Order\ShowOrder;
 use App\Http\Livewire\Promotion\ListPromotion;
 use App\Http\Livewire\Session\ListSession;
 use App\Http\Livewire\Speaker\ListSpeaker;
@@ -58,6 +59,9 @@ Route::get('/event/{slug}', [EventController::class, 'event_details'])->name('ev
 Route::get('/speaker/{speaker}', [PageController::class, 'speaker'])->name('speaker');
 
 Route::get('/about-us', [PageController::class, 'about_us'])->name('about_us');
+
+Route::get('/contact-us', [ContactUsController::class, 'contact_us'])->name('contact_us');
+Route::post('/message-contact-us', [ContactUsController::class, 'save'])->name('contact_us.save');
 
 Route::get('/privacy-policy', [PageController::class, 'privacy_policy'])->name('privacy_policy');
 
@@ -106,7 +110,7 @@ Route::get('/order-validate/{code}', function ($code) {
     return 'Aquí se valida el ticket a través de la aplicación :D';
 })->name('order_validate');
 
-Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware(['auth', 'role:super-admin'])->prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::get('/', function () {
         return view('dashboard');
@@ -127,8 +131,8 @@ Route::middleware(['auth', 'can:dashboard'])->prefix('dashboard')->name('dashboa
     Route::get('/event/{event}/speakers', ListSpeaker::class)->name('event-speakers');
 
     Route::get('/speakers', ListSpeaker::class)->name('speakers');
-    Route::get('/payments', ListPayment::class)->name('payments');
-    Route::get('/payments-view/{payment}', ViewPayment::class)->name('payments-view');
+    Route::get('/orders', ListOrder::class)->name('orders');
+    Route::get('/order-show/{code}', ShowOrder::class)->name('order-show');
 
     Route::get('/organizers', function () {
         return view('dashboard');

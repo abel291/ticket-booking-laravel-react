@@ -11,7 +11,7 @@ const HeroEvent = ({ event, title, img = null, search = false }) => {
     return (
         <Hero img={img}>
             <div>
-                <div className="bg-white text-gray-700 inline-block px-3 py-1 mb-4 rounded-full text-sm font-bold">
+                <div className="text-white bg-primary-500 inline-block px-3 py-1 mb-4 rounded-full text-sm font-bold">
                     {event.category.name}
                 </div>
                 <div className=" relative z-10 text-left">

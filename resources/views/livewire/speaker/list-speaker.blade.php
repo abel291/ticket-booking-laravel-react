@@ -1,15 +1,13 @@
 <div>
     <x-slot name="header">
-        {{ __($label_plural) }} Seleccionados
+        {{ __($label_plural) }}
     </x-slot>
     <div>
         <x-list-data :data="$data" :fields="['Nombre - email', 'Posicion', 'twitter']">
             <x-slot name="component_create">
                 <div class="inline-flex gap-3">
-                    @livewire('speaker.create-speaker', ['event_id' => $event->id, 'label' => $label, 'label_plural' => $label_plural])
-                    @if ($event->id)
-                        @livewire('speaker.list-availables-speaker', ['event_id' => $event->id, 'label' => $label, 'label_plural' => $label_plural])
-                    @endif
+                    {{-- @livewire('speaker.create-speaker', ['event_id' => $event->id, 'label' => $label, 'label_plural' => $label_plural]) --}}
+                    {{-- @livewire('speaker.list-availables-speaker', ['event_id' => $event->id, 'label' => $label, 'label_plural' => $label_plural]) --}}
 
                 </div>
             </x-slot>
@@ -21,7 +19,7 @@
                         <td class="px-6 py-3 ">
                             <div class="flex items-center gap-3">
                                 <div>
-                                    <img src="/storage{{ $item->img }}" class="w-10 h-10 rounded-full">
+                                    <img src="{{ $item->img }}" class="w-10 h-10 rounded-full">
                                 </div>
                                 <div>
                                     <div class="font-medium text-gray-900">

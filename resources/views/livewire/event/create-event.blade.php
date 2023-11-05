@@ -50,7 +50,8 @@
                 <div class="lg:col-span-4">
                     <x-form.select required wire:model.defer="event.location_id" label="Recintos">
                         @foreach ($locations as $key => $location)
-                            <option value="{{ $location->id }}">{{ $location->name }} {{ $location->address }}</option>
+                            <option wire:key={{ $location->id }} value="{{ $location->id }}">{{ $location->name }}
+                                {{ $location->address }}</option>
                         @endforeach
                     </x-form.select>
                 </div>

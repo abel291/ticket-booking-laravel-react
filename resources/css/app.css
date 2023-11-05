@@ -35,7 +35,7 @@ body {
 
 @layer utilities {
     .bg-gradient-red {
-        @apply bg-gradient-to-r  to-primary-700 from-primary-500;
+        @apply bg-gradient-to-l from-primary-500 via-primary-600 to-primary-700;
     }
     .bg-gradient-red-invert {
         @apply bg-gradient-to-l from-blue-500 via-purple-600 to-red-500;
@@ -70,10 +70,10 @@ body {
     }
 
     .py-section {
-        @apply py-12 lg:py-16 xl:py-20;
+        @apply py-12 lg:py-14 xl:py-16;
     }
     .pb-section {
-        @apply pb-12 lg:pb-16 xl:pb-20;
+        @apply pb-12 lg:pb-14 xl:pb-16;
     }
 }
 select option {

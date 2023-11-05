@@ -2,8 +2,9 @@
 import { Head, usePage } from "@inertiajs/react";
 import React from "react";
 import Footer from "./Footer/Footer";
-import Navbar from "./Navbar";
+
 import NotificationToast from "@/Components/Notification/NotificationToast";
+import Navbar from "./Navbar/Navbar";
 
 const Layout = ({ title = "", children }) => {
     return (

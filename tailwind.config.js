@@ -15,19 +15,19 @@ export default {
             center: true,
             padding: {
                 DEFAULT: '1rem',
-                sm: '3rem',
+                sm: '2rem',
                 lg: '4rem',
-                xl: '6rem',
+                xl: '8rem',
 
             },
         },
         colors: {
             ...colors,
-            primary: colors.red,
+            primary: colors.indigo,
         },
         extend: {
             fontFamily: {
-                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
         },
     },

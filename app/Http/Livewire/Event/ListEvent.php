@@ -26,9 +26,7 @@ class ListEvent extends Component
         $hasRole = auth()->user()->hasRole('user');
 
         $data = Event::where('title', 'like', '%' . $this->search . '%')
-            ->when(auth()->user()->hasRole('user'), function ($query, string $role) {
-                $query->where('user_id', auth()->user()->id);
-            })->with('category', 'payments')
+            ->with('category', 'orders')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
 

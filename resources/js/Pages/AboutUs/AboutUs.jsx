@@ -11,21 +11,21 @@ import Guarantees from "./Guarantees";
 import BannerHero from "@/Components/Hero/BannerHero";
 
 const AboutUs = () => {
-	return (
-		<Layout title="Sobre nosotros">
-			<BannerHero img="/img/about/banner.jpg" title="Sobre Nosotros" />
-			<div className="bg-dark-blue-800">
-				<Section1 />
-				<Section2 />
-				<Section3 />
-			</div>
-			<Members />
-			<div className="bg-dark-blue-800">
-				<Gallery />
-			</div>
-			<Guarantees />
-		</Layout>
-	);
+    return (
+        <Layout title="Sobre nosotros">
+            <BannerHero img="/img/about/banner.jpg" title="Sobre Nosotros" />
+            <div className="bg-gray-100">
+                <Section1 />
+                <Section2 />
+                <Section3 />
+            </div>
+            <Members />
+            <div className="bg-gray-100">
+                <Gallery />
+            </div>
+            <Guarantees />
+        </Layout>
+    );
 };
 
 export default AboutUs;

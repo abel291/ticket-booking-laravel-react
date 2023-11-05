@@ -37,10 +37,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->hasRole('admin')) {
-            return Inertia::location(route('dashboard.home'));
+        if (Auth::user()->hasRole('super-admin')) {
+            return Inertia::location(RouteServiceProvider::HOME);
         } else {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return to_route('home');
         }
     }
 

@@ -15,7 +15,7 @@ const Home = ({ eventsFeacture, eventsFree, eventsCarousel }) => {
                 desc="Emisión de boletos segura y confiable. ¡Su boleto para entretenimiento en vivo!"
             />
 
-            <div className="container mt-16">
+            <div className="container">
 
                 <ItemList title="Últimos añadidos" subTitle="NO TE LOS PUEDES PERDER" linkPath={route("events")}>
                     <ItemList.Grid events={eventsFeacture} />

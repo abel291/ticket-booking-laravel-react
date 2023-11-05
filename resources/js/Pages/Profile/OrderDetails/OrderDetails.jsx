@@ -10,10 +10,11 @@ const OrderDetails = ({ order }) => {
     return (
         <MyAccount title={"Detalles del pedido: #" + order.code}>
 
-            <div className="mt-4">
-                <h3 className="font-medium text-lg">Detalles de evento</h3>
-                <dl class="grid grid-cols-2 gap-4 mt-2" >
-
+            <div>
+                <dl class="grid lg:grid-cols-2 mt-2 " >
+                    <div className="lg:col-span-2  pb-4">
+                        <h3 className="text-base font-semibold leading-7 text-gray-900">Detalles de evento</h3>
+                    </div>
                     <Data title="Nombre del Evento">
                         {order.data.event.title}
                     </Data>
@@ -32,12 +33,9 @@ const OrderDetails = ({ order }) => {
                         {formatDate(order.data.session)}
                     </Data>
 
-                </dl>
-
-            </div>
-            <div className="mt-8">
-                <h3 className="font-medium text-lg">Detalles de compra</h3>
-                <dl class="grid grid-cols-2 gap-4 mt-2" >
+                    <div className="lg:col-span-2 pt-8 pb-4">
+                        <h3 className="text-base font-semibold leading-7 text-gray-900">Detalles de compra</h3>
+                    </div>
 
                     <Data title="Nombre">
                         {order.data.user.name}
@@ -67,12 +65,8 @@ const OrderDetails = ({ order }) => {
                         </Data>
                     )}
 
-                    <Data title="Nota">
-                        {order.note ? order.note : "-"}
-                    </Data>
-
                     <Data title="Archivos adjuntos">
-                        <div className="mt-2">
+                        <div className="mt-1">
                             <ul role="list" class="">
                                 <li class="flex items-center  pr-5 text-sm leading-6">
                                     <div class="flex items-center">
@@ -90,6 +84,15 @@ const OrderDetails = ({ order }) => {
                         </div>
 
                     </Data>
+
+                </dl>
+
+            </div>
+            <div className="mt-8">
+
+                <dl class="grid grid-cols-2 mt-2" >
+
+
                 </dl>
 
             </div>
@@ -125,11 +128,11 @@ const OrderDetails = ({ order }) => {
 const Data = ({ title, children }) => {
     return (
         <>
-            <div>
-                <div className=" text-xs  font-medium text-primary-500">
+            <div className="py-4 border-t">
+                <div className="text-sm font-medium leading-6 text-gray-900">
                     {title}
                 </div>
-                <div className=" block">{children}</div>
+                <div className="text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{children}</div>
             </div>
 
 

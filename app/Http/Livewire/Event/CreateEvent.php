@@ -74,18 +74,16 @@ class CreateEvent extends Component
     public function mount($id = null)
     {
         $this->reset('banner', 'card', 'thum');
-        $this->locations = auth()->user()->locations;
+
         $this->categories = Category::with('subCategories')->whereNull('category_id')->get();
         $this->isEdit = boolval($id);
 
         if ($id) {
-            if (auth()->user()->hasRole('user')) {
-                $this->event = auth()->user()->events()->findOrFail($id);
-            } else {
-                $this->event = Event::findOrFail($id);
-            }
+            $this->event = Event::findOrFail($id);
+            $this->locations = $this->event->user->locations;
         } else {
             $this->event = Event::factory()->make();
+            $this->locations = auth()->user()->locations;
         }
         $this->resetErrorBag();
     }
@@ -125,9 +123,6 @@ class CreateEvent extends Component
     public function edit($id)
     {
         $event = Event::query();
-        if (auth()->user()->hasRole('user')) {
-            $event->where('user_id', auth()->user()->id);
-        }
         $event = $event->findOrFail($id);
         $this->event = $event;
         $this->reset('card', 'banner');

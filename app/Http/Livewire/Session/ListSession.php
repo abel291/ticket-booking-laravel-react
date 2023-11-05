@@ -29,9 +29,10 @@ class ListSession extends Component
     public function mount($id)
     {
         $this->event = Event::with('category', 'subCategory')
-            ->when(auth()->user()->hasRole('user'), function ($query, string $role) {
-                $query->where('user_id', auth()->user()->id);
-            })->findOrFail($id);
+            // ->when(auth()->user()->hasRole('user'), function ($query, string $role) {
+            //     $query->where('user_id', auth()->user()->id);
+            // })
+            ->findOrFail($id);
     }
 
     public function render()

@@ -8,7 +8,7 @@ export const formatCurrency = (n) => {
 };
 export const formatDate = (date) => {
     const dtf = new Intl.DateTimeFormat("es", {
-        weekday: "short",
+        weekday: "long",
         year: "2-digit",
         month: "short",
         day: "2-digit",

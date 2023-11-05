@@ -1,54 +1,15 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
+
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import React, { useEffect, useRef, useState } from "react";
 import ProfileDropdown from "./ProfileDropdown";
+import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 
 
-const Navbar = () => {
-    const { auth } = usePage().props;
-    let links = [
-        {
-            title: "Inicio",
-            path: route("home"),
-            current: route().current("home"),
-        },
 
-        {
-            title: "Conciertos",
-            path: route("events", { categories: ["conciertos"] }),
-            current: route().current("events"),
-        },
+const DesktopNavbar = ({ navigation }) => {
 
-        {
-            title: "Turismo",
-            path: route("events", { categories: ["turismo"] }),
-            current: route().current("events"),
-        },
-
-        {
-            title: "Festivales",
-            path: route("events", { categories: ["festivales"] }),
-            current: route().current("events"),
-        },
-
-        {
-            title: "Acerca",
-            path: route("about_us"),
-            current: route().current("about_us"),
-        },
-
-        {
-            title: "Contactenos",
-            path: route("home"),
-            current: route().current("home"),
-        },
-    ];
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
-    //const scrollRef = useRef();
     const [isTopScroll, setIsTopScroll] = useState(true);
 
     const handleScroll = () => {
@@ -73,7 +34,7 @@ const Navbar = () => {
     return (
         <nav
             className={
-                "fixed inset-x-0 z-20  transition" +
+                "fixed inset-x-0 z-20 hidden lg:block transition" +
                 (isTopScroll === true
                     ? " lg:text-white lg:border-b lg:border-gray-50 lg:border-opacity-20 lg:bg-transparent"
                     : " shadow lg:bg-white")
@@ -83,15 +44,15 @@ const Navbar = () => {
         //ref={scrollRef}
         >
             <div className="container">
-                <div className="flex  items-center justify-between h-20">
+                <div className="flex gap-x-10 items-center justify-between h-20">
                     <div className="flex items-center">
                         <Link href="/" className={isTopScroll ? "" : "text-primary-500"}>
                             <ApplicationLogo className="text-3xl " />
                         </Link>
                     </div>
 
-                    <div className="flex  gap-x-4 items-center">
-                        {links.map((item, key) => (
+                    <div className="flex gap-x-4 items-center flex-wrap justify-end">
+                        {navigation.map((item, key) => (
                             <Link className=" rounded-md text-sm lg:text-base font-bold uppercase" key={key} href={item.path}>
                                 {item.title}
                             </Link>
@@ -119,14 +80,14 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div
+            {/* <div
                 className={
                     " lg:hidden " +
                     (showingNavigationDropdown ? "block" : "hidden")
                 }
             >
                 <div className="mx-auto max-w-3xl space-y-1 py-2">
-                    {links.map((item, key) => (
+                    {navigation.map((item, key) => (
                         <ResponsiveNavLink
                             key={key}
                             href={item.path}
@@ -142,7 +103,7 @@ const Navbar = () => {
                                     {auth.user.name}
                                 </div>
                             </div>
-                            <div className="border-t border-dark-blue-400">
+                            <div className="border-t border-primary-400">
                                 <ResponsiveNavLink
                                     method="post"
                                     href={route("logout")}
@@ -158,9 +119,9 @@ const Navbar = () => {
                         </ResponsiveNavLink>
                     )}
                 </div>
-            </div>
+            </div> */}
         </nav>
     );
 };
 
-export default Navbar;
+export default DesktopNavbar;

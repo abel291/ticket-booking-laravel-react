@@ -39,17 +39,17 @@
         ],
         [
             'name' => 'Ordenes',
-            'route' => 'dashboard.payments',
+            'route' => 'dashboard.orders',
             'icon' => 'heroicon-s-ticket',
         ],
-        [
-            'name' => 'Configuraciones',
-            'route' => 'dashboard.payments',
-            'icon' => 'heroicon-s-cog-6-tooth',
-        ],
+        // [
+        //     'name' => 'Configuraciones',
+        //     'route' => 'dashboard.orders',
+        //     'icon' => 'heroicon-s-cog-6-tooth',
+        // ],
         [
             'name' => 'Oradores',
-            'route' => 'dashboard.payments',
+            'route' => 'dashboard.orders',
             'icon' => 'heroicon-s-cog-6-tooth',
         ],
     ];
@@ -68,8 +68,8 @@
     ];
 @endphp
 <div class="w-72 flex bg-gray-900 z-40">
-    <div class="px-6 pb-4 pt-8 flex flex-col gap-y-10 overflow-y-auto grow ">
-        <div class="text-white ">
+    <div class="px-6 pb-4 pt-0 flex flex-col gap-y-6 overflow-y-auto grow ">
+        <div class="text-white h-16 flex items-center ">
             <x-application-logo />
         </div>
         <nav class="flex flex-col flex-1">
@@ -106,18 +106,18 @@
                         @endforeach
                     </ul>
                 </li> --}}
-                {{-- <li class="mt-auto">
+                <li class="mt-auto">
                     <ul role="list" class="space-y-1 -mx-2">
                         <li>
-                            {{-- <a href="{{ route('dashboard.settings') }}"
+                            <a href="{{ route('dashboard.home') }}"
                                 class="font-semibold text-sm leading-6 rounded-md flex gap-x-3 p-2
-									{{ request()->routeIs('dashboard.settings' . '*') ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-800' }}">
+									{{ request()->routeIs('dashboard.home' . '*') ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-800' }}">
                                 @svg('heroicon-s-cog-6-tooth', 'w-6 h-6 flex-shrink-0')
-                                Ajustes
-                            </a> --}}
+                                Configuraciones
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-            </li> --}}
             </ul>
         </nav>
     </div>

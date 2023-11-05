@@ -34,14 +34,18 @@ class UserSeeder extends Seeder
             ]);
         $user_admin->assignRole($role_admin);
 
-        $user = User::factory()->has(Location::factory()->count(16))->create([
-            'email' => 'user2@user.com',
-            'email_verified_at' => null,
-            'remember_token' => null,
-        ]);
+        $user = User::factory()
+            ->has(Location::factory()->count(16))
+            ->create([
+                'email' => 'user2@user.com',
+                'email_verified_at' => null,
+                'remember_token' => null,
+            ]);
         $user->assignRole($role_user);
 
-        $users = User::factory(100)->has(Location::factory()->count(16))->create();
+        $users = User::factory(100)
+            ->has(Location::factory()->count(16))
+            ->create();
 
         foreach ($users as $user) {
             $user->assignRole($role_user);

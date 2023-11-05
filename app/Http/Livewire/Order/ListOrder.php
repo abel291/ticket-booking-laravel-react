@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Payment;
+namespace App\Http\Livewire\Order;
 
 use App\Http\Traits\WithSorting;
-use App\Models\Payment;
+use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ListPayment extends Component
+class ListOrder extends Component
 {
     use WithPagination;
     use WithSorting;
@@ -17,21 +17,21 @@ class ListPayment extends Component
     public $label_plural = 'Pagos';
 
     protected $listeners = [
-        'renderListPayment' => 'render',
-        'resetListPayment' => 'resetList',
+        'renderListOrder' => 'render',
+        'resetListOrder' => 'resetList',
     ];
 
     public function render()
     {
-        $data = Payment::where('code', 'like', '%'.$this->search.'%')
-            ->withCount('tickets', 'event', 'user')
+        $data = Order::where('code', 'like', '%' . $this->search . '%')
+            ->with('event', 'user')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
 
-        // dd($data->first()->tickets);
 
-        return view('livewire.payment.list-payment', [
-            'data' => $data,
+
+        return view('livewire.order.list-order', [
+            'list' => $data,
             'label' => $this->label,
             'label_plural' => $this->label_plural,
         ]);

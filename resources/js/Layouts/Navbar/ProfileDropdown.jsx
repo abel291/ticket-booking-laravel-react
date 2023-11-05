@@ -15,13 +15,16 @@ export default function ProfileDropdown({ children }) {
             {auth.user ? (
                 <Dropdown >
                     <Dropdown.Trigger>
-                        <button className=" flex  items-center rounded-md px-3 py-2 text-sm font-semibold">
-                            <span className="">{auth.user.name}</span>
+                        <button className="hidden lg:flex  items-center rounded-md text-sm font-semibold">
+                            <span className="text-base font-bold uppercase">{auth.user.name}</span>
                             <ChevronDownIcon className="w-5 h-5 ml-1 -mr-1  " aria-hidden="true" />
+                        </button>
+                        <button className="lg:hidden flex text-sm focus:outline-none focus:ring-2 focus:ring-primary-700 rounded-md focus:ring-offset-2">
+                            <span className="sr-only">Open user menu</span>
+                            <UserCircleIcon className="h-8 w-8 text-white" />
                         </button>
                     </Dropdown.Trigger>
                     <Dropdown.Content width="w-64" >
-
                         <>
                             <Dropdown.Link href={route('profile.my_account')} method="get"  >
                                 <div className="flex items-center ">
@@ -35,22 +38,16 @@ export default function ProfileDropdown({ children }) {
                                     <span>Mis Compras</span>
                                 </div>
                             </Dropdown.Link>
-                            {/* {(auth.user.role == 'admin') ? (
+                            {(auth.user.role == 'super-admin') && (
 
-                                <a className="dropdown-link" href={route('dashboard.events')}  >
-                                    <div className="flex items-center ">
-                                        <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2 text-primary-600 " />
-                                        <span>Administrador de eventos</span>
+                                <a className="dropdown-link" target='_blank' href={route('dashboard.home')}  >
+                                    <div className="flex items-center">
+                                        <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2 text-primary-600" />
+                                        <span>Dashboard</span>
                                     </div>
                                 </a>
-                            ) : (
-                                <a className="dropdown-link" href={route('manager.events.index')}  >
-                                    <div className="flex items-center ">
-                                        <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2  text-primary-600" />
-                                        <span>Administrador de eventos</span>
-                                    </div>
-                                </a>
-                            )} */}
+                            )}
+
                             <div className=' border-t border-gray-100'>
                                 <Dropdown.Link href={route('logout')} as='button' >
                                     Cerrar sesión
@@ -61,7 +58,7 @@ export default function ProfileDropdown({ children }) {
                     </Dropdown.Content>
                 </Dropdown >
             ) : (
-                <Link href={route("login")} className="btn btn-primary">
+                <Link href={route("login")} className="btn border border-white lg:border-none btn-primary ">
                     <span>
                         ÚNETE
                     </span>

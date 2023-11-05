@@ -1,3 +1,4 @@
+import ListDescription from "@/Components/ListDescription";
 import { formatCurrency, formatDate } from "@/Helpers/Helpers";
 import { ClockIcon, MapPinIcon, TicketIcon } from "@heroicons/react/24/outline";
 import { Link } from "@inertiajs/react";
@@ -6,11 +7,10 @@ import React from "react";
 const EventSidebar = ({ sessions, location, ticket_types }) => {
     return (
         <div className="space-y-6">
-
             <CardSideBar title="Fechas y horas" Icon={ClockIcon}>
-                <div className="space-y-3">
+                <div >
                     {sessions.map((item, key) => (
-                        <div className="capitalize" key={key}>
+                        <div className="capitalize py-2" key={key}>
                             {item.dateFormat}
                         </div>
                     ))}
@@ -19,8 +19,8 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
 
             <CardSideBar title="Tipos de Boletos" Icon={TicketIcon}>
                 {ticket_types.map((item, key) => (
-                    <div key={key} className="p-2 odd:bg-dark-blue-800">
-                        <div className=" font-medium flex items-start justify-between gap-x-2">
+                    <div key={key} className="p-2 ">
+                        <div className="flex items-start justify-between gap-x-2">
                             <div>{item.name} </div>
                             <div>
                                 {item.price == 0 ? "Gratis" : formatCurrency(item.price)}
@@ -32,17 +32,13 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
 
             <CardSideBar title="Ubicacion" Icon={MapPinIcon}>
                 <div className="space-y-3">
-                    <div>
-                        <div className=" text-sm font-medium text-primary-500">
-                            Nombre del lugar
-                        </div>
-                        <div className="block ">{location.name}</div>
-                    </div>
-                    <div>
-                        <div className=" text-sm font-medium text-primary-500">
-                            Direccion
-                        </div>
-                        <div className="block ">
+
+                    <ListDescription title="Nombre del lugar">
+                        {location.name}
+                    </ListDescription>
+
+                    <ListDescription title="Direccion">
+                        <div>
                             {location.address}
                             {location.map && (
                                 <a
@@ -54,13 +50,12 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
                                 </a>
                             )}
                         </div>
-                    </div>
-                    <div>
-                        <div className=" text-sm font-medium text-primary-600">
-                            Telefono
-                        </div>
-                        <div className="block ">{location.phone}</div>
-                    </div>
+
+                    </ListDescription>
+
+                    <ListDescription title="Telefono">
+                        {location.phone}
+                    </ListDescription>
                 </div>
             </CardSideBar>
         </div>

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\PaymentStatus;
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ class Order extends Model
     protected $casts = [
         'data' => 'object',
         'canceled' => 'object',
-        'status' => PaymentStatus::class,
+        'status' => OrderStatus::class,
         'data.session' =>  'datetime:Y-m-d H:i:s',
     ];
     public function order_tickets()

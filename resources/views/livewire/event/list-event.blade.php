@@ -44,15 +44,15 @@
                             <td class="text-sm text-gray-500">
                                 <div>
                                     Cancelados:
-                                    {{ $item->payments->where('status', \App\Enums\PaymentStatus::CANCELED)->count() }}
+                                    {{ $item->orders->where('status', \App\Enums\OrderStatus::CANCELED)->count() }}
                                 </div>
                                 <div>
                                     Exitosos:
-                                    {{ $item->payments->where('status', \App\Enums\PaymentStatus::SUCCESSFUL)->count() }}
+                                    {{ $item->orders->where('status', \App\Enums\OrderStatus::SUCCESSFUL)->count() }}
                                 </div>
                                 <div>
                                     Reembolsados:
-                                    {{ $item->payments->where('status', \App\Enums\PaymentStatus::REFUNDED)->count() }}
+                                    {{ $item->orders->where('status', \App\Enums\OrderStatus::REFUNDED)->count() }}
                                 </div>
                             </td>
 

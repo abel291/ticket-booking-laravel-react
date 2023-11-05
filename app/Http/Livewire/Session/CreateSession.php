@@ -32,14 +32,7 @@ class CreateSession extends Component
         $rules = [
             'session.date' => 'required|date_format:"Y-m-d H:i:s"',
             'session.active' => 'required|boolean',
-            'event_id' => [
-                'required',
-                Rule::exists('events', 'id')->where(function ($query) {
-                    return   $query->when(auth()->user()->hasRole('user'), function ($query) {
-                        $query->where('user_id', auth()->user()->id);
-                    });;
-                })
-            ],
+            'event_id' => ['required'],
         ];
 
         return $rules;
@@ -66,14 +59,14 @@ class CreateSession extends Component
         $session->user_id = auth()->user()->id;
         $session->save();
 
-        $session->ticket_types()->attach($this->tickets_type_selected);
+        $session->ticket_types()->sync($this->tickets_type_selected);
 
         $this->dispatchBrowserEvent('notification', [
             'title' => 'Registro Agregado',
         ]);
 
         $this->emit('resetListSession');
-        $this->reset('open');
+        $this->reset('open', 'tickets_type_selected');
         $this->mount();
     }
 
@@ -92,14 +85,14 @@ class CreateSession extends Component
         $session->load('ticket_types');
         $session->save();
 
-        $session->ticket_types()->syncWithoutDetaching($this->tickets_type_selected);
+        $session->ticket_types()->sync($this->tickets_type_selected);
 
         $this->dispatchBrowserEvent('notification', [
             'title' => 'Registro Editado',
         ]);
 
         $this->emit('resetListSession');
-        $this->reset('open');
+        $this->reset('open', 'tickets_type_selected');
         $this->mount();
     }
 
