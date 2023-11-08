@@ -38,7 +38,13 @@ export default function ProfileDropdown({ children }) {
                                     <span>Mis Compras</span>
                                 </div>
                             </Dropdown.Link>
-                            {(auth.user.role == 'super-admin') && (
+                            <a className="dropdown-link" target='_blank' href={route('dashboard.home')}  >
+                                <div className="flex items-center">
+                                    <AdjustmentsHorizontalIcon className="h-5 w-5 mr-2 text-primary-600" />
+                                    <span>Dashboard</span>
+                                </div>
+                            </a>
+                            {/* {(auth.user.role == 'super-admin') && (
 
                                 <a className="dropdown-link" target='_blank' href={route('dashboard.home')}  >
                                     <div className="flex items-center">
@@ -46,7 +52,7 @@ export default function ProfileDropdown({ children }) {
                                         <span>Dashboard</span>
                                     </div>
                                 </a>
-                            )}
+                            )} */}
 
                             <div className=' border-t border-gray-100'>
                                 <Dropdown.Link href={route('logout')} as='button' >
