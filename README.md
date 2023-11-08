@@ -15,3 +15,5 @@ Esta hecha con React ,laravel ,Inertia y Tailwind
 ![screenshot-5](/public/screenshot/img-5.png)
 
 ![screenshot-6](/public/screenshot/img-6.png)
+
+![screenshot-6](/public/screenshot/img-7.png)
