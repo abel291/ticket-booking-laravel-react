@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'dashboard'])->syncRoles([$role_user, $role_admin]);
 
         $user_admin = User::factory()
-            ->has(Location::factory()->count(16))
+            ->has(Location::factory()->count(5))
             ->create([
                 'email' => 'user@user.com',
                 'email_verified_at' => null,
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         $user_admin->assignRole($role_admin);
 
         $user = User::factory()
-            ->has(Location::factory()->count(16))
+            ->has(Location::factory()->count(5))
             ->create([
                 'email' => 'user2@user.com',
                 'email_verified_at' => null,
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         $user->assignRole($role_user);
 
         $users = User::factory(100)
-            ->has(Location::factory()->count(16))
+            ->has(Location::factory()->count(5))
             ->create();
 
         foreach ($users as $user) {

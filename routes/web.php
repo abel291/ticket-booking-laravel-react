@@ -13,6 +13,7 @@ use App\Http\Controllers\Profile\ProfileController;
 
 use App\Http\Livewire\Blog\ListBlog;
 use App\Http\Livewire\Category\ListCategory;
+use App\Http\Livewire\Dashboard\DashboardPage;
 use App\Http\Livewire\Event\CreateEvent;
 use App\Http\Livewire\Event\ListEvent;
 use App\Http\Livewire\Location\ListLocation;
@@ -107,15 +108,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 });
 Route::get('/order-validate/{code}', function ($code) {
-    return 'Aquí se valida el ticket a través de la aplicación :D';
+    return 'Aquí se valida el ticket a través de la aplicación ';
 })->name('order_validate');
 
-Route::middleware(['auth', 'role:super-admin'])->prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('home');
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // })->name('home');
 
+    // Route::get('/', DashboardController::class)->name('home');
+    Route::get('/', DashboardPage::class)->name('home');
     Route::get('/events', ListEvent::class)->name('events');
     Route::get('/event/create', CreateEvent::class)->name('event-create');
     Route::get('/event/{id}/edit', CreateEvent::class)->name('event-edit');
@@ -123,24 +126,24 @@ Route::middleware(['auth', 'role:super-admin'])->prefix('dashboard')->name('dash
     Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');
     Route::get('/event/{id}/sessions', ListSession::class)->name('sessions');
 
-    Route::get('/users', ListUsers::class)->name('users');
-    Route::get('/categories', ListCategory::class)->name('categories');
+    // Route::get('/users', ListUsers::class)->name('users');
+    // Route::get('/categories', ListCategory::class)->name('categories');
     Route::get('/locations', ListLocation::class)->name('locations');
-    Route::get('/promotions', ListPromotion::class)->name('promotions');
-    Route::get('/blog', ListBlog::class)->name('blog');
+    // Route::get('/promotions', ListPromotion::class)->name('promotions');
+    // Route::get('/blog', ListBlog::class)->name('blog');
     Route::get('/event/{event}/speakers', ListSpeaker::class)->name('event-speakers');
 
-    Route::get('/speakers', ListSpeaker::class)->name('speakers');
+    // Route::get('/speakers', ListSpeaker::class)->name('speakers');
     Route::get('/orders', ListOrder::class)->name('orders');
     Route::get('/order-show/{code}', ShowOrder::class)->name('order-show');
 
-    Route::get('/organizers', function () {
-        return view('dashboard');
-    })->name('organizers');
+    // Route::get('/organizers', function () {
+    //     return view('dashboard');
+    // })->name('organizers');
 
-    Route::get('/members', function () {
-        return view('dashboard');
-    })->name('members');
+    // Route::get('/members', function () {
+    //     return view('dashboard');
+    // })->name('members');
 
     //Route::get('/edit-event/{id}', CreateEvent::class)->name('edit-event');
     //Route::get('/event/{id}/ticket-types', ListTicketType::class)->name('ticket-types');

@@ -1,7 +1,7 @@
 @php
     $navigations_1 = [
         [
-            'name' => 'Home',
+            'name' => 'Inicio',
             'route' => 'dashboard.home',
             'icon' => 'heroicon-s-home',
         ],
@@ -15,13 +15,13 @@
         //     'route' => 'dashboard.categories',
         //     'icon' => 'heroicon-s-tag',
         // ],
-    
+
         // [
         //     'name' => 'Promociones',
         //     'route' => 'dashboard.promotions',
         //     'icon' => 'heroicon-s-star',
         // ],
-    
+
         [
             'name' => 'Eventos',
             'route' => 'dashboard.events',
@@ -47,19 +47,19 @@
         //     'route' => 'dashboard.orders',
         //     'icon' => 'heroicon-s-cog-6-tooth',
         // ],
-        [
-            'name' => 'Oradores',
-            'route' => 'dashboard.orders',
-            'icon' => 'heroicon-s-cog-6-tooth',
-        ],
+        // [
+        //     'name' => 'Oradores',
+        //     'route' => 'dashboard.orders',
+        //     'icon' => 'heroicon-s-cog-6-tooth',
+        // ],
     ];
-    
+
     $navigation_2 = [
-        [
-            'name' => 'Post',
-            'route' => 'dashboard.blog',
-            'icon' => 'heroicon-s-newspaper',
-        ],
+        // [
+        //     'name' => 'Post',
+        //     'route' => 'dashboard.blog',
+        //     'icon' => 'heroicon-s-newspaper',
+        // ],
         // [
         //     'title' => 'Autores',
         //     'route' => 'dashboard.authors',
@@ -106,7 +106,7 @@
                         @endforeach
                     </ul>
                 </li> --}}
-                <li class="mt-auto">
+                {{-- <li class="mt-auto">
                     <ul role="list" class="space-y-1 -mx-2">
                         <li>
                             <a href="{{ route('dashboard.home') }}"
@@ -117,7 +117,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </nav>
     </div>

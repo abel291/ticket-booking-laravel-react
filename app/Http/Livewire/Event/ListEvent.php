@@ -23,9 +23,7 @@ class ListEvent extends Component
 
     public function render()
     {
-        $hasRole = auth()->user()->hasRole('user');
-
-        $data = Event::where('title', 'like', '%' . $this->search . '%')
+        $data = auth()->user()->events()->where('title', 'like', '%' . $this->search . '%')
             ->with('category', 'orders')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);

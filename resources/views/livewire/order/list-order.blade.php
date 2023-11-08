@@ -45,7 +45,7 @@
                                 @money($item->total)
                             </td>
                             <td class=" truncate">
-                                <span class="block text-sm text-gray-500"> {{ $item->quantity }}
+                                <span class="block text-sm text-gray-500"> {{ $item->order_tickets_sum_quantity }}
                                 </span>
                             </td>
                             <td>

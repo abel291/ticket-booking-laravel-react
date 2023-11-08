@@ -104,8 +104,11 @@ class EventController extends Controller
     public function event_details(Request $request)
     {
 
-        $event = Event::where('slug', $request->slug)->active()->with(['location', 'category', 'session', 'sessions', 'ticket_types', 'speakers', 'images'])->firstOrFail();
-
+        $event = Event::where('slug', $request->slug)->active()
+            ->has('session')
+            ->has('ticket_types')
+            ->with(['location', 'category', 'session', 'sessions', 'ticket_types', 'speakers', 'images'])
+            ->firstOrFail();
         return Inertia::render('EventDetails/EventDetails', [
             'event' => new EventResource($event),
         ]);

@@ -9,7 +9,7 @@ class OrderTicket extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function orders()
+    public function order()
     {
         return  $this->belongsTo(Order::class);
     }

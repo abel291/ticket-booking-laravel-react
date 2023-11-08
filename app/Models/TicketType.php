@@ -36,7 +36,7 @@ class TicketType extends Model
         return $this->belongsToMany(Session::class)->withPivot('sales')->as('ticket');
     }
 
-    public function order_ticket()
+    public function order_tickets()
     {
         return $this->hasMany(OrderTicket::class);
     }

@@ -42,9 +42,10 @@ class Session extends Model
     {
         return $this->belongsToMany(TicketType::class)->withPivot('sales');
     }
-    public function tickets()
+
+    public function order_tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(OrderTicket::class);
     }
 
     public function ticket_types_available()

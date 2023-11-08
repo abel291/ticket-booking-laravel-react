@@ -77,13 +77,12 @@ class CreateEvent extends Component
 
         $this->categories = Category::with('subCategories')->whereNull('category_id')->get();
         $this->isEdit = boolval($id);
-
+        $user = auth()->user();
+        $this->locations = $user->locations;
         if ($id) {
-            $this->event = Event::findOrFail($id);
-            $this->locations = $this->event->user->locations;
+            $this->event = $user->events()->findOrFail($id);
         } else {
             $this->event = Event::factory()->make();
-            $this->locations = auth()->user()->locations;
         }
         $this->resetErrorBag();
     }

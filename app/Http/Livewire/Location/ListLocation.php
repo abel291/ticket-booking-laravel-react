@@ -23,10 +23,9 @@ class ListLocation extends Component
 
     public function render()
     {
-        $data = Location::where('name', 'like', '%' . $this->search . '%')
+        $data = auth()->user()->locations()->where('name', 'like', '%' . $this->search . '%')
             ->withCount('events')
             ->orderBy($this->sortBy, $this->sortDirection)
-            ->filterByRole()
             ->paginate(20);
 
         return view('livewire.location.list-location', [

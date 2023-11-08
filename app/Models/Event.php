@@ -72,7 +72,7 @@ class Event extends Model
     {
         return $this->hasMany(Session::class)
             //->where('date', '>=', now())
-            ->where('active', 1)
+            ->active()
             ->orderBy('date');
     }
 

@@ -1,4 +1,4 @@
-@props(['data']) {{-- //collection --}}
+@props(['data' => collect()]) {{-- //collection --}}
 <div {{ $attributes->class('relative sm:rounded-lg ') }}>
     <div {{ $attributes->whereStartsWith('wire:target') }} class="absolute inset-0 z-10" wire:loading>
         {{-- <div class=" flex justify-center mt-10">

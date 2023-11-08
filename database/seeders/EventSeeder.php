@@ -34,7 +34,7 @@ class EventSeeder extends Seeder
 
         foreach ($users as  $user) {
 
-            Event::factory(10)
+            Event::factory(5)
                 ->hasImages(7)
                 ->has(
                     Session::factory()->state([

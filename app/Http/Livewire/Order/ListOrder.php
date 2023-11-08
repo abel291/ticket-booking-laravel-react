@@ -23,12 +23,13 @@ class ListOrder extends Component
 
     public function render()
     {
-        $data = Order::where('code', 'like', '%' . $this->search . '%')
-            ->with('event', 'user')
+        $data = auth()->user()->orders()->where('code', 'like', '%' . $this->search . '%')
+            ->with('event:id,title', 'user:id,name')
+            ->withSum('order_tickets', 'quantity')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
 
-
+        //dd(auth()->user()->orders()->where('code', '110713401')->first()->order_tickets);
 
         return view('livewire.order.list-order', [
             'list' => $data,

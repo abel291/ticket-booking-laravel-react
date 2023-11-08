@@ -20,7 +20,7 @@ enum OrderStatus: string
     public function color(): string
     {
         return  match ($this) {
-            OrderStatus::CANCELED => 'gray',
+            OrderStatus::CANCELED => 'red',
             OrderStatus::REFUNDED => 'gray',
             OrderStatus::SUCCESSFUL => 'green',
         };
@@ -29,7 +29,7 @@ enum OrderStatus: string
     public function icon(): string
     {
         return  match ($this) {
-            OrderStatus::CANCELED => 'heroicon-s-x',
+            OrderStatus::CANCELED => 'heroicon-s-x-circle',
             OrderStatus::REFUNDED => 'heroicon-o-receipt-refund',
             OrderStatus::SUCCESSFUL => 'heroicon-s-check',
         };
