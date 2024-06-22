@@ -19,6 +19,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'img' => $this->img,
+            'color' => $this->color,
             'events' => EventResource::collection($this->whenLoaded('events')),
             'subCategories' => CategoryResource::collection($this->whenLoaded('subCategories')),
         ];

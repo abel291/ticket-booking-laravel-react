@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             PromotionSeeder::class,
             SpeakerSeeder::class,
-            OrderSeeder::class,
+            // OrderSeeder::class,
 
         ]);
         Schema::enableForeignKeyConstraints();

@@ -14,6 +14,7 @@ class DashboardPage extends Component
         //ingresos totales
         $orders = auth()->user()->orders()
             ->with('order_tickets')
+            ->orderBy('id', 'desc')
             //->whereMonth('created_at', now()->month)
             ->get();
 

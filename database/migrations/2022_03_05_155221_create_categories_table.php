@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('img')->nullable();
+            $table->string('color')->default('gray');
             //$table->string('type', 20); //events //blog
             $table->boolean('active')->default(1);
             $table->boolean('home')->default(0);

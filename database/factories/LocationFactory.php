@@ -17,7 +17,7 @@ class LocationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->buildingNumber() . ' ' . $this->faker->streetName(),
+            'name' => $this->faker->streetAddress(),
             'address' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
             'map' => 'https://goo.gl/maps/5kz8uJCtG8cBMJBL7',

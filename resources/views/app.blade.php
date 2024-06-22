@@ -7,17 +7,16 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <!-- Scripts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     @routes
     @viteReactRefresh
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased  text-gray-800 bg-gray-50">
+<body class="font-sans antialiased  text-neutral-700 bg-gray-100">
     @inertia
 </body>
 

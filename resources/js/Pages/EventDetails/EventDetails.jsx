@@ -10,7 +10,6 @@ import { Link } from "@inertiajs/react";
 import HeroEvent from "@/Components/Hero/HeroEvent";
 
 const EventDetails = ({ event }) => {
-
     return (
         <Layout title={event.title}>
             <HeroEvent
@@ -24,7 +23,6 @@ const EventDetails = ({ event }) => {
             title={event.title}
             location={event.location} /> */}
             <div className="container ">
-
                 <div className="flex flex-col justify-between gap-x-10 lg:flex-row">
                     <div className="w-full lg:w-9/12 ">
                         <div className="py-section">
@@ -33,7 +31,6 @@ const EventDetails = ({ event }) => {
                                 desc_max={event.desc_max}
                             />
                         </div>
-
                     </div>
                     <div className="w-full lg:w-3/12 ">
                         <div className="py-section">

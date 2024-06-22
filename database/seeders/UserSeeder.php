@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             ]);
         $user->assignRole($role_user);
 
-        $users = User::factory(100)
+        $users = User::factory(50)
             ->has(Location::factory()->count(5))
             ->create();
 

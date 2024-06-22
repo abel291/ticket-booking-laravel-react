@@ -6,13 +6,15 @@ export default function Button({
     processing = false,
     children,
     disabled = false,
+    Icon = null,
     ...props
 }) {
-
     return (
         <button
             type={type}
-            className={"btn btn-primary relative disabled:opacity-50 " + className}
+            className={
+                "btn btn-primary relative disabled:opacity-50 " + className
+            }
             disabled={processing || disabled}
             {...props}
         >
@@ -42,7 +44,14 @@ export default function Button({
                     </div>
                 </div>
             )}
-            <span className={processing ? "invisible" : ""}>{children}</span>
+            <div
+                className={
+                    (processing ? "invisible" : "") + " flex items-center"
+                }
+            >
+                {Icon && <Icon className="w-4 h-4 mr-1.5" />}
+                {children}
+            </div>
         </button>
     );
 }

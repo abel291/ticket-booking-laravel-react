@@ -49,7 +49,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-3 text-3xl font-bold">
                     BIENVENIDO DE NUEVO
                 </div>
-                <div className="text-left text-sm mt-4 font-medium  w-full sm:w-3/5">
+                {/* <div className="text-left text-sm mt-4 font-medium  w-full sm:w-3/5">
                     <div className="sm:grid grid-cols-2 gap-3">
                         <div>admin:</div>
                         <div>user@user.com</div>
@@ -58,7 +58,7 @@ export default function Login({ status, canResetPassword }) {
                         <div>invitado:</div>
                         <div>user2@user.com</div>
                     </div>
-                </div>
+                </div> */}
             </div>
             <form onSubmit={submit} className="mt-4 ">
                 <div>
@@ -69,7 +69,7 @@ export default function Login({ status, canResetPassword }) {
                         type="text"
                         name="email"
                         value={data.email}
-                        placeholder={'email'}
+                        placeholder={"email"}
                         className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
@@ -101,9 +101,7 @@ export default function Login({ status, canResetPassword }) {
                                 value={data.remember}
                                 onChange={onHandleChange}
                             />
-                            <span className="ml-2 ">
-                                Acuérdate de mí
-                            </span>
+                            <span className="ml-2 ">Acuérdate de mí</span>
                         </label>
                         {canResetPassword && (
                             <Link

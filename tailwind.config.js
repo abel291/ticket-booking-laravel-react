@@ -23,7 +23,19 @@ export default {
         },
         colors: {
             ...colors,
-            primary: colors.indigo,
+            primary: colors.red
+            // primary: {
+            // 	"50": "#e6e9ee",
+            // 	"100": "#cdd2dd",
+            // 	"200": "#9aa6bb",
+            // 	"300": "#687999",
+            // 	"400": "#354d77",
+            // 	"500": "#032055",
+            // 	"600": "#021a44",
+            // 	"700": "#021333",
+            // 	"800": "#010d22",
+            // 	"900": "#010611"
+            // }
         },
         extend: {
             fontFamily: {

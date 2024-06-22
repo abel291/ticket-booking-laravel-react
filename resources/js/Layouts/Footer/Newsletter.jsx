@@ -24,7 +24,7 @@ const Newsletter = () => {
                     información.
                 </p>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-400"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-primary-600"></div>
         </div>
     );
 };

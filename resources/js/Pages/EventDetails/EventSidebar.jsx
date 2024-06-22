@@ -8,9 +8,9 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
     return (
         <div className="space-y-6">
             <CardSideBar title="Fechas y horas" Icon={ClockIcon}>
-                <div >
+                <div>
                     {sessions.map((item, key) => (
-                        <div className="capitalize py-2" key={key}>
+                        <div className="capitalize py-1" key={key}>
                             {item.dateFormat}
                         </div>
                     ))}
@@ -19,12 +19,15 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
 
             <CardSideBar title="Tipos de Boletos" Icon={TicketIcon}>
                 {ticket_types.map((item, key) => (
-                    <div key={key} className="p-2 ">
-                        <div className="flex items-start justify-between gap-x-2">
-                            <div>{item.name} </div>
-                            <div>
-                                {item.price == 0 ? "Gratis" : formatCurrency(item.price)}
-                            </div>
+                    <div
+                        key={key}
+                        className="py-1 flex items-start justify-between "
+                    >
+                        <div>{item.name} </div>
+                        <div>
+                            {item.price == 0
+                                ? "Gratis"
+                                : formatCurrency(item.price)}
                         </div>
                     </div>
                 ))}
@@ -32,13 +35,14 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
 
             <CardSideBar title="Ubicacion" Icon={MapPinIcon}>
                 <div className="space-y-3">
-
                     <ListDescription title="Nombre del lugar">
                         {location.name}
                     </ListDescription>
 
                     <ListDescription title="Direccion">
                         <div>
+                            {location.name}
+                            <br />
                             {location.address}
                             {location.map && (
                                 <a
@@ -50,7 +54,6 @@ const EventSidebar = ({ sessions, location, ticket_types }) => {
                                 </a>
                             )}
                         </div>
-
                     </ListDescription>
 
                     <ListDescription title="Telefono">
@@ -65,18 +68,15 @@ const CardSideBar = ({ title, Icon, children }) => {
     return (
         <div className="flex grow flex-col px-5 pt-4 pb-5 overflow-hidden rounded-lg bg-white border ">
             <div className="overflow-hidden pb-2 grow">
-                <div className="flex justify-between gap-x-3">
-                    <h5 className=" text-lg font-semibold mewdium line-clamp-none lg:line-clamp-2 ">
+                <div className="flex items-center">
+                    {Icon && <Icon className="h-5 w-5 mr-2" />}
+                    <h5 className="text-base font-medium leading-6 line-clamp-none lg:line-clamp-2 ">
                         {title}
                     </h5>
-                    {Icon && (
-                        <Icon className="h-7 w-7" />
-                    )}
                 </div>
             </div>
 
             <div className="border-t border-dashed border-slate-300 pt-3 text-sm  text-gray-700 ">
-
                 {children}
             </div>
         </div>

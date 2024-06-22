@@ -6,10 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ProfileDropdown from "./ProfileDropdown";
 import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 
-
-
 const DesktopNavbar = ({ navigation }) => {
-
     const [isTopScroll, setIsTopScroll] = useState(true);
 
     const handleScroll = () => {
@@ -37,28 +34,43 @@ const DesktopNavbar = ({ navigation }) => {
                 "fixed inset-x-0 z-20 hidden lg:block transition" +
                 (isTopScroll === true
                     ? " lg:text-white lg:border-b lg:border-gray-50 lg:border-opacity-20 lg:bg-transparent"
-                    : " shadow lg:bg-white")
+                    : " shadow bg-white ")
             }
-        // className={" inset-x-0 z-20  transition shadow lg:bg-white"}
+            // className={" inset-x-0 z-20  transition shadow lg:bg-white"}
 
-        //ref={scrollRef}
+            //ref={scrollRef}
         >
             <div className="container">
-                <div className="flex gap-x-10 items-center justify-between h-20">
+                <div className="flex gap-x-10 items-center justify-between py-4">
                     <div className="flex items-center">
-                        <Link href="/" className={isTopScroll ? "" : "text-primary-500"}>
-                            <ApplicationLogo className="text-3xl " />
+                        <Link
+                            href="/"
+                            // className={isTopScroll ? "" : "text-primary-500"}
+                        >
+                            <ApplicationLogo
+                                className={
+                                    "text-2xl " +
+                                    (isTopScroll
+                                        ? "text-white"
+                                        : "text-red-500")
+                                }
+                            />
                         </Link>
                     </div>
 
-                    <div className="flex gap-x-4 items-center flex-wrap justify-end">
+                    <div className="flex space-x-6">
                         {navigation.map((item, key) => (
-                            <Link className=" rounded-md text-sm lg:text-base font-bold uppercase" key={key} href={item.path}>
+                            <Link
+                                className="text-sm leading-6 font-semibold"
+                                key={key}
+                                href={item.path}
+                            >
                                 {item.title}
                             </Link>
                         ))}
-
-                        <ProfileDropdown />
+                        <div className="flex items-center border-l border-neutral-200 ml-6 pl-6 dark:border-neutral-800">
+                            <ProfileDropdown />
+                        </div>
                     </div>
 
                     <div className="-mr-2 flex items-center lg:hidden">

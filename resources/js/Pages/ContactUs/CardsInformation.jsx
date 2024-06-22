@@ -1,12 +1,12 @@
-import Card from '@/Components/Card'
-import ListDescription from '@/Components/ListDescription'
-import React from 'react'
+import Card from "@/Components/Card";
+import ListDescription from "@/Components/ListDescription";
+import React from "react";
 
 const CardsInformation = () => {
     return (
         <dl className="grid gap-10 lg:grid-cols-3">
             <Card title="Información de entradas">
-                <div className='space-y-4'>
+                <div className="space-y-2">
                     <ListDescription title="Nombre">
                         Mr. Rocky Donnelly
                     </ListDescription>
@@ -19,7 +19,7 @@ const CardsInformation = () => {
                 </div>
             </Card>
             <Card title="Información de asociaciones">
-                <div className='space-y-4'>
+                <div className="space-y-2">
                     <ListDescription title="Nombre">
                         Mr. Rocky Donnelly
                     </ListDescription>
@@ -32,7 +32,7 @@ const CardsInformation = () => {
                 </div>
             </Card>
             <Card title="Detalles del programa">
-                <div className='space-y-4'>
+                <div className="space-y-2">
                     <ListDescription title="Nombre">
                         Mr. Rocky Donnelly
                     </ListDescription>
@@ -45,7 +45,7 @@ const CardsInformation = () => {
                 </div>
             </Card>
         </dl>
-    )
-}
+    );
+};
 
-export default CardsInformation
+export default CardsInformation;

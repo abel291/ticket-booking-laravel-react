@@ -50,10 +50,9 @@ class OrderSeeder extends Seeder
 
                     $ticket_quantity_selected = rand(1, 5);
 
-                    if ($ticket_remaining < $ticket_quantity_selected) {
-                        break;
-                        break;
-                    }
+                    // if ($ticket_remaining < $ticket_quantity_selected) {
+                    //     break;
+                    // }
                     echo $ticket_selected->quantity . "-" . $ticket_quantity_selected . "-" . $ticket_sold . "\n";
 
                     $tickets_quantity[$ticket_selected->id] = rand(1, $ticket_quantity_selected);
