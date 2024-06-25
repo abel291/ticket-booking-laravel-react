@@ -111,7 +111,7 @@ Route::get('/order-validate/{code}', function ($code) {
     return 'Aquí se valida el ticket a través de la aplicación ';
 })->name('order_validate');
 
-Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware(['auth', 'role:super-admin'])->prefix('dashboard')->name('dashboard.')->group(function () {
 
     // Route::get('/', function () {
     //     return view('dashboard');
