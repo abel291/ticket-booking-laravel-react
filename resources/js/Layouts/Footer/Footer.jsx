@@ -17,7 +17,7 @@ const Footer = () => {
             <div className="">
                 <div className="container">
                     <div>
-                        <div className="flex items-center justify-between gap-3 border-b  pb-6">
+                        <div className="flex items-center justify-between gap-3 border-b  pb-4">
                             <div className="">
                                 <ApplicationLogo className="text-3xl" />
                             </div>
@@ -45,7 +45,7 @@ const Footer = () => {
                                 </a>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-between gap-3 py-6 text-sm font-medium lg:flex-row lg:items-center">
+                        <div className="flex flex-col justify-between gap-3 py-5 text-sm font-medium lg:flex-row lg:items-center">
                             <div className="grow">
                                 <p>
                                     Copyright © 2020.All Rights Reserved By{" "}
