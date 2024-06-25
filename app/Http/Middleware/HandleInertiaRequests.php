@@ -40,7 +40,7 @@ class HandleInertiaRequests extends Middleware
                     'name' => $request->user()->name,
                     'email' => $request->user()->email,
                     'phone' => $request->user()->phone,
-                    //'role' => $request->user()->getRoleNames()->first(),
+                    'role' => $request->user()->getRoleNames()->first(),
                 ] : null,
             ],
             'ziggy' => function () use ($request) {
