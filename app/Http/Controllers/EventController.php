@@ -24,7 +24,7 @@ class EventController extends Controller
         // ]);
 
         $events = Event::query();
-        $events->has('session')->with(['session', 'location', 'ticket_default_price']);
+        $events->has('session')->with(['session', 'location', 'category', 'ticket_default_price']);
 
         if ($request->categories && array_filter($request->categories)) {
             $events->whereHas('category', function (Builder $query) use ($request) {
